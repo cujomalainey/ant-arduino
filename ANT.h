@@ -17,8 +17,8 @@
  * along with Ant-Arduino.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Ant_h
-#define Ant_h
+#ifndef ANT_h
+#define ANT_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
 	#include "Arduino.h"
@@ -364,7 +364,6 @@ public:
 // we maintain a pointer to each type of response, when a response is parsed, it is allocated only if NULL
 // can we allocate an object in a function?
 
-#ifdef SERIES_2
 /**
  * Represents a Series 2 TX status packet
  */
@@ -451,8 +450,6 @@ public:
 
 	static const uint8_t API_ID = ZB_IO_SAMPLE_RESPONSE;
 };
-
-#endif
 
 #ifdef SERIES_1
 /**
@@ -683,7 +680,7 @@ public:
 	/**
 	 * Returns the API id
 	 */
-	uint8_t getApiId();
+	uint8_t getMsgId();
 	// setting = 0 makes this a pure virtual function, meaning the subclass must implement, like abstract in java
 	/**
 	 * Starting after the frame id (pos = 0) and up to but not including the checksum
@@ -698,9 +695,9 @@ public:
 	virtual uint8_t getFrameDataLength() = 0;
 	//void reset();
 protected:
-	void setApiId(uint8_t apiId);
+	void setMsgId(uint8_t apiId);
 private:
-	uint8_t _apiId;
+	uint8_t _msgId;
 	uint8_t _frameId;
 };
 
@@ -1000,4 +997,4 @@ private:
 
 
 
-#endif //Ant_h
+#endif //ANT_h
