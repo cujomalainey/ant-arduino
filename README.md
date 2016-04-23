@@ -1,38 +1,23 @@
-# xbee-arduino
+# ant-arduino
 
-Arduino library for communicating with XBees in API mode, with support for both Series 1 (802.15.4) and Series 2 (ZB Pro/ZNet). This library Includes support for the majority of packet types, including: TX/RX, AT Command, Remote AT, I/O Samples and Modem Status.
+Arduino library for communicating with ANT radios, with support for nrf51 devices. This library Includes support for the majority of packet types, including: channel config.
 
 
 ## News
 
-* 11/18/15 Matthijs Kooijman's new book, [Building Wireless Sensor Networks Using Arduino](http://www.amazon.com/gp/product/1784395587/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1784395587&linkCode=as2&tag=xbapra-20&linkId=CEH23GT6ZPOT4ZH4) is now available. He covers the fundamentals of working with XBees in API mode, including some advanced topics (encryption, security, sleep), as well as creating projects with this library.
-* 9/15/15 Matthijs Kooijman has contributed numerous enhancements to the library, including callbacks, enhanced debugging, added features and bug fixes! These can be found in the 0.6.0 release.
-* 2/28/15 The code is now on github, although some documentation is still on googlecode https://code.google.com/p/xbee-arduino/
-* 2/1/14 Release 0.5 is available. This is essentially the 0.4 Software Serial release with a bug fix or two. If upgrading from a version prior to 0.4, please note that the method for specifying the serial port has changed; see See SoftwareSerialReleaseNotes. Along with this release I have converted the repository from Subversion to Git
-* 10/15/12 Release 0.4 (beta) is available. Paul Stoffregen (Teensy creator) has contributed a patch that allows for using SoftwareSerial? for XBee communication! This frees up the Serial port for debug or to use with other hardware. Try it out and report any issues on the Google group page. Important: See SoftwareSerialReleaseNotes as it was necessary to change the API to support this feature.
-* 12/21/11 Release 0.3 is now available. This release includes support for Arduino 1.0 along with some bug fixes and a new setSerial function for using alternate serial ports (e.g. Mega). This release is compatible with previous Arduino releases as well.
-* 4/3/11 I have created an XBeeUseCases wiki on XBee API that describes several use cases for communicating with XBees.
-* 11/14/09 Version 0.2.1 is available. This release contains a bug fix for Remote AT
-* 10/26/09 XBee-Arduino 0.2 is now available. This release adds support for AT Command, Remote AT, and I/O sample (series 1 and 2) packets. Along with this release I have created several new examples.
-* 8/09/09 I have released Droplet, a wireless LCD display/remote control with support for Twitter, Google Calendar, weather etc. It uses this software to send and receive XBee packets.
-* 4/19/09 Release 0.1.2: In this release I added some abbreviated constructors for creating basic Requests and get/set methods to facilitate the reuse of Requests
-* 3/29/09 Initial Release
+* 04/21/2016 Project from Andrew Wrapp xbee-arduino
 
 ## Documentation
 Doxygen API documentation is available in the downloads. Unfortunately it is not available online anymore as Git does not support the html mime type as Subversion does
 
-[Developer's Guide](https://github.com/andrewrapp/xbee-arduino/blob/wiki/DevelopersGuide.md)
-
-[XBee API (Java) Project](https://github.com/andrewrapp/xbee-api) Although this project is a Java implementation, it contains a few wikis relevant to this project, including xbee configuration and use cases.
-
-[Google Group](https://groups.google.com/forum/#!forum/xbee-api)
+[Developer's Guide](https://github.com/cujomalainey/ant-arduino/blob/wiki/DevelopersGuide.md)
 
 ## Example
 I have created several sketches of sending/receiving packets with Series 1 and 2 XBee radios. You can find these in the examples folder. Here's an example of sending a packet with a Series 2 radio:
 
 ```
-// Create an XBee object at the top of your sketch
-XBee xbee = XBee();
+// Create an ANT object at the top of your sketch
+ANT ant = ANT();
 
 // Start the serial port
 Serial.begin(9600);
@@ -49,7 +34,7 @@ XBeeAddress64 addr64 = XBeeAddress64(0x0013a200, 0x403e0f30);
 ZBTxRequest zbTx = ZBTxRequest(addr64, payload, sizeof(payload));
 
 // Send your request
-xbee.send(zbTx);
+ant.send(zbTx);
 ```
 
 See the examples folder for the full source. There are more examples in the download.
@@ -57,16 +42,6 @@ See the examples folder for the full source. There are more examples in the down
 See the XBee API project for Arduino < - > Computer communication.
 
 To add XBee support to a new sketch, add "#include <XBee.h>" (without quotes) to the top of your sketch. You can also add it by selecting the "sketch" menu, and choosing "Import Library->XBee".
-
-## Learning/Books
-Check out these books to learn more about Arduino and XBee:
-
-  * [Building Wireless Sensor Networks Using Arduino](http://www.amazon.com/gp/product/1784395587/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1784395587&linkCode=as2&tag=xbapra-20&linkId=CEH23GT6ZPOT4ZH4) (Kindle version available)
-  * [Wireless Sensor Networks: with ZigBee, XBee, Arduino, and Processing](http://www.amazon.com/gp/product/0596807732?ie=UTF8&tag=xbapra-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596807732Building) (Kindle version available)
-  * Programming Arduino Getting Started with Sketches
-  * Making Things Talk
-  * Getting Started with Arduino (Make: Projects (Available in Kindle)
-  * Arduino Cookbook (Oreilly Cookbooks) (Available in Kindle)
 
 ## Hardware
 
