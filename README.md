@@ -5,7 +5,7 @@ Arduino library for communicating with ANT radios, with support for nrf51 device
 
 ## News
 
-* 04/21/2016 Project from Andrew Wrapp xbee-arduino
+* 04/21/2016 Project forked from Andrew Wrapp xbee-arduino
 
 ## Documentation
 Doxygen API documentation is available in the downloads. Unfortunately it is not available online anymore as Git does not support the html mime type as Subversion does
