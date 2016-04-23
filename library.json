@@ -1,11 +1,11 @@
 {
-  "name": "XBee",
-  "keywords": "xbee, protocol, radio, rf, 802.15.4",
-  "description": "XBees in API mode, with support for both Series 1 (802.15.4) and Series 2 (ZB Pro/ZNet)",
+  "name": "ANT",
+  "keywords": "ant, protocol, radio, rf",
+  "description": "ANT radio support via UART",
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/andrewrapp/xbee-arduino.git"
+    "url": "https://github.com/cujomalainey/ant-arduino.git"
   },  
   "include":
   [
