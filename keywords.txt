@@ -1,5 +1,5 @@
-XBee	KEYWORD1
-XBeeResponse	KEYWORD1
+ANT	KEYWORD1
+ANTResponse	KEYWORD1
 readPacket	KEYWORD2
 readPacketUntilAvailable	KEYWORD2
 begin	KEYWORD2
