@@ -199,14 +199,13 @@
 #define USB_STRING_WRITE_FAIL           0x70
 #define MESG_SERIAL_ERROR_ID            0xAE
 
-// modem status
-#define HARDWARE_RESET 0
-#define WATCHDOG_TIMER_RESET 1
-#define ASSOCIATED 2
-#define DISASSOCIATED 3
-#define SYNCHRONIZATION_LOST 4
-#define COORDINATOR_REALIGNMENT 5
-#define COORDINATOR_STARTED 6
+// Start Up Message Codes
+#define POWER_ON_RESET       0x00
+#define HARDWARE_RESET_LINE  ( 1 << 0 )
+#define WATCH_DOG_RESET      ( 1 << 1 )
+#define COMMAND_RESET        ( 1 << 5 )
+#define SYNCHRONOUS_RESET    ( 1 << 6 )
+#define SUSPEND_RESET        ( 1 << 7 )
 
 #define ZB_BROADCAST_RADIUS_MAX_HOPS 0
 
@@ -283,7 +282,6 @@ public:
 	uint8_t* getFrameData();
 
 	void setFrameLength(uint8_t frameLength);
-	// to support future 65535 byte packets I guess
 	/**
 	 * Returns the length of the packet
 	 */
@@ -300,7 +298,7 @@ public:
 	 * Call with instance of ZBTxStatusResponse class only if getMsgId() == ZB_TX_STATUS_RESPONSE
 	 * to populate response
 	 */
-	void getZBTxStatusResponse(AntResponse &response);
+	void getStartUpMessage(AntResponse &response);
 	/**
 	 * Call with instance of ZBRxResponse class only if getMsgId() == ZB_RX_RESPONSE
 	 * to populate response
