@@ -163,19 +163,41 @@
 #define EXTENDED_BURST_DATA                 0x5F
 
 /**
- * TX STATUS constants
+ * Channel Response Message Codes
  */
-#define	SUCCESS 0x0
-#define CCA_FAILURE 0x2
-#define INVALID_DESTINATION_ENDPOINT_SUCCESS 0x15
-#define	NETWORK_ACK_FAILURE 0x21
-#define NOT_JOINED_TO_NETWORK 0x22
-#define	SELF_ADDRESSED 0x23
-#define ADDRESS_NOT_FOUND 0x24
-#define ROUTE_NOT_FOUND 0x25
-#define PAYLOAD_TOO_LARGE 0x74
-// Returned by AntWithCallbacks::waitForStatus on timeout
-#define XBEE_WAIT_TIMEOUT 0xff
+#define	RESPONSE_NO_ERROR               0x00
+#define EVENT_RX_SEARCH_TIMEOUT         0x01
+#define EVENT_RX_FAIL                   0x02
+#define EVENT_TX                        0x03
+#define EVENT_TRANSFER_RX_FAILED        0x04
+#define EVENT_TRANSFER_TX_COMPLETED     0x05
+#define EVENT_TRANSFER_TX_FAILED        0x06
+#define EVENT_CHANNEL_CLOSED            0x07
+#define EVENT_RX_FAIL_GO_TO_SEARCH      0x08
+#define EVENT_CHANNEL_COLLISION         0x09
+#define EVENT_TRANSFER_TX_START         0x0A
+#define EVENT_TRANSFER_NEXT_DATA_BLOCK  0x11
+#define CHANNEL_IN_WRONG_STATE          0x15
+#define CHANNEL_NOT_OPENED              0x16
+#define CHANNEL_ID_NOT_SET              0x18
+#define CLOSE_ALL_CHANNELS              0x19
+#define TRANSFER_IN_PROGRESS            0x1F
+#define TRANSFER_SEQUENCE_NUMBER_ERROR  0x20
+#define TRANSFER_IN_ERROR               0x21
+#define MESSAGE_SIZE_EXCEEDS_LIMIT      0x27
+#define INVALID_MESSAGE                 0x28
+#define INVALID_NETWORK_NUMBER          0x29
+#define INVALID_LIST_ID                 0x30
+#define INVALID_SCAN_TX_CHANNEL         0x31
+#define INVALID_PARAMETER_PROVIDED      0x33
+#define EVENT_SERIAL_QUE_OVERFLOW       0x34
+#define EVENT_QUE_OVERFLOW              0x35
+#define ENCRYPT_NEGOTIATION_SUCCESS     0x38
+#define ENCRYPT_NEGOTIATION_FAIL        0x39
+#define NVM_FULL_ERROR                  0x40
+#define NVM_WRITE_ERROR                 0x41
+#define USB_STRING_WRITE_FAIL           0x70
+#define MESG_SERIAL_ERROR_ID            0xAE
 
 // modem status
 #define HARDWARE_RESET 0
