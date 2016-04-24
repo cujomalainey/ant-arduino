@@ -86,81 +86,81 @@
  * Msg Id constants
  */
 // Config Messages
-#define MSG_UNASSIGN_CHANNEL                    0x41
-#define MSG_ASSIGN_CHANNEL                      0x42
-#define MSG_CHANNEL_ID                          0x51
-#define MSG_CHANNEL_PERIOD                      0x43
-#define MSG_SEARCH_TIMEOUT                      0x44
-#define MSG_CHANNEL_RF_FREQUENCY                0x45
-#define MSG_SET_NETWORK_KEY                     0x46
-#define MSG_TRANSMIT_POWER                      0x47
-#define MSG_SEARCH_WAVEFORM                     0x49
-#define MSG_ADD_CHANNEL_ID_TO_LIST              0x59
-#define MSG_ADD_ENCRYPTION_ID_TO_LIST           0x59
-#define MSG_CONFIG_ID_LIST                      0x5A
-#define MSG_CONFIG_ENCRYPTION_ID_LIST           0x5A
-#define MSG_SET_CHANNEL_TRANSMIT_POWER          0x60
-#define MSG_LOW_PRIORITY_SEARCH_TIMEOUT         0x63
-#define MSG_SERIAL_NUMBER_SET_CHANNEL_ID        0x65
-#define MSG_ENABLE_EXT_RX_MESSAGES              0x66
-// #define MSG_ENABLE_LED                          0x68
-// #define MSG_CRYSTAL_ENABLE                      0x6D
-#define MSG_LIB_CONFIG                          0x6E
-#define MSG_FREQUENCY_AGILITY                   0x70
-#define MSG_PROXIMITY_SEARCH                    0x71
-// #define MSG_CONFIGURE_BUFFER_EVENT              0x74
-#define MSG_CHANNEL_SEARCH_PRIORITY             0x75
-// #define MSG_SET_128BIT_NETWORK_KEY              0x76
-// #define MSG_HIGH_DUTY_SEARCH                    0x77
-#define MSG_CONFIGURE_ADVANCED_BURST            0x78
-#define MSG_CONFIGURE_EVENT_FILTER              0x79
-#define MSG_CONFIGURE_SELECTIVE_DATA_UPDATES    0x7A
-#define MSG_SET_SELECTIVE_DATA_UPDATE_MASK      0x7B
-// #define MSG_CONFIGURE_USER_NVM                  0x7C
-#define MSG_ENABLE_SINGLE_CHANNEL_ENCRYPTION    0x7D
-#define MSG_SET_ENCRYPTION_KEY                  0x7E
-#define MSG_SET_ENCRYPTION_INFO                 0x7F
-#define MSG_CHANNEL_SEARCH_SHARING              0x81
-// #define MSG_LOAD_STORE_ENCRYPTION_KEY           0x83
-// #define MSG_SET_USB_DESCRIPTOR_STRING           0xC7
+#define UNASSIGN_CHANNEL                    0x41
+#define ASSIGN_CHANNEL                      0x42
+#define CHANNEL_ID                          0x51
+#define CHANNEL_PERIOD                      0x43
+#define SEARCH_TIMEOUT                      0x44
+#define CHANNEL_RF_FREQUENCY                0x45
+#define SET_NETWORK_KEY                     0x46
+#define TRANSMIT_POWER                      0x47
+#define SEARCH_WAVEFORM                     0x49
+#define ADD_CHANNEL_ID_TO_LIST              0x59
+#define ADD_ENCRYPTION_ID_TO_LIST           0x59
+#define CONFIG_ID_LIST                      0x5A
+#define CONFIG_ENCRYPTION_ID_LIST           0x5A
+#define SET_CHANNEL_TRANSMIT_POWER          0x60
+#define LOW_PRIORITY_SEARCH_TIMEOUT         0x63
+#define SERIAL_NUMBER_SET_CHANNEL_ID        0x65
+#define ENABLE_EXT_RX_MESSAGES              0x66
+// #define ENABLE_LED                          0x68
+// #define CRYSTAL_ENABLE                      0x6D
+#define LIB_CONFIG                          0x6E
+#define FREQUENCY_AGILITY                   0x70
+#define PROXIMITY_SEARCH                    0x71
+// #define CONFIGURE_BUFFER_EVENT              0x74
+#define CHANNEL_SEARCH_PRIORITY             0x75
+// #define SET_128BIT_NETWORK_KEY              0x76
+// #define HIGH_DUTY_SEARCH                    0x77
+#define CONFIGURE_ADVANCED_BURST            0x78
+#define CONFIGURE_EVENT_FILTER              0x79
+#define CONFIGURE_SELECTIVE_DATA_UPDATES    0x7A
+#define SET_SELECTIVE_DATA_UPDATE_MASK      0x7B
+// #define CONFIGURE_USER_NVM                  0x7C
+#define ENABLE_SINGLE_CHANNEL_ENCRYPTION    0x7D
+#define SET_ENCRYPTION_KEY                  0x7E
+#define SET_ENCRYPTION_INFO                 0x7F
+#define CHANNEL_SEARCH_SHARING              0x81
+// #define LOAD_STORE_ENCRYPTION_KEY           0x83
+// #define SET_USB_DESCRIPTOR_STRING           0xC7
 // Notification Messages
-#define MSG_START_UP_MESSAGE                    0x6F
-// #define MSG_SERIAL_ERROR_MESSAGE                0xAE
+#define START_UP_MESSAGE                    0x6F
+// #define SERIAL_ERROR_MESSAGE                0xAE
 // Control Messages
-#define MSG_RESET_SYSTEM                        0x4A
-#define MSG_OPEN_CHANNEL                        0x4B
-#define MSG_CLOSE_CHANNEL                       0x4C
-#define MSG_REQUEST_MESSAGE                     0x4D
-#define MSG_OPEN_RX_SCAN_MODE                   0x5B
-// #define MSG_SLEEP_MESSAGE                       0xC5
+#define RESET_SYSTEM                        0x4A
+#define OPEN_CHANNEL                        0x4B
+#define CLOSE_CHANNEL                       0x4C
+#define REQUEST_MESSAGE                     0x4D
+#define OPEN_RX_SCAN_MODE                   0x5B
+// #define SLEEP_MESSAGE                       0xC5
 // Data Messages
-#define MSG_BROADCAST_DATA                      0x4E
-#define MSG_ACKNOWLEDGED_DATA                   0x4F
-#define MSG_BURST_DATA_TRANSFER                 0x50
-#define MSG_ADVANCED_BURST_DATA                 0x72
+#define BROADCAST_DATA                      0x4E
+#define ACKNOWLEDGED_DATA                   0x4F
+#define BURST_DATA_TRANSFER                 0x50
+#define ADVANCED_BURST_DATA                 0x72
 // Channel Messages
-#define MSG_CHANNEL_EVENT                       0x40
-#define MSG_CHANNEL_RESPONSE                    0x40
+#define CHANNEL_EVENT                       0x40
+#define CHANNEL_RESPONSE                    0x40
 // Requested Response Messages
-#define MSG_CHANNEL_STATUS                      0x52
-#define MSG_CHANNEL_ID                          0x51
-#define MSG_ANT_VERSION                         0x3E
-#define MSG_CAPABILITIES                        0x54
-// #define MSG_SERIAL_NUMBER                       0x61
-// #define MSG_EVENT_BUFFER_CONFIGURATION          0x74
-#define MSG_ADVANCED_BURST_CAPABILITES          0x78
-#define MSG_ADVANCED_BURST_CONFIGURATION        0x78
-#define MSG_EVENT_FILTER                        0x79
-#define MSG_SELECTIVE_DATA_UPDATE_MASK_SETTING  0x7B
-// #define MSG_USER_NVM                            0x7C
-#define MSG_ENCRYPTION_MODE_PARAMETERS          0x7D
+#define CHANNEL_STATUS                      0x52
+#define CHANNEL_ID                          0x51
+#define ANT_VERSION                         0x3E
+#define CAPABILITIES                        0x54
+// #define SERIAL_NUMBER                       0x61
+// #define EVENT_BUFFER_CONFIGURATION          0x74
+#define ADVANCED_BURST_CAPABILITES          0x78
+#define ADVANCED_BURST_CONFIGURATION        0x78
+#define EVENT_FILTER                        0x79
+#define SELECTIVE_DATA_UPDATE_MASK_SETTING  0x7B
+// #define USER_NVM                            0x7C
+#define ENCRYPTION_MODE_PARAMETERS          0x7D
 // Test Mode Messages
-#define MSG_CW_INIT                             0x53
-#define MSG_CW_TEST                             0x48
+#define CW_INIT                             0x53
+#define CW_TEST                             0x48
 // Extended Data Messages (Legacy)
-#define MSG_EXTENDED_BROADCAST_DATA             0x5D
-#define MSG_EXTENDED_ACKNOWLEDGED_DATA          0x5E
-#define MSG_EXTENDED_BURST_DATA                 0x5F
+#define EXTENDED_BROADCAST_DATA             0x5D
+#define EXTENDED_ACKNOWLEDGED_DATA          0x5E
+#define EXTENDED_BURST_DATA                 0x5F
 
 /**
  * TX STATUS constants
