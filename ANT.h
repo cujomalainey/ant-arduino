@@ -47,17 +47,17 @@
 #define BROADCAST_ADDRESS 0xffff
 #define ZB_BROADCAST_ADDRESS 0xfffe
 
-// the non-variable length of the frame data (not including frame id or api id or variable data size (e.g. payload, at command set value)
-#define ZB_TX_API_LENGTH 12
-#define ZB_EXPLICIT_TX_API_LENGTH 18
-#define TX_16_API_LENGTH 3
-#define TX_64_API_LENGTH 9
-#define AT_COMMAND_API_LENGTH 2
-#define REMOTE_AT_COMMAND_API_LENGTH 13
-// start/length(2)/api/frameid/checksum bytes
+// the non-variable length of the frame data (not including frame id or msg id or variable data size (e.g. payload, at command set value)
+#define ZB_TX_MSG_LENGTH 12
+#define ZB_EXPLICIT_TX_MSG_LENGTH 18
+#define TX_16_MSG_LENGTH 3
+#define TX_64_MSG_LENGTH 9
+#define AT_COMMAND_MSG_LENGTH 2
+#define REMOTE_AT_COMMAND_MSG_LENGTH 13
+// start/length(2)/msg/frameid/checksum bytes
 #define PACKET_OVERHEAD_LENGTH 6
-// api is always the third byte in packet
-#define API_ID_INDEX 3
+// msg is always the third byte in packet
+#define MSG_ID_INDEX 3
 
 // frame position of rssi byte
 #define RX_16_RSSI_OFFSET 2
@@ -176,10 +176,10 @@ public:
 	 */
 	AntResponse();
 	/**
-	 * Returns Api Id of the response
+	 * Returns msg Id of the response
 	 */
 	uint8_t getMsgId();
-	void setMsgId(uint8_t apiId);
+	void setMsgId(uint8_t msgId);
 	/**
 	 * Returns the MSB length of the packet
 	 */
@@ -191,18 +191,18 @@ public:
 	uint8_t getChecksum();
 	void setChecksum(uint8_t checksum);
 	/**
-	 * Returns the length of the frame data: all bytes after the api id, and prior to the checksum
+	 * Returns the length of the frame data: all bytes after the msg id, and prior to the checksum
 	 * Note up to release 0.1.2, this was incorrectly including the checksum in the length.
 	 */
 	uint8_t getFrameDataLength();
 	void setFrameData(uint8_t* frameDataPtr);
 	/**
 	 * Returns the buffer that contains the response.
-	 * Starts with byte that follows API ID and includes all bytes prior to the checksum
+	 * Starts with byte that follows MSG ID and includes all bytes prior to the checksum
 	 * Length is specified by getFrameDataLength()
-	 * Note: Unlike Digi's definition of the frame data, this does not start with the API ID..
-	 * The reason for this is all responses include an API ID, whereas my frame data
-	 * includes only the API specific data.
+	 * Note: Unlike Dynasteam's definition of the frame data, this does not start with the MSG ID..
+	 * The reason for this is all responses include an MSG ID, whereas my frame data
+	 * includes only the MSG specific data.
 	 */
 	uint8_t* getFrameData();
 
@@ -221,35 +221,35 @@ public:
 	 */
 	void init();
 	/**
-	 * Call with instance of ZBTxStatusResponse class only if getApiId() == ZB_TX_STATUS_RESPONSE
+	 * Call with instance of ZBTxStatusResponse class only if getMsgId() == ZB_TX_STATUS_RESPONSE
 	 * to populate response
 	 */
 	void getZBTxStatusResponse(AntResponse &response);
 	/**
-	 * Call with instance of ZBRxResponse class only if getApiId() == ZB_RX_RESPONSE
+	 * Call with instance of ZBRxResponse class only if getMsgId() == ZB_RX_RESPONSE
 	 * to populate response
 	 */
 	void getZBRxResponse(AntResponse &response);
 	/**
-	 * Call with instance of ZBExplicitRxResponse class only if getApiId() == ZB_EXPLICIT_RX_RESPONSE
+	 * Call with instance of ZBExplicitRxResponse class only if getMsgId() == ZB_EXPLICIT_RX_RESPONSE
 	 * to populate response
 	 */
 	void getZBExplicitRxResponse(AntResponse &response);
 	/**
-	 * Call with instance of ZBRxIoSampleResponse class only if getApiId() == ZB_IO_SAMPLE_RESPONSE
+	 * Call with instance of ZBRxIoSampleResponse class only if getMsgId() == ZB_IO_SAMPLE_RESPONSE
 	 * to populate response
 	 */
 	void getZBRxIoSampleResponse(AntResponse &response);
 	/**
-	 * Call with instance of AtCommandResponse only if getApiId() == AT_COMMAND_RESPONSE
+	 * Call with instance of AtCommandResponse only if getMsgId() == AT_COMMAND_RESPONSE
 	 */
 	void getAtCommandResponse(AntResponse &responses);
 	/**
-	 * Call with instance of RemoteAtCommandResponse only if getApiId() == REMOTE_AT_COMMAND_RESPONSE
+	 * Call with instance of RemoteAtCommandResponse only if getMsgId() == REMOTE_AT_COMMAND_RESPONSE
 	 */
 	void getRemoteAtCommandResponse(AntResponse &response);
 	/**
-	 * Call with instance of ModemStatusResponse only if getApiId() == MODEM_STATUS_RESPONSE
+	 * Call with instance of ModemStatusResponse only if getMsgId() == MODEM_STATUS_RESPONSE
 	 */
 	void getModemStatusResponse(AntResponse &response);
 	/**
@@ -376,7 +376,7 @@ class ZBTxStatusResponse : public FrameIdResponse {
 		uint8_t getDiscoveryStatus();
 		bool isSuccess();
 
-	static const uint8_t API_ID = ZB_TX_STATUS_RESPONSE;
+	static const uint8_t MSG_ID = ZB_TX_STATUS_RESPONSE;
 };
 
 /**
@@ -392,7 +392,7 @@ public:
 	// frame position where data starts
 	uint8_t getDataOffset();
 
-	static const uint8_t API_ID = ZB_RX_RESPONSE;
+	static const uint8_t MSG_ID = ZB_RX_RESPONSE;
 private:
 	AntAddress64 _remoteAddress64;
 };
@@ -415,7 +415,7 @@ public:
 	// frame position where data starts
 	uint8_t getDataOffset();
 
-	static const uint8_t API_ID = ZB_EXPLICIT_RX_RESPONSE;
+	static const uint8_t MSG_ID = ZB_EXPLICIT_RX_RESPONSE;
 };
 
 /**
@@ -448,7 +448,7 @@ public:
 	uint8_t getDigitalMaskLsb();
 	uint8_t getAnalogMask();
 
-	static const uint8_t API_ID = ZB_IO_SAMPLE_RESPONSE;
+	static const uint8_t MSG_ID = ZB_IO_SAMPLE_RESPONSE;
 };
 
 #ifdef SERIES_1
@@ -461,7 +461,7 @@ class TxStatusResponse : public FrameIdResponse {
 		uint8_t getStatus();
 		bool isSuccess();
 
-	static const uint8_t API_ID = TX_STATUS_RESPONSE;
+	static const uint8_t MSG_ID = TX_STATUS_RESPONSE;
 };
 
 /**
@@ -489,7 +489,7 @@ public:
 	uint8_t getRssiOffset();
 	uint16_t getRemoteAddress16();
 
-	static const uint8_t API_ID = RX_16_RESPONSE;
+	static const uint8_t MSG_ID = RX_16_RESPONSE;
 protected:
 	uint16_t _remoteAddress;
 };
@@ -503,7 +503,7 @@ public:
 	uint8_t getRssiOffset();
 	AntAddress64& getRemoteAddress64();
 
-	static const uint8_t API_ID = RX_64_RESPONSE;
+	static const uint8_t MSG_ID = RX_64_RESPONSE;
 private:
 	AntAddress64 _remoteAddress;
 };
@@ -553,7 +553,7 @@ public:
 	uint16_t getRemoteAddress16();
 	uint8_t getRssiOffset();
 
-	static const uint8_t API_ID = RX_16_IO_RESPONSE;
+	static const uint8_t MSG_ID = RX_16_IO_RESPONSE;
 };
 
 class Rx64IoSampleResponse : public RxIoSampleBaseResponse {
@@ -562,7 +562,7 @@ public:
 	AntAddress64& getRemoteAddress64();
 	uint8_t getRssiOffset();
 
-	static const uint8_t API_ID = RX_64_IO_RESPONSE;
+	static const uint8_t MSG_ID = RX_64_IO_RESPONSE;
 private:
 	AntAddress64 _remoteAddress;
 };
@@ -577,7 +577,7 @@ public:
 	ModemStatusResponse();
 	uint8_t getStatus();
 
-	static const uint8_t API_ID = MODEM_STATUS_RESPONSE;
+	static const uint8_t MSG_ID = MODEM_STATUS_RESPONSE;
 };
 
 /**
@@ -609,7 +609,7 @@ class AtCommandResponse : public FrameIdResponse {
 		 */
 		bool isOk();
 
-		static const uint8_t API_ID = AT_COMMAND_RESPONSE;
+		static const uint8_t MSG_ID = AT_COMMAND_RESPONSE;
 };
 
 /**
@@ -649,7 +649,7 @@ class RemoteAtCommandResponse : public AtCommandResponse {
 		 */
 		bool isOk();
 
-		static const uint8_t API_ID = REMOTE_AT_COMMAND_RESPONSE;
+		static const uint8_t MSG_ID = REMOTE_AT_COMMAND_RESPONSE;
 	private:
 		AntAddress64 _remoteAddress64;
 };
@@ -668,7 +668,7 @@ public:
 	 * Constructor
 	 * TODO make protected
 	 */
-	AntRequest(uint8_t apiId, uint8_t frameId);
+	AntRequest(uint8_t msgId, uint8_t frameId);
 	/**
 	 * Sets the frame id.  Must be between 1 and 255 inclusive to get a TX status response.
 	 */
@@ -678,24 +678,24 @@ public:
 	 */
 	uint8_t getFrameId();
 	/**
-	 * Returns the API id
+	 * Returns the Msg id
 	 */
 	uint8_t getMsgId();
 	// setting = 0 makes this a pure virtual function, meaning the subclass must implement, like abstract in java
 	/**
 	 * Starting after the frame id (pos = 0) and up to but not including the checksum
-	 * Note: Unlike Digi's definition of the frame data, this does not start with the API ID.
-	 * The reason for this is the API ID and Frame ID are common to all requests, whereas my definition of
-	 * frame data is only the API specific data.
+	 * Note: Unlike Dynastream's definition of the frame data, this does not start with the MSG ID.
+	 * The reason for this is the MSG ID and Frame ID are common to all requests, whereas my definition of
+	 * frame data is only the MSG specific data.
 	 */
 	virtual uint8_t getFrameData(uint8_t pos) = 0;
 	/**
-	 * Returns the size of the api frame (not including frame id or api id or checksum).
+	 * Returns the size of the msg frame (not including frame id or msg id or checksum).
 	 */
 	virtual uint8_t getFrameDataLength() = 0;
 	//void reset();
 protected:
-	void setMsgId(uint8_t apiId);
+	void setMsgId(uint8_t msgId);
 private:
 	uint8_t _msgId;
 	uint8_t _frameId;
@@ -705,7 +705,7 @@ private:
 /**
  * Primary interface for communicating with an Ant Radio.
  * This class provides methods for sending and receiving packets with an Ant radio via the serial port.
- * The Ant radio must be configured in API (packet) mode (AP=2)
+ * The Ant radio must be configured with the network stack
  * in order to use this software.
  * <p/>
  * Since this code is designed to run on a microcontroller, with only one thread, you are responsible for reading the
@@ -788,14 +788,14 @@ private:
 	uint8_t b;
 	uint8_t _checksumTotal;
 	uint8_t _nextFrameId;
-	// buffer for incoming RX packets.  holds only the api specific frame data, starting after the api id byte and prior to checksum
+	// buffer for incoming RX packets.  holds only the msg specific frame data, starting after the msg id byte and prior to checksum
 	uint8_t _responseFrameData[MAX_FRAME_DATA_SIZE];
 	Stream* _serial;
 };
 
 class PayloadRequest : public AntRequest {
 public:
-	PayloadRequest(uint8_t apiId, uint8_t frameId, uint8_t *payload, uint8_t payloadLength);
+	PayloadRequest(uint8_t msgId, uint8_t frameId, uint8_t *payload, uint8_t payloadLength);
 	/**
 	 * Returns the payload of the packet, if not null
 	 */
@@ -829,7 +829,7 @@ private:
 };
 
 /**
- * Represents a Series 2 TX packet that corresponds to Api Id: ZB_TX_REQUEST
+ * Represents a Series 2 TX packet that corresponds to Msg Id: ZB_TX_REQUEST
  *
  * Be careful not to send a data array larger than the max packet size of your radio.
  * This class does not perform any validation of packet size and there will be no indication
@@ -872,7 +872,7 @@ protected:
 };
 
 /**
- * Represents a Series 2 TX packet that corresponds to Api Id: ZB_EXPLICIT_TX_REQUEST
+ * Represents a Series 2 TX packet that corresponds to Msg Id: ZB_EXPLICIT_TX_REQUEST
  *
  * See the warning about maximum packet size for ZBTxRequest above,
  * which probably also applies here as well.
