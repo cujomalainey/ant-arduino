@@ -218,10 +218,10 @@
 #define AT_INVALID_PARAMETER 3
 #define AT_NO_RESPONSE 4
 
-#define NO_ERROR 0
-#define CHECKSUM_FAILURE 1
-#define PACKET_EXCEEDS_BYTE_ARRAY_LENGTH 2
-#define UNEXPECTED_START_BYTE 3
+#define NO_ERROR                          0
+#define CHECKSUM_FAILURE                  1
+#define PACKET_EXCEEDS_BYTE_ARRAY_LENGTH  2
+#define UNEXPECTED_START_BYTE             3
 
 /**
  * C++11 introduced the constexpr as a hint to the compiler that things
@@ -295,37 +295,53 @@ public:
 	 */
 	void init();
 	/**
-	 * Call with instance of ZBTxStatusResponse class only if getMsgId() == ZB_TX_STATUS_RESPONSE
+	 * Call with instance of StartUpMessage class only if getMsgId() == START_UP_MESSAGE
 	 * to populate response
 	 */
 	void getStartUpMessage(AntResponse &response);
 	/**
-	 * Call with instance of ZBRxResponse class only if getMsgId() == ZB_RX_RESPONSE
+	 * Call with instance of BroadcastData class only if getMsgId() == BROADCAST_DATA
 	 * to populate response
 	 */
-	void getZBRxResponse(AntResponse &response);
+	void getBroadcastData(AntResponse &response);
 	/**
-	 * Call with instance of ZBExplicitRxResponse class only if getMsgId() == ZB_EXPLICIT_RX_RESPONSE
+	 * Call with instance of AcknowledgedData class only if getMsgId() == ACKNOWLEDGED_DATA
 	 * to populate response
 	 */
-	void getZBExplicitRxResponse(AntResponse &response);
+	void getAcknowledgedData(AntResponse &response);
 	/**
-	 * Call with instance of ZBRxIoSampleResponse class only if getMsgId() == ZB_IO_SAMPLE_RESPONSE
+	 * Call with instance of BurstTransferData class only if getMsgId() == BURST_TRANSFER_DATA
 	 * to populate response
 	 */
-	void getZBRxIoSampleResponse(AntResponse &response);
+	void getBurstTransferData(AntResponse &response);
 	/**
-	 * Call with instance of AtCommandResponse only if getMsgId() == AT_COMMAND_RESPONSE
+	 * Call with instance of AdvancedBurstData only if getMsgId() == ADVANCED_BURST_DATA
 	 */
-	void getAtCommandResponse(AntResponse &responses);
+	void getAdvancedBurstData(AntResponse &responses);
 	/**
-	 * Call with instance of RemoteAtCommandResponse only if getMsgId() == REMOTE_AT_COMMAND_RESPONSE
+	 * Call with instance of ChannelEvent only if getMsgId() == CHANNEL_EVENT
 	 */
-	void getRemoteAtCommandResponse(AntResponse &response);
+	void getChannelEvent(AntResponse &response);
 	/**
-	 * Call with instance of ModemStatusResponse only if getMsgId() == MODEM_STATUS_RESPONSE
+	 * Call with instance of ChannelResponse only if getMsgId() == CHANNEL_RESPONSE
 	 */
-	void getModemStatusResponse(AntResponse &response);
+	void getChannelResponse(AntResponse &response);
+	/**
+	 * Call with instance of ChannelStatus only if getMsgId() == CHANNEL_STATUS
+	 */
+	void getChannelStatus(AntResponse &response);
+	/**
+	 * Call with instance of ChannelID only if getMsgId() == CHANNEL_ID
+	 */
+	void getChannelID(AntResponse &response);
+	/**
+	 * Call with instance of ANTVersion only if getMsgId() == ANT_VERSION
+	 */
+	void getANTVersion(AntResponse &response);
+	/**
+	 * Call with instance of SerialNumber only if getMsgId() == SERIAL_NUMBER
+	 */
+	void getSerialNumber(AntResponse &response);
 	/**
 	 * Returns true if the response has been successfully parsed and is complete and ready for use
 	 */
@@ -744,14 +760,6 @@ public:
 	 */
 	AntRequest(uint8_t msgId, uint8_t frameId);
 	/**
-	 * Sets the frame id.  Must be between 1 and 255 inclusive to get a TX status response.
-	 */
-	void setFrameId(uint8_t frameId);
-	/**
-	 * Returns the frame id
-	 */
-	uint8_t getFrameId();
-	/**
 	 * Returns the Msg id
 	 */
 	uint8_t getMsgId();
@@ -772,7 +780,6 @@ protected:
 	void setMsgId(uint8_t msgId);
 private:
 	uint8_t _msgId;
-	uint8_t _frameId;
 };
 
 // TODO add reset/clear method since responses are often reused
