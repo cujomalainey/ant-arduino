@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2009 Andrew Rapp. All rights reserved.
+ * Update by Copyright (c) 2016 Curtis Malainey
  *
  * This file is part of Ant-Arduino.
  *
@@ -28,58 +29,15 @@
 
 #include <inttypes.h>
 
-// set to ATAP value of Ant. AP=2 is recommended
-#define ATAP 2
+#define START_BYTE 0xA4
 
-#define START_BYTE 0x7e
-#define ESCAPE 0x7d
-#define XON 0x11
-#define XOFF 0x13
+// This value is determined by the largest message size available
+#define MAX_FRAME_DATA_SIZE 20
 
-// This value determines the size of the byte array for receiving RX packets
-// Most users won't be dealing with packets this large so you can adjust this
-// value to reduce memory consumption. But, remember that
-// if a RX packet exceeds this size, it cannot be parsed!
-
-// This value is determined by the largest packet size (100 byte payload + 64-bit address + option byte and rssi byte) of a series 1 radio
-#define MAX_FRAME_DATA_SIZE 110
-
-#define BROADCAST_ADDRESS 0xffff
-#define ZB_BROADCAST_ADDRESS 0xfffe
-
-// the non-variable length of the frame data (not including frame id or msg id or variable data size (e.g. payload, at command set value)
-#define ZB_TX_MSG_LENGTH 12
-#define ZB_EXPLICIT_TX_MSG_LENGTH 18
-#define TX_16_MSG_LENGTH 3
-#define TX_64_MSG_LENGTH 9
-#define AT_COMMAND_MSG_LENGTH 2
-#define REMOTE_AT_COMMAND_MSG_LENGTH 13
-// start/length(2)/msg/frameid/checksum bytes
-#define PACKET_OVERHEAD_LENGTH 6
+// start/length/msg/checksum bytes
+#define PACKET_OVERHEAD_LENGTH 4
 // msg is always the third byte in packet
 #define MSG_ID_INDEX 3
-
-// frame position of rssi byte
-#define RX_16_RSSI_OFFSET 2
-#define RX_64_RSSI_OFFSET 8
-
-#define DEFAULT_FRAME_ID 1
-#define NO_RESPONSE_FRAME_ID 0
-
-// These are the parameters used by the Ant ZB modules when you do a
-// regular "ZB TX request".
-#define DEFAULT_ENDPOINT 232
-#define DEFAULT_CLUSTER_ID 0x0011
-#define DEFAULT_PROFILE_ID 0xc105
-
-// TODO put in tx16 class
-#define ACK_OPTION 0
-#define DISABLE_ACK_OPTION 1
-#define BROADCAST_OPTION 4
-
-// RX options
-#define ZB_PACKET_ACKNOWLEDGED 0x01
-#define ZB_BROADCAST_PACKET 0x02
 
 // not everything is implemented!
 /**
@@ -207,17 +165,6 @@
 #define SYNCHRONOUS_RESET    ( 1 << 6 )
 #define SUSPEND_RESET        ( 1 << 7 )
 
-#define ZB_BROADCAST_RADIUS_MAX_HOPS 0
-
-#define ZB_TX_UNICAST 0
-#define ZB_TX_BROADCAST 8
-
-#define AT_OK 0
-#define AT_ERROR  1
-#define AT_INVALID_COMMAND 2
-#define AT_INVALID_PARAMETER 3
-#define AT_NO_RESPONSE 4
-
 #define NO_ERROR                          0
 #define CHECKSUM_FAILURE                  1
 #define PACKET_EXCEEDS_BYTE_ARRAY_LENGTH  2
@@ -244,185 +191,130 @@
  * It is recommend to reuse subclasses to conserve memory
  */
 class AntResponse {
-public:
-	//static const int MODEM_STATUS = 0x8a;
-	/**
-	 * Default constructor
-	 */
-	AntResponse();
-	/**
-	 * Returns msg Id of the response
-	 */
-	uint8_t getMsgId();
-	void setMsgId(uint8_t msgId);
-	/**
-	 * Returns the MSB length of the packet
-	 */
-	uint8_t getLength();
-	void setLength(uint8_t length);
-	/**
-	 * Returns the packet checksum
-	 */
-	uint8_t getChecksum();
-	void setChecksum(uint8_t checksum);
-	/**
-	 * Returns the length of the frame data: all bytes after the msg id, and prior to the checksum
-	 * Note up to release 0.1.2, this was incorrectly including the checksum in the length.
-	 */
-	uint8_t getFrameDataLength();
-	void setFrameData(uint8_t* frameDataPtr);
-	/**
-	 * Returns the buffer that contains the response.
-	 * Starts with byte that follows MSG ID and includes all bytes prior to the checksum
-	 * Length is specified by getFrameDataLength()
-	 * Note: Unlike Dynasteam's definition of the frame data, this does not start with the MSG ID..
-	 * The reason for this is all responses include an MSG ID, whereas my frame data
-	 * includes only the MSG specific data.
-	 */
-	uint8_t* getFrameData();
+	public:
+		//static const int MODEM_STATUS = 0x8a;
+		/**
+		 * Default constructor
+		 */
+		AntResponse();
+		/**
+		 * Returns msg Id of the response
+		 */
+		uint8_t getMsgId();
+		void setMsgId(uint8_t msgId);
+		/**
+		 * Returns the MSB length of the packet
+		 */
+		uint8_t getLength();
+		void setLength(uint8_t length);
+		/**
+		 * Returns the packet checksum
+		 */
+		uint8_t getChecksum();
+		void setChecksum(uint8_t checksum);
+		/**
+		 * Returns the length of the frame data: all bytes after the msg id, and prior to the checksum
+		 * Note up to release 0.1.2, this was incorrectly including the checksum in the length.
+		 */
+		uint8_t getFrameDataLength();
+		void setFrameData(uint8_t* frameDataPtr);
+		/**
+		 * Returns the buffer that contains the response.
+		 * Starts with byte that follows MSG ID and includes all bytes prior to the checksum
+		 * Length is specified by getFrameDataLength()
+		 * Note: Unlike Dynasteam's definition of the frame data, this does not start with the MSG ID..
+		 * The reason for this is all responses include an MSG ID, whereas my frame data
+		 * includes only the MSG specific data.
+		 */
+		uint8_t* getFrameData();
 
-	void setFrameLength(uint8_t frameLength);
-	/**
-	 * Returns the length of the packet
-	 */
-	uint16_t getPacketLength();
-	/**
-	 * Resets the response to default values
-	 */
-	void reset();
-	/**
-	 * Initializes the response
-	 */
-	void init();
-	/**
-	 * Call with instance of StartUpMessage class only if getMsgId() == START_UP_MESSAGE
-	 * to populate response
-	 */
-	void getStartUpMessage(AntResponse &response);
-	/**
-	 * Call with instance of BroadcastData class only if getMsgId() == BROADCAST_DATA
-	 * to populate response
-	 */
-	void getBroadcastData(AntResponse &response);
-	/**
-	 * Call with instance of AcknowledgedData class only if getMsgId() == ACKNOWLEDGED_DATA
-	 * to populate response
-	 */
-	void getAcknowledgedData(AntResponse &response);
-	/**
-	 * Call with instance of BurstTransferData class only if getMsgId() == BURST_TRANSFER_DATA
-	 * to populate response
-	 */
-	void getBurstTransferData(AntResponse &response);
-	/**
-	 * Call with instance of AdvancedBurstData only if getMsgId() == ADVANCED_BURST_DATA
-	 */
-	void getAdvancedBurstData(AntResponse &responses);
-	/**
-	 * Call with instance of ChannelEvent only if getMsgId() == CHANNEL_EVENT
-	 */
-	void getChannelEvent(AntResponse &response);
-	/**
-	 * Call with instance of ChannelResponse only if getMsgId() == CHANNEL_RESPONSE
-	 */
-	void getChannelResponse(AntResponse &response);
-	/**
-	 * Call with instance of ChannelStatus only if getMsgId() == CHANNEL_STATUS
-	 */
-	void getChannelStatus(AntResponse &response);
-	/**
-	 * Call with instance of ChannelID only if getMsgId() == CHANNEL_ID
-	 */
-	void getChannelID(AntResponse &response);
-	/**
-	 * Call with instance of ANTVersion only if getMsgId() == ANT_VERSION
-	 */
-	void getANTVersion(AntResponse &response);
-	/**
-	 * Call with instance of SerialNumber only if getMsgId() == SERIAL_NUMBER
-	 */
-	void getSerialNumber(AntResponse &response);
-	/**
-	 * Returns true if the response has been successfully parsed and is complete and ready for use
-	 */
-	bool isAvailable();
-	void setAvailable(bool complete);
-	/**
-	 * Returns true if the response contains errors
-	 */
-	bool isError();
-	/**
-	 * Returns an error code, or zero, if successful.
-	 * Error codes include: CHECKSUM_FAILURE, PACKET_EXCEEDS_BYTE_ARRAY_LENGTH, UNEXPECTED_START_BYTE
-	 */
-	uint8_t getErrorCode();
-	void setErrorCode(uint8_t errorCode);
-protected:
-	// pointer to frameData
-	uint8_t* _frameDataPtr;
-private:
-	void setCommon(AntResponse &target);
-	uint8_t _msgId;
-	uint8_t _length;
-	uint8_t _checksum;
-	uint8_t _frameLength;
-	bool _complete;
-	uint8_t _errorCode;
-};
-
-class AntAddress {
-public:
-	CONSTEXPR AntAddress() {};
-};
-
-/**
- * Represents a 64-bit Ant Address
- *
- * Note that avr-gcc as of 4.9 doesn't optimize uint64_t very well, so
- * for the smallest and fastest code, use msb and lsb separately. See
- * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66511
- */
-class AntAddress64 : public AntAddress {
-public:
-	CONSTEXPR AntAddress64(uint64_t addr) : _msb(addr >> 32), _lsb(addr) {}
-	CONSTEXPR AntAddress64(uint32_t msb, uint32_t lsb) : _msb(msb), _lsb(lsb) {}
-	CONSTEXPR AntAddress64() : _msb(0), _lsb(0) {}
-	uint32_t getMsb() {return _msb;}
-	uint32_t getLsb() {return _lsb;}
-	uint64_t get() {return (static_cast<uint64_t>(_msb) << 32) | _lsb;}
-	operator uint64_t() {return get();}
-	void setMsb(uint32_t msb) {_msb = msb;}
-	void setLsb(uint32_t lsb) {_lsb = lsb;}
-	void set(uint64_t addr) {
-		_msb = addr >> 32;
-		_lsb = addr;
-	}
-private:
-	// Once https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66511 is
-	// fixed, it might make sense to merge these into a uint64_t.
-	uint32_t _msb;
-	uint32_t _lsb;
-};
-
-//class AntAddress16 : public AntAddress {
-//public:
-//	AntAddress16(uint16_t addr);
-//	AntAddress16();
-//	uint16_t getAddress();
-//	void setAddress(uint16_t addr);
-//private:
-//	uint16_t _addr;
-//};
-
-/**
- * This class is extended by all Responses that include a frame id
- */
-class FrameIdResponse : public AntResponse {
-public:
-	FrameIdResponse();
-	uint8_t getFrameId();
-private:
-	uint8_t _frameId;
+		void setFrameLength(uint8_t frameLength);
+		/**
+		 * Returns the length of the packet
+		 */
+		uint16_t getPacketLength();
+		/**
+		 * Resets the response to default values
+		 */
+		void reset();
+		/**
+		 * Initializes the response
+		 */
+		void init();
+		/**
+		 * Call with instance of StartUpMessage class only if getMsgId() == START_UP_MESSAGE
+		 * to populate response
+		 */
+		void getStartUpMessage(AntResponse &response);
+		/**
+		 * Call with instance of BroadcastData class only if getMsgId() == BROADCAST_DATA
+		 * to populate response
+		 */
+		void getBroadcastData(AntResponse &response);
+		/**
+		 * Call with instance of AcknowledgedData class only if getMsgId() == ACKNOWLEDGED_DATA
+		 * to populate response
+		 */
+		void getAcknowledgedData(AntResponse &response);
+		/**
+		 * Call with instance of BurstTransferData class only if getMsgId() == BURST_TRANSFER_DATA
+		 * to populate response
+		 */
+		void getBurstTransferData(AntResponse &response);
+		/**
+		 * Call with instance of AdvancedBurstData only if getMsgId() == ADVANCED_BURST_DATA
+		 */
+		void getAdvancedBurstData(AntResponse &responses);
+		/**
+		 * Call with instance of ChannelEvent only if getMsgId() == CHANNEL_EVENT
+		 */
+		void getChannelEvent(AntResponse &response);
+		/**
+		 * Call with instance of ChannelResponse only if getMsgId() == CHANNEL_RESPONSE
+		 */
+		void getChannelResponse(AntResponse &response);
+		/**
+		 * Call with instance of ChannelStatus only if getMsgId() == CHANNEL_STATUS
+		 */
+		void getChannelStatus(AntResponse &response);
+		/**
+		 * Call with instance of ChannelID only if getMsgId() == CHANNEL_ID
+		 */
+		void getChannelID(AntResponse &response);
+		/**
+		 * Call with instance of AntVersion only if getMsgId() == ANT_VERSION
+		 */
+		void getAntVersion(AntResponse &response);
+		/**
+		 * Call with instance of SerialNumber only if getMsgId() == SERIAL_NUMBER
+		 */
+		void getSerialNumber(AntResponse &response);
+		/**
+		 * Returns true if the response has been successfully parsed and is complete and ready for use
+		 */
+		bool isAvailable();
+		void setAvailable(bool complete);
+		/**
+		 * Returns true if the response contains errors
+		 */
+		bool isError();
+		/**
+		 * Returns an error code, or zero, if successful.
+		 * Error codes include: CHECKSUM_FAILURE, PACKET_EXCEEDS_BYTE_ARRAY_LENGTH, UNEXPECTED_START_BYTE
+		 */
+		uint8_t getErrorCode();
+		void setErrorCode(uint8_t errorCode);
+	protected:
+		// pointer to frameData
+		uint8_t* _frameDataPtr;
+	private:
+		void setCommon(AntResponse &target);
+		uint8_t _msgId;
+		uint8_t _length;
+		uint8_t _checksum;
+		uint8_t _frameLength;
+		bool _complete;
+		uint8_t _errorCode;
 };
 
 /**
@@ -473,18 +365,15 @@ class ZBTxStatusResponse : public FrameIdResponse {
  * Represents a Series 2 RX packet
  */
 class ZBRxResponse : public RxDataResponse {
-public:
-	ZBRxResponse();
-	AntAddress64& getRemoteAddress64();
-	uint16_t getRemoteAddress16();
-	uint8_t getOption();
-	uint8_t getDataLength();
-	// frame position where data starts
-	uint8_t getDataOffset();
+	public:
+		ZBRxResponse();
+		uint16_t getRemoteAddress16();
+		uint8_t getOption();
+		uint8_t getDataLength();
+		// frame position where data starts
+		uint8_t getDataOffset();
 
-	static const uint8_t MSG_ID = ZB_RX_RESPONSE;
-private:
-	AntAddress64 _remoteAddress64;
+		static const uint8_t MSG_ID = ZB_RX_RESPONSE;
 };
 
 /**
@@ -494,51 +383,51 @@ private:
  * you will receive ZBRxResponses, not knowing exact details.
  */
 class ZBExplicitRxResponse : public ZBRxResponse {
-public:
-	ZBExplicitRxResponse();
-	uint8_t getSrcEndpoint();
-	uint8_t getDstEndpoint();
-	uint16_t getClusterId();
-	uint16_t getProfileId();
-	uint8_t getOption();
-	uint8_t getDataLength();
-	// frame position where data starts
-	uint8_t getDataOffset();
+	public:
+		ZBExplicitRxResponse();
+		uint8_t getSrcEndpoint();
+		uint8_t getDstEndpoint();
+		uint16_t getClusterId();
+		uint16_t getProfileId();
+		uint8_t getOption();
+		uint8_t getDataLength();
+		// frame position where data starts
+		uint8_t getDataOffset();
 
-	static const uint8_t MSG_ID = ZB_EXPLICIT_RX_RESPONSE;
+		static const uint8_t MSG_ID = ZB_EXPLICIT_RX_RESPONSE;
 };
 
 /**
  * Represents a Series 2 RX I/O Sample packet
  */
 class ZBRxIoSampleResponse : public ZBRxResponse {
-public:
-	ZBRxIoSampleResponse();
-	bool containsAnalog();
-	bool containsDigital();
-	/**
-	 * Returns true if the pin is enabled
-	 */
-	bool isAnalogEnabled(uint8_t pin);
-	/**
-	 * Returns true if the pin is enabled
-	 */
-	bool isDigitalEnabled(uint8_t pin);
-	/**
-	 * Returns the 10-bit analog reading of the specified pin.
-	 * Valid pins include ADC:xxx.
-	 */
-	uint16_t getAnalog(uint8_t pin);
-	/**
-	 * Returns true if the specified pin is high/on.
-	 * Valid pins include DIO:xxx.
-	 */
-	bool isDigitalOn(uint8_t pin);
-	uint8_t getDigitalMaskMsb();
-	uint8_t getDigitalMaskLsb();
-	uint8_t getAnalogMask();
+	public:
+		ZBRxIoSampleResponse();
+		bool containsAnalog();
+		bool containsDigital();
+		/**
+		 * Returns true if the pin is enabled
+		 */
+		bool isAnalogEnabled(uint8_t pin);
+		/**
+		 * Returns true if the pin is enabled
+		 */
+		bool isDigitalEnabled(uint8_t pin);
+		/**
+		 * Returns the 10-bit analog reading of the specified pin.
+		 * Valid pins include ADC:xxx.
+		 */
+		uint16_t getAnalog(uint8_t pin);
+		/**
+		 * Returns true if the specified pin is high/on.
+		 * Valid pins include DIO:xxx.
+		 */
+		bool isDigitalOn(uint8_t pin);
+		uint8_t getDigitalMaskMsb();
+		uint8_t getDigitalMaskLsb();
+		uint8_t getAnalogMask();
 
-	static const uint8_t MSG_ID = ZB_IO_SAMPLE_RESPONSE;
+		static const uint8_t MSG_ID = ZB_IO_SAMPLE_RESPONSE;
 };
 
 #ifdef SERIES_1
@@ -551,51 +440,49 @@ class TxStatusResponse : public FrameIdResponse {
 		uint8_t getStatus();
 		bool isSuccess();
 
-	static const uint8_t MSG_ID = TX_STATUS_RESPONSE;
+		static const uint8_t MSG_ID = TX_STATUS_RESPONSE;
 };
 
 /**
  * Represents a Series 1 RX packet
  */
 class RxResponse : public RxDataResponse {
-public:
-	RxResponse();
-	// remember rssi is negative but this is unsigned byte so it's up to you to convert
-	uint8_t getRssi();
-	uint8_t getOption();
-	bool isAddressBroadcast();
-	bool isPanBroadcast();
-	uint8_t getDataLength();
-	uint8_t getDataOffset();
-	virtual uint8_t getRssiOffset() = 0;
+	public:
+		RxResponse();
+		// remember rssi is negative but this is unsigned byte so it's up to you to convert
+		uint8_t getRssi();
+		uint8_t getOption();
+		bool isAddressBroadcast();
+		bool isPanBroadcast();
+		uint8_t getDataLength();
+		uint8_t getDataOffset();
+		virtual uint8_t getRssiOffset() = 0;
 };
 
 /**
  * Represents a Series 1 16-bit address RX packet
  */
 class Rx16Response : public RxResponse {
-public:
-	Rx16Response();
-	uint8_t getRssiOffset();
-	uint16_t getRemoteAddress16();
+	public:
+		Rx16Response();
+		uint8_t getRssiOffset();
+		uint16_t getRemoteAddress16();
 
-	static const uint8_t MSG_ID = RX_16_RESPONSE;
-protected:
-	uint16_t _remoteAddress;
+		static const uint8_t MSG_ID = RX_16_RESPONSE;
+	protected:
+		uint16_t _remoteAddress;
 };
 
 /**
  * Represents a Series 1 64-bit address RX packet
  */
 class Rx64Response : public RxResponse {
-public:
-	Rx64Response();
-	uint8_t getRssiOffset();
-	AntAddress64& getRemoteAddress64();
+	public:
+		Rx64Response();
+		uint8_t getRssiOffset();
+		AntAddress64& getRemoteAddress64();
 
-	static const uint8_t MSG_ID = RX_64_RESPONSE;
-private:
-	AntAddress64 _remoteAddress;
+		static const uint8_t MSG_ID = RX_64_RESPONSE;
 };
 
 /**
@@ -638,23 +525,20 @@ class RxIoSampleBaseResponse : public RxResponse {
 };
 
 class Rx16IoSampleResponse : public RxIoSampleBaseResponse {
-public:
-	Rx16IoSampleResponse();
-	uint16_t getRemoteAddress16();
-	uint8_t getRssiOffset();
+	public:
+		Rx16IoSampleResponse();
+		uint16_t getRemoteAddress16();
+		uint8_t getRssiOffset();
 
-	static const uint8_t MSG_ID = RX_16_IO_RESPONSE;
+		static const uint8_t MSG_ID = RX_16_IO_RESPONSE;
 };
 
 class Rx64IoSampleResponse : public RxIoSampleBaseResponse {
-public:
-	Rx64IoSampleResponse();
-	AntAddress64& getRemoteAddress64();
-	uint8_t getRssiOffset();
+	public:
+		Rx64IoSampleResponse();
+		uint8_t getRssiOffset();
 
-	static const uint8_t MSG_ID = RX_64_IO_RESPONSE;
-private:
-	AntAddress64 _remoteAddress;
+		static const uint8_t MSG_ID = RX_64_IO_RESPONSE;
 };
 
 #endif
@@ -731,10 +615,6 @@ class RemoteAtCommandResponse : public AtCommandResponse {
 		 */
 		uint16_t getRemoteAddress16();
 		/**
-		 * Returns the 64-bit address of the remote radio
-		 */
-		AntAddress64& getRemoteAddress64();
-		/**
 		 * Returns true if command was successful
 		 */
 		bool isOk();
@@ -753,33 +633,33 @@ class RemoteAtCommandResponse : public AtCommandResponse {
  * This class allocates a buffer to
  */
 class AntRequest {
-public:
-	/**
-	 * Constructor
-	 * TODO make protected
-	 */
-	AntRequest(uint8_t msgId, uint8_t frameId);
-	/**
-	 * Returns the Msg id
-	 */
-	uint8_t getMsgId();
-	// setting = 0 makes this a pure virtual function, meaning the subclass must implement, like abstract in java
-	/**
-	 * Starting after the frame id (pos = 0) and up to but not including the checksum
-	 * Note: Unlike Dynastream's definition of the frame data, this does not start with the MSG ID.
-	 * The reason for this is the MSG ID and Frame ID are common to all requests, whereas my definition of
-	 * frame data is only the MSG specific data.
-	 */
-	virtual uint8_t getFrameData(uint8_t pos) = 0;
-	/**
-	 * Returns the size of the msg frame (not including frame id or msg id or checksum).
-	 */
-	virtual uint8_t getFrameDataLength() = 0;
-	//void reset();
-protected:
-	void setMsgId(uint8_t msgId);
-private:
-	uint8_t _msgId;
+	public:
+		/**
+		 * Constructor
+		 * TODO make protected
+		 */
+		AntRequest(uint8_t msgId, uint8_t frameId);
+		/**
+		 * Returns the Msg id
+		 */
+		uint8_t getMsgId();
+		// setting = 0 makes this a pure virtual function, meaning the subclass must implement, like abstract in java
+		/**
+		 * Starting after the frame id (pos = 0) and up to but not including the checksum
+		 * Note: Unlike Dynastream's definition of the frame data, this does not start with the MSG ID.
+		 * The reason for this is the MSG ID and Frame ID are common to all requests, whereas my definition of
+		 * frame data is only the MSG specific data.
+		 */
+		virtual uint8_t getFrameData(uint8_t pos) = 0;
+		/**
+		 * Returns the size of the msg frame (not including frame id or msg id or checksum).
+		 */
+		virtual uint8_t getFrameDataLength() = 0;
+		//void reset();
+	protected:
+		void setMsgId(uint8_t msgId);
+	private:
+		uint8_t _msgId;
 };
 
 // TODO add reset/clear method since responses are often reused
@@ -805,108 +685,108 @@ private:
  * \author Andrew Rapp
  */
 class Ant {
-public:
-	Ant();
-	/**
-	 * Reads all available serial bytes until a packet is parsed, an error occurs, or the buffer is empty.
-	 * You may call <i>xbee</i>.getResponse().isAvailable() after calling this method to determine if
-	 * a packet is ready, or <i>xbee</i>.getResponse().isError() to determine if
-	 * a error occurred.
-	 * <p/>
-	 * This method should always return quickly since it does not wait for serial data to arrive.
-	 * You will want to use this method if you are doing other timely stuff in your loop, where
-	 * a delay would cause problems.
-	 * NOTE: calling this method resets the current response, so make sure you first consume the
-	 * current response
-	 */
-	void readPacket();
-	/**
-	 * Waits a maximum of <i>timeout</i> milliseconds for a response packet before timing out; returns true if packet is read.
-	 * Returns false if timeout or error occurs.
-	 */
-	bool readPacket(int timeout);
-	/**
-	 * Reads until a packet is received or an error occurs.
-	 * Caution: use this carefully since if you don't get a response, your Arduino code will hang on this
-	 * call forever!! often it's better to use a timeout: readPacket(int)
-	 */
-	void readPacketUntilAvailable();
-	/**
-	 * Starts the serial connection on the specified serial port
-	 */
-	void begin(Stream &serial);
-	void getResponse(AntResponse &response);
-	/**
-	 * Returns a reference to the current response
-	 * Note: once readPacket is called again this response will be overwritten!
-	 */
-	AntResponse& getResponse();
-	/**
-	 * Sends a AntRequest (TX packet) out the serial port
-	 */
-	void send(AntRequest &request);
-	//uint8_t sendAndWaitForResponse(AntRequest &request, int timeout);
-	/**
-	 * Returns a sequential frame id between 1 and 255
-	 */
-	uint8_t getNextFrameId();
-	/**
-	 * Specify the serial port.  Only relevant for Arduinos that support multiple serial ports (e.g. Mega)
-	 */
-	void setSerial(Stream &serial);
-private:
-	bool available();
-	uint8_t read();
-	void flush();
-	void write(uint8_t val);
-	void sendByte(uint8_t b, bool escape);
-	void resetResponse();
-	AntResponse _response;
-	bool _escape;
-	// current packet position for response.  just a state variable for packet parsing and has no relevance for the response otherwise
-	uint8_t _pos;
-	// last byte read
-	uint8_t b;
-	uint8_t _checksumTotal;
-	uint8_t _nextFrameId;
-	// buffer for incoming RX packets.  holds only the msg specific frame data, starting after the msg id byte and prior to checksum
-	uint8_t _responseFrameData[MAX_FRAME_DATA_SIZE];
-	Stream* _serial;
+	public:
+		Ant();
+		/**
+		 * Reads all available serial bytes until a packet is parsed, an error occurs, or the buffer is empty.
+		 * You may call <i>xbee</i>.getResponse().isAvailable() after calling this method to determine if
+		 * a packet is ready, or <i>xbee</i>.getResponse().isError() to determine if
+		 * a error occurred.
+		 * <p/>
+		 * This method should always return quickly since it does not wait for serial data to arrive.
+		 * You will want to use this method if you are doing other timely stuff in your loop, where
+		 * a delay would cause problems.
+		 * NOTE: calling this method resets the current response, so make sure you first consume the
+		 * current response
+		 */
+		void readPacket();
+		/**
+		 * Waits a maximum of <i>timeout</i> milliseconds for a response packet before timing out; returns true if packet is read.
+		 * Returns false if timeout or error occurs.
+		 */
+		bool readPacket(int timeout);
+		/**
+		 * Reads until a packet is received or an error occurs.
+		 * Caution: use this carefully since if you don't get a response, your Arduino code will hang on this
+		 * call forever!! often it's better to use a timeout: readPacket(int)
+		 */
+		void readPacketUntilAvailable();
+		/**
+		 * Starts the serial connection on the specified serial port
+		 */
+		void begin(Stream &serial);
+		void getResponse(AntResponse &response);
+		/**
+		 * Returns a reference to the current response
+		 * Note: once readPacket is called again this response will be overwritten!
+		 */
+		AntResponse& getResponse();
+		/**
+		 * Sends a AntRequest (TX packet) out the serial port
+		 */
+		void send(AntRequest &request);
+		//uint8_t sendAndWaitForResponse(AntRequest &request, int timeout);
+		/**
+		 * Returns a sequential frame id between 1 and 255
+		 */
+		uint8_t getNextFrameId();
+		/**
+		 * Specify the serial port.  Only relevant for Arduinos that support multiple serial ports (e.g. Mega)
+		 */
+		void setSerial(Stream &serial);
+	private:
+		bool available();
+		uint8_t read();
+		void flush();
+		void write(uint8_t val);
+		void sendByte(uint8_t b, bool escape);
+		void resetResponse();
+		AntResponse _response;
+		bool _escape;
+		// current packet position for response.  just a state variable for packet parsing and has no relevance for the response otherwise
+		uint8_t _pos;
+		// last byte read
+		uint8_t b;
+		uint8_t _checksumTotal;
+		uint8_t _nextFrameId;
+		// buffer for incoming RX packets.  holds only the msg specific frame data, starting after the msg id byte and prior to checksum
+		uint8_t _responseFrameData[MAX_FRAME_DATA_SIZE];
+		Stream* _serial;
 };
 
 class PayloadRequest : public AntRequest {
-public:
-	PayloadRequest(uint8_t msgId, uint8_t frameId, uint8_t *payload, uint8_t payloadLength);
-	/**
-	 * Returns the payload of the packet, if not null
-	 */
-	uint8_t* getPayload();
-	/**
-	 * Sets the payload array
-	 */
-	void setPayload(uint8_t* payloadPtr);
+	public:
+		PayloadRequest(uint8_t msgId, uint8_t frameId, uint8_t *payload, uint8_t payloadLength);
+		/**
+		 * Returns the payload of the packet, if not null
+		 */
+		uint8_t* getPayload();
+		/**
+		 * Sets the payload array
+		 */
+		void setPayload(uint8_t* payloadPtr);
 
-	/*
-	 * Set the payload and its length in one call.
-	 */
-	void setPayload(uint8_t* payloadPtr, uint8_t payloadLength) {
-		setPayload(payloadPtr);
-		setPayloadLength(payloadLength);
-	}
+		/*
+		 * Set the payload and its length in one call.
+		 */
+		void setPayload(uint8_t* payloadPtr, uint8_t payloadLength) {
+			setPayload(payloadPtr);
+			setPayloadLength(payloadLength);
+		}
 
-	/**
-	 * Returns the length of the payload array, as specified by the user.
-	 */
-	uint8_t getPayloadLength();
-	/**
-	 * Sets the length of the payload to include in the request.  For example if the payload array
-	 * is 50 bytes and you only want the first 10 to be included in the packet, set the length to 10.
-	 * Length must be <= to the array length.
-	 */
-	void setPayloadLength(uint8_t payloadLength);
-private:
-	uint8_t* _payloadPtr;
-	uint8_t _payloadLength;
+		/**
+		 * Returns the length of the payload array, as specified by the user.
+		 */
+		uint8_t getPayloadLength();
+		/**
+		 * Sets the length of the payload to include in the request.  For example if the payload array
+		 * is 50 bytes and you only want the first 10 to be included in the packet, set the length to 10.
+		 * Length must be <= to the array length.
+		 */
+		void setPayloadLength(uint8_t payloadLength);
+	private:
+		uint8_t* _payloadPtr;
+		uint8_t _payloadLength;
 };
 
 /**
@@ -922,34 +802,34 @@ private:
  * exceeds the maximum.
  */
 class ZBTxRequest : public PayloadRequest {
-public:
-	/**
-	 * Creates a unicast ZBTxRequest with the ACK option and DEFAULT_FRAME_ID
-	 */
-	ZBTxRequest(const AntAddress64 &addr64, uint8_t *payload, uint8_t payloadLength);
-	ZBTxRequest(const AntAddress64 &addr64, uint16_t addr16, uint8_t broadcastRadius, uint8_t option, uint8_t *payload, uint8_t payloadLength, uint8_t frameId);
-	/**
-	 * Creates a default instance of this class.  At a minimum you must specify
-	 * a payload, payload length and a 64-bit destination address before sending
-	 * this request.
-	 */
-	ZBTxRequest();
-	AntAddress64& getAddress64();
-	uint16_t getAddress16();
-	uint8_t getBroadcastRadius();
-	uint8_t getOption();
-	void setAddress64(const AntAddress64& addr64);
-	void setAddress16(uint16_t addr16);
-	void setBroadcastRadius(uint8_t broadcastRadius);
-	void setOption(uint8_t option);
-protected:
-	// declare virtual functions
-	uint8_t getFrameData(uint8_t pos);
-	uint8_t getFrameDataLength();
-	AntAddress64 _addr64;
-	uint16_t _addr16;
-	uint8_t _broadcastRadius;
-	uint8_t _option;
+	public:
+		/**
+		 * Creates a unicast ZBTxRequest with the ACK option and DEFAULT_FRAME_ID
+		 */
+		ZBTxRequest(const AntAddress64 &addr64, uint8_t *payload, uint8_t payloadLength);
+		ZBTxRequest(const AntAddress64 &addr64, uint16_t addr16, uint8_t broadcastRadius, uint8_t option, uint8_t *payload, uint8_t payloadLength, uint8_t frameId);
+		/**
+		 * Creates a default instance of this class.  At a minimum you must specify
+		 * a payload, payload length and a 64-bit destination address before sending
+		 * this request.
+		 */
+		ZBTxRequest();
+		AntAddress64& getAddress64();
+		uint16_t getAddress16();
+		uint8_t getBroadcastRadius();
+		uint8_t getOption();
+		void setAddress64(const AntAddress64& addr64);
+		void setAddress16(uint16_t addr16);
+		void setBroadcastRadius(uint8_t broadcastRadius);
+		void setOption(uint8_t option);
+	protected:
+		// declare virtual functions
+		uint8_t getFrameData(uint8_t pos);
+		uint8_t getFrameDataLength();
+		AntAddress64 _addr64;
+		uint16_t _addr16;
+		uint8_t _broadcastRadius;
+		uint8_t _option;
 };
 
 /**
@@ -962,47 +842,47 @@ protected:
  * AO=1 to enable reception of ZBExplicitRxResponse packets.
  */
 class ZBExplicitTxRequest : public ZBTxRequest {
-public:
-	/**
-	 * Creates a unicast ZBExplicitTxRequest with the ACK option and
-	 * DEFAULT_FRAME_ID.
-	 *
-	 * It uses the Maxstream profile (0xc105), both endpoints 232
-	 * and cluster 0x0011, resulting in the same packet as sent by a
-	 * normal ZBTxRequest.
-	 */
-	ZBExplicitTxRequest(AntAddress64 &addr64, uint8_t *payload, uint8_t payloadLength);
-	/**
-	 * Create a ZBExplicitTxRequest, specifying all fields.
-	 */
-	ZBExplicitTxRequest(AntAddress64 &addr64, uint16_t addr16, uint8_t broadcastRadius, uint8_t option, uint8_t *payload, uint8_t payloadLength, uint8_t frameId, uint8_t srcEndpoint, uint8_t dstEndpoint, uint16_t clusterId, uint16_t profileId);
-	/**
-	 * Creates a default instance of this class.  At a minimum you
-	 * must specify a payload, payload length and a destination
-	 * address before sending this request.
-	 *
-	 * Furthermore, it uses the Maxstream profile (0xc105), both
-	 * endpoints 232 and cluster 0x0011, resulting in the same
-	 * packet as sent by a normal ZBExplicitTxRequest.
-	 */
-	ZBExplicitTxRequest();
-	uint8_t getSrcEndpoint();
-	uint8_t getDstEndpoint();
-	uint16_t getClusterId();
-	uint16_t getProfileId();
-	void setSrcEndpoint(uint8_t endpoint);
-	void setDstEndpoint(uint8_t endpoint);
-	void setClusterId(uint16_t clusterId);
-	void setProfileId(uint16_t profileId);
-protected:
-	// declare virtual functions
-	uint8_t getFrameData(uint8_t pos);
-	uint8_t getFrameDataLength();
-private:
-	uint8_t _srcEndpoint;
-	uint8_t _dstEndpoint;
-	uint16_t _profileId;
-	uint16_t _clusterId;
+	public:
+		/**
+		 * Creates a unicast ZBExplicitTxRequest with the ACK option and
+		 * DEFAULT_FRAME_ID.
+		 *
+		 * It uses the Maxstream profile (0xc105), both endpoints 232
+		 * and cluster 0x0011, resulting in the same packet as sent by a
+		 * normal ZBTxRequest.
+		 */
+		ZBExplicitTxRequest(AntAddress64 &addr64, uint8_t *payload, uint8_t payloadLength);
+		/**
+		 * Create a ZBExplicitTxRequest, specifying all fields.
+		 */
+		ZBExplicitTxRequest(AntAddress64 &addr64, uint16_t addr16, uint8_t broadcastRadius, uint8_t option, uint8_t *payload, uint8_t payloadLength, uint8_t frameId, uint8_t srcEndpoint, uint8_t dstEndpoint, uint16_t clusterId, uint16_t profileId);
+		/**
+		 * Creates a default instance of this class.  At a minimum you
+		 * must specify a payload, payload length and a destination
+		 * address before sending this request.
+		 *
+		 * Furthermore, it uses the Maxstream profile (0xc105), both
+		 * endpoints 232 and cluster 0x0011, resulting in the same
+		 * packet as sent by a normal ZBExplicitTxRequest.
+		 */
+		ZBExplicitTxRequest();
+		uint8_t getSrcEndpoint();
+		uint8_t getDstEndpoint();
+		uint16_t getClusterId();
+		uint16_t getProfileId();
+		void setSrcEndpoint(uint8_t endpoint);
+		void setDstEndpoint(uint8_t endpoint);
+		void setClusterId(uint16_t clusterId);
+		void setProfileId(uint16_t profileId);
+	protected:
+		// declare virtual functions
+		uint8_t getFrameData(uint8_t pos);
+		uint8_t getFrameDataLength();
+	private:
+		uint8_t _srcEndpoint;
+		uint8_t _dstEndpoint;
+		uint16_t _profileId;
+		uint16_t _clusterId;
 };
 
 /**
@@ -1010,27 +890,27 @@ private:
  * The command is used to configure the serially connected Ant radio
  */
 class AtCommandRequest : public AntRequest {
-public:
-	AtCommandRequest();
-	AtCommandRequest(uint8_t *command);
-	AtCommandRequest(uint8_t *command, uint8_t *commandValue, uint8_t commandValueLength);
-	uint8_t getFrameData(uint8_t pos);
-	uint8_t getFrameDataLength();
-	uint8_t* getCommand();
-	void setCommand(uint8_t* command);
-	uint8_t* getCommandValue();
-	void setCommandValue(uint8_t* command);
-	uint8_t getCommandValueLength();
-	void setCommandValueLength(uint8_t length);
-	/**
-	 * Clears the optional commandValue and commandValueLength so that a query may be sent
-	 */
-	void clearCommandValue();
-	//void reset();
-private:
-	uint8_t *_command;
-	uint8_t *_commandValue;
-	uint8_t _commandValueLength;
+	public:
+		AtCommandRequest();
+		AtCommandRequest(uint8_t *command);
+		AtCommandRequest(uint8_t *command, uint8_t *commandValue, uint8_t commandValueLength);
+		uint8_t getFrameData(uint8_t pos);
+		uint8_t getFrameDataLength();
+		uint8_t* getCommand();
+		void setCommand(uint8_t* command);
+		uint8_t* getCommandValue();
+		void setCommandValue(uint8_t* command);
+		uint8_t getCommandValueLength();
+		void setCommandValueLength(uint8_t length);
+		/**
+		 * Clears the optional commandValue and commandValueLength so that a query may be sent
+		 */
+		void clearCommandValue();
+		//void reset();
+	private:
+		uint8_t *_command;
+		uint8_t *_commandValue;
+		uint8_t _commandValueLength;
 };
 
 /**
@@ -1038,42 +918,38 @@ private:
  * The command is used to configure a remote Ant radio
  */
 class RemoteAtCommandRequest : public AtCommandRequest {
-public:
-	RemoteAtCommandRequest();
-	/**
-	 * Creates a RemoteAtCommandRequest with 16-bit address to set a command.
-	 * 64-bit address defaults to broadcast and applyChanges is true.
-	 */
-	RemoteAtCommandRequest(uint16_t remoteAddress16, uint8_t *command, uint8_t *commandValue, uint8_t commandValueLength);
-	/**
-	 * Creates a RemoteAtCommandRequest with 16-bit address to query a command.
-	 * 64-bit address defaults to broadcast and applyChanges is true.
-	 */
-	RemoteAtCommandRequest(uint16_t remoteAddress16, uint8_t *command);
-	/**
-	 * Creates a RemoteAtCommandRequest with 64-bit address to set a command.
-	 * 16-bit address defaults to broadcast and applyChanges is true.
-	 */
-	RemoteAtCommandRequest(AntAddress64 &remoteAddress64, uint8_t *command, uint8_t *commandValue, uint8_t commandValueLength);
-	/**
-	 * Creates a RemoteAtCommandRequest with 16-bit address to query a command.
-	 * 16-bit address defaults to broadcast and applyChanges is true.
-	 */
-	RemoteAtCommandRequest(AntAddress64 &remoteAddress64, uint8_t *command);
-	uint16_t getRemoteAddress16();
-	void setRemoteAddress16(uint16_t remoteAddress16);
-	AntAddress64& getRemoteAddress64();
-	void setRemoteAddress64(AntAddress64 &remoteAddress64);
-	bool getApplyChanges();
-	void setApplyChanges(bool applyChanges);
-	uint8_t getFrameData(uint8_t pos);
-	uint8_t getFrameDataLength();
-	static AntAddress64 broadcastAddress64;
-//	static uint16_t broadcast16Address;
-private:
-	AntAddress64 _remoteAddress64;
-	uint16_t _remoteAddress16;
-	bool _applyChanges;
+	public:
+		RemoteAtCommandRequest();
+		/**
+		 * Creates a RemoteAtCommandRequest with 16-bit address to set a command.
+		 * 64-bit address defaults to broadcast and applyChanges is true.
+		 */
+		RemoteAtCommandRequest(uint16_t remoteAddress16, uint8_t *command, uint8_t *commandValue, uint8_t commandValueLength);
+		/**
+		 * Creates a RemoteAtCommandRequest with 16-bit address to query a command.
+		 * 64-bit address defaults to broadcast and applyChanges is true.
+		 */
+		RemoteAtCommandRequest(uint16_t remoteAddress16, uint8_t *command);
+		/**
+		 * Creates a RemoteAtCommandRequest with 64-bit address to set a command.
+		 * 16-bit address defaults to broadcast and applyChanges is true.
+		 */
+		RemoteAtCommandRequest(AntAddress64 &remoteAddress64, uint8_t *command, uint8_t *commandValue, uint8_t commandValueLength);
+		/**
+		 * Creates a RemoteAtCommandRequest with 16-bit address to query a command.
+		 * 16-bit address defaults to broadcast and applyChanges is true.
+		 */
+		RemoteAtCommandRequest(AntAddress64 &remoteAddress64, uint8_t *command);
+		uint16_t getRemoteAddress16();
+		void setRemoteAddress16(uint16_t remoteAddress16);
+		bool getApplyChanges();
+		void setApplyChanges(bool applyChanges);
+		uint8_t getFrameData(uint8_t pos);
+		uint8_t getFrameDataLength();
+	//	static uint16_t broadcast16Address;
+	private:
+		uint16_t _remoteAddress16;
+		bool _applyChanges;
 };
 
 
