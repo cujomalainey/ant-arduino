@@ -126,10 +126,6 @@ void AntResponse::getZBTxStatusResponse(AntResponse &zbAntResponse) {
 	setCommon(zbAntResponse);
 }
 
-ZBRxResponse::ZBRxResponse(): RxDataResponse() {
-	_remoteAddress64 = AntAddress64();
-}
-
 uint16_t ZBRxResponse::getRemoteAddress16() {
 	return 	(getFrameData()[8] << 8) + getFrameData()[9];
 }
@@ -147,10 +143,6 @@ uint8_t ZBRxResponse::getDataLength() {
 	return getPacketLength() - getDataOffset() - 1;
 }
 
-AntAddress64& ZBRxResponse::getRemoteAddress64() {
-	return _remoteAddress64;
-}
-
 void AntResponse::getZBRxResponse(AntResponse &rxResponse) {
 
 	ZBRxResponse* zb = static_cast<ZBRxResponse*>(&rxResponse);
@@ -160,9 +152,6 @@ void AntResponse::getZBRxResponse(AntResponse &rxResponse) {
 	// pass pointer array to subclass
 	zb->setFrameData(getFrameData());
 	setCommon(rxResponse);
-
-	zb->getRemoteAddress64().setMsb((uint32_t(getFrameData()[0]) << 24) + (uint32_t(getFrameData()[1]) << 16) + (uint16_t(getFrameData()[2]) << 8) + getFrameData()[3]);
-	zb->getRemoteAddress64().setLsb((uint32_t(getFrameData()[4]) << 24) + (uint32_t(getFrameData()[5]) << 16) + (uint16_t(getFrameData()[6]) << 8) + (getFrameData()[7]));
 }
 
 ZBExplicitRxResponse::ZBExplicitRxResponse(): ZBRxResponse() {
@@ -1019,21 +1008,17 @@ void Ant::send(AntRequest &request) {
 	sendByte(START_BYTE, false);
 
 	// send length
-	uint8_t msbLen = ((request.getFrameDataLength() + 2) >> 8) & 0xff;
-	uint8_t lsbLen = (request.getFrameDataLength() + 2) & 0xff;
+	uint8_t len = (request.getFrameDataLength() + 2);
 
-	sendByte(msbLen, true);
-	sendByte(lsbLen, true);
+	sendByte(len, true);
 
-	// api id
+	// Msg id
 	sendByte(request.getMsgId(), true);
-	sendByte(request.getFrameId(), true);
 
 	uint8_t checksum = 0;
 
 	// compute checksum, start at api id
-	checksum+= request.getMsgId();
-	checksum+= request.getFrameId();
+	checksum ^= request.getMsgId();
 
 	for (int i = 0; i < request.getFrameDataLength(); i++) {
 		sendByte(request.getFrameData(i), true);
@@ -1048,11 +1033,5 @@ void Ant::send(AntRequest &request) {
 }
 
 void Ant::sendByte(uint8_t b, bool escape) {
-
-	if (escape && (b == START_BYTE || b == ESCAPE || b == XON || b == XOFF)) {
-		write(ESCAPE);
-		write(b ^ 0x20);
-	} else {
-		write(b);
-	}
+	write(b);
 }
