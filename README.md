@@ -2,6 +2,9 @@
 
 Arduino library for communicating with ANT radios, with support for nrf51 devices. This library Includes support for the majority of packet types, including: channel config.
 
+## Status
+
+[![Build Status](https://travis-ci.org/cujomalainey/ant-arduino.svg?branch=master)](https://travis-ci.org/cujomalainey/ant-arduino)
 
 ## News
 
