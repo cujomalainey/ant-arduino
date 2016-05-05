@@ -39,6 +39,8 @@ install:
 script:
     - platformio run
 
+after_success:
+    - coveralls
 
 #
 # Template #2: The project is intended to by used as a library with examples
