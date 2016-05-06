@@ -55,14 +55,6 @@ void AntResponse::setChecksum(uint8_t checksum) {
 	_checksum = checksum;
 }
 
-uint8_t AntResponse::getFrameDataLength() {
-	return _frameLength;
-}
-
-void AntResponse::setFrameLength(uint8_t frameLength) {
-	_frameLength = frameLength;
-}
-
 bool AntResponse::isAvailable() {
 	return _complete;
 }
@@ -89,321 +81,94 @@ void AntResponse::setCommon(AntResponse &target) {
 	target.setAvailable(isAvailable());
 	target.setChecksum(getChecksum());
 	target.setErrorCode(getErrorCode());
-	target.setFrameLength(getFrameDataLength());
 	target.setLength(getLength());
 }
 
-ZBTxStatusResponse::ZBTxStatusResponse() : FrameIdResponse() {
+ChannelEventResponse::ChannelEventResponse() : AntResponse() {
 
 }
 
-uint16_t ZBTxStatusResponse::getRemoteAddress() {
-	return  (getFrameData()[1] << 8) + getFrameData()[2];
+uint8_t ChannelEventResponse::getChannelNumber() {
+	return  getFrameData()[0];
 }
 
-uint8_t ZBTxStatusResponse::getTxRetryCount() {
-	return getFrameData()[3];
+uint8_t ChannelEventResponse::getMsgId() {
+	return getFrameData()[1];
 }
 
-uint8_t ZBTxStatusResponse::getDeliveryStatus() {
-	return getFrameData()[4];
+uint8_t ChannelEventResponse::getCode() {
+	return getFrameData()[2];
 }
 
-uint8_t ZBTxStatusResponse::getDiscoveryStatus() {
-	return getFrameData()[5];
+uint8_t ChannelEventResponse::getExtendedEventParameters() {
+	if (getLength() > 3){
+		return getFrameData()[3];
+	}
+	else {
+		return INVALID_REQUEST;
+	}
 }
 
-bool ZBTxStatusResponse::isSuccess() {
-	return getDeliveryStatus() == SUCCESS;
-}
-
-void AntResponse::getZBTxStatusResponse(AntResponse &zbAntResponse) {
+void AntResponse::getStartUpMsg(AntResponse &response) {
 
 	// way off?
-	ZBTxStatusResponse* zb = static_cast<ZBTxStatusResponse*>(&zbAntResponse);
+	StartUpMessage* startUpMsg = static_cast<StartUpMessage*>(&response);
 	// pass pointer array to subclass
-	zb->setFrameData(getFrameData());
-	setCommon(zbAntResponse);
+	startUpMsg->setFrameData(getFrameData());
+	setCommon(response);
 }
 
-uint16_t ZBRxResponse::getRemoteAddress16() {
-	return 	(getFrameData()[8] << 8) + getFrameData()[9];
-}
+void AntResponse::getBroadcastDataMsg(AntResponse &rxResponse) {
 
-uint8_t ZBRxResponse::getOption() {
-	return getFrameData()[10];
-}
-
-// markers to read data from packet array.  this is the index, so the 12th item in the array
-uint8_t ZBRxResponse::getDataOffset() {
-	return 11;
-}
-
-uint8_t ZBRxResponse::getDataLength() {
-	return getPacketLength() - getDataOffset() - 1;
-}
-
-void AntResponse::getZBRxResponse(AntResponse &rxResponse) {
-
-	ZBRxResponse* zb = static_cast<ZBRxResponse*>(&rxResponse);
+	BroadcastData* ant = static_cast<BroadcastData*>(&rxResponse);
 
 	//TODO verify response api id matches this api for this response
 
 	// pass pointer array to subclass
-	zb->setFrameData(getFrameData());
+	ant->setFrameData(getFrameData());
 	setCommon(rxResponse);
 }
 
-ZBExplicitRxResponse::ZBExplicitRxResponse(): ZBRxResponse() {
-}
-
-uint8_t ZBExplicitRxResponse::getSrcEndpoint() {
-	return getFrameData()[10];
-}
-
-uint8_t ZBExplicitRxResponse::getDstEndpoint() {
-	return getFrameData()[11];
-}
-
-uint16_t ZBExplicitRxResponse::getClusterId() {
-	return (uint16_t)(getFrameData()[12]) << 8 | getFrameData()[13];
-}
-
-uint16_t ZBExplicitRxResponse::getProfileId() {
-	return (uint16_t)(getFrameData()[14]) << 8 | getFrameData()[15];
-}
-
-uint8_t ZBExplicitRxResponse::getOption() {
-	return getFrameData()[16];
-}
-
-// markers to read data from packet array.
-uint8_t ZBExplicitRxResponse::getDataOffset() {
-	return 17;
-}
-
-uint8_t ZBExplicitRxResponse::getDataLength() {
-	return getPacketLength() - getDataOffset() - 1;
-}
-
-void AntResponse::getZBExplicitRxResponse(AntResponse &rxResponse) {
-	// Nothing to add to that
-	getZBRxResponse(rxResponse);
-}
-
-
-ZBRxIoSampleResponse::ZBRxIoSampleResponse() : ZBRxResponse() {
-
-}
-
-// 64 + 16 addresses, sample size, option = 12 (index 11), so this starts at 12
-uint8_t ZBRxIoSampleResponse::getDigitalMaskMsb() {
-	return getFrameData()[12] & 0x1c;
-}
-
-uint8_t ZBRxIoSampleResponse::getDigitalMaskLsb() {
-	return getFrameData()[13];
-}
-
-uint8_t ZBRxIoSampleResponse::getAnalogMask() {
-	return getFrameData()[14] & 0x8f;
-}
-
-bool ZBRxIoSampleResponse::containsAnalog() {
-	return getAnalogMask() > 0;
-}
-
-bool ZBRxIoSampleResponse::containsDigital() {
-	return getDigitalMaskMsb() > 0 || getDigitalMaskLsb() > 0;
-}
-
-bool ZBRxIoSampleResponse::isAnalogEnabled(uint8_t pin) {
-	return ((getAnalogMask() >> pin) & 1) == 1;
-}
-
-bool ZBRxIoSampleResponse::isDigitalEnabled(uint8_t pin) {
-	if (pin <= 7) {
-		// added extra parens to calm avr compiler
-		return ((getDigitalMaskLsb() >> pin) & 1) == 1;
-	} else {
-		return ((getDigitalMaskMsb() >> (pin - 8)) & 1) == 1;
-	}
-}
-
-uint16_t ZBRxIoSampleResponse::getAnalog(uint8_t pin) {
-	// analog starts 13 bytes after sample size, if no dio enabled
-	uint8_t start = 15;
-
-	if (containsDigital()) {
-		// make room for digital i/o
-		start+=2;
-	}
-
-	// start depends on how many pins before this pin are enabled
-	for (int i = 0; i < pin; i++) {
-		if (isAnalogEnabled(i)) {
-			start+=2;
-		}
-	}
-
-	return (uint16_t)((getFrameData()[start] << 8) + getFrameData()[start + 1]);
-}
-
-bool ZBRxIoSampleResponse::isDigitalOn(uint8_t pin) {
-	if (pin <= 7) {
-		// D0-7
-		// DIO LSB is index 5
-		return ((getFrameData()[16] >> pin) & 1) == 1;
-	} else {
-		// D10-12
-		// DIO MSB is index 4
-		return ((getFrameData()[15] >> (pin - 8)) & 1) == 1;
-	}
-}
-
-void AntResponse::getZBRxIoSampleResponse(AntResponse &response) {
-	ZBRxIoSampleResponse* zb = static_cast<ZBRxIoSampleResponse*>(&response);
-
-
-	// pass pointer array to subclass
-	zb->setFrameData(getFrameData());
-	setCommon(response);
-
-	zb->getRemoteAddress64().setMsb((uint32_t(getFrameData()[0]) << 24) + (uint32_t(getFrameData()[1]) << 16) + (uint16_t(getFrameData()[2]) << 8) + getFrameData()[3]);
-	zb->getRemoteAddress64().setLsb((uint32_t(getFrameData()[4]) << 24) + (uint32_t(getFrameData()[5]) << 16) + (uint16_t(getFrameData()[6]) << 8) + (getFrameData()[7]));
-}
-
-RemoteAtCommandResponse::RemoteAtCommandResponse() : AtCommandResponse() {
-
-}
-
-uint8_t* RemoteAtCommandResponse::getCommand() {
-	return getFrameData() + 11;
-}
-
-uint8_t RemoteAtCommandResponse::getStatus() {
-	return getFrameData()[13];
-}
-
-bool RemoteAtCommandResponse::isOk() {
-	// weird c++ behavior.  w/o this method, it calls AtCommandResponse::isOk(), which calls the AtCommandResponse::getStatus, not this.getStatus!!!
-	return getStatus() == AT_OK;
-}
-
-uint8_t RemoteAtCommandResponse::getValueLength() {
-	return getFrameDataLength() - 14;
-}
-
-uint8_t* RemoteAtCommandResponse::getValue() {
-	if (getValueLength() > 0) {
-		// value is only included for query commands.  set commands does not return a value
-		return getFrameData() + 14;
-	}
-
-	return NULL;
-}
-
-uint16_t RemoteAtCommandResponse::getRemoteAddress16() {
-	return uint16_t((getFrameData()[9] << 8) + getFrameData()[10]);
-}
-
-AntAddress64& RemoteAtCommandResponse::getRemoteAddress64() {
-	return _remoteAddress64;
-}
-
-void AntResponse::getRemoteAtCommandResponse(AntResponse &response) {
+void AntResponse::getChannelEventResponseMsg(AntResponse &response) {
 
 	// TODO no real need to cast.  change arg to match expected class
-	RemoteAtCommandResponse* at = static_cast<RemoteAtCommandResponse*>(&response);
+	ChannelEventResponse* cer = static_cast<ChannelEventResponse*>(&response);
 
 	// pass pointer array to subclass
-	at->setFrameData(getFrameData());
+	cer->setFrameData(getFrameData());
 	setCommon(response);
 
-	at->getRemoteAddress64().setMsb((uint32_t(getFrameData()[1]) << 24) + (uint32_t(getFrameData()[2]) << 16) + (uint16_t(getFrameData()[3]) << 8) + getFrameData()[4]);
-	at->getRemoteAddress64().setLsb((uint32_t(getFrameData()[5]) << 24) + (uint32_t(getFrameData()[6]) << 16) + (uint16_t(getFrameData()[7]) << 8) + (getFrameData()[8]));
+}
+
+AntRxDataResponse::AntRxDataResponse() : AntResponse() {
 
 }
 
-RxDataResponse::RxDataResponse() : AntResponse() {
-
-}
-
-uint8_t RxDataResponse::getData(int index) {
+uint8_t AntRxDataResponse::getData(int index) {
 	return getFrameData()[getDataOffset() + index];
 }
 
-uint8_t* RxDataResponse::getData() {
+uint8_t* AntRxDataResponse::getData() {
 	return getFrameData() + getDataOffset();
 }
 
-FrameIdResponse::FrameIdResponse() {
+void AntResponse::getAcknowledgedDataMsg(AntResponse &ackDataResponse) {
 
-}
-
-uint8_t FrameIdResponse::getFrameId() {
-	return getFrameData()[0];
-}
-
-
-ModemStatusResponse::ModemStatusResponse() {
-
-}
-
-uint8_t ModemStatusResponse::getStatus() {
-	return getFrameData()[0];
-}
-
-void AntResponse::getModemStatusResponse(AntResponse &modemStatusResponse) {
-
-	ModemStatusResponse* modem = static_cast<ModemStatusResponse*>(&modemStatusResponse);
+	AcknowledgedData* ackData = static_cast<AcknowledgedData*>(&ackDataResponse);
 
 	// pass pointer array to subclass
-	modem->setFrameData(getFrameData());
-	setCommon(modemStatusResponse);
+	ackData->setFrameData(getFrameData());
+	setCommon(ackDataResponse);
 
 }
 
-AtCommandResponse::AtCommandResponse() {
+void AntResponse::getBurstDataTransferMsg(AntResponse &burstDataResponse) {
 
-}
-
-uint8_t* AtCommandResponse::getCommand() {
-	return getFrameData() + 1;
-}
-
-uint8_t AtCommandResponse::getStatus() {
-	return getFrameData()[3];
-}
-
-uint8_t AtCommandResponse::getValueLength() {
-	return getFrameDataLength() - 4;
-}
-
-uint8_t* AtCommandResponse::getValue() {
-	if (getValueLength() > 0) {
-		// value is only included for query commands.  set commands does not return a value
-		return getFrameData() + 4;
-	}
-
-	return NULL;
-}
-
-bool AtCommandResponse::isOk() {
-	return getStatus() == AT_OK;
-}
-
-void AntResponse::getAtCommandResponse(AntResponse &atCommandResponse) {
-
-	AtCommandResponse* at = static_cast<AtCommandResponse*>(&atCommandResponse);
+	BurstDataTransfer* burstData = static_cast<BurstDataTransfer*>(&burstDataResponse);
 
 	// pass pointer array to subclass
-	at->setFrameData(getFrameData());
-	setCommon(atCommandResponse);
-}
-
-uint16_t AntResponse::getPacketLength() {
-	return _length & 0xff;
+	burstData->setFrameData(getFrameData());
+	setCommon(burstDataResponse);
 }
 
 uint8_t* AntResponse::getFrameData() {
@@ -425,7 +190,6 @@ void AntResponse::reset() {
 	_msgId = 0;
 	_length = 0;
 	_checksum = 0;
-	_frameLength = 0;
 
 	_errorCode = NO_ERROR;
 }
@@ -495,8 +259,6 @@ void Ant::getResponse(AntResponse &response) {
 
 	response.setLength(_response.getLength());
 	response.setMsgId(_response.getMsgId());
-	response.setFrameLength(_response.getFrameDataLength());
-
 	response.setFrameData(_response.getFrameData());
 }
 
@@ -546,7 +308,7 @@ void Ant::readPacket() {
 
         switch(_pos) {
 			case 0:
-		        if (b == START_BYTE) {
+		        if (b == ANT_START_BYTE) {
 		        	_pos++;
 		        }
 
@@ -565,7 +327,7 @@ void Ant::readPacket() {
 			default:
 				// starts at fifth byte
 
-				if (_pos > MAX_FRAME_DATA_SIZE) {
+				if (_pos > ANT_MAX_MSG_DATA_SIZE) {
 					// exceed max size.  should never occur
 					_response.setErrorCode(PACKET_EXCEEDS_BYTE_ARRAY_LENGTH);
 					return;
@@ -604,17 +366,8 @@ void Ant::readPacket() {
 
 // it's peanut butter jelly time!!
 
-AntRequest::AntRequest(uint8_t msgId, uint8_t frameId) {
+AntRequest::AntRequest(uint8_t msgId) {
 	_msgId = msgId;
-	_frameId = frameId;
-}
-
-void AntRequest::setFrameId(uint8_t frameId) {
-	_frameId = frameId;
-}
-
-uint8_t AntRequest::getFrameId() {
-	return _frameId;
 }
 
 uint8_t AntRequest::getMsgId() {
@@ -623,377 +376,6 @@ uint8_t AntRequest::getMsgId() {
 
 void AntRequest::setMsgId(uint8_t msgId) {
 	_msgId = msgId;
-}
-
-//void AntRequest::reset() {
-//	_frameId = DEFAULT_FRAME_ID;
-//}
-
-//uint8_t AntRequest::getPayloadOffset() {
-//	return _payloadOffset;
-//}
-//
-//uint8_t AntRequest::setPayloadOffset(uint8_t payloadOffset) {
-//	_payloadOffset = payloadOffset;
-//}
-
-
-PayloadRequest::PayloadRequest(uint8_t apiId, uint8_t frameId, uint8_t *payload, uint8_t payloadLength) : AntRequest(apiId, frameId) {
-	_payloadPtr = payload;
-	_payloadLength = payloadLength;
-}
-
-uint8_t* PayloadRequest::getPayload() {
-	return _payloadPtr;
-}
-
-void PayloadRequest::setPayload(uint8_t* payload) {
-	_payloadPtr = payload;
-}
-
-uint8_t PayloadRequest::getPayloadLength() {
-	return _payloadLength;
-}
-
-void PayloadRequest::setPayloadLength(uint8_t payloadLength) {
-	_payloadLength = payloadLength;
-}
-
-ZBTxRequest::ZBTxRequest() : PayloadRequest(ZB_TX_REQUEST, DEFAULT_FRAME_ID, NULL, 0) {
-	_addr16 = ZB_BROADCAST_ADDRESS;
-	_broadcastRadius = ZB_BROADCAST_RADIUS_MAX_HOPS;
-	_option = ZB_TX_UNICAST;
-}
-
-ZBTxRequest::ZBTxRequest(const AntAddress64 &addr64, uint16_t addr16, uint8_t broadcastRadius, uint8_t option, uint8_t *data, uint8_t dataLength, uint8_t frameId): PayloadRequest(ZB_TX_REQUEST, frameId, data, dataLength) {
-	_addr64 = addr64;
-	_addr16 = addr16;
-	_broadcastRadius = broadcastRadius;
-	_option = option;
-}
-
-ZBTxRequest::ZBTxRequest(const AntAddress64 &addr64, uint8_t *data, uint8_t dataLength): PayloadRequest(ZB_TX_REQUEST, DEFAULT_FRAME_ID, data, dataLength) {
-	_addr64 = addr64;
-	_addr16 = ZB_BROADCAST_ADDRESS;
-	_broadcastRadius = ZB_BROADCAST_RADIUS_MAX_HOPS;
-	_option = ZB_TX_UNICAST;
-}
-
-uint8_t ZBTxRequest::getFrameData(uint8_t pos) {
-	if (pos == 0) {
-		return (_addr64.getMsb() >> 24) & 0xff;
-	} else if (pos == 1) {
-		return (_addr64.getMsb() >> 16) & 0xff;
-	} else if (pos == 2) {
-		return (_addr64.getMsb() >> 8) & 0xff;
-	} else if (pos == 3) {
-		return _addr64.getMsb() & 0xff;
-	} else if (pos == 4) {
-		return (_addr64.getLsb() >> 24) & 0xff;
-	} else if (pos == 5) {
-		return  (_addr64.getLsb() >> 16) & 0xff;
-	} else if (pos == 6) {
-		return (_addr64.getLsb() >> 8) & 0xff;
-	} else if (pos == 7) {
-		return _addr64.getLsb() & 0xff;
-	} else if (pos == 8) {
-		return (_addr16 >> 8) & 0xff;
-	} else if (pos == 9) {
-		return _addr16 & 0xff;
-	} else if (pos == 10) {
-		return _broadcastRadius;
-	} else if (pos == 11) {
-		return _option;
-	} else {
-		return getPayload()[pos - ZB_TX_API_LENGTH];
-	}
-}
-
-uint8_t ZBTxRequest::getFrameDataLength() {
-	return ZB_TX_API_LENGTH + getPayloadLength();
-}
-
-AntAddress64& ZBTxRequest::getAddress64() {
-	return _addr64;
-}
-
-uint16_t ZBTxRequest::getAddress16() {
-	return _addr16;
-}
-
-uint8_t ZBTxRequest::getBroadcastRadius() {
-	return _broadcastRadius;
-}
-
-uint8_t ZBTxRequest::getOption() {
-	return _option;
-}
-
-void ZBTxRequest::setAddress64(const AntAddress64& addr64) {
-	_addr64 = addr64;
-}
-
-void ZBTxRequest::setAddress16(uint16_t addr16) {
-	_addr16 = addr16;
-}
-
-void ZBTxRequest::setBroadcastRadius(uint8_t broadcastRadius) {
-	_broadcastRadius = broadcastRadius;
-}
-
-void ZBTxRequest::setOption(uint8_t option) {
-	_option = option;
-}
-
-
-
-ZBExplicitTxRequest::ZBExplicitTxRequest() : ZBTxRequest() {
-	_srcEndpoint = DEFAULT_ENDPOINT;
-	_dstEndpoint = DEFAULT_ENDPOINT;
-	_profileId = DEFAULT_PROFILE_ID;
-	_clusterId = DEFAULT_CLUSTER_ID;
-	setMsgId(ZB_EXPLICIT_TX_REQUEST);
-}
-
-ZBExplicitTxRequest::ZBExplicitTxRequest(AntAddress64 &addr64, uint16_t addr16, uint8_t broadcastRadius, uint8_t option, uint8_t *payload, uint8_t payloadLength, uint8_t frameId, uint8_t srcEndpoint, uint8_t dstEndpoint, uint16_t clusterId, uint16_t profileId)
-: ZBTxRequest(addr64, addr16, broadcastRadius, option, payload, payloadLength, frameId) {
-	_srcEndpoint = srcEndpoint;
-	_dstEndpoint = dstEndpoint;
-	_profileId = profileId;
-	_clusterId = clusterId;
-	setMsgId(ZB_EXPLICIT_TX_REQUEST);
-}
-
-ZBExplicitTxRequest::ZBExplicitTxRequest(AntAddress64 &addr64, uint8_t *payload, uint8_t payloadLength)
-: ZBTxRequest(addr64, payload, payloadLength) {
-	_srcEndpoint = DEFAULT_ENDPOINT;
-	_dstEndpoint = DEFAULT_ENDPOINT;
-	_profileId = DEFAULT_PROFILE_ID;
-	_clusterId = DEFAULT_CLUSTER_ID;
-	setMsgId(ZB_EXPLICIT_TX_REQUEST);
-}
-
-uint8_t ZBExplicitTxRequest::getFrameData(uint8_t pos) {
-	if (pos < 10) {
-		return ZBTxRequest::getFrameData(pos);
-	} else if (pos == 10) {
-		return _srcEndpoint;
-	} else if (pos == 11) {
-		return _dstEndpoint;
-	} else if (pos == 12) {
-		return (_clusterId >> 8) & 0xff;
-	} else if (pos == 13) {
-		return _clusterId & 0xff;
-	} else if (pos == 14) {
-		return (_profileId >> 8) & 0xff;
-	} else if (pos == 15) {
-		return _profileId & 0xff;
-	} else if (pos == 16) {
-		return _broadcastRadius;
-	} else if (pos == 17) {
-		return _option;
-	} else {
-		return getPayload()[pos - ZB_EXPLICIT_TX_API_LENGTH];
-	}
-}
-
-uint8_t ZBExplicitTxRequest::getFrameDataLength() {
-	return ZB_EXPLICIT_TX_API_LENGTH + getPayloadLength();
-}
-
-uint8_t ZBExplicitTxRequest::getSrcEndpoint() {
-	return _srcEndpoint;
-}
-
-uint8_t ZBExplicitTxRequest::getDstEndpoint() {
-	return _dstEndpoint;
-}
-
-uint16_t ZBExplicitTxRequest::getClusterId() {
-	return _clusterId;
-}
-
-uint16_t ZBExplicitTxRequest::getProfileId() {
-	return _profileId;
-}
-
-void ZBExplicitTxRequest::setSrcEndpoint(uint8_t endpoint) {
-	_srcEndpoint = endpoint;
-}
-
-void ZBExplicitTxRequest::setDstEndpoint(uint8_t endpoint) {
-	_dstEndpoint = endpoint;
-}
-
-void ZBExplicitTxRequest::setClusterId(uint16_t clusterId) {
-	_clusterId = clusterId;
-}
-
-void ZBExplicitTxRequest::setProfileId(uint16_t profileId) {
-	_profileId = profileId;
-}
-
-AtCommandRequest::AtCommandRequest() : AntRequest(AT_COMMAND_REQUEST, DEFAULT_FRAME_ID) {
-	_command = NULL;
-	clearCommandValue();
-}
-
-AtCommandRequest::AtCommandRequest(uint8_t *command, uint8_t *commandValue, uint8_t commandValueLength) : AntRequest(AT_COMMAND_REQUEST, DEFAULT_FRAME_ID) {
-	_command = command;
-	_commandValue = commandValue;
-	_commandValueLength = commandValueLength;
-}
-
-AtCommandRequest::AtCommandRequest(uint8_t *command) : AntRequest(AT_COMMAND_REQUEST, DEFAULT_FRAME_ID) {
-	_command = command;
-	clearCommandValue();
-}
-
-uint8_t* AtCommandRequest::getCommand() {
-	return _command;
-}
-
-uint8_t* AtCommandRequest::getCommandValue() {
-	return _commandValue;
-}
-
-uint8_t AtCommandRequest::getCommandValueLength() {
-	return _commandValueLength;
-}
-
-void AtCommandRequest::setCommand(uint8_t* command) {
-	_command = command;
-}
-
-void AtCommandRequest::setCommandValue(uint8_t* value) {
-	_commandValue = value;
-}
-
-void AtCommandRequest::setCommandValueLength(uint8_t length) {
-	_commandValueLength = length;
-}
-
-uint8_t AtCommandRequest::getFrameData(uint8_t pos) {
-
-	if (pos == 0) {
-		return _command[0];
-	} else if (pos == 1) {
-		return _command[1];
-	} else {
-		return _commandValue[pos - AT_COMMAND_API_LENGTH];
-	}
-}
-
-void AtCommandRequest::clearCommandValue() {
-	_commandValue = NULL;
-	_commandValueLength = 0;
-}
-
-//void AtCommandRequest::reset() {
-//	 AntRequest::reset();
-//}
-
-uint8_t AtCommandRequest::getFrameDataLength() {
-	// command is 2 byte + length of value
-	return AT_COMMAND_API_LENGTH + _commandValueLength;
-}
-
-AntAddress64 RemoteAtCommandRequest::broadcastAddress64 = AntAddress64(0x0, BROADCAST_ADDRESS);
-
-RemoteAtCommandRequest::RemoteAtCommandRequest() : AtCommandRequest(NULL, NULL, 0) {
-	_remoteAddress16 = 0;
-	_applyChanges = false;
-	setMsgId(REMOTE_AT_REQUEST);
-}
-
-RemoteAtCommandRequest::RemoteAtCommandRequest(uint16_t remoteAddress16, uint8_t *command, uint8_t *commandValue, uint8_t commandValueLength) : AtCommandRequest(command, commandValue, commandValueLength) {
-	_remoteAddress64 = broadcastAddress64;
-	_remoteAddress16 = remoteAddress16;
-	_applyChanges = true;
-	setMsgId(REMOTE_AT_REQUEST);
-}
-
-RemoteAtCommandRequest::RemoteAtCommandRequest(uint16_t remoteAddress16, uint8_t *command) : AtCommandRequest(command, NULL, 0) {
-	_remoteAddress64 = broadcastAddress64;
-	_remoteAddress16 = remoteAddress16;
-	_applyChanges = false;
-	setMsgId(REMOTE_AT_REQUEST);
-}
-
-RemoteAtCommandRequest::RemoteAtCommandRequest(AntAddress64 &remoteAddress64, uint8_t *command, uint8_t *commandValue, uint8_t commandValueLength) : AtCommandRequest(command, commandValue, commandValueLength) {
-	_remoteAddress64 = remoteAddress64;
-	// don't worry.. works for series 1 too!
-	_remoteAddress16 = ZB_BROADCAST_ADDRESS;
-	_applyChanges = true;
-	setMsgId(REMOTE_AT_REQUEST);
-}
-
-RemoteAtCommandRequest::RemoteAtCommandRequest(AntAddress64 &remoteAddress64, uint8_t *command) : AtCommandRequest(command, NULL, 0) {
-	_remoteAddress64 = remoteAddress64;
-	_remoteAddress16 = ZB_BROADCAST_ADDRESS;
-	_applyChanges = false;
-	setMsgId(REMOTE_AT_REQUEST);
-}
-
-uint16_t RemoteAtCommandRequest::getRemoteAddress16() {
-	return _remoteAddress16;
-}
-
-void RemoteAtCommandRequest::setRemoteAddress16(uint16_t remoteAddress16) {
-	_remoteAddress16 = remoteAddress16;
-}
-
-AntAddress64& RemoteAtCommandRequest::getRemoteAddress64() {
-	return _remoteAddress64;
-}
-
-void RemoteAtCommandRequest::setRemoteAddress64(AntAddress64 &remoteAddress64) {
-	_remoteAddress64 = remoteAddress64;
-}
-
-bool RemoteAtCommandRequest::getApplyChanges() {
-	return _applyChanges;
-}
-
-void RemoteAtCommandRequest::setApplyChanges(bool applyChanges) {
-	_applyChanges = applyChanges;
-}
-
-
-uint8_t RemoteAtCommandRequest::getFrameData(uint8_t pos) {
-	if (pos == 0) {
-		return (_remoteAddress64.getMsb() >> 24) & 0xff;
-	} else if (pos == 1) {
-		return (_remoteAddress64.getMsb() >> 16) & 0xff;
-	} else if (pos == 2) {
-		return (_remoteAddress64.getMsb() >> 8) & 0xff;
-	} else if (pos == 3) {
-		return _remoteAddress64.getMsb() & 0xff;
-	} else if (pos == 4) {
-		return (_remoteAddress64.getLsb() >> 24) & 0xff;
-	} else if (pos == 5) {
-		return (_remoteAddress64.getLsb() >> 16) & 0xff;
-	} else if (pos == 6) {
-		return(_remoteAddress64.getLsb() >> 8) & 0xff;
-	} else if (pos == 7) {
-		return _remoteAddress64.getLsb() & 0xff;
-	} else if (pos == 8) {
-		return (_remoteAddress16 >> 8) & 0xff;
-	} else if (pos == 9) {
-		return _remoteAddress16 & 0xff;
-	} else if (pos == 10) {
-		return _applyChanges ? 2: 0;
-	} else if (pos == 11) {
-		return getCommand()[0];
-	} else if (pos == 12) {
-		return getCommand()[1];
-	} else {
-		return getCommandValue()[pos - REMOTE_AT_COMMAND_API_LENGTH];
-	}
-}
-
-uint8_t RemoteAtCommandRequest::getFrameDataLength() {
-	return REMOTE_AT_COMMAND_API_LENGTH + getCommandValueLength();
 }
 
 
@@ -1005,15 +387,15 @@ uint8_t RemoteAtCommandRequest::getFrameDataLength() {
 void Ant::send(AntRequest &request) {
 	// the new new deal
 
-	sendByte(START_BYTE, false);
+	write(ANT_START_BYTE);
 
 	// send length
-	uint8_t len = (request.getFrameDataLength() + 2);
+	uint8_t len = (request.getFrameDataLength());
 
-	sendByte(len, true);
+	write(len);
 
 	// Msg id
-	sendByte(request.getMsgId(), true);
+	write(request.getMsgId());
 
 	uint8_t checksum = 0;
 
@@ -1021,17 +403,11 @@ void Ant::send(AntRequest &request) {
 	checksum ^= request.getMsgId();
 
 	for (int i = 0; i < request.getFrameDataLength(); i++) {
-		sendByte(request.getFrameData(i), true);
-		checksum+= request.getFrameData(i);
+		write(request.getFrameData(i));
+		checksum ^= request.getFrameData(i);
 	}
 
-	// perform 2s complement
-	checksum = 0xff - checksum;
 
 	// send checksum
-	sendByte(checksum, true);
-}
-
-void Ant::sendByte(uint8_t b, bool escape) {
-	write(b);
+	write(checksum);
 }

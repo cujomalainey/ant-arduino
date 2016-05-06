@@ -175,6 +175,9 @@
 #define PACKET_EXCEEDS_BYTE_ARRAY_LENGTH  2
 #define UNEXPECTED_START_BYTE             3
 
+// Framework Defines
+#define INVALID_REQUEST                 0xFF
+
 /**
  * C++11 introduced the constexpr as a hint to the compiler that things
  * can be evaluated at compiletime. This can help to remove
@@ -217,11 +220,6 @@ class AntResponse {
 		 */
 		uint8_t getChecksum();
 		void setChecksum(uint8_t checksum);
-		/**
-		 * Returns the length of the frame data: all bytes after the msg id, and prior to the checksum
-		 * Note up to release 0.1.2, this was incorrectly including the checksum in the length.
-		 */
-		uint8_t getFrameDataLength();
 		void setFrameData(uint8_t* frameDataPtr);
 		/**
 		 * Returns the buffer that contains the response.
@@ -250,50 +248,46 @@ class AntResponse {
 		 * Call with instance of StartUpMessage class only if getMsgId() == START_UP_MESSAGE
 		 * to populate response
 		 */
-		void getStartUpMessage(AntResponse &response);
+		void getStartUpMsg(AntResponse &response);
 		/**
 		 * Call with instance of BroadcastData class only if getMsgId() == BROADCAST_DATA
 		 * to populate response
 		 */
-		void getBroadcastData(AntResponse &response);
+		void getBroadcastDataMsg(AntResponse &response);
 		/**
 		 * Call with instance of AcknowledgedData class only if getMsgId() == ACKNOWLEDGED_DATA
 		 * to populate response
 		 */
-		void getAcknowledgedData(AntResponse &response);
+		void getAcknowledgedDataMsg(AntResponse &response);
 		/**
 		 * Call with instance of BurstTransferData class only if getMsgId() == BURST_TRANSFER_DATA
 		 * to populate response
 		 */
-		void getBurstTransferData(AntResponse &response);
+		void getBurstDataTransferMsg(AntResponse &response);
 		/**
 		 * Call with instance of AdvancedBurstData only if getMsgId() == ADVANCED_BURST_DATA
 		 */
-		void getAdvancedBurstData(AntResponse &responses);
+		void getAdvancedBurstDataMsg(AntResponse &responses);
 		/**
-		 * Call with instance of ChannelEvent only if getMsgId() == CHANNEL_EVENT
+		 * Call with instance of ChannelEvent only if getMsgId() == CHANNEL_EVENT or getMsgId() == CHANNEL_RESPONSE
 		 */
-		void getChannelEvent(AntResponse &response);
-		/**
-		 * Call with instance of ChannelResponse only if getMsgId() == CHANNEL_RESPONSE
-		 */
-		void getChannelResponse(AntResponse &response);
+		void getChannelEventResponseMsg(AntResponse &response);
 		/**
 		 * Call with instance of ChannelStatus only if getMsgId() == CHANNEL_STATUS
 		 */
-		void getChannelStatus(AntResponse &response);
-		/**
-		 * Call with instance of ChannelID only if getMsgId() == CHANNEL_ID
-		 */
-		void getChannelID(AntResponse &response);
+		void getChannelStatusMsg(AntResponse &response);
 		/**
 		 * Call with instance of AntVersion only if getMsgId() == ANT_VERSION
 		 */
-		void getAntVersion(AntResponse &response);
+		void getAntVersionMsg(AntResponse &response);
+		/**
+		 * Call with instance of SerialNumber only if getMsgId() == CAPABILITIES
+		 */
+		void getCapabilitiesMsg(AntResponse &response);
 		/**
 		 * Call with instance of SerialNumber only if getMsgId() == SERIAL_NUMBER
 		 */
-		void getSerialNumber(AntResponse &response);
+		void getSerialNumberMsg(AntResponse &response);
 		/**
 		 * Returns true if the response has been successfully parsed and is complete and ready for use
 		 */
@@ -317,7 +311,6 @@ class AntResponse {
 		uint8_t _msgId;
 		uint8_t _length;
 		uint8_t _checksum;
-		uint8_t _frameLength;
 		bool _complete;
 		uint8_t _errorCode;
 };
@@ -358,6 +351,46 @@ class StartUpMessage : public AntRxDataResponse {
 		static const uint8_t MSG_ID = START_UP_MESSAGE;
 };
 
+/**
+ * Represents a BurstTransferData message
+ */
+class BurstDataTransfer : public AntRxDataResponse {
+	public:
+		BurstDataTransfer();
+		/**
+		 * Returns source channel
+		 */
+		uint8_t getChanneNumber();
+		/**
+		 * Returns sepcified byte of data from payload
+		 */
+		uint8_t getData(uint8_t index);
+		uint8_t getExtendedDataLength();
+		uint8_t getExtendedData(uint8_t index);
+
+		static const uint8_t MSG_ID = BURST_DATA_TRANSFER;
+};
+
+/**
+ * Represents a AcknowledgedData message
+ */
+class AcknowledgedData : public AntRxDataResponse {
+	public:
+		AcknowledgedData();
+		/**
+		 * Returns source channel
+		 */
+		uint8_t getChanneNumber();
+		/**
+		 * Returns sepcified byte of data from payload
+		 */
+		uint8_t getData(uint8_t index);
+		uint8_t getExtendedDataLength();
+		uint8_t getExtendedData(uint8_t index);
+
+		static const uint8_t MSG_ID = ACKNOWLEDGED_DATA;
+};
+
 
 /**
  * Represents a Ant Broadcast data message
@@ -368,7 +401,7 @@ class BroadcastData : public AntRxDataResponse {
 		/**
 		 * Returns source channel
 		 */
-		uint8_t channeNumber();
+		uint8_t getChanneNumber();
 		/**
 		 * Returns sepcified byte of data from payload
 		 */
@@ -380,12 +413,15 @@ class BroadcastData : public AntRxDataResponse {
 };
 
 /**
- * Represents a Modem Status RX packet
+ * Represents a Channel Event or Channel Response Message
  */
 class ChannelEventResponse : public AntResponse {
 public:
 	ChannelEventResponse();
-	uint8_t getStatus();
+	uint8_t getChannelNumber();
+	uint8_t getMsgId();
+	uint8_t getCode();
+	uint8_t getExtendedEventParameters();
 
 	static const uint8_t MSG_ID = CHANNEL_RESPONSE;
 };
@@ -403,7 +439,7 @@ class AntRequest {
 		 * Constructor
 		 * TODO make protected
 		 */
-		AntRequest(uint8_t msgId, uint8_t frameId);
+		AntRequest(uint8_t msgId);
 		/**
 		 * Returns the Msg id
 		 */
@@ -504,7 +540,6 @@ class Ant {
 		uint8_t read();
 		void flush();
 		void write(uint8_t val);
-		void sendByte(uint8_t b, bool escape);
 		void resetResponse();
 		AntResponse _response;
 		bool _escape;
