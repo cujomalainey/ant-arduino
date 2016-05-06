@@ -35,6 +35,7 @@ cache:
 
 install:
     - pip install -U platformio
+    - pip install -U cpp-coveralls
 
 script:
     - platformio run
