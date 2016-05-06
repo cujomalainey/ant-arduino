@@ -122,7 +122,7 @@ void AntResponse::getBroadcastDataMsg(AntResponse &rxResponse) {
 
 	BroadcastData* ant = static_cast<BroadcastData*>(&rxResponse);
 
-	//TODO verify response api id matches this api for this response
+	//TODO verify response msg id matches this msg for this response
 
 	// pass pointer array to subclass
 	ant->setFrameData(getFrameData());
@@ -196,16 +196,13 @@ void AntResponse::reset() {
 
 void Ant::resetResponse() {
 	_pos = 0;
-	_escape = false;
 	_checksumTotal = 0;
 	_response.reset();
 }
 
 Ant::Ant(): _response(AntResponse()) {
         _pos = 0;
-        _escape = false;
         _checksumTotal = 0;
-        _nextFrameId = 0;
 
         _response.init();
         _response.setFrameData(_responseFrameData);
@@ -215,18 +212,6 @@ Ant::Ant(): _response(AntResponse()) {
 #else
         _serial = &Serial;
 #endif
-}
-
-uint8_t Ant::getNextFrameId() {
-
-	_nextFrameId++;
-
-	if (_nextFrameId == 0) {
-		// can't send 0 because that disables status response
-		_nextFrameId = 1;
-	}
-
-	return _nextFrameId;
 }
 
 // Support for SoftwareSerial. Contributed by Paul Stoffregen

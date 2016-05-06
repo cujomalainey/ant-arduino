@@ -549,10 +549,6 @@ public:
 	void send(AntRequest &request);
 	//uint8_t sendAndWaitForResponse(AntRequest &request, int timeout);
 	/**
-	 * Returns a sequential frame id between 1 and 255
-	 */
-	uint8_t getNextFrameId();
-	/**
 	 * Specify the serial port.  Only relevant for Arduinos that support multiple serial ports (e.g. Mega)
 	 */
 	void setSerial(Stream &serial);
@@ -563,13 +559,11 @@ private:
 	void write(uint8_t val);
 	void resetResponse();
 	AntResponse _response;
-	bool _escape;
 	// current packet position for response.  just a state variable for packet parsing and has no relevance for the response otherwise
 	uint8_t _pos;
 	// last byte read
 	uint8_t b;
 	uint8_t _checksumTotal;
-	uint8_t _nextFrameId;
 	// buffer for incoming RX packets.  holds only the msg specific frame data, starting after the msg id byte and prior to checksum
 	uint8_t _responseFrameData[ANT_MAX_MSG_DATA_SIZE];
 	Stream* _serial;
@@ -584,11 +578,6 @@ public:
 	UnAssignChannel();
 	UnAssignChannel(uint8_t channel);
 	void setChannel(uint8_t channel);
-	/**
-	 * Clears the optional commandValue and commandValueLength so that a query may be sent
-	 */
-	void clearCommandValue();
-	//void reset();
 private:
 	uint8_t _channel;
 	uint8_t _commandValueLength = UNASSIGN_CHANNEL_LENGTH;
