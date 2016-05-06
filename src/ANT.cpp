@@ -243,11 +243,16 @@ bool Ant::available() {
 }
 
 uint8_t Ant::read() {
-	return _serial->read();
+	uint8_t val = _serial->read();
+	Serial.print("UART Rx: ");
+	Serial.println(val);
+	return val;
 }
 
 void Ant::write(uint8_t val) {
 	_serial->write(val);
+	Serial.print("UART Tx: ");
+	Serial.println(val);
 }
 
 AntResponse& Ant::getResponse() {
@@ -325,7 +330,7 @@ void Ant::readPacket() {
 
 				break;
 			default:
-				// starts at fifth byte
+				// starts at fourth byte
 
 				if (_pos > ANT_MAX_MSG_DATA_SIZE) {
 					// exceed max size.  should never occur
@@ -334,7 +339,7 @@ void Ant::readPacket() {
 				}
 
 				// check if we're at the end of the packet
-				if (_pos == (_response.getPacketLength())) {
+				if (_pos == (_response.getLength() + 3)) {
 					// verify checksum
 
 					if (_checksumTotal == b) {
@@ -346,10 +351,6 @@ void Ant::readPacket() {
 						// checksum failed
 						_response.setErrorCode(CHECKSUM_FAILURE);
 					}
-
-					// minus 4 because we start after start,length,msg and up to but not including checksum
-					// e.g. if frame was one byte, _pos=4 would be the byte, pos=5 is the checksum, where end stop reading
-					_response.setFrameLength(_pos - 3);
 
 					// reset state vars
 					_pos = 0;
@@ -379,34 +380,70 @@ void AntRequest::setMsgId(uint8_t msgId) {
 }
 
 
-// TODO
-//GenericRequest::GenericRequest(uint8_t* frame, uint8_t len, uint8_t apiId): AntRequest(apiId, *(frame), len) {
-//	_frame = frame;
-//}
+
+AssignChannel::AssignChannel() : AntRequest(ASSIGN_CHANNEL) {
+
+}
+
+void AssignChannel::setChannel(uint8_t channel) {
+	_channel = channel;
+}
+
+void AssignChannel::setChannelType(uint8_t channelType) {
+	_channelType = channelType;
+}
+
+void AssignChannel::setChannelNetwork(uint8_t network) {
+	_network = network;
+}
+
+uint8_t AssignChannel::getChannel() {
+	return _channel;
+}
+
+uint8_t AssignChannel::getChannelType() {
+	return _channelType;
+}
+
+uint8_t AssignChannel::getChannelNetwork() {
+	return _network;
+}
+
+uint8_t AssignChannel::getDataLength() {
+	return ASSIGN_CHANNEL_LENGTH;
+}
+
+uint8_t AssignChannel::getData(uint8_t pos) {
+	if (pos == 0) {
+		return _channel;
+	} else if (pos == 1) {
+		return _channelType;
+	} else {
+		return _network;
+	}
+}
 
 void Ant::send(AntRequest &request) {
+	// checksum is XOR of all bytes
+	uint8_t checksum = 0;
+	
 	// the new new deal
-
+	checksum ^= ANT_START_BYTE;
 	write(ANT_START_BYTE);
 
 	// send length
-	uint8_t len = (request.getFrameDataLength());
-
+	uint8_t len = (request.getDataLength());
+	checksum ^= len;
 	write(len);
 
 	// Msg id
 	write(request.getMsgId());
-
-	uint8_t checksum = 0;
-
-	// compute checksum, start at api id
 	checksum ^= request.getMsgId();
 
-	for (int i = 0; i < request.getFrameDataLength(); i++) {
-		write(request.getFrameData(i));
-		checksum ^= request.getFrameData(i);
+	for (int i = 0; i < request.getDataLength(); i++) {
+		write(request.getData(i));
+		checksum ^= request.getData(i);
 	}
-
 
 	// send checksum
 	write(checksum);

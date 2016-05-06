@@ -124,6 +124,7 @@
  * Message Length Defines
  */
 #define UNASSIGN_CHANNEL_LENGTH         0x01
+#define ASSIGN_CHANNEL_LENGTH           0x03
 
 /**
  * Channel Response Message Codes
@@ -199,196 +200,196 @@
  * It is recommend to reuse subclasses to conserve memory
  */
 class AntResponse {
-	public:
-		//static const int MODEM_STATUS = 0x8a;
-		/**
-		 * Default constructor
-		 */
-		AntResponse();
-		/**
-		 * Returns msg Id of the response
-		 */
-		uint8_t getMsgId();
-		void setMsgId(uint8_t msgId);
-		/**
-		 * Returns the MSB length of the packet
-		 */
-		uint8_t getLength();
-		void setLength(uint8_t length);
-		/**
-		 * Returns the packet checksum
-		 */
-		uint8_t getChecksum();
-		void setChecksum(uint8_t checksum);
-		void setFrameData(uint8_t* frameDataPtr);
-		/**
-		 * Returns the buffer that contains the response.
-		 * Starts with byte that follows MSG ID and includes all bytes prior to the checksum
-		 * Length is specified by getFrameDataLength()
-		 * Note: Unlike Dynasteam's definition of the frame data, this does not start with the MSG ID..
-		 * The reason for this is all responses include an MSG ID, whereas my frame data
-		 * includes only the MSG specific data.
-		 */
-		uint8_t* getFrameData();
+public:
+	//static const int MODEM_STATUS = 0x8a;
+	/**
+	 * Default constructor
+	 */
+	AntResponse();
+	/**
+	 * Returns msg Id of the response
+	 */
+	uint8_t getMsgId();
+	void setMsgId(uint8_t msgId);
+	/**
+	 * Returns the MSB length of the packet
+	 */
+	uint8_t getLength();
+	void setLength(uint8_t length);
+	/**
+	 * Returns the packet checksum
+	 */
+	uint8_t getChecksum();
+	void setChecksum(uint8_t checksum);
+	void setFrameData(uint8_t* frameDataPtr);
+	/**
+	 * Returns the buffer that contains the response.
+	 * Starts with byte that follows MSG ID and includes all bytes prior to the checksum
+	 * Length is specified by getFrameDataLength()
+	 * Note: Unlike Dynasteam's definition of the frame data, this does not start with the MSG ID..
+	 * The reason for this is all responses include an MSG ID, whereas my frame data
+	 * includes only the MSG specific data.
+	 */
+	uint8_t* getFrameData();
 
-		void setFrameLength(uint8_t frameLength);
-		/**
-		 * Returns the length of the packet
-		 */
-		uint16_t getPacketLength();
-		/**
-		 * Resets the response to default values
-		 */
-		void reset();
-		/**
-		 * Initializes the response
-		 */
-		void init();
-		/**
-		 * Call with instance of StartUpMessage class only if getMsgId() == START_UP_MESSAGE
-		 * to populate response
-		 */
-		void getStartUpMsg(AntResponse &response);
-		/**
-		 * Call with instance of BroadcastData class only if getMsgId() == BROADCAST_DATA
-		 * to populate response
-		 */
-		void getBroadcastDataMsg(AntResponse &response);
-		/**
-		 * Call with instance of AcknowledgedData class only if getMsgId() == ACKNOWLEDGED_DATA
-		 * to populate response
-		 */
-		void getAcknowledgedDataMsg(AntResponse &response);
-		/**
-		 * Call with instance of BurstTransferData class only if getMsgId() == BURST_TRANSFER_DATA
-		 * to populate response
-		 */
-		void getBurstDataTransferMsg(AntResponse &response);
-		/**
-		 * Call with instance of AdvancedBurstData only if getMsgId() == ADVANCED_BURST_DATA
-		 */
-		void getAdvancedBurstDataMsg(AntResponse &responses);
-		/**
-		 * Call with instance of ChannelEvent only if getMsgId() == CHANNEL_EVENT or getMsgId() == CHANNEL_RESPONSE
-		 */
-		void getChannelEventResponseMsg(AntResponse &response);
-		/**
-		 * Call with instance of ChannelStatus only if getMsgId() == CHANNEL_STATUS
-		 */
-		void getChannelStatusMsg(AntResponse &response);
-		/**
-		 * Call with instance of AntVersion only if getMsgId() == ANT_VERSION
-		 */
-		void getAntVersionMsg(AntResponse &response);
-		/**
-		 * Call with instance of SerialNumber only if getMsgId() == CAPABILITIES
-		 */
-		void getCapabilitiesMsg(AntResponse &response);
-		/**
-		 * Call with instance of SerialNumber only if getMsgId() == SERIAL_NUMBER
-		 */
-		void getSerialNumberMsg(AntResponse &response);
-		/**
-		 * Returns true if the response has been successfully parsed and is complete and ready for use
-		 */
-		bool isAvailable();
-		void setAvailable(bool complete);
-		/**
-		 * Returns true if the response contains errors
-		 */
-		bool isError();
-		/**
-		 * Returns an error code, or zero, if successful.
-		 * Error codes include: CHECKSUM_FAILURE, PACKET_EXCEEDS_BYTE_ARRAY_LENGTH, UNEXPECTED_START_BYTE
-		 */
-		uint8_t getErrorCode();
-		void setErrorCode(uint8_t errorCode);
-	protected:
-		// pointer to frameData
-		uint8_t* _frameDataPtr;
-	private:
-		void setCommon(AntResponse &target);
-		uint8_t _msgId;
-		uint8_t _length;
-		uint8_t _checksum;
-		bool _complete;
-		uint8_t _errorCode;
+	void setFrameLength(uint8_t frameLength);
+	/**
+	 * Returns the length of the packet
+	 */
+	uint16_t getPacketLength();
+	/**
+	 * Resets the response to default values
+	 */
+	void reset();
+	/**
+	 * Initializes the response
+	 */
+	void init();
+	/**
+	 * Call with instance of StartUpMessage class only if getMsgId() == START_UP_MESSAGE
+	 * to populate response
+	 */
+	void getStartUpMsg(AntResponse &response);
+	/**
+	 * Call with instance of BroadcastData class only if getMsgId() == BROADCAST_DATA
+	 * to populate response
+	 */
+	void getBroadcastDataMsg(AntResponse &response);
+	/**
+	 * Call with instance of AcknowledgedData class only if getMsgId() == ACKNOWLEDGED_DATA
+	 * to populate response
+	 */
+	void getAcknowledgedDataMsg(AntResponse &response);
+	/**
+	 * Call with instance of BurstTransferData class only if getMsgId() == BURST_TRANSFER_DATA
+	 * to populate response
+	 */
+	void getBurstDataTransferMsg(AntResponse &response);
+	/**
+	 * Call with instance of AdvancedBurstData only if getMsgId() == ADVANCED_BURST_DATA
+	 */
+	void getAdvancedBurstDataMsg(AntResponse &responses);
+	/**
+	 * Call with instance of ChannelEvent only if getMsgId() == CHANNEL_EVENT or getMsgId() == CHANNEL_RESPONSE
+	 */
+	void getChannelEventResponseMsg(AntResponse &response);
+	/**
+	 * Call with instance of ChannelStatus only if getMsgId() == CHANNEL_STATUS
+	 */
+	void getChannelStatusMsg(AntResponse &response);
+	/**
+	 * Call with instance of AntVersion only if getMsgId() == ANT_VERSION
+	 */
+	void getAntVersionMsg(AntResponse &response);
+	/**
+	 * Call with instance of SerialNumber only if getMsgId() == CAPABILITIES
+	 */
+	void getCapabilitiesMsg(AntResponse &response);
+	/**
+	 * Call with instance of SerialNumber only if getMsgId() == SERIAL_NUMBER
+	 */
+	void getSerialNumberMsg(AntResponse &response);
+	/**
+	 * Returns true if the response has been successfully parsed and is complete and ready for use
+	 */
+	bool isAvailable();
+	void setAvailable(bool complete);
+	/**
+	 * Returns true if the response contains errors
+	 */
+	bool isError();
+	/**
+	 * Returns an error code, or zero, if successful.
+	 * Error codes include: CHECKSUM_FAILURE, PACKET_EXCEEDS_BYTE_ARRAY_LENGTH, UNEXPECTED_START_BYTE
+	 */
+	uint8_t getErrorCode();
+	void setErrorCode(uint8_t errorCode);
+protected:
+	// pointer to frameData
+	uint8_t* _frameDataPtr;
+private:
+	void setCommon(AntResponse &target);
+	uint8_t _msgId;
+	uint8_t _length;
+	uint8_t _checksum;
+	bool _complete;
+	uint8_t _errorCode;
 };
 
 /**
  * Common functionality for Ant radios to get broadcast data
  */
 class AntRxDataResponse : public AntResponse {
-	public:
-		AntRxDataResponse();
-		/**
-		 * Returns the specified index of the payload.  The index may be 0 to getDataLength() - 1
-		 * This method is deprecated; use uint8_t* getData()
-		 */
-		uint8_t getData(int index);
-		/**
-		 * Returns the payload array.  This may be accessed from index 0 to getDataLength() - 1
-		 */
-		uint8_t* getData();
-		/**
-		 * Returns the length of the payload
-		 */
-		virtual uint8_t getDataLength() = 0;
-		/**
-		 * Returns the position in the frame data where the data begins
-		 */
-		virtual uint8_t getDataOffset() = 0;
+public:
+	AntRxDataResponse();
+	/**
+	 * Returns the specified index of the payload.  The index may be 0 to getDataLength() - 1
+	 * This method is deprecated; use uint8_t* getData()
+	 */
+	uint8_t getData(int index);
+	/**
+	 * Returns the payload array.  This may be accessed from index 0 to getDataLength() - 1
+	 */
+	uint8_t* getData();
+	/**
+	 * Returns the length of the payload
+	 */
+	virtual uint8_t getDataLength() = 0;
+	/**
+	 * Returns the position in the frame data where the data begins
+	 */
+	virtual uint8_t getDataOffset() = 0;
 };
 
 /**
  * Represents a Startup message
  */
 class StartUpMessage : public AntRxDataResponse {
-	public:
-		StartUpMessage();
-		uint8_t getMessage();
+public:
+	StartUpMessage();
+	uint8_t getMessage();
 
-		static const uint8_t MSG_ID = START_UP_MESSAGE;
+	static const uint8_t MSG_ID = START_UP_MESSAGE;
 };
 
 /**
  * Represents a BurstTransferData message
  */
 class BurstDataTransfer : public AntRxDataResponse {
-	public:
-		BurstDataTransfer();
-		/**
-		 * Returns source channel
-		 */
-		uint8_t getChanneNumber();
-		/**
-		 * Returns sepcified byte of data from payload
-		 */
-		uint8_t getData(uint8_t index);
-		uint8_t getExtendedDataLength();
-		uint8_t getExtendedData(uint8_t index);
+public:
+	BurstDataTransfer();
+	/**
+	 * Returns source channel
+	 */
+	uint8_t getChanneNumber();
+	/**
+	 * Returns sepcified byte of data from payload
+	 */
+	uint8_t getData(uint8_t index);
+	uint8_t getExtendedDataLength();
+	uint8_t getExtendedData(uint8_t index);
 
-		static const uint8_t MSG_ID = BURST_DATA_TRANSFER;
+	static const uint8_t MSG_ID = BURST_DATA_TRANSFER;
 };
 
 /**
  * Represents a AcknowledgedData message
  */
 class AcknowledgedData : public AntRxDataResponse {
-	public:
-		AcknowledgedData();
-		/**
-		 * Returns source channel
-		 */
-		uint8_t getChanneNumber();
-		/**
-		 * Returns sepcified byte of data from payload
-		 */
-		uint8_t getData(uint8_t index);
-		uint8_t getExtendedDataLength();
-		uint8_t getExtendedData(uint8_t index);
+public:
+	AcknowledgedData();
+	/**
+	 * Returns source channel
+	 */
+	uint8_t getChanneNumber();
+	/**
+	 * Returns sepcified byte of data from payload
+	 */
+	uint8_t getData(uint8_t index);
+	uint8_t getExtendedDataLength();
+	uint8_t getExtendedData(uint8_t index);
 
-		static const uint8_t MSG_ID = ACKNOWLEDGED_DATA;
+	static const uint8_t MSG_ID = ACKNOWLEDGED_DATA;
 };
 
 
@@ -396,20 +397,20 @@ class AcknowledgedData : public AntRxDataResponse {
  * Represents a Ant Broadcast data message
  */
 class BroadcastData : public AntRxDataResponse {
-	public:
-		BroadcastData();
-		/**
-		 * Returns source channel
-		 */
-		uint8_t getChanneNumber();
-		/**
-		 * Returns sepcified byte of data from payload
-		 */
-		uint8_t getData(uint8_t index);
-		uint8_t getExtendedDataLength();
-		uint8_t getExtendedData(uint8_t index);
+public:
+	BroadcastData();
+	/**
+	 * Returns source channel
+	 */
+	uint8_t getChanneNumber();
+	/**
+	 * Returns sepcified byte of data from payload
+	 */
+	uint8_t getData(uint8_t index);
+	uint8_t getExtendedDataLength();
+	uint8_t getExtendedData(uint8_t index);
 
-		static const uint8_t MSG_ID = BROADCAST_DATA;
+	static const uint8_t MSG_ID = BROADCAST_DATA;
 };
 
 /**
@@ -434,33 +435,53 @@ public:
  * This class allocates a buffer to
  */
 class AntRequest {
-	public:
-		/**
-		 * Constructor
-		 * TODO make protected
-		 */
-		AntRequest(uint8_t msgId);
-		/**
-		 * Returns the Msg id
-		 */
-		uint8_t getMsgId();
-		// setting = 0 makes this a pure virtual function, meaning the subclass must implement, like abstract in java
-		/**
-		 * Starting after the frame id (pos = 0) and up to but not including the checksum
-		 * Note: Unlike Dynastream's definition of the frame data, this does not start with the MSG ID.
-		 * The reason for this is the MSG ID and Frame ID are common to all requests, whereas my definition of
-		 * frame data is only the MSG specific data.
-		 */
-		virtual uint8_t getFrameData(uint8_t pos) = 0;
-		/**
-		 * Returns the size of the msg frame (not including frame id or msg id or checksum).
-		 */
-		virtual uint8_t getFrameDataLength() = 0;
-		//void reset();
-	protected:
-		void setMsgId(uint8_t msgId);
-	private:
-		uint8_t _msgId;
+public:
+	/**
+	 * Constructor
+	 * TODO make protected
+	 */
+	AntRequest(uint8_t msgId);
+	/**
+	 * Returns the Msg id
+	 */
+	uint8_t getMsgId();
+	// setting = 0 makes this a pure virtual function, meaning the subclass must implement, like abstract in java
+	/**
+	 * Starting after the frame id (pos = 0) and up to but not including the checksum
+	 * Note: Unlike Dynastream's definition of the frame data, this does not start with the MSG ID.
+	 * The reason for this is the MSG ID and Frame ID are common to all requests, whereas my definition of
+	 * frame data is only the MSG specific data.
+	 */
+	virtual uint8_t getData(uint8_t pos) = 0;
+	/**
+	 * Returns the size of the msg frame (not including frame id or msg id or checksum).
+	 */
+	virtual uint8_t getDataLength() = 0;
+	//void reset();
+protected:
+	void setMsgId(uint8_t msgId);
+private:
+	uint8_t _msgId;
+};
+
+
+class AssignChannel : public AntRequest {
+public:
+	AssignChannel();
+	void setChannel(uint8_t channel);
+	void setChannelType(uint8_t channelType);
+	void setChannelNetwork(uint8_t network);
+	uint8_t getChannel();
+	uint8_t getChannelType();
+	uint8_t getChannelNetwork();
+protected:
+	// declare virtual functions
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+	uint8_t _channelType = 0;
+	uint8_t _network = 0;
+	uint8_t _extended = 0;
 };
 
 // TODO add reset/clear method since responses are often reused
@@ -486,72 +507,72 @@ class AntRequest {
  * \author Andrew Rapp
  */
 class Ant {
-	public:
-		Ant();
-		/**
-		 * Reads all available serial bytes until a packet is parsed, an error occurs, or the buffer is empty.
-		 * You may call <i>xbee</i>.getResponse().isAvailable() after calling this method to determine if
-		 * a packet is ready, or <i>xbee</i>.getResponse().isError() to determine if
-		 * a error occurred.
-		 * <p/>
-		 * This method should always return quickly since it does not wait for serial data to arrive.
-		 * You will want to use this method if you are doing other timely stuff in your loop, where
-		 * a delay would cause problems.
-		 * NOTE: calling this method resets the current response, so make sure you first consume the
-		 * current response
-		 */
-		void readPacket();
-		/**
-		 * Waits a maximum of <i>timeout</i> milliseconds for a response packet before timing out; returns true if packet is read.
-		 * Returns false if timeout or error occurs.
-		 */
-		bool readPacket(int timeout);
-		/**
-		 * Reads until a packet is received or an error occurs.
-		 * Caution: use this carefully since if you don't get a response, your Arduino code will hang on this
-		 * call forever!! often it's better to use a timeout: readPacket(int)
-		 */
-		void readPacketUntilAvailable();
-		/**
-		 * Starts the serial connection on the specified serial port
-		 */
-		void begin(Stream &serial);
-		void getResponse(AntResponse &response);
-		/**
-		 * Returns a reference to the current response
-		 * Note: once readPacket is called again this response will be overwritten!
-		 */
-		AntResponse& getResponse();
-		/**
-		 * Sends a AntRequest (TX packet) out the serial port
-		 */
-		void send(AntRequest &request);
-		//uint8_t sendAndWaitForResponse(AntRequest &request, int timeout);
-		/**
-		 * Returns a sequential frame id between 1 and 255
-		 */
-		uint8_t getNextFrameId();
-		/**
-		 * Specify the serial port.  Only relevant for Arduinos that support multiple serial ports (e.g. Mega)
-		 */
-		void setSerial(Stream &serial);
-	private:
-		bool available();
-		uint8_t read();
-		void flush();
-		void write(uint8_t val);
-		void resetResponse();
-		AntResponse _response;
-		bool _escape;
-		// current packet position for response.  just a state variable for packet parsing and has no relevance for the response otherwise
-		uint8_t _pos;
-		// last byte read
-		uint8_t b;
-		uint8_t _checksumTotal;
-		uint8_t _nextFrameId;
-		// buffer for incoming RX packets.  holds only the msg specific frame data, starting after the msg id byte and prior to checksum
-		uint8_t _responseFrameData[ANT_MAX_MSG_DATA_SIZE];
-		Stream* _serial;
+public:
+	Ant();
+	/**
+	 * Reads all available serial bytes until a packet is parsed, an error occurs, or the buffer is empty.
+	 * You may call <i>xbee</i>.getResponse().isAvailable() after calling this method to determine if
+	 * a packet is ready, or <i>xbee</i>.getResponse().isError() to determine if
+	 * a error occurred.
+	 * <p/>
+	 * This method should always return quickly since it does not wait for serial data to arrive.
+	 * You will want to use this method if you are doing other timely stuff in your loop, where
+	 * a delay would cause problems.
+	 * NOTE: calling this method resets the current response, so make sure you first consume the
+	 * current response
+	 */
+	void readPacket();
+	/**
+	 * Waits a maximum of <i>timeout</i> milliseconds for a response packet before timing out; returns true if packet is read.
+	 * Returns false if timeout or error occurs.
+	 */
+	bool readPacket(int timeout);
+	/**
+	 * Reads until a packet is received or an error occurs.
+	 * Caution: use this carefully since if you don't get a response, your Arduino code will hang on this
+	 * call forever!! often it's better to use a timeout: readPacket(int)
+	 */
+	void readPacketUntilAvailable();
+	/**
+	 * Starts the serial connection on the specified serial port
+	 */
+	void begin(Stream &serial);
+	void getResponse(AntResponse &response);
+	/**
+	 * Returns a reference to the current response
+	 * Note: once readPacket is called again this response will be overwritten!
+	 */
+	AntResponse& getResponse();
+	/**
+	 * Sends a AntRequest (TX packet) out the serial port
+	 */
+	void send(AntRequest &request);
+	//uint8_t sendAndWaitForResponse(AntRequest &request, int timeout);
+	/**
+	 * Returns a sequential frame id between 1 and 255
+	 */
+	uint8_t getNextFrameId();
+	/**
+	 * Specify the serial port.  Only relevant for Arduinos that support multiple serial ports (e.g. Mega)
+	 */
+	void setSerial(Stream &serial);
+private:
+	bool available();
+	uint8_t read();
+	void flush();
+	void write(uint8_t val);
+	void resetResponse();
+	AntResponse _response;
+	bool _escape;
+	// current packet position for response.  just a state variable for packet parsing and has no relevance for the response otherwise
+	uint8_t _pos;
+	// last byte read
+	uint8_t b;
+	uint8_t _checksumTotal;
+	uint8_t _nextFrameId;
+	// buffer for incoming RX packets.  holds only the msg specific frame data, starting after the msg id byte and prior to checksum
+	uint8_t _responseFrameData[ANT_MAX_MSG_DATA_SIZE];
+	Stream* _serial;
 };
 
 /**
@@ -559,18 +580,18 @@ class Ant {
  * The command is used to configure the serially connected Ant radio
  */
 class UnAssignChannel : public AntRequest {
-	public:
-		UnAssignChannel();
-		UnAssignChannel(uint8_t channel);
-		void setChannel(uint8_t channel);
-		/**
-		 * Clears the optional commandValue and commandValueLength so that a query may be sent
-		 */
-		void clearCommandValue();
-		//void reset();
-	private:
-		uint8_t _channel;
-		uint8_t _commandValueLength = UNASSIGN_CHANNEL_LENGTH;
+public:
+	UnAssignChannel();
+	UnAssignChannel(uint8_t channel);
+	void setChannel(uint8_t channel);
+	/**
+	 * Clears the optional commandValue and commandValueLength so that a query may be sent
+	 */
+	void clearCommandValue();
+	//void reset();
+private:
+	uint8_t _channel;
+	uint8_t _commandValueLength = UNASSIGN_CHANNEL_LENGTH;
 };
 
 
