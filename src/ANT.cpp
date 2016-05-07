@@ -364,7 +364,25 @@ void AntRequest::setMsgId(uint8_t msgId) {
 	_msgId = msgId;
 }
 
+UnAssignChannel::UnAssignChannel() : AntRequest(UNASSIGN_CHANNEL) {
 
+}
+
+void UnAssignChannel::setChannel(uint8_t channel) {
+	_channel = channel;
+}
+
+uint8_t UnAssignChannel::getChannel() {
+	return _channel;
+}
+
+uint8_t UnAssignChannel::getDataLength() {
+	return UNASSIGN_CHANNEL_LENGTH;
+}
+
+uint8_t UnAssignChannel::getData(uint8_t pos) {
+	return _channel;
+}
 
 AssignChannel::AssignChannel() : AntRequest(ASSIGN_CHANNEL) {
 

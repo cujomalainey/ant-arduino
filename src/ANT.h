@@ -125,6 +125,7 @@
  */
 #define UNASSIGN_CHANNEL_LENGTH         0x01
 #define ASSIGN_CHANNEL_LENGTH           0x03
+#define CHANNEL_ID_LENGTH               0x05
 
 /**
  * Channel Response Message Codes
@@ -177,6 +178,7 @@
 #define UNEXPECTED_START_BYTE             3
 
 // Framework Defines
+#define NETWORK_KEY_SIZE                0x08
 #define INVALID_REQUEST                 0xFF
 
 /**
@@ -344,7 +346,7 @@ public:
 /**
  * Represents a Startup message
  */
-class StartUpMessage : public AntRxDataResponse {
+class StartUpMessage : public AntResponse {
 public:
 	StartUpMessage();
 	uint8_t getMessage();
@@ -464,7 +466,28 @@ private:
 	uint8_t _msgId;
 };
 
+/*** CONFIG MESSAGES ****/
 
+/**
+ * Represents a unassign channel packet, which is used to disociate a channel
+ *
+ */
+class UnAssignChannel : public AntRequest {
+public:
+	UnAssignChannel();
+	UnAssignChannel(uint8_t channel);
+	void setChannel(uint8_t channel);
+	uint8_t getChannel();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+};
+
+/**
+ * Represents a assign channel packet, which is used to associate a channel
+ *
+ */
 class AssignChannel : public AntRequest {
 public:
 	AssignChannel();
@@ -484,6 +507,197 @@ protected:
 	uint8_t _extended = 0;
 };
 
+/**
+ * Represents a channel id message, it is used to
+ * configure a channel connection on the ANT radio
+ */
+class ChannelId : public AntRequest {
+public:
+	ChannelId();
+	void setChannel(uint8_t channel);
+	void setDeviceNumber(uint16_t deviceNumber);
+	void setDeviceType(uint8_t deviceType);
+	void setTransmissionType(uint8_t transmissionType);
+	uint8_t getChannel();
+	uint16_t getDeviceNumber();
+	uint8_t getDeviceType();
+	uint8_t getTransmissionType();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+	uint16_t _deviceNumber;
+	uint8_t _deviceType;
+	uint8_t _transmissionType;
+};
+
+/**
+ * Represents a channel period message, it is used to
+ * configure a channel period on the ANT radio
+ */
+class ChannelPeriod : public AntRequest {
+public:
+	ChannelPeriod();
+	void setChannel(uint8_t channel);
+	void setPeriod(uint16_t deviceNumber);
+	uint8_t getChannel();
+	uint16_t getPeriod();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+	uint16_t _period;
+};
+
+/**
+ * Represents a search timeout message, it is used
+ * to configure a channel timeout on the ANT radio
+ */
+class SearchTimeout : public AntRequest {
+public:
+	SearchTimeout();
+	void setChannel(uint8_t channel);
+	void setTimeout(uint8_t deviceNumber);
+	uint8_t getChannel();
+	uint8_t getTimeout();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+	uint8_t _timeout;
+};
+
+/**
+ * Represents a channel rf frequency message, it is used to
+ * configure a channel period on the ANT radio
+ */
+class ChannelRfFrequency : public AntRequest {
+public:
+	ChannelRfFrequency();
+	void setChannel(uint8_t channel);
+	void setRfFrequency(uint8_t deviceNumber);
+	uint8_t getChannel();
+	uint8_t getRfFrequency();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+	uint8_t _frequency;
+};
+
+/**
+ * Represents a set network key message, it is used to configure
+ * a network key on the ANT radio
+ */
+class SetNetworkKey : public AntRequest {
+public:
+	SetNetworkKey();
+	void setNetwork(uint8_t channel);
+	void setKey(uint8_t* key);
+	void setKeyByte(uint8_t byte, uint8_t pos);
+	uint8_t getNetwork();
+	void getKey(uint8_t* arr);
+	uint8_t getKeyByte(uint8_t pos);
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+	uint8_t _key[NETWORK_KEY_SIZE];
+};
+
+/**
+ * Represents a transmit power message, it is used to configure
+ * the radios transmission characteristics
+ */
+class TransmitPower : public AntRequest {
+public:
+	TransmitPower();
+	void setTxPower(uint8_t power);
+	uint8_t getTxPower();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _power;
+};
+
+/**
+ * Represents a search waveform message, it is used to configure
+ * the ...?
+ */
+class SearchWaveform : public AntRequest {
+public:
+	SearchWaveform();
+	void setChannel(uint8_t channel);
+	void setWaveform(uint16_t waveform);
+	uint8_t getChannel();
+	uint16_t getWaveform();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+	uint16_t _waveform;
+};
+
+/*** CONTROL MESSAGES ****/
+
+/**
+ * Represents a reset system message, it is used to reset the ANT radio
+ */
+class ResetSystem : public AntRequest {
+public:
+	ResetSystem();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+};
+
+/**
+ * Represents a open channel message, it is used to open a configured channel the ANT radio
+ */
+class OpenChannel : public AntRequest {
+public:
+	OpenChannel();
+	OpenChannel(uint8_t channel);
+	void setChannel(uint8_t channel);
+	uint8_t getChannel();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+};
+
+/**
+ * Represents a close channel message, it is used to close a open channel the ANT radio
+ */
+class CloseChannel : public AntRequest {
+public:
+	CloseChannel();
+	CloseChannel(uint8_t channel);
+	void setChannel(uint8_t channel);
+	uint8_t getChannel();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _channel;
+};
+
+/**
+ * Represents a request message, it is used to request a message from the ANT radio
+ */
+class RequestMessage : public AntRequest {
+public:
+	RequestMessage();
+	void setRequestedMessage(uint8_t msgId);
+	void setSubId(uint8_t subId);
+	uint8_t getRequestedMessage();
+	uint8_t getSubId();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _msgId;
+	uint8_t _subId;
+};
+
 // TODO add reset/clear method since responses are often reused
 /**
  * Primary interface for communicating with an Ant Radio.
@@ -494,7 +708,7 @@ protected:
  * Since this code is designed to run on a microcontroller, with only one thread, you are responsible for reading the
  * data off the serial buffer in a timely manner.  This involves a call to a variant of readPacket(...).
  * If your serial port is receiving data faster than you are reading, you can expect to lose packets.
- * Arduino only has a 128 byte serial buffer so it can easily overflow if two or more packets arrive
+ * Arduino only has a 128 byte serial buffer so it can overflow if many packets arrive
  * without a call to readPacket(...)
  * <p/>
  * In order to conserve resources, this class only supports storing one response packet in memory at a time.
@@ -505,6 +719,7 @@ protected:
  * to adjust this value to conserve memory.
  *
  * \author Andrew Rapp
+ * \edited by Curtis Malainey
  */
 class Ant {
 public:
@@ -568,22 +783,6 @@ private:
 	uint8_t _responseFrameData[ANT_MAX_MSG_DATA_SIZE];
 	Stream* _serial;
 };
-
-/**
- * Represents an unassign channel packet, which is used to disoociate a cahnnel
- * The command is used to configure the serially connected Ant radio
- */
-class UnAssignChannel : public AntRequest {
-public:
-	UnAssignChannel();
-	UnAssignChannel(uint8_t channel);
-	void setChannel(uint8_t channel);
-private:
-	uint8_t _channel;
-	uint8_t _commandValueLength = UNASSIGN_CHANNEL_LENGTH;
-};
-
-
 
 
 #endif //ANT_h
