@@ -116,9 +116,9 @@
 #define CW_INIT                             0x53
 #define CW_TEST                             0x48
 // Extended Data Messages (Legacy)
-#define EXTENDED_BROADCAST_DATA             0x5D
-#define EXTENDED_ACKNOWLEDGED_DATA          0x5E
-#define EXTENDED_BURST_DATA                 0x5F
+// #define EXTENDED_BROADCAST_DATA             0x5D
+// #define EXTENDED_ACKNOWLEDGED_DATA          0x5E
+// #define EXTENDED_BURST_DATA                 0x5F
 
 /**
  * Message Length Defines
@@ -427,6 +427,43 @@ public:
 	uint8_t getExtendedEventParameters();
 
 	static const uint8_t MSG_ID = CHANNEL_RESPONSE;
+};
+
+/**
+ * Represents a Channel Status message
+ */
+class ChannelStatus : public AntResponse {
+public:
+	ChannelStatus();
+	uint8_t getChannelNumber();
+	uint8_t getChannelStatus();
+
+	static const uint8_t MSG_ID = CHANNEL_STATUS;
+};
+
+/**
+ * Represents a ANT Version message
+ */
+class AntVersion : public AntResponse {
+public:
+	AntVersion();
+	uint8_t getVersionByte(uint8_t pos);
+
+	static const uint8_t MSG_ID = ANT_VERSION;
+};
+
+/**
+ * Represents a Capabilities message
+ */
+class Capabilities : public AntResponse {
+public:
+	Capabilities();
+	uint8_t getMaxChannels();
+	uint8_t getMaxNetworks();
+	uint8_t getStandardOptions();
+	uint8_t getAdvancedOptionsByte(uint8_t pos); //note, this is 1 indexed to match the spec sheet
+
+	static const uint8_t MSG_ID = CAPABILITIES;
 };
 
 /**
