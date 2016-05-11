@@ -40,6 +40,8 @@
 #define ANT_MSG_ID_INDEX 3
 
 // not everything is implemented!
+// commented out IDs are not supported by the NRF51 platform
+// and will only added if they are supported by the NRF52
 /**
  * Msg Id constants
  */
@@ -126,6 +128,11 @@
 #define UNASSIGN_CHANNEL_LENGTH         0x01
 #define ASSIGN_CHANNEL_LENGTH           0x03
 #define CHANNEL_ID_LENGTH               0x05
+#define CHANNEL_PERIOD_LENGTH           0x03
+#define CHANNEL_RF_FREQUENCY_LENGTH     0x02
+#define SET_NETWORK_KEY_LENGTH          0x09
+#define RESET_SYSTEM_LENGTH             0x01
+#define OPEN_CHANNEL_LENGTH             0x01
 
 /**
  * Channel Response Message Codes
@@ -180,6 +187,7 @@
 // Framework Defines
 #define NETWORK_KEY_SIZE                0x08
 #define INVALID_REQUEST                 0xFF
+#define BITS_IN_BYTE                    0x08
 
 /**
  * C++11 introduced the constexpr as a hint to the compiler that things
@@ -554,10 +562,12 @@ public:
 	void setChannel(uint8_t channel);
 	void setDeviceNumber(uint16_t deviceNumber);
 	void setDeviceType(uint8_t deviceType);
+	void setPairingBit(bool paringBit);
 	void setTransmissionType(uint8_t transmissionType);
 	uint8_t getChannel();
 	uint16_t getDeviceNumber();
 	uint8_t getDeviceType();
+	bool getPairingBit();
 	uint8_t getTransmissionType();
 private:
 	uint8_t getData(uint8_t pos);
@@ -565,6 +575,7 @@ private:
 	uint8_t _channel;
 	uint16_t _deviceNumber;
 	uint8_t _deviceType;
+	bool _pairingBit;
 	uint8_t _transmissionType;
 };
 
@@ -576,7 +587,7 @@ class ChannelPeriod : public AntRequest {
 public:
 	ChannelPeriod();
 	void setChannel(uint8_t channel);
-	void setPeriod(uint16_t deviceNumber);
+	void setPeriod(uint16_t period);
 	uint8_t getChannel();
 	uint16_t getPeriod();
 private:
@@ -594,7 +605,7 @@ class SearchTimeout : public AntRequest {
 public:
 	SearchTimeout();
 	void setChannel(uint8_t channel);
-	void setTimeout(uint8_t deviceNumber);
+	void setTimeout(uint8_t timeout);
 	uint8_t getChannel();
 	uint8_t getTimeout();
 private:
@@ -612,7 +623,7 @@ class ChannelRfFrequency : public AntRequest {
 public:
 	ChannelRfFrequency();
 	void setChannel(uint8_t channel);
-	void setRfFrequency(uint8_t deviceNumber);
+	void setRfFrequency(uint8_t frequency);
 	uint8_t getChannel();
 	uint8_t getRfFrequency();
 private:
@@ -629,7 +640,7 @@ private:
 class SetNetworkKey : public AntRequest {
 public:
 	SetNetworkKey();
-	void setNetwork(uint8_t channel);
+	void setNetwork(uint8_t network);
 	void setKey(uint8_t* key);
 	void setKeyByte(uint8_t byte, uint8_t pos);
 	uint8_t getNetwork();
@@ -638,7 +649,7 @@ public:
 private:
 	uint8_t getData(uint8_t pos);
 	uint8_t getDataLength();
-	uint8_t _channel;
+	uint8_t _network;
 	uint8_t _key[NETWORK_KEY_SIZE];
 };
 

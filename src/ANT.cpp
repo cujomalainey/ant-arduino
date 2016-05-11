@@ -426,6 +426,202 @@ uint8_t AssignChannel::getData(uint8_t pos) {
 	}
 }
 
+ChannelId::ChannelId() : AntRequest(CHANNEL_ID) {
+
+}
+
+void ChannelId::setChannel(uint8_t channel) {
+	_channel = channel;
+}
+
+void ChannelId::setDeviceNumber(uint16_t deviceNumber) {
+	_deviceNumber = deviceNumber;
+}
+
+void ChannelId::setDeviceType(uint8_t deviceType) {
+	_deviceType = deviceType;
+}
+
+void ChannelId::setTransmissionType(uint8_t transmissionType) {
+	_transmissionType = transmissionType;
+}
+
+uint8_t ChannelId::getChannel() {
+	return _channel;
+}
+
+uint16_t ChannelId::getDeviceNumber() {
+	return _deviceNumber;
+}
+
+uint8_t ChannelId::getDeviceType() {
+	return _deviceType;
+}
+
+uint8_t ChannelId::getTransmissionType() {
+	return _transmissionType;
+}
+
+uint8_t ChannelId::getDataLength() {
+	return CHANNEL_ID_LENGTH;
+}
+
+uint8_t ChannelId::getData(uint8_t pos) {
+	if (pos == 0) {
+		return _channel;
+	} else if (pos == 1) {
+		return (uint8_t)_deviceNumber;
+	} else if (pos == 2) {
+		return (uint8_t)(_deviceNumber >> BITS_IN_BYTE);
+	} else if (pos == 3) {
+		return _pairingBit ? ( _deviceType | 0x80 ) : ( _deviceType & 0x7F );
+	} else {
+		return _transmissionType;
+	}
+}
+
+ChannelPeriod::ChannelPeriod() : AntRequest(CHANNEL_PERIOD) {
+
+}
+
+void ChannelPeriod::setChannel(uint8_t channel) {
+	_channel = channel;
+}
+
+void ChannelPeriod::setPeriod(uint16_t period) {
+	_period = period;
+}
+
+uint8_t ChannelPeriod::getChannel() {
+	return _channel;
+}
+
+uint16_t ChannelPeriod::getPeriod() {
+	return _period;
+}
+
+uint8_t ChannelPeriod::getDataLength() {
+	return CHANNEL_PERIOD_LENGTH;
+}
+
+uint8_t ChannelPeriod::getData(uint8_t pos) {
+	if (pos == 0) {
+		return _channel;
+	} else if (pos == 1) {
+		return (uint8_t)_period;
+	} else {
+		return (uint8_t)(_period >> BITS_IN_BYTE);
+	}
+}
+
+ChannelRfFrequency::ChannelRfFrequency() : AntRequest(CHANNEL_RF_FREQUENCY) {
+
+}
+
+void ChannelRfFrequency::setChannel(uint8_t channel) {
+	_channel = channel;
+}
+
+void ChannelRfFrequency::setRfFrequency(uint8_t frequency) {
+	_frequency = frequency;
+}
+
+uint8_t ChannelRfFrequency::getChannel() {
+	return _channel;
+}
+
+uint8_t ChannelRfFrequency::getRfFrequency() {
+	return _frequency;
+}
+
+uint8_t ChannelRfFrequency::getDataLength() {
+	return CHANNEL_RF_FREQUENCY_LENGTH;
+}
+
+uint8_t ChannelRfFrequency::getData(uint8_t pos) {
+	if (pos == 0) {
+		return _channel;
+	} else {
+		return _frequency;
+	}
+}
+
+SetNetworkKey::SetNetworkKey() : AntRequest(SET_NETWORK_KEY) {
+	memset(_key, 0, NETWORK_KEY_SIZE);
+}
+
+void SetNetworkKey::setNetwork(uint8_t network) {
+	_network = network;
+}
+
+void SetNetworkKey::setKey(uint8_t* key) {
+	memcpy(_key, key, NETWORK_KEY_SIZE);
+}
+
+void SetNetworkKey::setKeyByte(uint8_t byte, uint8_t pos) {
+	_key[pos] = byte;
+}
+
+uint8_t SetNetworkKey::getNetwork() {
+	return _network;
+}
+
+void SetNetworkKey::getKey(uint8_t* arr) {
+	memcpy(arr, _key, NETWORK_KEY_SIZE);
+}
+
+uint8_t SetNetworkKey::getKeyByte(uint8_t pos) {
+	return _key[pos];
+}
+
+uint8_t SetNetworkKey::getDataLength() {
+	return SET_NETWORK_KEY_LENGTH;
+}
+
+uint8_t SetNetworkKey::getData(uint8_t pos) {
+	if (pos == 0) {
+		return _network;
+	} else {
+		return _key[pos - 1];
+	}
+}
+
+ResetSystem::ResetSystem() : AntRequest(RESET_SYSTEM) {
+
+}
+
+uint8_t ResetSystem::getDataLength() {
+	return RESET_SYSTEM_LENGTH;
+}
+
+uint8_t ResetSystem::getData(uint8_t pos) {
+	return 0;
+}
+
+OpenChannel::OpenChannel() : AntRequest(OPEN_CHANNEL) {
+
+}
+
+OpenChannel::OpenChannel(uint8_t channel) : AntRequest(OPEN_CHANNEL) {
+	_channel = channel;
+}
+
+void OpenChannel::setChannel(uint8_t channel) {
+	_channel = channel;
+}
+
+uint8_t OpenChannel::getChannel() {
+	return _channel;
+}
+
+uint8_t OpenChannel::getDataLength() {
+	return OPEN_CHANNEL_LENGTH;
+}
+
+uint8_t OpenChannel::getData(uint8_t pos) {
+	return _channel;
+}
+
 void Ant::send(AntRequest &request) {
 	// checksum is XOR of all bytes
 	uint8_t checksum = 0;
