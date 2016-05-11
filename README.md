@@ -72,7 +72,7 @@ Download a .zip or .tar.gz release from github. Determine the location of your s
 
 ## Uploading Sketches
 
-Uploading sketches with a Leonardo is as simple as connecting the Arduino to your computer and uploading. When using a single serial port Arduino, such as the UNO, the jumpers on the XBee Shield must be set to USB. Then, after upload, set back to the XBee position for the XBee to have access to the serial port. Always remember to power off the Arduino before moving the jumpers.
+Uploading sketches with a Leonardo is as simple as connecting the Arduino to your computer and uploading. When using a single serial port Arduino, such as the UNO, the jumpers on the ANT Radio must be disconnected. Then, after upload, reconnect the lines to have access to the serial port. Always remember to power off the Arduino before moving the jumpers.
 
 ## Configuration
 
