@@ -17,7 +17,7 @@ Doxygen API documentation is available in the downloads. Unfortunately it is not
 [Developer's Guide](https://github.com/cujomalainey/ant-arduino/blob/wiki/DevelopersGuide.md)
 
 ## Example
-I have created several sketches of sending/receiving packets with Series 1 and 2 XBee radios. You can find these in the examples folder. Here's an example of sending a packet with a Series 2 radio:
+I have created several sketches of sending/receiving packets with NRF51 ANT radios. You can find these in the examples folder. Here's an example of sending a packet with a NRF51 radio:
 
 ```
 // Create an ANT object at the top of your sketch
@@ -26,7 +26,7 @@ ANT ant = ANT();
 // Start the serial port
 Serial.begin(9600);
 // Tell XBee to use Hardware Serial. It's also possible to use SoftwareSerial
-xbee.setSerial(Serial);
+ant.setSerial(Serial);
 
 // Create an array for holding the data you want to send.
 uint8_t payload[] = { 'H', 'i' };
@@ -43,34 +43,28 @@ ant.send(zbTx);
 
 See the examples folder for the full source. There are more examples in the download.
 
-See the XBee API project for Arduino < - > Computer communication.
-
-To add XBee support to a new sketch, add "#include <XBee.h>" (without quotes) to the top of your sketch. You can also add it by selecting the "sketch" menu, and choosing "Import Library->XBee".
+To add XBee support to a new sketch, add "#include <ANT.h>" (without quotes) to the top of your sketch. You can also add it by selecting the "sketch" menu, and choosing "Import Library->ANT".
 
 ## Hardware
 
-For development and general tinkering I highly recommend using an Arduino that has 2 serial ports, such as the Arduino Leonardo. The reason is the XBee requires serial port access and it is useful to have another serial port available for debugging via the Arduino serial console.
+For development and general tinkering I highly recommend using an Arduino that has 2 serial ports, such as the Arduino Leonardo. The reason is the ANT Radio requires serial port access and it is useful to have another serial port available for debugging via the Arduino serial console.
 
 * Arduino Leonardo (recommended)
 * Arduino UNO R3 (single serial port)
 * Arduino Pro (single serial port)
 
-XBee radios come in two models: Series 1 (S1) and Series 2 (S2). Series 1 are the best choice for most people as they are the easiest to configure. Series 2 XBee radios feature ZigBee and require a firmware update to use this software. Series 1 and 2 are not compatible with each other.
+ANT radios come in multiple models, but this driver is designed to only support the following:
 
-* XBee Series 1
-* XBee Series 2 (ZigBee)
+* NRF51
+* NRF52
 
-The Arduino XBee Shield is the easiest option for connecting the XBee to an Arduino. You can find XBee Shields from several vendors and even on ebay. Keep in mind if you select the SparkFun XBee Shield, it requires soldering headers (not included) to connect to an Arduino board.
-
-If not using an XBee shield you'll need a 3.3V regulator and logic shifting to convert from 5V (Arduino) to 3.3V (XBee). The Arduino is 3.3V tolerant.
-
-An XBee Explorer is highly recommended for updating firmware and configuring the radio. This is also useful for interfacing an XBee with a computer. If you are using Series 2 radios you'll need an XBee Explorer to upload API firmware to the radio, via X-CTU (they ship with AT firmware).
+You will need 3.3V regulator and logic shifting to convert from 5V (Arduino) to 3.3V (ANT). The Arduino is 3.3V tolerant.
 
 
 ## Installation
 Arduino 1.5 and later
 
-Arduino now includes a library manager for easier library installation. From the Sketch menu select include library->Manage Libraries, then type "xbee" in the filter and install.
+Arduino now includes a library manager for easier library installation. From the Sketch menu select include library->Manage Libraries, then type "ant" in the filter and install.
 
 Prior to Arduino 1.5 installation is a manual
 
@@ -82,12 +76,12 @@ Uploading sketches with a Leonardo is as simple as connecting the Arduino to you
 
 ## Configuration
 
-To use this library your XBee must be configured in API mode (AP=2). Take a look at this for information on configuring your radios to form a network.
+To use this library your ANT radio must be loaded with the ANT Network Processor firmware.
 
 ## Questions/Feedback
 
-Questions about this project should be posted to http://groups.google.com/group/xbee-api?pli=1 Be sure to provide as much detail as possible (e.g. what radios s1 or s2, firmware versions, configuration and code).
+Questions about this project should be posted to http://groups.google.com/group/ant-api?pli=1 Be sure to provide as much detail as possible (e.g. what radios, firmware versions, configuration and code).
 
 ## Consulting/Commercial Licenses
 
-I'm available for consulting to assist businesses or entrepreneurs that need help getting their projects up and running. I can also provide a commercial license for situations where you need to distribute code to clients/third parties that would otherwise conflict with GPL. For these matters I can be contacted at andrew.rapp [at] gmail.
+If you are looking for commercial support go to thisisant.com
