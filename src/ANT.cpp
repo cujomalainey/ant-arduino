@@ -162,9 +162,9 @@ void AntResponse::getAcknowledgedDataMsg(AntResponse &ackDataResponse) {
 
 }
 
-void AntResponse::getBurstDataTransferMsg(AntResponse &burstDataResponse) {
+void AntResponse::getBurstTransferDataMsg(AntResponse &burstDataResponse) {
 
-	BurstDataTransfer* burstData = static_cast<BurstDataTransfer*>(&burstDataResponse);
+	BurstTransferData* burstData = static_cast<BurstTransferData*>(&burstDataResponse);
 
 	// pass pointer array to subclass
 	burstData->setFrameData(getFrameData());
@@ -429,7 +429,7 @@ uint8_t AssignChannel::getData(uint8_t pos) {
 void Ant::send(AntRequest &request) {
 	// checksum is XOR of all bytes
 	uint8_t checksum = 0;
-	
+
 	// the new new deal
 	checksum ^= ANT_START_BYTE;
 	write(ANT_START_BYTE);

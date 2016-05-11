@@ -94,7 +94,7 @@
 // Data Messages
 #define BROADCAST_DATA                      0x4E
 #define ACKNOWLEDGED_DATA                   0x4F
-#define BURST_DATA_TRANSFER                 0x50
+#define BURST_TRANSFER_DATA                 0x50
 #define ADVANCED_BURST_DATA                 0x72
 // Channel Messages
 #define CHANNEL_EVENT                       0x40
@@ -266,7 +266,7 @@ public:
 	 * Call with instance of BurstTransferData class only if getMsgId() == BURST_TRANSFER_DATA
 	 * to populate response
 	 */
-	void getBurstDataTransferMsg(AntResponse &response);
+	void getBurstTransferDataMsg(AntResponse &response);
 	/**
 	 * Call with instance of AdvancedBurstData only if getMsgId() == ADVANCED_BURST_DATA
 	 */
@@ -357,9 +357,9 @@ public:
 /**
  * Represents a BurstTransferData message
  */
-class BurstDataTransfer : public AntRxDataResponse {
+class BurstTransferData : public AntRxDataResponse {
 public:
-	BurstDataTransfer();
+	BurstTransferData();
 	/**
 	 * Returns source channel
 	 */
@@ -371,7 +371,7 @@ public:
 	uint8_t getExtendedDataLength();
 	uint8_t getExtendedData(uint8_t index);
 
-	static const uint8_t MSG_ID = BURST_DATA_TRANSFER;
+	static const uint8_t MSG_ID = BURST_TRANSFER_DATA;
 };
 
 /**
