@@ -57,6 +57,7 @@ cache:
         - "~/.platformio"
 
 env:
+    # - PLATFORMIO_CI_SRC=path/to/test/file.c
     - PLATFORMIO_CI_SRC=examples/OpenChannel/OpenChannel.ino
 
 install:
