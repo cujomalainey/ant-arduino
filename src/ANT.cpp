@@ -109,6 +109,41 @@ uint8_t ChannelEventResponse::getExtendedEventParameters() {
 	}
 }
 
+StartUpMessage::StartUpMessage() : AntResponse() {
+
+}
+
+uint8_t StartUpMessage::getMessage() {
+	return  getFrameData()[0];
+}
+
+BroadcastData::BroadcastData() : AntRxDataResponse() {
+
+}
+
+uint8_t BroadcastData::getChanneNumber() {
+	return getData(0);
+}
+
+uint8_t BroadcastData::getData(uint8_t index) {
+	// skip channel byte
+	return getData(index + 1);
+}
+
+uint8_t BroadcastData::getExtendedDataLength() {
+	// not inplemented
+	return INVALID_REQUEST;
+}
+
+uint8_t BroadcastData::getExtendedData(uint8_t index) {
+	// not inplemented
+	return INVALID_REQUEST;
+}
+
+uint8_t BroadcastData::getDataLength() {
+	return BROADCAST_DATA_LENGTH;
+}
+
 void AntResponse::getStartUpMsg(AntResponse &response) {
 
 	// way off?
