@@ -152,6 +152,10 @@ uint8_t* AntRxDataResponse::getData() {
 	return getFrameData() + getDataOffset();
 }
 
+uint8_t AntRxDataResponse::getDataOffset() {
+	return ANT_MSG_FRONT_OVERHEAD;
+}
+
 void AntResponse::getAcknowledgedDataMsg(AntResponse &ackDataResponse) {
 
 	AcknowledgedData* ackData = static_cast<AcknowledgedData*>(&ackDataResponse);
@@ -228,16 +232,11 @@ bool Ant::available() {
 }
 
 uint8_t Ant::read() {
-	uint8_t val = _serial->read();
-	Serial.print("UART Rx: ");
-	Serial.println(val);
-	return val;
+	return _serial->read();
 }
 
 void Ant::write(uint8_t val) {
 	_serial->write(val);
-	Serial.print("UART Tx: ");
-	Serial.println(val);
 }
 
 AntResponse& Ant::getResponse() {
@@ -294,7 +293,7 @@ void Ant::readPacket() {
         b = read();
 
 		// checksum includes all bytes including the sync
-		_checksumTotal^= b;
+		_checksumTotal ^= b;
 
         switch(_pos) {
 			case 0:
@@ -326,8 +325,10 @@ void Ant::readPacket() {
 				// check if we're at the end of the packet
 				if (_pos == (_response.getLength() + 3)) {
 					// verify checksum
+					// if the last byte is the checksum
+					// then XOR it with itself should be 0
 
-					if (_checksumTotal == b) {
+					if (_checksumTotal == 0) {
 						_response.setChecksum(b);
 						_response.setAvailable(true);
 
@@ -343,7 +344,7 @@ void Ant::readPacket() {
 					return;
 				} else {
 					// add to packet array, starting with the fourth byte of the msgId
-					_response.getFrameData()[_pos - 3] = b;
+					_response.getFrameData()[_pos - ANT_MSG_FRONT_OVERHEAD] = b;
 					_pos++;
 				}
         }

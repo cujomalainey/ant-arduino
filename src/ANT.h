@@ -35,9 +35,10 @@
 #define ANT_MAX_MSG_DATA_SIZE 20
 
 // start/length/msg/checksum bytes
-#define ANT_PACKET_OVERHEAD_LENGTH 4
+#define ANT_MSG_OVERHEAD_LENGTH 4
 // msg is always the third byte in packet
 #define ANT_MSG_ID_INDEX 3
+#define ANT_MSG_FRONT_OVERHEAD 3
 
 // not everything is implemented!
 // commented out IDs are not supported by the NRF51 platform
@@ -133,6 +134,7 @@
 #define SET_NETWORK_KEY_LENGTH          0x09
 #define RESET_SYSTEM_LENGTH             0x01
 #define OPEN_CHANNEL_LENGTH             0x01
+#define BROADCAST_DATA_LENGTH           0x09
 
 /**
  * Channel Response Message Codes
@@ -346,9 +348,10 @@ public:
 	 */
 	virtual uint8_t getDataLength() = 0;
 	/**
-	 * Returns the position in the frame data where the data begins
+	 * Returns the position in the frame data where the data begins,
+	 * its the same for all messages
 	 */
-	virtual uint8_t getDataOffset() = 0;
+	uint8_t getDataOffset();
 };
 
 /**
@@ -419,7 +422,7 @@ public:
 	uint8_t getData(uint8_t index);
 	uint8_t getExtendedDataLength();
 	uint8_t getExtendedData(uint8_t index);
-
+	uint8_t getDataLength();
 	static const uint8_t MSG_ID = BROADCAST_DATA;
 };
 
