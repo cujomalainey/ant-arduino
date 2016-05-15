@@ -11,7 +11,6 @@
  ************************************/
 
 #include "ANT.h"
-#include "Arduino.h"
 #define BAUD_RATE 9600
 Ant ant = Ant();
 
@@ -127,7 +126,7 @@ void parseMessage() {
 						Serial.print(", ");
 						Serial.print(bd.getData(i), HEX);
 					}
-					Serial.println("]")
+					Serial.println("]");
 					break;
 				}
 
