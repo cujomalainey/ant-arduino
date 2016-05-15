@@ -121,7 +121,7 @@ BroadcastData::BroadcastData() : AntRxDataResponse() {
 
 }
 
-uint8_t BroadcastData::getChanneNumber() {
+uint8_t BroadcastData::getChannelNumber() {
 	return getData(0);
 }
 

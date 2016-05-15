@@ -415,7 +415,7 @@ public:
 	/**
 	 * Returns source channel
 	 */
-	uint8_t getChanneNumber();
+	uint8_t getChannelNumber();
 	/**
 	 * Returns sepcified byte of data from payload
 	 */
