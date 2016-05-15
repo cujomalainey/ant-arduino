@@ -90,6 +90,7 @@ void loop()
 
 void parseMessage() {
 	ant.readPacket();
+	Serial.println("");
 	if (ant.getResponse().isAvailable()) {
 		uint8_t msgId = ant.getResponse().getMsgId();
 		switch (msgId) {
@@ -118,12 +119,21 @@ void parseMessage() {
 					BroadcastData bd = BroadcastData();
 					ant.getResponse().getBroadcastDataMsg(bd);
 					Serial.println("Received Msg: BroadcastData");
+					Serial.print("Channel: ");
+					Serial.println(bd.getChannelNumber());
+					Serial.print("Data:[");
+					Serial.print(bd.getData(0), HEX);
+					for (uint8_t i = 1; i < 8; i++) {
+						Serial.print(", ");
+						Serial.print(bd.getData(i), HEX);
+					}
+					Serial.println("]")
 					break;
 				}
 
 			default:
 				Serial.print("Undefined Message: ");
-				Serial.println(msgId);
+				Serial.println(msgId, HEX);
 				break;
 		}
 	}
