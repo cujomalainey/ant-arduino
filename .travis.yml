@@ -62,10 +62,6 @@ env:
 
 install:
     - pip install -U platformio
-    - pip install -U cpp-coveralls
 
 script:
     - platformio ci --lib="." --board=teensy31
-
-after_success:
-    - coveralls -r .
