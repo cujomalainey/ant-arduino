@@ -68,4 +68,4 @@ script:
     - platformio ci --lib="." --board=teensy31
 
 after_success:
-    - coveralls -r src
+    - coveralls -r .
