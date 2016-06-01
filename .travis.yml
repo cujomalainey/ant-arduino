@@ -64,4 +64,4 @@ install:
     - pip install -U platformio
 
 script:
-    - platformio ci --lib="." --board=teensy31
+    - platformio ci --lib="src" --board=teensy31
