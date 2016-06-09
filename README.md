@@ -115,5 +115,6 @@ To use this library your ANT radio must be loaded with the ANT Network Processor
 Questions about this project should be posted to http://groups.google.com/group/ant-api?pli=1 Be sure to provide as much detail as possible (e.g. what radios, firmware versions, configuration and code).
 
 ## Consulting/Commercial Licenses
+At the current time there is zero support for commercial usage. Contact me via email if you are looking to use this code commercially.
 
-If you are looking for commercial support for the radios go to thisisant.com, for the driver please email me.
+If you are looking for commercial support for ANT radios go to thisisant.com
