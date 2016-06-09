@@ -8,15 +8,13 @@ Arduino library for communicating with ANT radios, with support for nrf51 device
 
 ## News
 
+* 06/08/2016 Initial Experimental Rx only release
 * 04/21/2016 Project forked from Andrew Wrapp xbee-arduino
 
-## Documentation
-Doxygen API documentation is available in the downloads. Unfortunately it is not available online anymore as Git does not support the html mime type as Subversion does
-
-[Developer's Guide](https://github.com/cujomalainey/ant-arduino/blob/wiki/DevelopersGuide.md)
+[Developer's Guide](https://github.com/cujomalainey/ant-arduino/wiki/Developer's-Guide)
 
 ## Example
-I have created several sketches of sending/receiving packets with NRF51 ANT radios. You can find these in the examples folder. Here's an example of sending a packet with a NRF51 radio:
+I have created several sketches of sending/receiving packets with NRF51 ANT radios. You can find these in the examples folder. Here's an example of configuring a channel with a NRF51 radio:
 
 ```
 // Create an ANT object at the top of your sketch
@@ -24,20 +22,55 @@ ANT ant = ANT();
 
 // Start the serial port
 Serial.begin(9600);
-// Tell XBee to use Hardware Serial. It's also possible to use SoftwareSerial
+// Tell ANT to use Hardware Serial. It's also possible to use SoftwareSerial
 ant.setSerial(Serial);
 
-// Create an array for holding the data you want to send.
-uint8_t payload[] = { 'H', 'i' };
+AssignChannel ac;
+ResetSystem rs;
+SetNetworkKey snk;
+ChannelId ci;
+ChannelPeriod cp;
+ChannelRfFrequency crf;
+OpenChannel oc;
 
-// Specify the address of the remote XBee (this is the SH + SL)
-XBeeAddress64 addr64 = XBeeAddress64(0x0013a200, 0x403e0f30);
+// Set Network Key, defaults to public, if you want the ANT+ key you need to get it from thisisant.com, DO NOT PUBLISH IT
+snk = SetNetworkKey();
+snk.setNetwork(0);
+snk.setKey((uint8_t*)NETWORK_KEY);
+ant.send(snk);
 
-// Create a TX Request
-ZBTxRequest zbTx = ZBTxRequest(addr64, payload, sizeof(payload));
+// Assign the channel and its type
+ac = AssignChannel();
+ac.setChannel(0);
+ac.setChannelType(0);
+ac.setChannelNetwork(0);
+ant.send(ac);
 
-// Send your request
-ant.send(zbTx);
+// Assign the Channel IDs (these are all wildcarded values) (if you are using ANT+ see the profile for settings)
+ci = ChannelId();
+ci.setChannel(0);
+ci.setDeviceNumber(0);
+ci.setDeviceType(0);
+ci.setTransmissionType(0);
+ant.send(ci);
+
+// Set the channel period (if you are using ANT+ see the profile for settings)
+cp = ChannelPeriod();
+cp.setChannel(0);
+cp.setPeriod(1111);
+ant.send(cp);
+
+crf = ChannelRfFrequency();
+crf.setChannel(0);
+crf.setRfFrequency(0);
+ant.send(crf);
+
+// open the channel
+oc = OpenChannel();
+oc.setChannel(0);
+ant.send(oc);
+
+// Wait for the responses
 ```
 
 See the examples folder for the full source. There are more examples in the download.
@@ -46,11 +79,11 @@ To add XBee support to a new sketch, add "#include <ANT.h>" (without quotes) to 
 
 ## Hardware
 
-For development and general tinkering I highly recommend using an Arduino that has 2 serial ports, such as the Arduino Leonardo. The reason is the ANT Radio requires serial port access and it is useful to have another serial port available for debugging via the Arduino serial console.
+For development and general tinkering I highly recommend using an Arduino that has 2 serial ports, such as the Arduino Leonardo. The reason is the ANT Radio requires serial port access and it is useful to have another serial port available for debugging via the Arduino serial console. Also it is easier to use a 3.3V arduino than to use a level shifter
 
-* Arduino Leonardo (recommended)
-* Arduino UNO R3 (single serial port)
-* Arduino Pro (single serial port)
+* Teensy 3.2
+* Pro Mini 3.3V
+* Trinket 3.3V
 
 ANT radios come in multiple models, but this driver is designed to only support the following:
 
@@ -63,7 +96,7 @@ You will need 3.3V regulator and logic shifting to convert from 5V (Arduino) to 
 ## Installation
 Arduino 1.5 and later
 
-Arduino now includes a library manager for easier library installation. From the Sketch menu select include library->Manage Libraries, then type "ant" in the filter and install.
+Arduino now includes a library manager for easier library installation. From the Sketch menu select include library->Manage Libraries, then type "ant-arduino" in the filter and install.
 
 Prior to Arduino 1.5 installation is a manual
 
@@ -71,11 +104,11 @@ Download a .zip or .tar.gz release from github. Determine the location of your s
 
 ## Uploading Sketches
 
-Uploading sketches with a Leonardo is as simple as connecting the Arduino to your computer and uploading. When using a single serial port Arduino, such as the UNO, the jumpers on the ANT Radio must be disconnected. Then, after upload, reconnect the lines to have access to the serial port. Always remember to power off the Arduino before moving the jumpers.
+Uploading sketches with a Leonardo is as simple as connecting the Arduino to your computer and uploading. When using a single serial port Arduino, such as the Pro Mini (3.3V), the jumpers on the ANT Radio must be disconnected. Then, after upload, reconnect the lines to have access to the serial port. Always remember to power off the Arduino before moving the jumpers.
 
 ## Configuration
 
-To use this library your ANT radio must be loaded with the ANT Network Processor firmware.
+To use this library your ANT radio must be loaded with the ANT Network Processor firmware. See Wiki for recommended wiring.
 
 ## Questions/Feedback
 
@@ -83,4 +116,4 @@ Questions about this project should be posted to http://groups.google.com/group/
 
 ## Consulting/Commercial Licenses
 
-If you are looking for commercial support go to thisisant.com
+If you are looking for commercial support for the radios go to thisisant.com, for the driver please email me.

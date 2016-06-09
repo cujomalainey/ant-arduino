@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2009 Andrew Rapp. All rights reserved.
+ * Update by Copyright (c) 2016 Curtis Malainey
  *
  * This file is part of Ant-Arduino.
  *
@@ -9,8 +10,8 @@
  * (at your option) any later version.
  *
  * Ant-Arduino is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRAntY; without even the implied warranty of
- * MERCHAntABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
