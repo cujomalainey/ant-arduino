@@ -123,12 +123,12 @@ BroadcastData::BroadcastData() : AntRxDataResponse() {
 }
 
 uint8_t BroadcastData::getChannelNumber() {
-	return getData(0);
+	return AntRxDataResponse::getData(0);
 }
 
 uint8_t BroadcastData::getData(uint8_t index) {
 	// skip channel byte
-	return getData(index + 1);
+	return AntRxDataResponse::getData(index + 1);
 }
 
 uint8_t BroadcastData::getExtendedDataLength() {
@@ -181,11 +181,11 @@ AntRxDataResponse::AntRxDataResponse() : AntResponse() {
 }
 
 uint8_t AntRxDataResponse::getData(int index) {
-	return getFrameData()[getDataOffset() + index];
+	return getFrameData()[index];
 }
 
 uint8_t* AntRxDataResponse::getData() {
-	return getFrameData() + getDataOffset();
+	return getFrameData();
 }
 
 uint8_t AntRxDataResponse::getDataOffset() {

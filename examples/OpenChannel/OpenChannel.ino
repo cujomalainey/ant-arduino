@@ -30,7 +30,7 @@ void setup()
 	ChannelRfFrequency crf;
 	OpenChannel oc;
 
-	Serial1.begin(9600);
+	Serial1.begin(BAUD_RATE);
 	// this will be moved into the driver eventually
 	#if defined(CORE_TEENSY)
 		Serial1.attachCts(20);
@@ -89,7 +89,6 @@ void loop()
 
 void parseMessage() {
 	ant.readPacket();
-	Serial.println("");
 	if (ant.getResponse().isAvailable()) {
 		uint8_t msgId = ant.getResponse().getMsgId();
 		switch (msgId) {
