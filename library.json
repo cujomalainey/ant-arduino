@@ -11,8 +11,9 @@
   [
     "*.cpp",
     "*.h",
-    "examples"
+    "examples",
+    "src"
   ],
   "frameworks": "arduino",
-  "platforms": "atmelavr"
+  "platforms": "atmelavr, teensy"
  }
