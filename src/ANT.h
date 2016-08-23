@@ -134,6 +134,7 @@
 #define SET_NETWORK_KEY_LENGTH          0x09
 #define RESET_SYSTEM_LENGTH             0x01
 #define OPEN_CHANNEL_LENGTH             0x01
+#define CLOSE_CHANNEL_LENGTH            0x01
 #define BROADCAST_DATA_LENGTH           0x09
 
 /**
@@ -188,6 +189,7 @@
 
 // Framework Defines
 #define NETWORK_KEY_SIZE                0x08
+#define MESSAGE_SIZE                    0x08
 #define INVALID_REQUEST                 0xFF
 #define BITS_IN_BYTE                    0x08
 
@@ -794,6 +796,25 @@ private:
 	uint8_t getDataLength();
 	uint8_t _msgId;
 	uint8_t _subId;
+};
+
+/**
+ * Represents a Broadcast Tx message, it is used to send a message from the ANT radio
+ */
+class BroadcastMsg : public AntRequest {
+public:
+	BroadcastMsg();
+	void setData(uint8_t* data);
+	void getData(uint8_t* data);
+	void setByte(uint8_t index, uint8_t data);
+	uint8_t getByte(uint8_t index);
+	void setChannel(uint8_t channel);
+	uint8_t getChannel();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _data[MESSAGE_SIZE];
+	uint8_t _channel;
 };
 
 // TODO add reset/clear method since responses are often reused

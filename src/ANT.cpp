@@ -659,6 +659,72 @@ uint8_t OpenChannel::getData(uint8_t pos) {
 	return _channel;
 }
 
+CloseChannel::CloseChannel() : AntRequest(CLOSE_CHANNEL) {
+
+}
+
+CloseChannel::CloseChannel(uint8_t channel) : AntRequest(CLOSE_CHANNEL) {
+	_channel = channel;
+}
+
+void CloseChannel::setChannel(uint8_t channel) {
+	_channel = channel;
+}
+
+uint8_t CloseChannel::getChannel() {
+	return _channel;
+}
+
+uint8_t CloseChannel::getDataLength() {
+	return CLOSE_CHANNEL_LENGTH;
+}
+
+uint8_t CloseChannel::getData(uint8_t pos) {
+	return _channel;
+}
+
+/* Extended message format not currently supported */
+BroadcastMsg::BroadcastMsg() : AntRequest(BROADCAST_DATA) {
+
+}
+
+void BroadcastMsg::setData(uint8_t* data) {
+	memcpy(_data, data, MESSAGE_SIZE);
+}
+
+void BroadcastMsg::getData(uint8_t* data) {
+	memcpy(data, _data, MESSAGE_SIZE);
+}
+
+void BroadcastMsg::setByte(uint8_t index, uint8_t data) {
+	_data[index] = data;
+}
+
+uint8_t BroadcastMsg::getByte(uint8_t index) {
+	return _data[index];
+}
+
+void BroadcastMsg::setChannel(uint8_t channel) {
+	_channel = channel;
+}
+
+uint8_t BroadcastMsg::getChannel() {
+	return _channel;
+}
+
+uint8_t BroadcastMsg::getDataLength() {
+	return BROADCAST_DATA_LENGTH;
+}
+
+uint8_t BroadcastMsg::getData(uint8_t pos) {
+	if (pos == 0) {
+		return _channel;
+	}
+	else {
+		return _data[pos - 1];
+	}
+}
+
 void Ant::send(AntRequest &request) {
 	// checksum is XOR of all bytes
 	uint8_t checksum = 0;
