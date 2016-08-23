@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2009 Andrew Rapp. All rights reserved.
- * Update by Copyright (c) 2016 Curtis Malainey
+ * Update and maintained by Curtis Malainey
  *
  * This file is part of Ant-Arduino.
  *
@@ -717,6 +717,48 @@ uint8_t BroadcastMsg::getDataLength() {
 }
 
 uint8_t BroadcastMsg::getData(uint8_t pos) {
+	if (pos == 0) {
+		return _channel;
+	}
+	else {
+		return _data[pos - 1];
+	}
+}
+
+/* Extended message format not currently supported */
+AcknowledgedMsg::AcknowledgedMsg() : AntRequest(ACKNOWLEDGED_DATA) {
+
+}
+
+void AcknowledgedMsg::setData(uint8_t* data) {
+	memcpy(_data, data, MESSAGE_SIZE);
+}
+
+void AcknowledgedMsg::getData(uint8_t* data) {
+	memcpy(data, _data, MESSAGE_SIZE);
+}
+
+void AcknowledgedMsg::setByte(uint8_t index, uint8_t data) {
+	_data[index] = data;
+}
+
+uint8_t AcknowledgedMsg::getByte(uint8_t index) {
+	return _data[index];
+}
+
+void AcknowledgedMsg::setChannel(uint8_t channel) {
+	_channel = channel;
+}
+
+uint8_t AcknowledgedMsg::getChannel() {
+	return _channel;
+}
+
+uint8_t AcknowledgedMsg::getDataLength() {
+	return ACKNOWLEDGE_DATA_LENGTH;
+}
+
+uint8_t AcknowledgedMsg::getData(uint8_t pos) {
 	if (pos == 0) {
 		return _channel;
 	}

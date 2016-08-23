@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2009 Andrew Rapp. All rights reserved.
- * Update by Copyright (c) 2016 Curtis Malainey
+ * Updated and maintained by Curtis Malainey
  *
  * This file is part of Ant-Arduino.
  *
@@ -136,6 +136,7 @@
 #define OPEN_CHANNEL_LENGTH             0x01
 #define CLOSE_CHANNEL_LENGTH            0x01
 #define BROADCAST_DATA_LENGTH           0x09
+#define ACKNOWLEDGE_DATA_LENGTH         0x09
 
 /**
  * Channel Response Message Codes
@@ -804,6 +805,25 @@ private:
 class BroadcastMsg : public AntRequest {
 public:
 	BroadcastMsg();
+	void setData(uint8_t* data);
+	void getData(uint8_t* data);
+	void setByte(uint8_t index, uint8_t data);
+	uint8_t getByte(uint8_t index);
+	void setChannel(uint8_t channel);
+	uint8_t getChannel();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _data[MESSAGE_SIZE];
+	uint8_t _channel;
+};
+
+/**
+ * Represents a Acknowledged Tx message, it is used to send a message from the ANT radio
+ */
+class AcknowledgedMsg : public AntRequest {
+public:
+	AcknowledgedMsg();
 	void setData(uint8_t* data);
 	void getData(uint8_t* data);
 	void setByte(uint8_t index, uint8_t data);
