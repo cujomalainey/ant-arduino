@@ -28,6 +28,37 @@
 
 #include "HardwareSerial.h"
 
+#define ANT_START_BYTE 0xA4
+
+// start/length/msg/checksum bytes
+#define ANT_MSG_OVERHEAD_LENGTH 4
+// msg is always the third byte in packet
+#define ANT_MSG_ID_INDEX 3
+#define ANT_MSG_FRONT_OVERHEAD 3
+
+/**
+ * Message Length Defines
+ */
+#define UNASSIGN_CHANNEL_LENGTH              0x01
+#define ASSIGN_CHANNEL_LENGTH                0x03
+#define CHANNEL_ID_LENGTH                    0x05
+#define CHANNEL_PERIOD_LENGTH                0x03
+#define CHANNEL_RF_FREQUENCY_LENGTH          0x02
+#define SET_NETWORK_KEY_LENGTH               0x09
+#define RESET_SYSTEM_LENGTH                  0x01
+#define OPEN_CHANNEL_LENGTH                  0x01
+#define CLOSE_CHANNEL_LENGTH                 0x01
+#define BROADCAST_DATA_LENGTH                0x09
+#define ACKNOWLEDGE_DATA_LENGTH              0x09
+
+/**
+ * Channel Status BitField Defines
+ */
+#define CHANNEL_STATUS_STATE_MASK            0x03
+#define CHANNEL_STATUS_NETWORK_NUMBER_SHIFT  0x02
+#define CHANNEL_STATUS_NETWORK_NUMBER_MASK   0x03
+#define CHANNEL_STATUS_CHANNEL_TYPE_SHIFT    0x04
+
 AntResponse::AntResponse() {
 
 }
@@ -54,6 +85,10 @@ uint8_t AntResponse::getChecksum() {
 
 void AntResponse::setChecksum(uint8_t checksum) {
 	_checksum = checksum;
+}
+
+uint8_t AntResponse::getPacketLength() {
+	return _length - ANT_MSG_OVERHEAD_LENGTH;
 }
 
 bool AntResponse::isAvailable() {
@@ -108,6 +143,34 @@ uint8_t ChannelEventResponse::getExtendedEventParameters() {
 	else {
 		return INVALID_REQUEST;
 	}
+}
+
+ChannelStatus::ChannelStatus() : AntResponse() {
+
+}
+
+uint8_t ChannelStatus::getChannelNumber() {
+	return getFrameData()[0];
+}
+
+uint8_t ChannelStatus::getChannelState() {
+	return getFrameData()[1] & CHANNEL_STATUS_STATE_MASK;
+}
+
+uint8_t ChannelStatus::getNetworkNumber() {
+	return ( getFrameData()[1] >> CHANNEL_STATUS_NETWORK_NUMBER_SHIFT ) & CHANNEL_STATUS_NETWORK_NUMBER_MASK;
+}
+
+uint8_t ChannelStatus::getChannelType() {
+	return getFrameData()[1] >> CHANNEL_STATUS_CHANNEL_TYPE_SHIFT;
+}
+
+AntVersion::AntVersion() : AntResponse() {
+
+}
+
+uint8_t AntVersion::getVersionByte(uint8_t pos) {
+	return getFrameData()[pos];
 }
 
 StartUpMessage::StartUpMessage() : AntResponse() {

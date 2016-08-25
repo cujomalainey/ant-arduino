@@ -29,16 +29,8 @@
 
 #include <inttypes.h>
 
-#define ANT_START_BYTE 0xA4
-
 // This value is determined by the largest message size available
 #define ANT_MAX_MSG_DATA_SIZE 20
-
-// start/length/msg/checksum bytes
-#define ANT_MSG_OVERHEAD_LENGTH 4
-// msg is always the third byte in packet
-#define ANT_MSG_ID_INDEX 3
-#define ANT_MSG_FRONT_OVERHEAD 3
 
 // not everything is implemented!
 // commented out IDs are not supported by the NRF51 platform
@@ -124,21 +116,6 @@
 // #define EXTENDED_BURST_DATA                 0x5F
 
 /**
- * Message Length Defines
- */
-#define UNASSIGN_CHANNEL_LENGTH         0x01
-#define ASSIGN_CHANNEL_LENGTH           0x03
-#define CHANNEL_ID_LENGTH               0x05
-#define CHANNEL_PERIOD_LENGTH           0x03
-#define CHANNEL_RF_FREQUENCY_LENGTH     0x02
-#define SET_NETWORK_KEY_LENGTH          0x09
-#define RESET_SYSTEM_LENGTH             0x01
-#define OPEN_CHANNEL_LENGTH             0x01
-#define CLOSE_CHANNEL_LENGTH            0x01
-#define BROADCAST_DATA_LENGTH           0x09
-#define ACKNOWLEDGE_DATA_LENGTH         0x09
-
-/**
  * Channel Response Message Codes
  */
 #define	RESPONSE_NO_ERROR               0x00
@@ -187,6 +164,12 @@
 #define CHECKSUM_FAILURE                  1
 #define PACKET_EXCEEDS_BYTE_ARRAY_LENGTH  2
 #define UNEXPECTED_START_BYTE             3
+
+// Channel Status Codes
+#define UNASSIGNED                      0
+#define ASSIGNED                        1
+#define SEARCHING                       2
+#define TRACKING                        3
 
 // Framework Defines
 #define NETWORK_KEY_SIZE                0x08
@@ -251,7 +234,7 @@ public:
 	/**
 	 * Returns the length of the packet
 	 */
-	uint16_t getPacketLength();
+	uint8_t getPacketLength();
 	/**
 	 * Resets the response to default values
 	 */
@@ -450,7 +433,9 @@ class ChannelStatus : public AntResponse {
 public:
 	ChannelStatus();
 	uint8_t getChannelNumber();
-	uint8_t getChannelStatus();
+	uint8_t getChannelState();
+	uint8_t getNetworkNumber();
+	uint8_t getChannelType();
 
 	static const uint8_t MSG_ID = CHANNEL_STATUS;
 };
@@ -476,6 +461,7 @@ public:
 	uint8_t getMaxNetworks();
 	uint8_t getStandardOptions();
 	uint8_t getAdvancedOptionsByte(uint8_t pos); //note, this is 1 indexed to match the spec sheet
+	uint8_t getMaxSensRcoreChannels();
 
 	static const uint8_t MSG_ID = CAPABILITIES;
 };
@@ -830,6 +816,44 @@ public:
 	uint8_t getByte(uint8_t index);
 	void setChannel(uint8_t channel);
 	uint8_t getChannel();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _data[MESSAGE_SIZE];
+	uint8_t _channel;
+};
+
+/**
+ * Represents a Burst Transfer Data Tx message, it is used to send a message from the ANT radio
+ */
+class BurstTransferDataMsg : public AntRequest {
+public:
+	BurstTransferDataMsg();
+	void setData(uint8_t* data);
+	void getData(uint8_t* data);
+	void setByte(uint8_t index, uint8_t data);
+	uint8_t getByte(uint8_t index);
+	void setChannelSequence(uint8_t channel);
+	uint8_t getChannelSequence();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	uint8_t _data[MESSAGE_SIZE];
+	uint8_t _channel;
+};
+
+/**
+ * Represents a Advanced Burst Data Tx message, it is used to send a message from the ANT radio
+ */
+class AdvancedBurstDataMsg : public AntRequest {
+public:
+	AdvancedBurstDataMsg();
+	void setData(uint8_t* data);
+	void getData(uint8_t* data);
+	void setByte(uint8_t index, uint8_t data);
+	uint8_t getByte(uint8_t index);
+	void setChannelSequence(uint8_t channel);
+	uint8_t getChannelSequence();
 private:
 	uint8_t getData(uint8_t pos);
 	uint8_t getDataLength();
