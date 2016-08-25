@@ -102,6 +102,9 @@ Prior to Arduino 1.5 installation is a manual
 
 Download a .zip or .tar.gz release from github. Determine the location of your sketchbook by selecting "preferences" on the Arduino menu. Create a "libraries" folder in your sketchbook and unzip the release file in that location.
 
+If you are using platformio you can install the library by running
+``` platformio lib install 353 ```
+
 ## Uploading Sketches
 
 Uploading sketches with a Leonardo is as simple as connecting the Arduino to your computer and uploading. When using a single serial port Arduino, such as the Pro Mini (3.3V), the jumpers on the ANT Radio must be disconnected. Then, after upload, reconnect the lines to have access to the serial port. Always remember to power off the Arduino before moving the jumpers.
