@@ -207,8 +207,10 @@
 #define CAPABILITIES_RFACTIVE_NOTIFICATION_ENABLED   ( 1 << 0 )
 
 /**
- * Advanced Burst Capabilities Defines
+ * Advanced Burst Capabilities Configuration Defines
  */
+#define ADV_BURST_SUB_ID_CAPABILITIES                0
+#define ADV_BURST_SUB_ID_CONFIGURATION               1
 #define ADV_BURST_MAX_PACKET_LENGTH_8_BYTE           0x01
 #define ADV_BURST_MAX_PACKET_LENGTH_16_BYTE          0x02
 #define ADV_BURST_MAX_PACKET_LENGTH_24_BYTE          0x03
@@ -319,9 +321,13 @@ public:
 	 */
 	void getAntVersionMsg(AntResponse &response);
 	/**
-	 * Call with instance of SerialNumber only if getMsgId() == CAPABILITIES
+	 * Call with instance of Capabilities only if getMsgId() == CAPABILITIES
 	 */
 	void getCapabilitiesMsg(AntResponse &response);
+	/**
+	 * Call with instance of AdvancedBurstCapabilities only if getMsgId() == ADVANCED_BURST_CAPABILITES
+	 */
+	void getAdvancedBurstCapabilitiesConfigurationMsg(AntResponse &response);
 	/**
 	 * Call with instance of SerialNumber only if getMsgId() == SERIAL_NUMBER
 	 */
@@ -499,21 +505,27 @@ public:
 	uint8_t getMaxChannels();
 	uint8_t getMaxNetworks();
 	uint8_t getStandardOptions();
-	uint8_t getAdvancedOptionsByte(uint8_t pos); //note, this is 1 indexed to match the spec sheet
+	uint8_t getAdvancedOptions(uint8_t pos); //note, this is 1 indexed to match the spec sheet
 	uint8_t getMaxSensRcoreChannels();
 
 	static const uint8_t MSG_ID = CAPABILITIES;
 };
 
 /**
- * Represents a Capabilities message
+ * Represents a Advanced Burst Capabilities or Current Configuration message
  */
-class AdvancedBurstCapabilities : public AntResponse {
+class AdvancedBurstCapabilitiesConfiguration : public AntResponse {
 public:
-	AdvancedBurstCapabilities();
+	AdvancedBurstCapabilitiesConfiguration();
 	uint8_t getMsgType();
-	uint8_t getMaxPacketLength();
+	// Capabilities Methods
+	uint8_t getSupportedMaxPacketLength();
 	uint32_t getSupportedFeatures();
+	// Current Configuration Methods
+	bool enable();
+	uint8_t getMaxPacketLength();
+	uint32_t getRequiredFeatures();
+	uint32_t getOptionalFeatures();
 
 	static const uint8_t MSG_ID = ADVANCED_BURST_CAPABILITES;
 };

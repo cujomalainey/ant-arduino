@@ -173,6 +173,62 @@ uint8_t AntVersion::getVersionByte(uint8_t pos) {
 	return getFrameData()[pos];
 }
 
+Capabilities::Capabilities() : AntResponse() {
+
+}
+
+uint8_t Capabilities::getMaxChannels() {
+	return getFrameData()[0];
+}
+
+uint8_t Capabilities::getMaxNetworks() {
+	return getFrameData()[1];
+}
+
+uint8_t Capabilities::getStandardOptions() {
+	return getFrameData()[2];
+}
+
+uint8_t Capabilities::getAdvancedOptions(uint8_t pos) {
+	if ( pos == 0 )
+	{
+		return getFrameData()[3];
+	}
+	else if ( pos == 1 )
+	{
+		return getFrameData()[4];
+	}
+	else if ( pos == 2 )
+	{
+		return getFrameData()[6];
+	}
+	else
+	{
+		return getFrameData()[7];
+	}
+}
+
+uint8_t Capabilities::getMaxSensRcoreChannels() {
+	return getFrameData()[5];
+}
+
+AdvancedBurstCapabilitiesConfiguration::AdvancedBurstCapabilitiesConfiguration() : AntResponse () {
+
+}
+
+uint8_t AdvancedBurstCapabilitiesConfiguration::getMsgType() {
+	return getFrameData()[0];
+}
+
+uint8_t AdvancedBurstCapabilitiesConfiguration::getSupportedMaxPacketLength() {
+	return getFrameData()[1];
+}
+
+uint32_t AdvancedBurstCapabilitiesConfiguration::getSupportedFeatures() {
+	uint8_t* frame = getFrameData();
+	return ( frame[2] ) + ( frame[3] << 8 ) + ( frame[4] << 16 );
+}
+
 StartUpMessage::StartUpMessage() : AntResponse() {
 
 }
