@@ -207,6 +207,14 @@
 #define CAPABILITIES_RFACTIVE_NOTIFICATION_ENABLED   ( 1 << 0 )
 
 /**
+ * Advanced Burst Capabilities Defines
+ */
+#define ADV_BURST_MAX_PACKET_LENGTH_8_BYTE           0x01
+#define ADV_BURST_MAX_PACKET_LENGTH_16_BYTE          0x02
+#define ADV_BURST_MAX_PACKET_LENGTH_24_BYTE          0x03
+#define ADV_BURST_FREQUENCY_HOP_ENABLED              ( 1 << 0 )
+
+/**
  * Driver Error Codes
  */
 #define NO_ERROR                          0
