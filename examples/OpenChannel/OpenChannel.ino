@@ -93,40 +93,42 @@ void parseMessage() {
 		uint8_t msgId = ant.getResponse().getMsgId();
 		switch (msgId) {
 			case CHANNEL_EVENT:
-				{
-					ChannelEventResponse cer = ChannelEventResponse();
-					ant.getResponse().getChannelEventResponseMsg(cer);
-					Serial.println("Received Msg: ChannelEventResponse");
-					Serial.print("Channel: ");
-					Serial.println(cer.getChannelNumber());
-					parseEventMessage(cer.getCode());
-					break;
-				}
+			{
+				ChannelEventResponse cer = ChannelEventResponse();
+				ant.getResponse().getChannelEventResponseMsg(cer);
+				Serial.println("Received Msg: ChannelEventResponse");
+				Serial.print("Channel: ");
+				Serial.println(cer.getChannelNumber());
+				parseEventMessage(cer.getCode());
+				break;
+			}
+
 			case START_UP_MESSAGE:
-				{
-					StartUpMessage sum = StartUpMessage();
-					ant.getResponse().getStartUpMsg(sum);
-					Serial.println("Received Msg: StartupMessage");
-					Serial.print("Message: ");
-					Serial.println(sum.getMessage());
-					break;
-				}
+			{
+				StartUpMessage sum = StartUpMessage();
+				ant.getResponse().getStartUpMsg(sum);
+				Serial.println("Received Msg: StartupMessage");
+				Serial.print("Message: ");
+				Serial.println(sum.getMessage());
+				break;
+			}
 
 			case BROADCAST_DATA:
+			{
+				BroadcastData bd = BroadcastData();
+				ant.getResponse().getBroadcastDataMsg(bd);
+				Serial.println("Received Msg: BroadcastData");
+				Serial.print("Channel: ");
+				Serial.println(bd.getChannelNumber());
+				Serial.print("Data:[");
+				Serial.print(bd.getData(0), HEX);
+				for (uint8_t i = 1; i < 8; i++)
 				{
-					BroadcastData bd = BroadcastData();
-					ant.getResponse().getBroadcastDataMsg(bd);
-					Serial.println("Received Msg: BroadcastData");
-					Serial.print("Channel: ");
-					Serial.println(bd.getChannelNumber());
-					Serial.print("Data:[");
-					Serial.print(bd.getData(0), HEX);
-					for (uint8_t i = 1; i < 8; i++) {
-						Serial.print(", ");
-						Serial.print(bd.getData(i), HEX);
-					}
-					Serial.println("]");
-					break;
+					Serial.print(", ");
+					Serial.print(bd.getData(i), HEX);
+				}
+				Serial.println("]");
+				break;
 				}
 
 			default:
