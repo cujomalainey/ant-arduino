@@ -498,6 +498,19 @@ public:
 };
 
 /**
+ * Represents a Capabilities message
+ */
+class AdvancedBurstCapabilities : public AntResponse {
+public:
+	AdvancedBurstCapabilities();
+	uint8_t getMsgType();
+	uint8_t getMaxPacketLength();
+	uint32_t getSupportedFeatures();
+
+	static const uint8_t MSG_ID = ADVANCED_BURST_CAPABILITES;
+};
+
+/**
  * Super class of all Ant requests (TX packets)
  * Users should never create an instance of this class; instead use an subclass of this class
  * It is recommended to reuse Subclasses of the class to conserve memory
@@ -814,6 +827,20 @@ private:
 	uint8_t getDataLength();
 	uint8_t _msgId;
 	uint8_t _subId;
+};
+
+/**
+ * Represents a Open Rx Scan Mode message, it is used to put the ANT radio into open rx scan mode
+ */
+class OpenRxScanMode : public AntRequest {
+public:
+	OpenRxScanMode();
+	void setSynchronousChannelPacketsOnly(bool synchronousOnly);
+	bool getSynchronousChannelPacketsOnly();
+private:
+	uint8_t getData(uint8_t pos);
+	uint8_t getDataLength();
+	bool _synchronousChannelPacketsOnly;
 };
 
 /**
