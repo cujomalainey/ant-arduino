@@ -57,12 +57,12 @@ cache:
         - "~/.platformio"
 
 env:
-    # - PLATFORMIO_CI_SRC=path/to/test/file.c
     - PLATFORMIO_CI_SRC=examples/OpenChannel/OpenChannel.ino
+    - PLATFORMIO_CI_SRC=examples/AntVersion/Antversion.ino
 
 install:
     - pip install -U platformio
 
 script:
     - mv src/* .
-    - platformio ci --lib="." --board=teensy31
+    - platformio ci --board=teensy31
