@@ -152,7 +152,9 @@
 #define USB_STRING_WRITE_FAIL           0x70
 #define MESG_SERIAL_ERROR_ID            0xAE
 
-// Start Up Message Codes
+/**
+ * Start Up Message Codes
+ */
 #define POWER_ON_RESET       0x00
 #define HARDWARE_RESET_LINE  ( 1 << 0 )
 #define WATCH_DOG_RESET      ( 1 << 1 )
@@ -160,36 +162,65 @@
 #define SYNCHRONOUS_RESET    ( 1 << 6 )
 #define SUSPEND_RESET        ( 1 << 7 )
 
-#define NO_ERROR                          0
-#define CHECKSUM_FAILURE                  1
-#define PACKET_EXCEEDS_BYTE_ARRAY_LENGTH  2
-#define UNEXPECTED_START_BYTE             3
-
-// Channel Status Codes
+/**
+ * Channel Status Codes
+ */
 #define UNASSIGNED                      0
 #define ASSIGNED                        1
 #define SEARCHING                       2
 #define TRACKING                        3
 
-// Framework Defines
+/**
+ * Capabilities Defines
+ */
+// Standard Options
+#define CAPABILITIES_NO_RECEIVE_CHANNELS             ( 1 << 0 )
+#define CAPABILITIES_NO_TRANSMIT_CHANNELS            ( 1 << 1 )
+#define CAPABILITIES_NO_RECEIVE_MESSAGES             ( 1 << 2 )
+#define CAPABILITIES_NO_TRANSMIT_MESSAGES            ( 1 << 3 )
+#define CAPABILITIES_NO_ACKD_MESSAGES                ( 1 << 4 )
+#define CAPABILITIES_NO_BURST_MESSAGES               ( 1 << 5 )
+// Advanced Options
+#define CAPABILITIES_NETWORK_ENABLED                 ( 1 << 1 )
+#define CAPABILITIES_SERIAL_NUMBER_ENABLED           ( 1 << 3 )
+#define CAPABILITIES_PER_CHANNEL_TX_POWER_ENABLED    ( 1 << 4 )
+#define CAPABILITIES_LOW_PRIORITY_SEARCH_ENABLED     ( 1 << 5 )
+#define CAPABILITIES_SCRIPT_ENABLED                  ( 1 << 6 )
+#define CAPABILITIES_SEARCH_LIST_ENABLED             ( 1 << 7 )
+// Advanced Options 2
+#define CAPABILITIES_LED_ENABLED                     ( 1 << 0 )
+#define CAPABILITIES_EXT_MESSAGE_ENABLED             ( 1 << 1 )
+#define CAPABILITIES_SCAN_MODE_ENABLED               ( 1 << 2 )
+#define CAPABILITIES_PROX_SEARCH_ENABLED             ( 1 << 4 )
+#define CAPABILITIES_EXT_ASSIGN_ENABLED              ( 1 << 5 )
+#define CAPABILITIES_FS_ANTFS_ENABLED                ( 1 << 6 )
+#define CAPABILITIES_FIT1_ENABLED                    ( 1 << 7 )
+// Advanced Options 3
+#define CAPABILITIES_ADVANCED_BURST_ENABLED          ( 1 << 0 )
+#define CAPABILITIES_EVENT_BUFFERING_ENABLED         ( 1 << 1 )
+#define CAPABILITIES_EVENT_FILTERING_ENABLED         ( 1 << 2 )
+#define CAPABILITIES_HIGH_DUTY_SEARCH_ENABLED        ( 1 << 3 )
+#define CAPABILITIES_SEARCH_SHARING_ENABLED          ( 1 << 4 )
+#define CAPABILITIES_SELECTIVE_DATA_UPDATES_ENABLED  ( 1 << 6 )
+#define CAPABILITIES_ENCRYPTED_CHANNEL_ENABLED       ( 1 << 7 )
+// Advanced Options 4
+#define CAPABILITIES_RFACTIVE_NOTIFICATION_ENABLED   ( 1 << 0 )
+
+/**
+ * Driver Error Codes
+ */
+#define NO_ERROR                          0
+#define CHECKSUM_FAILURE                  1
+#define PACKET_EXCEEDS_BYTE_ARRAY_LENGTH  2
+#define UNEXPECTED_START_BYTE             3
+
+/**
+ * Framework Defines
+ */
 #define NETWORK_KEY_SIZE                0x08
 #define MESSAGE_SIZE                    0x08
 #define INVALID_REQUEST                 0xFF
 #define BITS_IN_BYTE                    0x08
-
-/**
- * C++11 introduced the constexpr as a hint to the compiler that things
- * can be evaluated at compiletime. This can help to remove
- * startup code for global objects, or otherwise help the compiler to
- * optimize. Since the keyword is introduced in C++11, but supporting
- * older compilers is a matter of removing the keyword, we use a macro
- * for this.
- */
-#if __cplusplus >= 201103L
-#define CONSTEXPR constexpr
-#else
-#define CONSTEXPR
-#endif
 
 /**
  * The super class of all Ant responses (RX packets)
