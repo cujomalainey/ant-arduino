@@ -75,7 +75,7 @@ ant.send(oc);
 
 See the examples folder for the full source. There are more examples in the download.
 
-To add XBee support to a new sketch, add "#include <ANT.h>" (without quotes) to the top of your sketch. You can also add it by selecting the "sketch" menu, and choosing "Import Library->ANT".
+To add ANT support to a new sketch, add "#include <ANT.h>" (without quotes) to the top of your sketch. You can also add it by selecting the "sketch" menu, and choosing "Import Library->ANT".
 
 ## Hardware
 
