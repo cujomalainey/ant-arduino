@@ -116,6 +116,16 @@
 // #define EXTENDED_BURST_DATA                 0x5F
 
 /**
+ * Channel Type Codes
+ */
+#define CHANNEL_TYPE_BIDIRECTIONAL_RECIEVE    0x00
+#define CHANNEL_TYPE_BIDIRECTIONAL_TRANSMIT   0x10
+#define CHANNEL_TYPE_UNIDIRECTIONAL_RECIEVE   0x50
+#define CHANNEL_TYPE_UNIDIRECTIONAL_TRANSMIT  0x40
+#define CHANNEL_TYPE_SHARED_RECIEVE           0x20
+#define CHANNEL_TYPE_SHARED_TRANSMIT          0x30
+
+/**
  * Channel Response Message Codes
  */
 #define	RESPONSE_NO_ERROR               0x00
