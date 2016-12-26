@@ -39,11 +39,6 @@ void setup()
 	// Delay after resetting the radio to give the user time to connect on serial
 	delay(10000);
 	Serial.println("Running");
-
-	snk = SetNetworkKey();
-	snk.setNetwork(0);
-	snk.setKey((uint8_t*)NETWORK_KEY);
-	ant.send(snk);
 	parseMessage();
 
 	ac = AssignChannel();
