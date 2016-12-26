@@ -51,7 +51,7 @@ void setup()
 
 	ac = AssignChannel();
 	ac.setChannel(0);
-	ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECIEVE);
+	ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE);
 	ac.setChannelNetwork(0);
 	ant.send(ac);
 	parseMessage();
