@@ -18,6 +18,7 @@ void parseMessage();
 void setup()
 {
 	ResetSystem rs;
+	RequestMessage rm;
 	Serial1.begin(BAUD_RATE);
 	// this will be moved into the driver eventually
 	#if defined(CORE_TEENSY)
@@ -32,6 +33,18 @@ void setup()
 	Serial.begin(BAUD_RATE);
 	Serial.println("Running");
 
+	parseMessage();
+
+	rm.setRequestedMessage(ANT_VERSION);
+	ant.send(rm);
+	parseMessage();
+
+	rm.setRequestedMessage(CAPABILITIES);
+	ant.send(rm);
+	parseMessage();
+
+	rm.setRequestedMessage(ADVANCED_BURST_CAPABILITES);
+	ant.send(rm);
 	parseMessage();
 }
 
@@ -53,7 +66,7 @@ void parseMessage() {
 				Serial.print("Version: ");
 				for (uint8_t i = 0; i < av.getPacketLength(); i++)
 				{
-					version += (((uint64_t)av.getVersionByte(i)) << i);
+					version += (((uint64_t)av.getVersionByte(i)) << i*8);
 				}
 
   				uint64_t xx = version/1000000000ULL;
