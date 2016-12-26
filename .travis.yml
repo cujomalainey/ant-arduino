@@ -31,6 +31,7 @@ cache:
 env:
     - PLATFORMIO_CI_SRC=examples/OpenChannel/OpenChannel.ino
     - PLATFORMIO_CI_SRC=examples/AntVersion/AntVersion.ino
+    - PLATFORMIO_CI_SRC=examples/TxCounter/TxCounter.ino
 
 install:
     - pip install -U platformio
