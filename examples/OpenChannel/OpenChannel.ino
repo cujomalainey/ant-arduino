@@ -51,7 +51,7 @@ void setup()
 
 	ac = AssignChannel();
 	ac.setChannel(0);
-	ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE);
+	ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE); //can't wildcard this
 	ac.setChannelNetwork(0);
 	ant.send(ac);
 	parseMessage();
@@ -66,13 +66,13 @@ void setup()
 
 	cp = ChannelPeriod();
 	cp.setChannel(0);
-	cp.setPeriod(1234);
+	cp.setPeriod(1234); //can't wildcard this
 	ant.send(cp);
 	parseMessage();
 
 	crf = ChannelRfFrequency();
 	crf.setChannel(0);
-	crf.setRfFrequency(0);
+	crf.setRfFrequency(0); //can't wildcard this
 	ant.send(crf);
 	parseMessage();
 

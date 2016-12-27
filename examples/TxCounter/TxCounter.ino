@@ -58,13 +58,13 @@ void setup()
 
 	cp = ChannelPeriod();
 	cp.setChannel(0);
-	cp.setPeriod(1234);
+	cp.setPeriod(1234); //can't wildcard this
 	ant.send(cp);
 	parseMessage();
 
 	crf = ChannelRfFrequency();
 	crf.setChannel(0);
-	crf.setRfFrequency(0);
+	crf.setRfFrequency(0); //can't wildcard this
 	ant.send(crf);
 	parseMessage();
 
