@@ -4,8 +4,6 @@
  * Writes the ANT radios version and
  * capabilities to the serial port
  *
- * NOTE: THIS EXAMPLE IS INCOMPLETE
- *
  * Author Curtis Malainey
  ************************************/
 
@@ -14,11 +12,12 @@
 Ant ant = Ant();
 
 void parseMessage();
+void parseEventMessage(uint8_t code);
 
 void setup()
 {
 	ResetSystem rs;
-	RequestMessage rm;
+	RequestMessage rm = RequestMessage();
 	Serial1.begin(BAUD_RATE);
 	// this will be moved into the driver eventually
 	#if defined(CORE_TEENSY)
@@ -58,6 +57,17 @@ void parseMessage() {
 	if (ant.getResponse().isAvailable()) {
 		uint8_t msgId = ant.getResponse().getMsgId();
 		switch (msgId) {
+			case CHANNEL_EVENT:
+			{
+				ChannelEventResponse cer = ChannelEventResponse();
+				ant.getResponse().getChannelEventResponseMsg(cer);
+				Serial.println("Received Msg: ChannelEventResponse");
+				Serial.print("Channel: ");
+				Serial.println(cer.getChannelNumber());
+				parseEventMessage(cer.getCode());
+				break;
+			}
+
 			case ANT_VERSION:
 			{
 				AntVersion av = AntVersion();
@@ -72,6 +82,18 @@ void parseMessage() {
   				uint64_t xx = version/1000000000ULL;
   				if (xx >0) Serial.print((long)xx);
   					Serial.print((long)(version-xx*1000000000));
+
+  				Serial.println("");
+				break;
+			}
+
+			case START_UP_MESSAGE:
+			{
+				StartUpMessage sum = StartUpMessage();
+				ant.getResponse().getStartUpMsg(sum);
+				Serial.println("Received Msg: StartupMessage");
+				Serial.print("Message: ");
+				Serial.println(sum.getMessage());
 				break;
 			}
 
@@ -237,6 +259,8 @@ void parseMessage() {
 			}
 
 			default:
+				Serial.print("Undefined Message: ");
+				Serial.println(msgId, HEX);
 				break;
 		}
 	}
@@ -244,5 +268,34 @@ void parseMessage() {
 	{
 		Serial.print("ANT MSG ERROR: ");
 		Serial.println(ant.getResponse().getErrorCode());
+	}
+}
+
+
+void parseEventMessage(uint8_t code)
+{
+	BroadcastMsg bm;
+	Serial.print("Code: ");
+	switch (code)
+	{
+		case RESPONSE_NO_ERROR:
+			Serial.println("RESPONSE_NO_ERROR");
+			break;
+
+		case EVENT_CHANNEL_CLOSED:
+			Serial.println("EVENT_CHANNEL_CLOSED");
+			break;
+
+		case EVENT_TX:
+			Serial.println("EVENT_TX");
+			break;
+
+		case INVALID_MESSAGE:
+			Serial.println("INVALID_MESSAGE");
+			break;
+
+		default:
+			Serial.println(code);
+			break;
 	}
 }
