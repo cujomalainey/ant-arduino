@@ -50,6 +50,7 @@
 #define CLOSE_CHANNEL_LENGTH                 0x01
 #define BROADCAST_DATA_LENGTH                0x09
 #define ACKNOWLEDGE_DATA_LENGTH              0x09
+#define REQUEST_MESSAGE_LENGTH               0x01
 
 /**
  * Channel Status BitField Defines
@@ -833,6 +834,43 @@ uint8_t CloseChannel::getDataLength() {
 
 uint8_t CloseChannel::getData(uint8_t pos) {
 	return _channel;
+}
+
+/* Extended message format not currently supported */
+RequestMessage::RequestMessage() : AntRequest(REQUEST_MESSAGE) {
+
+}
+
+void RequestMessage::setRequestedMessage(uint8_t msgId) {
+	_msgId = msgId;
+}
+
+uint8_t RequestMessage::getRequestedMessage() {
+	return _msgId;
+}
+
+void RequestMessage::setSubId(uint8_t subId) {
+	_subId = subId;
+}
+
+uint8_t RequestMessage::getSubId() {
+	return _subId;
+}
+
+uint8_t RequestMessage::getData(uint8_t pos) {
+	if (pos == 0) {
+		return _subId;
+	}
+	else if (pos == 1) {
+		return _msgId;
+	}
+	else {
+		return INVALID_REQUEST;
+	}
+}
+
+uint8_t RequestMessage::getDataLength() {
+	return REQUEST_MESSAGE_LENGTH;
 }
 
 /* Extended message format not currently supported */
