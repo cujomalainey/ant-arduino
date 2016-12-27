@@ -30,6 +30,7 @@ cache:
 
 env:
     - PLATFORMIO_CI_SRC=examples/OpenChannel/OpenChannel.ino
+    - PLATFORMIO_CI_SRC=examples/SoftwareSerialOpenChannel/SoftwareSerialOpenChannel.ino
     - PLATFORMIO_CI_SRC=examples/AntVersion/AntVersion.ino
     - PLATFORMIO_CI_SRC=examples/TxCounter/TxCounter.ino
 
