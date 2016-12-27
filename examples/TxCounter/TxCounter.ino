@@ -39,6 +39,7 @@ void setup()
 	ant.send(rs);
 	// Delay after resetting the radio to give the user time to connect on serial
 	delay(10000);
+	Serial.begin(9600);
 	Serial.println("Running");
 	parseMessage();
 
