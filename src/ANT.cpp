@@ -251,6 +251,11 @@ uint8_t BroadcastData::getData(uint8_t index) {
 	return AntRxDataResponse::getData(index + 1);
 }
 
+uint8_t* BroadcastData::getData() {
+	// skip channel byte
+	return AntRxDataResponse::getData() + 1;
+}
+
 uint8_t BroadcastData::getExtendedDataLength() {
 	// not inplemented
 	return INVALID_REQUEST;
