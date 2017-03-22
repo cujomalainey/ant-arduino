@@ -12,6 +12,11 @@ Arduino library for communicating with ANT radios, with support for nrf51 device
 * 06/08/2016 Initial Experimental Rx only release
 * 04/21/2016 Project forked from Andrew Wrapp xbee-arduino
 
+## Roadmap
+
+* v1.0 callback system implemented
+* v2.0 compile switch to handle running natively on an nRF52 dev board
+
 [Developer's Guide](https://github.com/cujomalainey/ant-arduino/wiki/Developer's-Guide)
 
 ## Example
