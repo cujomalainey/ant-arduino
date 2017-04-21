@@ -15,6 +15,7 @@ Arduino library for communicating with ANT radios, with support for nrf51 device
 ## Roadmap
 
 * v1.0 callback system implemented
+* v1.1 SPI support
 * v2.0 compile switch to handle running natively on an nRF52 dev board
 
 [Developer's Guide](https://github.com/cujomalainey/ant-arduino/wiki/Developer's-Guide)
