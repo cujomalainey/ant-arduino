@@ -1,0 +1,4 @@
+class BaseAnt {
+public:
+    BaseAnt();
+};
