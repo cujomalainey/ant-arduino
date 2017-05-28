@@ -1,4 +1,4 @@
-#include <BaseClasses/ANT_BaseANT.h>
+#include <BaseClasses/ANT_BaseAnt.h>
 
 #include <RX/ANT_AntResponse.h>
 #include <TX/ANT_AntRequest.h>
