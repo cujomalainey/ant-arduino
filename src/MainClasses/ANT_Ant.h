@@ -36,7 +36,7 @@
  * \edited by Curtis Malainey
  */
 
-class Ant {
+class Ant : BaseAnt {
 public:
     Ant();
     /**
