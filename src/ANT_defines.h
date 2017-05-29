@@ -206,6 +206,11 @@
 #define LIB_CONFIG_CHANNEL_ID    0x80
 
 /**
+ * Channel Search Sharing Definitions
+ */
+#define CHANNEL_SEARCH_SHARING_DISABLED 0
+
+/**
  * Driver Error Codes
  */
 #define NO_ERROR                          0
