@@ -211,6 +211,12 @@
 #define CHANNEL_SEARCH_SHARING_DISABLED 0
 
 /**
+ * Config Encryption Id List Definitions
+ */
+#define CONFIG_ENCRYPTION_ID_LIST_TYPE_WHITELIST 0x00
+#define CONFIG_ENCRYPTION_ID_LIST_TYPE_BLACKLIST 0x01
+
+/**
  * Driver Error Codes
  */
 #define NO_ERROR                          0
