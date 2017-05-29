@@ -146,10 +146,10 @@
 /**
  * Channel Status Codes
  */
-#define UNASSIGNED                      0
-#define ASSIGNED                        1
-#define SEARCHING                       2
-#define TRACKING                        3
+#define CHANNEL_STATUS_UNASSIGNED       0
+#define CHANNEL_STATUS_ASSIGNED         1
+#define CHANNEL_STATUS_SEARCHING        2
+#define CHANNEL_STATUS_TRACKING         3
 
 /**
  * Capabilities Defines
@@ -196,6 +196,14 @@
 #define ADV_BURST_MAX_PACKET_LENGTH_16_BYTE          0x02
 #define ADV_BURST_MAX_PACKET_LENGTH_24_BYTE          0x03
 #define ADV_BURST_FREQUENCY_HOP_ENABLED              ( 1 << 0 )
+
+/**
+ * Lib Config Bit Definitions
+ */
+#define LIB_CONFIG_DISABLED      0
+#define LIB_CONFIG_RX_TIMESTAMP  0x20
+#define LIB_CONFIG_RSSI          0x40
+#define LIB_CONFIG_CHANNEL_ID    0x80
 
 /**
  * Driver Error Codes
