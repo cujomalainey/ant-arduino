@@ -1,16 +1,20 @@
 #include <TX/Control/ANT_RequestMessage.h>
 
-#include <ANT_defines.h>
+#include <ANT_private_defines.h>
 
-#define REQUEST_MESSAGE_LENGTH 0x02
 
 /* Extended message format not currently supported */
 RequestMessage::RequestMessage() : AntRequest(REQUEST_MESSAGE) {
-    _subId = 0;
+
 }
 
-void RequestMessage::setRequestedMessage(uint8_t msgId) {
-    _msgId = msgId;
+RequestMessage::RequestMessage(uint8_t msgId) : AntRequest(REQUEST_MESSAGE) {
+    setRequestedMessage(msgId);
+}
+
+RequestMessage::RequestMessage(uint8_t msgId, uint8_t subId) : AntRequest(REQUEST_MESSAGE) {
+    setRequestedMessage(msgId);
+    setSubId(subId);
 }
 
 uint8_t RequestMessage::getRequestedMessage() {
@@ -40,3 +44,11 @@ uint8_t RequestMessage::getData(uint8_t pos) {
 uint8_t RequestMessage::getDataLength() {
     return REQUEST_MESSAGE_LENGTH;
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t RequestMessage::execute() {
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE
