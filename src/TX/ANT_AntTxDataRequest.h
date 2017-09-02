@@ -1,34 +1,35 @@
+#ifndef ANT_ANTTXDATAREQUEST_h
+#define ANT_ANTTXDATAREQUEST_h
+
 #include <TX/ANT_AntRequest.h>
+
+#include <ANT_defines.h>
 
 /**
  * Common functionality for Ant messages to set/send channel data
  */
-// class AntTxDataRequest : public AntRequest {
-// public:
-    // AntTxDataRequest();
+class AntTxDataRequest : public AntRequest {
+public:
+    AntTxDataRequest(uint8_t msgId);
     /**
-     * Returns the specified index of the payload.  The index may be 0 to getDataLength() - 1
-     * This method is deprecated; use uint8_t* getData()
+     * Returns a pointer to the buffer
      */
-    // uint8_t getData(int index);
-    /**
-     * Copies payload into buffer.  This may be accessed from index 0 to getDataLength() - 1
-     */
-    // void getData(uint8_t* buffer);
+    uint8_t* getDataBuffer();
     /**
      * Returns the length of the payload
      */
-    // virtual uint8_t getDataLength() = 0;
+    uint8_t getDataBufferLength();
     /**
-     * Returns the position in the frame data where the data begins,
-     * its the same for all messages
+     * Sets the data array
      */
+    void setDataBuffer(uint8_t* dataPtr);
 
-//     void setData(uint8_t* data);
+protected:
+    void setDataLength(uint8_t length);
 
-// protected:
-//     uint8_t getDataOffset();
+private:
+    uint8_t* _data;
+    uint8_t  _dataLength;
+};
 
-// private:
-//     uint8_t _data[MESSAGE_SIZE];
-// };
+#endif // ANT_ANTTXDATAREQUEST_h
