@@ -278,19 +278,19 @@ void parseEventMessage(uint8_t code)
     Serial.print("Code: ");
     switch (code)
     {
-        case RESPONSE_NO_ERROR:
+        case STATUS_RESPONSE_NO_ERROR:
             Serial.println("RESPONSE_NO_ERROR");
             break;
 
-        case EVENT_CHANNEL_CLOSED:
+        case STATUS_EVENT_CHANNEL_CLOSED:
             Serial.println("EVENT_CHANNEL_CLOSED");
             break;
 
-        case EVENT_TX:
+        case STATUS_EVENT_TX:
             Serial.println("EVENT_TX");
             break;
 
-        case INVALID_MESSAGE:
+        case STATUS_INVALID_MESSAGE:
             Serial.println("INVALID_MESSAGE");
             break;
 
