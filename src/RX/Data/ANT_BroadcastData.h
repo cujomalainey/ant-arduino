@@ -1,3 +1,6 @@
+#ifndef ANT_BROADCASTDATA_h
+#define ANT_BROADCASTDATA_h
+
 #include <RX/ANT_AntRxDataResponse.h>
 
 #include <ANT_defines.h>
@@ -22,3 +25,5 @@ public:
     uint8_t getDataLength();
     static const uint8_t MSG_ID = BROADCAST_DATA;
 };
+
+#endif // ANT_BROADCASTDATA_h

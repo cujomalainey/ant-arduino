@@ -1,3 +1,6 @@
+#ifndef ANT_ACKNOWLEDGEDDATA_h
+#define ANT_ACKNOWLEDGEDDATA_h
+
 #include <RX/ANT_AntRxDataResponse.h>
 
 #include <ANT_defines.h>
@@ -21,3 +24,5 @@ public:
 
     static const uint8_t MSG_ID = ACKNOWLEDGED_DATA;
 };
+
+#endif // ANT_ACKNOWLEDGEDDATA_h

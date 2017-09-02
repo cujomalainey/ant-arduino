@@ -1,3 +1,6 @@
+#ifndef ANT_BURSTTRANSFERDATA_h
+#define ANT_BURSTTRANSFERDATA_h
+
 /**
  * Represents a BurstTransferData message
  */
@@ -17,3 +20,5 @@ public:
 
     static const uint8_t MSG_ID = BURST_TRANSFER_DATA;
 };
+
+#endif // ANT_BURSTTRANSFERDATA_h
