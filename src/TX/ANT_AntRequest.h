@@ -1,6 +1,7 @@
 #ifndef ANT_ANTREQUEST_h
 #define ANT_ANTREQUEST_h
 #include <inttypes.h>
+#include <ANT_defines.h>
 
 /**
  * Super class of all Ant requests (TX packets)
@@ -32,6 +33,13 @@ public:
      * Returns the size of the msg frame (not including frame id or msg id or checksum).
      */
     virtual uint8_t getDataLength() = 0;
+
+#ifdef NATIVE_API_AVAILABLE
+    /**
+     * Call to native API by NativeAnt when sent
+     */
+    virtual uint8_t execute() = 0;
+#endif // NATIVE_API_AVAILABLE
 private:
     uint8_t _msgId;
 };
