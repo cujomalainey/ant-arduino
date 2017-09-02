@@ -133,7 +133,7 @@ void parseMessage() {
                 }
 
             default:
-                Serial.print("Undefined Message: ");
+                Serial.print("Unhandled Message: ");
                 Serial.println(msgId, HEX);
                 break;
         }
