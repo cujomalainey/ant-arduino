@@ -93,7 +93,7 @@ void parseMessage() {
     {
         uint8_t msgId = ant.getResponse().getMsgId();
         switch (msgId) {
-            case STATUS_CHANNEL_EVENT:
+            case CHANNEL_EVENT:
             {
                 ChannelEventResponse cer = ChannelEventResponse();
                 ant.getResponse().getChannelEventResponseMsg(cer);
@@ -104,7 +104,7 @@ void parseMessage() {
                 break;
             }
 
-            case STATUS_START_UP_MESSAGE:
+            case START_UP_MESSAGE:
             {
                 StartUpMessage sum = StartUpMessage();
                 ant.getResponse().getStartUpMsg(sum);
