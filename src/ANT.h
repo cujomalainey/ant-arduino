@@ -20,6 +20,9 @@
 #ifndef ANT_h
 #define ANT_h
 
+/* Arbitrary Data Definitions */
+#include <ANT_defines.h>
+
 /* Available Main Classes */
 #include <MainClasses/ANT_Ant.h>
 #include <MainClasses/ANT_AntWithCallbacks.h>
