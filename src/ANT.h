@@ -1,6 +1,5 @@
 /**
- * Copyright (c) 2009 Andrew Rapp. All rights reserved.
- * Updated and maintained by Curtis Malainey
+ * Copyright (c) 2017 Curtis Malainey. All rights reserved.
  *
  * This file is part of Ant-Arduino.
  *
@@ -23,33 +22,12 @@
 
 /* Available Main Classes */
 #include <MainClasses/ANT_Ant.h>
+#include <MainClasses/ANT_AntWithCallbacks.h>
+#include <MainClasses/ANT_NativeAnt.h>
+#include <MainClasses/ANT_NativeAntWithCallbacks.h>
 
-/* Available Messages */
-// RX
-// Data (RX)
-#include <RX/Data/ANT_BroadcastData.cpp>
+/* Messages */
+#include <TX/ANT_messages.h>
+#include <RX/ANT_messages.h>
 
-// Status (RX)
-#include <RX/Status/ANT_AntVersion.h>
-#include <RX/Status/ANT_AdvancedBurstCapabilitiesConfiguration.h>
-#include <RX/Status/ANT_Capabilities.h>
-#include <RX/Status/ANT_ChannelEventResponse.h>
-#include <RX/Status/ANT_StartUpMessage.h>
-
-// TX
-// Config (TX)
-#include <TX/Config/ANT_AssignChannel.h>
-#include <TX/Config/ANT_ChannelId.h>
-#include <TX/Config/ANT_ChannelPeriod.h>
-#include <TX/Config/ANT_ChannelRfFrequency.h>
-#include <TX/Config/ANT_SetNetworkKey.h>
-
-// Control (TX)
-#include <TX/Control/ANT_OpenChannel.h>
-#include <TX/Control/ANT_RequestMessage.h>
-#include <TX/Control/ANT_ResetSystem.h>
-
-// Data (TX)
-#include <TX/Data/ANT_BroadcastMsg.h>
-
-#endif //ANT_h
+#endif // ANT_h

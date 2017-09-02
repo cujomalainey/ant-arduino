@@ -1,7 +1,10 @@
+#ifndef ANT_DEFINES_h
+#define ANT_DEFINES_h
+
 #include <inttypes.h>
 
 // This value is determined by the largest message size available
-#define ANT_MAX_MSG_DATA_SIZE 20
+#define ANT_MAX_MSG_DATA_SIZE 28
 
 // not everything is implemented!
 // commented out IDs are not supported by the NRF51 platform
@@ -67,7 +70,6 @@
 #define CHANNEL_RESPONSE                    0x40
 // Requested Response Messages
 #define CHANNEL_STATUS                      0x52
-#define CHANNEL_ID                          0x51
 #define ANT_VERSION                         0x3E
 #define CAPABILITIES                        0x54
 // #define SERIAL_NUMBER                       0x61
@@ -99,39 +101,39 @@
 /**
  * Channel Response Message Codes
  */
-#define RESPONSE_NO_ERROR               0x00
-#define EVENT_RX_SEARCH_TIMEOUT         0x01
-#define EVENT_RX_FAIL                   0x02
-#define EVENT_TX                        0x03
-#define EVENT_TRANSFER_RX_FAILED        0x04
-#define EVENT_TRANSFER_TX_COMPLETED     0x05
-#define EVENT_TRANSFER_TX_FAILED        0x06
-#define EVENT_CHANNEL_CLOSED            0x07
-#define EVENT_RX_FAIL_GO_TO_SEARCH      0x08
-#define EVENT_CHANNEL_COLLISION         0x09
-#define EVENT_TRANSFER_TX_START         0x0A
-#define EVENT_TRANSFER_NEXT_DATA_BLOCK  0x11
-#define CHANNEL_IN_WRONG_STATE          0x15
-#define CHANNEL_NOT_OPENED              0x16
-#define CHANNEL_ID_NOT_SET              0x18
-#define CLOSE_ALL_CHANNELS              0x19
-#define TRANSFER_IN_PROGRESS            0x1F
-#define TRANSFER_SEQUENCE_NUMBER_ERROR  0x20
-#define TRANSFER_IN_ERROR               0x21
-#define MESSAGE_SIZE_EXCEEDS_LIMIT      0x27
-#define INVALID_MESSAGE                 0x28
-#define INVALID_NETWORK_NUMBER          0x29
-#define INVALID_LIST_ID                 0x30
-#define INVALID_SCAN_TX_CHANNEL         0x31
-#define INVALID_PARAMETER_PROVIDED      0x33
-#define EVENT_SERIAL_QUE_OVERFLOW       0x34
-#define EVENT_QUE_OVERFLOW              0x35
-#define ENCRYPT_NEGOTIATION_SUCCESS     0x38
-#define ENCRYPT_NEGOTIATION_FAIL        0x39
-#define NVM_FULL_ERROR                  0x40
-#define NVM_WRITE_ERROR                 0x41
-#define USB_STRING_WRITE_FAIL           0x70
-#define MESG_SERIAL_ERROR_ID            0xAE
+#define STATUS_RESPONSE_NO_ERROR               0x00
+#define STATUS_EVENT_RX_SEARCH_TIMEOUT         0x01
+#define STATUS_EVENT_RX_FAIL                   0x02
+#define STATUS_EVENT_TX                        0x03
+#define STATUS_EVENT_TRANSFER_RX_FAILED        0x04
+#define STATUS_EVENT_TRANSFER_TX_COMPLETED     0x05
+#define STATUS_EVENT_TRANSFER_TX_FAILED        0x06
+#define STATUS_EVENT_CHANNEL_CLOSED            0x07
+#define STATUS_EVENT_RX_FAIL_GO_TO_SEARCH      0x08
+#define STATUS_EVENT_CHANNEL_COLLISION         0x09
+#define STATUS_EVENT_TRANSFER_TX_START         0x0A
+#define STATUS_EVENT_TRANSFER_NEXT_DATA_BLOCK  0x11
+#define STATUS_CHANNEL_IN_WRONG_STATE          0x15
+#define STATUS_CHANNEL_NOT_OPENED              0x16
+#define STATUS_CHANNEL_ID_NOT_SET              0x18
+#define STATUS_CLOSE_ALL_CHANNELS              0x19
+#define STATUS_TRANSFER_IN_PROGRESS            0x1F
+#define STATUS_TRANSFER_SEQUENCE_NUMBER_ERROR  0x20
+#define STATUS_TRANSFER_IN_ERROR               0x21
+#define STATUS_MESSAGE_SIZE_EXCEEDS_LIMIT      0x27
+#define STATUS_INVALID_MESSAGE                 0x28
+#define STATUS_INVALID_NETWORK_NUMBER          0x29
+#define STATUS_INVALID_LIST_ID                 0x30
+#define STATUS_INVALID_SCAN_TX_CHANNEL         0x31
+#define STATUS_INVALID_PARAMETER_PROVIDED      0x33
+#define STATUS_EVENT_SERIAL_QUE_OVERFLOW       0x34
+#define STATUS_EVENT_QUE_OVERFLOW              0x35
+#define STATUS_ENCRYPT_NEGOTIATION_SUCCESS     0x38
+#define STATUS_ENCRYPT_NEGOTIATION_FAIL        0x39
+#define STATUS_NVM_FULL_ERROR                  0x40
+#define STATUS_NVM_WRITE_ERROR                 0x41
+#define STATUS_USB_STRING_WRITE_FAIL           0x70
+#define STATUS_MESG_SERIAL_ERROR_ID            0xAE
 
 /**
  * Start Up Message Codes
@@ -155,37 +157,37 @@
  * Capabilities Defines
  */
 // Standard Options
-#define CAPABILITIES_NO_RECEIVE_CHANNELS             ( 1 << 0 )
-#define CAPABILITIES_NO_TRANSMIT_CHANNELS            ( 1 << 1 )
-#define CAPABILITIES_NO_RECEIVE_MESSAGES             ( 1 << 2 )
-#define CAPABILITIES_NO_TRANSMIT_MESSAGES            ( 1 << 3 )
-#define CAPABILITIES_NO_ACKD_MESSAGES                ( 1 << 4 )
-#define CAPABILITIES_NO_BURST_MESSAGES               ( 1 << 5 )
+#define CAPABILITY_NO_RECEIVE_CHANNELS             ( 1 << 0 )
+#define CAPABILITY_NO_TRANSMIT_CHANNELS            ( 1 << 1 )
+#define CAPABILITY_NO_RECEIVE_MESSAGES             ( 1 << 2 )
+#define CAPABILITY_NO_TRANSMIT_MESSAGES            ( 1 << 3 )
+#define CAPABILITY_NO_ACKD_MESSAGES                ( 1 << 4 )
+#define CAPABILITY_NO_BURST_MESSAGES               ( 1 << 5 )
 // Advanced Options
-#define CAPABILITIES_NETWORK_ENABLED                 ( 1 << 1 )
-#define CAPABILITIES_SERIAL_NUMBER_ENABLED           ( 1 << 3 )
-#define CAPABILITIES_PER_CHANNEL_TX_POWER_ENABLED    ( 1 << 4 )
-#define CAPABILITIES_LOW_PRIORITY_SEARCH_ENABLED     ( 1 << 5 )
-#define CAPABILITIES_SCRIPT_ENABLED                  ( 1 << 6 )
-#define CAPABILITIES_SEARCH_LIST_ENABLED             ( 1 << 7 )
+#define CAPABILITY_NETWORK_ENABLED                 ( 1 << 1 )
+#define CAPABILITY_SERIAL_NUMBER_ENABLED           ( 1 << 3 )
+#define CAPABILITY_PER_CHANNEL_TX_POWER_ENABLED    ( 1 << 4 )
+#define CAPABILITY_LOW_PRIORITY_SEARCH_ENABLED     ( 1 << 5 )
+#define CAPABILITY_SCRIPT_ENABLED                  ( 1 << 6 )
+#define CAPABILITY_SEARCH_LIST_ENABLED             ( 1 << 7 )
 // Advanced Options 2
-#define CAPABILITIES_LED_ENABLED                     ( 1 << 0 )
-#define CAPABILITIES_EXT_MESSAGE_ENABLED             ( 1 << 1 )
-#define CAPABILITIES_SCAN_MODE_ENABLED               ( 1 << 2 )
-#define CAPABILITIES_PROX_SEARCH_ENABLED             ( 1 << 4 )
-#define CAPABILITIES_EXT_ASSIGN_ENABLED              ( 1 << 5 )
-#define CAPABILITIES_FS_ANTFS_ENABLED                ( 1 << 6 )
-#define CAPABILITIES_FIT1_ENABLED                    ( 1 << 7 )
+#define CAPABILITY_LED_ENABLED                     ( 1 << 0 )
+#define CAPABILITY_EXT_MESSAGE_ENABLED             ( 1 << 1 )
+#define CAPABILITY_SCAN_MODE_ENABLED               ( 1 << 2 )
+#define CAPABILITY_PROX_SEARCH_ENABLED             ( 1 << 4 )
+#define CAPABILITY_EXT_ASSIGN_ENABLED              ( 1 << 5 )
+#define CAPABILITY_FS_ANTFS_ENABLED                ( 1 << 6 )
+#define CAPABILITY_FIT1_ENABLED                    ( 1 << 7 )
 // Advanced Options 3
-#define CAPABILITIES_ADVANCED_BURST_ENABLED          ( 1 << 0 )
-#define CAPABILITIES_EVENT_BUFFERING_ENABLED         ( 1 << 1 )
-#define CAPABILITIES_EVENT_FILTERING_ENABLED         ( 1 << 2 )
-#define CAPABILITIES_HIGH_DUTY_SEARCH_ENABLED        ( 1 << 3 )
-#define CAPABILITIES_SEARCH_SHARING_ENABLED          ( 1 << 4 )
-#define CAPABILITIES_SELECTIVE_DATA_UPDATES_ENABLED  ( 1 << 6 )
-#define CAPABILITIES_ENCRYPTED_CHANNEL_ENABLED       ( 1 << 7 )
+#define CAPABILITY_ADVANCED_BURST_ENABLED          ( 1 << 0 )
+#define CAPABILITY_EVENT_BUFFERING_ENABLED         ( 1 << 1 )
+#define CAPABILITY_EVENT_FILTERING_ENABLED         ( 1 << 2 )
+#define CAPABILITY_HIGH_DUTY_SEARCH_ENABLED        ( 1 << 3 )
+#define CAPABILITY_SEARCH_SHARING_ENABLED          ( 1 << 4 )
+#define CAPABILITY_SELECTIVE_DATA_UPDATES_ENABLED  ( 1 << 6 )
+#define CAPABILITY_ENCRYPTED_CHANNEL_ENABLED       ( 1 << 7 )
 // Advanced Options 4
-#define CAPABILITIES_RFACTIVE_NOTIFICATION_ENABLED   ( 1 << 0 )
+#define CAPABILITY_RFACTIVE_NOTIFICATION_ENABLED   ( 1 << 0 )
 
 /**
  * Advanced Burst Capabilities Configuration Defines
@@ -215,6 +217,7 @@
  */
 #define CONFIG_ENCRYPTION_ID_LIST_TYPE_WHITELIST 0x00
 #define CONFIG_ENCRYPTION_ID_LIST_TYPE_BLACKLIST 0x01
+#define CONFIG_ENCRYPTION_ID_LIST_MAX_LIST_SIZE  4
 
 /**
  * Config Encryption Id List Definitions
@@ -237,3 +240,12 @@
 #define MESSAGE_SIZE                    0x08
 #define INVALID_REQUEST                 0xFF
 #define BITS_IN_BYTE                    0x08
+
+/**
+ * SoftDevice API available, build native ant
+ */
+// #if (defined(S332) || defined(S212))
+    #define NATIVE_API_AVAILABLE
+// #endif
+
+#endif // ANT_DEFINES_h
