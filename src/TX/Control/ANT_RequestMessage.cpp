@@ -17,6 +17,10 @@ RequestMessage::RequestMessage(uint8_t msgId, uint8_t subId) : AntRequest(REQUES
     setSubId(subId);
 }
 
+void RequestMessage::setRequestedMessage(uint8_t msgId) {
+    _msgId = _msgId;
+}
+
 uint8_t RequestMessage::getRequestedMessage() {
     return _msgId;
 }
