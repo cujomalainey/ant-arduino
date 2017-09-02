@@ -27,3 +27,12 @@ uint8_t OpenChannel::getDataLength() {
 uint8_t OpenChannel::getData(uint8_t pos) {
     return _channel;
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t OpenChannel::execute() {
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

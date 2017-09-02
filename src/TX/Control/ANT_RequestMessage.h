@@ -17,6 +17,9 @@ public:
     uint8_t getSubId();
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif
 private:
     uint8_t _msgId;
     uint8_t _subId = 0;

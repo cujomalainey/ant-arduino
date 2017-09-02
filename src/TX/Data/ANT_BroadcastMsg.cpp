@@ -49,3 +49,12 @@ uint8_t BroadcastMsg::getData(uint8_t pos) {
         return _data[pos - 1];
     }
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t BroadcastMsg::execute() {
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

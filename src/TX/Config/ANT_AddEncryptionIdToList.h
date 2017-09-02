@@ -11,9 +11,13 @@ public:
     uint8_t getChannel();
     uint32_t getEncryptionId();
     uint8_t getListIndex();
-private:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif
+private:
+    // TODO missing var for list index?
     uint8_t _channel;
     uint32_t _encryptionId;
 };

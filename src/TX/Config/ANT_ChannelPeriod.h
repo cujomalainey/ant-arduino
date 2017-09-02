@@ -11,9 +11,12 @@ public:
     void setPeriod(uint16_t period);
     uint8_t getChannel();
     uint16_t getPeriod();
-private:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif
+private:
     uint8_t _channel;
     uint16_t _period;
 };

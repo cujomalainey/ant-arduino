@@ -6,7 +6,9 @@
 class ResetSystem : public AntRequest {
 public:
     ResetSystem();
-private:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif
 };

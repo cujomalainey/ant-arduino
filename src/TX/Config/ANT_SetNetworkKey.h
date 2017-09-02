@@ -15,9 +15,12 @@ public:
     uint8_t getNetwork();
     void getKey(uint8_t* arr);
     uint8_t getKeyByte(uint8_t pos);
-private:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif
+private:
     uint8_t _network;
     uint8_t _key[NETWORK_KEY_SIZE];
 };

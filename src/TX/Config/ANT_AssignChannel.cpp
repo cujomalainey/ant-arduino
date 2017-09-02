@@ -45,3 +45,12 @@ uint8_t AssignChannel::getData(uint8_t pos) {
         return _network;
     }
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t AssignChannel::execute() {
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

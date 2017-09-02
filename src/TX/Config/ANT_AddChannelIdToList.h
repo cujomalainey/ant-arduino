@@ -15,9 +15,12 @@ public:
     uint8_t getDeviceType();
     uint8_t getTransmissionType();
     uint8_t getListIndex();
-private:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif // NATIVE_API_AVAILABLE
+private:
     uint8_t _channel;
     uint16_t _deviceNumber;
     uint8_t _deviceType;

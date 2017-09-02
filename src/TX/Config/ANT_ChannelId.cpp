@@ -57,3 +57,12 @@ uint8_t ChannelId::getData(uint8_t pos) {
         return _transmissionType;
     }
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t ChannelId::execute() {
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

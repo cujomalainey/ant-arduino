@@ -13,9 +13,12 @@ public:
     void setSearchcycles(uint8_t cycles);
     uint8_t getChannel();
     uint8_t getSearchCycles();
-private:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif // NATIVE_API_AVAILABLE
+private:
     uint8_t _channel;
     uint8_t _cycles;
 };

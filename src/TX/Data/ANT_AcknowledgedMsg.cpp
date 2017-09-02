@@ -29,3 +29,12 @@ uint8_t AcknowledgedMsg::getData(uint8_t pos) {
         return _data[pos - 1];
     }
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t AcknowledgedMsg::execute() {
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

@@ -15,3 +15,11 @@ uint8_t ResetSystem::getDataLength() {
 uint8_t ResetSystem::getData(uint8_t pos) {
     return 0;
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t ResetSystem::execute() {
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

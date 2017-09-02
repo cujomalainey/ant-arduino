@@ -9,8 +9,11 @@ public:
     CloseChannel(uint8_t channel);
     void setChannel(uint8_t channel);
     uint8_t getChannel();
-private:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif
+private:
     uint8_t _channel;
 };

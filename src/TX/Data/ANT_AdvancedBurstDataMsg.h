@@ -10,7 +10,6 @@ public:
     uint8_t getByte(uint8_t index);
     void setChannelSequence(uint8_t channel);
     uint8_t getChannelSequence();
-private:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
     uint8_t _data[MESSAGE_SIZE];

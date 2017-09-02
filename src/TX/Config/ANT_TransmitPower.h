@@ -9,8 +9,11 @@ public:
     TransmitPower();
     void setTxPower(uint8_t power);
     uint8_t getTxPower();
-private:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif // NATIVE_API_AVAILABLE
+private:
     uint8_t _power;
 };

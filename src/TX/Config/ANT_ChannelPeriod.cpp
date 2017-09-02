@@ -37,3 +37,12 @@ uint8_t ChannelPeriod::getData(uint8_t pos) {
         return (uint8_t)(_period >> BITS_IN_BYTE);
     }
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t ChannelPeriod::execute() {
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

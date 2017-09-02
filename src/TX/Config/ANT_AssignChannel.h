@@ -13,10 +13,12 @@ public:
     uint8_t getChannel();
     uint8_t getChannelType();
     uint8_t getChannelNetwork();
-protected:
-    // declare virtual functions
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif
+protected:
     uint8_t _channel;
     uint8_t _channelType = 0;
     uint8_t _network = 0;
