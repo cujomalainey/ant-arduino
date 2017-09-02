@@ -1,3 +1,6 @@
+#ifndef ANT_ANTVERSION_h
+#define ANT_ANTVERSION_h
+
 #include <RX/ANT_AntResponse.h>
 
 #include <ANT_defines.h>
@@ -12,3 +15,5 @@ public:
 
     static const uint8_t MSG_ID = ANT_VERSION;
 };
+
+#endif // ANT_ANTVERSION_h

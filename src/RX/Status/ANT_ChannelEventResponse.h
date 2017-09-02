@@ -1,3 +1,6 @@
+#ifndef ANT_CHANNELEVENTRESPONSE_h
+#define ANT_CHANNELEVENTRESPONSE_h
+
 #include <RX/ANT_AntResponse.h>
 
 #include <ANT_defines.h>
@@ -15,3 +18,5 @@ public:
 
     static const uint8_t MSG_ID = CHANNEL_RESPONSE;
 };
+
+#endif // ANT_CHANNELEVENTRESPONSE_h

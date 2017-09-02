@@ -1,3 +1,6 @@
+#ifndef ANT_CHANNELSTATUS_h
+#define ANT_CHANNELSTATUS_h
+
 #include <RX/ANT_AntResponse.h>
 
 #include <ANT_defines.h>
@@ -23,3 +26,5 @@ public:
 
     static const uint8_t MSG_ID = CHANNEL_STATUS;
 };
+
+#endif // ANT_CHANNELSTATUS_h

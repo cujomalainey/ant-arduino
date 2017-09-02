@@ -1,3 +1,6 @@
+#ifndef ANT_CAPABILITIES_h
+#define ANT_CAPABILITIES_h
+
 #include <RX/ANT_AntResponse.h>
 
 #include <ANT_defines.h>
@@ -16,3 +19,5 @@ public:
 
     static const uint8_t MSG_ID = CAPABILITIES;
 };
+
+#endif // ANT_CAPABILITIES_h
