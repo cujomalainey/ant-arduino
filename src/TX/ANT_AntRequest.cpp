@@ -7,7 +7,3 @@ AntRequest::AntRequest(uint8_t msgId) {
 uint8_t AntRequest::getMsgId() {
     return _msgId;
 }
-
-void AntRequest::setMsgId(uint8_t msgId) {
-    _msgId = msgId;
-}

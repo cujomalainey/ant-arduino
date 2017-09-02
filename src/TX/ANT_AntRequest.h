@@ -32,9 +32,6 @@ public:
      * Returns the size of the msg frame (not including frame id or msg id or checksum).
      */
     virtual uint8_t getDataLength() = 0;
-    //void reset();
-protected:
-    void setMsgId(uint8_t msgId);
 private:
     uint8_t _msgId;
 };
