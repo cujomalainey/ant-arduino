@@ -139,11 +139,12 @@ void AntResponse::getChannelIdResponseMsg(AntResponse &response) {
 }
 
 
-    AcknowledgedData* ackData = static_cast<AcknowledgedData*>(&ackDataResponse);
+void AntResponse::getAcknowledgedDataMsg(AntResponse &response) {
+    AcknowledgedData* ackData = static_cast<AcknowledgedData*>(&response);
 
     // pass pointer array to subclass
     ackData->setFrameData(getFrameData());
-    setCommon(ackDataResponse);
+    setCommon(response);
 
 }
 
