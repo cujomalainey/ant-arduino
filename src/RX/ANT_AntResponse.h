@@ -107,6 +107,18 @@ public:
      */
     void getSerialNumberMsg(AntResponse &response);
     /**
+     * Call with instance of EncryptionModeParameters only if getMsgId() == ENCRYPTION_MODE_PARAMETERS
+     */
+    void getEncryptionModeParametersMsg(AntResponse &response);
+    /**
+     * Call with instance of EventFilter only if getMsgId() == EVENT_FILTER
+     */
+    void getEventFilterMsg(AntResponse &response);
+    /**
+     * Call with instance of SelectiveDataUpdateMaskSetting only if getMsgId() == SELECTIVE_DATA_UPDATE_MASK_SETTING
+     */
+    void getSelectiveDataUpdateMaskSettingMsg(AntResponse &response);
+    /**
      * Returns true if the response has been successfully parsed and is complete and ready for use
      */
     bool isAvailable();
