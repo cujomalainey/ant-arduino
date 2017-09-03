@@ -1,5 +1,5 @@
 #include <RX/Data/ANT_BroadcastData.h>
-#include <RX/ANT_AntRxDataResponse.h>
+
 #include <ANT_private_defines.h>
 
 BroadcastData::BroadcastData() : AntRxDataResponse() {
@@ -21,12 +21,12 @@ uint8_t* BroadcastData::getData() {
 }
 
 uint8_t BroadcastData::getExtendedDataLength() {
-    // not inplemented
+    // TODO not inplemented
     return INVALID_REQUEST;
 }
 
 uint8_t BroadcastData::getExtendedData(uint8_t index) {
-    // not inplemented
+    // TODO not inplemented
     return INVALID_REQUEST;
 }
 
