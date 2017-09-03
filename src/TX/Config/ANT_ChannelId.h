@@ -31,7 +31,9 @@ private:
     uint8_t _channel;
     uint16_t _deviceNumber;
     uint8_t _deviceType;
-    bool _pairingBit;
-    uint8_t _transmissionType;
+    // TODO figure out default for pairing bit, assuming false
+    bool _pairingBit = false;
+    uint8_t _transmissionType = 0;
 };
+
 #endif // ANT_CHANNELID_h

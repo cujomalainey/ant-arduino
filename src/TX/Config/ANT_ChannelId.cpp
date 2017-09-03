@@ -1,11 +1,24 @@
 #include <TX/Config/ANT_ChannelId.h>
 
-#include <ANT_defines.h>
+#include <ANT_private_defines.h>
 
-#define CHANNEL_ID_LENGTH  0x05
 
 ChannelId::ChannelId() : AntRequest(CHANNEL_ID) {
 
+}
+
+ChannelId::ChannelId(uint8_t channel, uint16_t deviceNumber, uint8_t deviceType) : AntRequest(CHANNEL_ID) {
+    setChannel(channel);
+    setDeviceNumber(deviceNumber);
+    setDeviceType(deviceType);
+}
+
+ChannelId::ChannelId(uint8_t channel, uint16_t deviceNumber, uint8_t deviceType, bool paringBit, uint8_t transmissionType) : AntRequest(CHANNEL_ID) {
+    setChannel(channel);
+    setDeviceNumber(deviceNumber);
+    setDeviceType(deviceType);
+    setPairingBit(paringBit);
+    setTransmissionType(transmissionType);
 }
 
 void ChannelId::setChannel(uint8_t channel) {
@@ -24,6 +37,10 @@ void ChannelId::setTransmissionType(uint8_t transmissionType) {
     _transmissionType = transmissionType;
 }
 
+void ChannelId::setPairingBit(bool paringBit) {
+    _pairingBit = paringBit;
+}
+
 uint8_t ChannelId::getChannel() {
     return _channel;
 }
@@ -38,6 +55,10 @@ uint8_t ChannelId::getDeviceType() {
 
 uint8_t ChannelId::getTransmissionType() {
     return _transmissionType;
+}
+
+bool ChannelId::getPairingBit() {
+    return _pairingBit;
 }
 
 uint8_t ChannelId::getDataLength() {
