@@ -24,8 +24,10 @@ public:
 #endif
 protected:
     uint8_t _channel;
-    uint8_t _channelType = 0;
-    uint8_t _network = 0;
-    uint8_t _extended = 0;
+    uint8_t _channelType;
+    uint8_t _network;
+    // TODO what is this var??
+    uint8_t _extended;
 };
+
 #endif // ANT_ASSIGNCHANNEL_h

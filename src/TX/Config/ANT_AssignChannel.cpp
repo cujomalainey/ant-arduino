@@ -1,11 +1,16 @@
 #include <TX/Config/ANT_AssignChannel.h>
 
-#include <ANT_defines.h>
+#include <ANT_private_defines.h>
 
-#define ASSIGN_CHANNEL_LENGTH  0x03
 
 AssignChannel::AssignChannel() : AntRequest(ASSIGN_CHANNEL) {
 
+}
+
+AssignChannel::AssignChannel(uint8_t channel, uint8_t channelType, uint8_t network) : AntRequest(ASSIGN_CHANNEL) {
+    setChannel(channel);
+    setChannelType(channelType);
+    setChannelNetwork(network);
 }
 
 void AssignChannel::setChannel(uint8_t channel) {
