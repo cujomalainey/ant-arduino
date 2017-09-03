@@ -10,6 +10,7 @@
 class SearchTimeout : public AntRequest {
 public:
     SearchTimeout();
+    SearchTimeout(uint8_t channel, uint8_t timeout);
     void setChannel(uint8_t channel);
     void setTimeout(uint8_t timeout);
     uint8_t getChannel();

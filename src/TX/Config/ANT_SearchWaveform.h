@@ -10,6 +10,7 @@
 class SearchWaveform : public AntRequest {
 public:
     SearchWaveform();
+    SearchWaveform(uint8_t channel, uint16_t waveform);
     void setChannel(uint8_t channel);
     void setWaveform(uint16_t waveform);
     uint8_t getChannel();

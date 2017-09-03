@@ -10,6 +10,7 @@
 class AddEncryptionIdToList : public AntRequest {
 public:
     AddEncryptionIdToList();
+    AddEncryptionIdToList(uint8_t channel, uint32_t encryptionId, uint8_t listIndex);
     void setChannel(uint8_t channel);
     void setEncryptionId(uint32_t encryptionId);
     void setListIndex(uint8_t listIndex);

@@ -10,6 +10,7 @@
 class AddChannelIdToList : public AntRequest {
 public:
     AddChannelIdToList();
+    AddChannelIdToList(uint8_t channel, uint16_t deviceNumber, uint8_t deviceType,  uint8_t transmissionType, uint8_t listIndex);
     void setChannel(uint8_t channel);
     void setDeviceNumber(uint16_t deviceNumber);
     void setDeviceType(uint8_t deviceType);

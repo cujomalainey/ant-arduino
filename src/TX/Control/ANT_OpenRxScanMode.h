@@ -9,6 +9,7 @@
 class OpenRxScanMode : public AntRequest {
 public:
     OpenRxScanMode();
+    OpenRxScanMode(bool synchronousOnly);
     void setSynchronousChannelPacketsOnly(bool synchronousOnly);
     bool getSynchronousChannelPacketsOnly();
     uint8_t getData(uint8_t pos);

@@ -12,6 +12,7 @@
 class SetNetworkKey : public AntRequest {
 public:
     SetNetworkKey();
+    SetNetworkKey(uint8_t network, uint8_t* key);
     void setNetwork(uint8_t network);
     void setKey(uint8_t* key);
     void setKeyByte(uint8_t byte, uint8_t pos);

@@ -12,6 +12,7 @@
 class ChannelSearchSharing : public AntRequest {
 public:
     ChannelSearchSharing();
+    ChannelSearchSharing(uint8_t channel, uint8_t cycles);
     void setChannel(uint8_t channel);
     void setSearchcycles(uint8_t cycles);
     uint8_t getChannel();

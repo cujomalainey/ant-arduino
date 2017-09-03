@@ -10,6 +10,7 @@
 class AssignChannel : public AntRequest {
 public:
     AssignChannel();
+    AssignChannel(uint8_t channel, uint8_t channelType, uint8_t network);
     void setChannel(uint8_t channel);
     void setChannelType(uint8_t channelType);
     void setChannelNetwork(uint8_t network);

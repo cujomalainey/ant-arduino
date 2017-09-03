@@ -10,6 +10,7 @@
 class ChannelRfFrequency : public AntRequest {
 public:
     ChannelRfFrequency();
+    ChannelRfFrequency(uint8_t channel, uint8_t frequency);
     void setChannel(uint8_t channel);
     void setRfFrequency(uint8_t frequency);
     uint8_t getChannel();

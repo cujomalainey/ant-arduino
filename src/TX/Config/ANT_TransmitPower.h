@@ -10,6 +10,7 @@
 class TransmitPower : public AntRequest {
 public:
     TransmitPower();
+    TransmitPower(uint8_t power);
     void setTxPower(uint8_t power);
     uint8_t getTxPower();
     uint8_t getData(uint8_t pos);

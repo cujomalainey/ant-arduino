@@ -10,6 +10,7 @@
 class ChannelPeriod : public AntRequest {
 public:
     ChannelPeriod();
+    ChannelPeriod(uint8_t channel, uint16_t period);
     void setChannel(uint8_t channel);
     void setPeriod(uint16_t period);
     uint8_t getChannel();

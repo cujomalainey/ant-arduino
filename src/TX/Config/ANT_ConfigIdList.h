@@ -11,6 +11,7 @@
 class ConfigIdList : public AntRequest {
 public:
     ConfigIdList();
+    ConfigIdList(uint8_t channel, uint8_t size, uint8_t type);
     void setChannel(uint8_t channel);
     void setListSize(uint8_t size); // [0-4]
     void setExclusion(uint8_t type);

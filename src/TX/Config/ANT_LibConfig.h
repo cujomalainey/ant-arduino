@@ -5,11 +5,12 @@
 
 /**
  * Represents a Lib Config message, it is used to
- * configure a extended responses from the radio
+ * configure extended responses from the radio
  */
 class LibConfig : public AntRequest {
 public:
     LibConfig();
+    LibConfig(uint8_t config);
     void setConfig(uint8_t config);
     uint8_t getConfig();
     uint8_t getData(uint8_t pos);

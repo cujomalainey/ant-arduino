@@ -10,6 +10,8 @@
 class ChannelId : public AntRequest {
 public:
     ChannelId();
+    ChannelId(uint8_t channel, uint16_t deviceNumber, uint8_t deviceType);
+    ChannelId(uint8_t channel, uint16_t deviceNumber, uint8_t deviceType, bool paringBit, uint8_t transmissionType);
     void setChannel(uint8_t channel);
     void setDeviceNumber(uint16_t deviceNumber);
     void setDeviceType(uint8_t deviceType);

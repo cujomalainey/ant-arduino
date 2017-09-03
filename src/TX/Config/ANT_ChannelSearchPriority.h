@@ -11,6 +11,7 @@
 class ChannelSearchPriority : public AntRequest {
 public:
     ChannelSearchPriority();
+    ChannelSearchPriority(uint8_t channel, uint8_t priority);
     void setChannel(uint8_t channel);
     void setPriority(uint8_t priority);
     uint8_t getChannel();
