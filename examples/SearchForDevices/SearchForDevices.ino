@@ -135,9 +135,9 @@ void parseMessage() {
             {
                 ChannelIdResponse cir = ChannelIdResponse();
                 ant.getResponse().getChannelIdResponseMsg(cir);
-                Serial.println("Received Msg: StartupMessage");
+                Serial.println("Received Msg: ChannelIdResponse");
                 Serial.print("Message: ");
-                Serial.println(sum.getMessage());
+                Serial.println(cir.getChannelNumber());
                 break;
             }
 
