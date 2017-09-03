@@ -73,13 +73,12 @@ void AntResponse::getStartUpMsg(AntResponse &response) {
 }
 
 void AntResponse::getBroadcastDataMsg(AntResponse &rxResponse) {
-
-    BroadcastData* ant = static_cast<BroadcastData*>(&rxResponse);
+    BroadcastData* bdm = static_cast<BroadcastData*>(&rxResponse);
 
     //TODO verify response msg id matches this msg for this response
 
     // pass pointer array to subclass
-    ant->setFrameData(getFrameData());
+    bdm->setFrameData(getFrameData());
     setCommon(rxResponse);
 }
 
@@ -101,9 +100,15 @@ void AntResponse::getCapabilitiesMsg(AntResponse &response) {
 
 }
 
-void AntResponse::getAdvancedBurstCapabilitiesConfigurationMsg(AntResponse &response) {
+void AntResponse::getAdvancedBurstDataMsg(AntResponse &response) {
+    AdvancedBurstData* abd = static_cast<AdvancedBurstData*>(&response);
 
-    // TODO no real need to cast.  change arg to match expected class
+    // pass pointer array to subclass
+    abd->setFrameData(getFrameData());
+    setCommon(response);
+}
+
+void AntResponse::getAdvancedBurstCapabilitiesConfigurationMsg(AntResponse &response) {
     AdvancedBurstCapabilitiesConfiguration* abc = static_cast<AdvancedBurstCapabilitiesConfiguration*>(&response);
 
     // pass pointer array to subclass
@@ -130,6 +135,13 @@ void AntResponse::getChannelIdResponseMsg(AntResponse &response) {
 
 }
 
+void AntResponse::getChannelStatusMsg(AntResponse &response) {
+    ChannelStatus* csm = static_cast<ChannelStatus*>(&response);
+
+    // pass pointer array to subclass
+    csm->setFrameData(getFrameData());
+    setCommon(response);
+}
 
 void AntResponse::getAcknowledgedDataMsg(AntResponse &response) {
     AcknowledgedData* ackData = static_cast<AcknowledgedData*>(&response);
@@ -140,8 +152,33 @@ void AntResponse::getAcknowledgedDataMsg(AntResponse &response) {
 
 }
 
-void AntResponse::getBurstTransferDataMsg(AntResponse &burstDataResponse) {
+void AntResponse::getSelectiveDataUpdateMaskSettingMsg(AntResponse &response) {
+    SelectiveDataUpdateMaskSetting* sdums = static_cast<SelectiveDataUpdateMaskSetting*>(&response);
 
+    // pass pointer array to subclass
+    sdums->setFrameData(getFrameData());
+    setCommon(response);
+
+}
+
+void AntResponse::getEncryptionModeParametersMsg(AntResponse &response) {
+    EncryptionModeParameters* emp = static_cast<EncryptionModeParameters*>(&response);
+
+    // pass pointer array to subclass
+    emp->setFrameData(getFrameData());
+    setCommon(response);
+}
+
+void AntResponse::getEventFilterMsg(AntResponse &response) {
+    EventFilter* evm = static_cast<EventFilter*>(&response);
+
+    // pass pointer array to subclass
+    evm->setFrameData(getFrameData());
+    setCommon(response);
+
+}
+
+void AntResponse::getBurstTransferDataMsg(AntResponse &burstDataResponse) {
     BurstTransferData* burstData = static_cast<BurstTransferData*>(&burstDataResponse);
 
     // pass pointer array to subclass
