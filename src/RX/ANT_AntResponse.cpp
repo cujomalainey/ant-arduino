@@ -66,8 +66,6 @@ void AntResponse::setCommon(AntResponse &target) {
 }
 
 void AntResponse::getStartUpMsg(AntResponse &response) {
-
-    // way off?
     StartUpMessage* startUpMsg = static_cast<StartUpMessage*>(&response);
     // pass pointer array to subclass
     startUpMsg->setFrameData(getFrameData());
@@ -86,8 +84,6 @@ void AntResponse::getBroadcastDataMsg(AntResponse &rxResponse) {
 }
 
 void AntResponse::getAntVersionMsg(AntResponse &response) {
-
-    // TODO no real need to cast.  change arg to match expected class
     AntVersion* av = static_cast<AntVersion*>(&response);
 
     // pass pointer array to subclass
@@ -97,8 +93,6 @@ void AntResponse::getAntVersionMsg(AntResponse &response) {
 }
 
 void AntResponse::getCapabilitiesMsg(AntResponse &response) {
-
-    // TODO no real need to cast.  change arg to match expected class
     Capabilities* cap = static_cast<Capabilities*>(&response);
 
     // pass pointer array to subclass
@@ -119,8 +113,6 @@ void AntResponse::getAdvancedBurstCapabilitiesConfigurationMsg(AntResponse &resp
 }
 
 void AntResponse::getChannelEventResponseMsg(AntResponse &response) {
-
-    // TODO no real need to cast.  change arg to match expected class
     ChannelEventResponse* cer = static_cast<ChannelEventResponse*>(&response);
 
     // pass pointer array to subclass
