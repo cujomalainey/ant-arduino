@@ -31,6 +31,7 @@ void setup()
     ChannelPeriod cp;
     ChannelRfFrequency crf;
     OpenChannel oc;
+    RequestMessage rm;
 
     Serial1.begin(BAUD_RATE);
     // this will be moved into the driver eventually
@@ -48,6 +49,7 @@ void setup()
 
     Serial.println("Getting Max Channels");
     do {
+        rm = RequestMessage();
         rm.setRequestedMessage(CAPABILITIES);
         ant.send(rm);
         delay(100);
