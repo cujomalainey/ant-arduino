@@ -16,3 +16,5 @@ uint32_t AdvancedBurstCapabilitiesConfiguration::getSupportedFeatures() {
     uint8_t* frame = getFrameData();
     return ( frame[2] ) + ( frame[3] << 8 ) + ( frame[4] << 16 );
 }
+
+ // todo finish implementation
