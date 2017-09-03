@@ -14,7 +14,8 @@ public:
     uint8_t getChannelSequence();
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
-    uint8_t _data[MESSAGE_SIZE];
+    void setDataLength(uint8_t length);
+private:
     uint8_t _channel;
 };
 
