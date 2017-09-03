@@ -1,15 +1,8 @@
 #include <RX/ANT_AntResponse.h>
+#include <RX/ANT_messages.h>
 
 #include <ANT_private_defines.h>
 
-#include <RX/Data/ANT_AcknowledgedData.h>
-#include <RX/Data/ANT_BroadcastData.h>
-#include <RX/Data/ANT_BurstTransferData.h>
-#include <RX/Status/ANT_AdvancedBurstCapabilitiesConfiguration.h>
-#include <RX/Status/ANT_AntVersion.h>
-#include <RX/Status/ANT_Capabilities.h>
-#include <RX/Status/ANT_ChannelEventResponse.h>
-#include <RX/Status/ANT_StartUpMessage.h>
 
 AntResponse::AntResponse() {
 
