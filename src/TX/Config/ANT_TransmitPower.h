@@ -1,3 +1,6 @@
+#ifndef ANT_TRANSMITPOWER_h
+#define ANT_TRANSMITPOWER_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -17,3 +20,5 @@ public:
 private:
     uint8_t _power;
 };
+
+#endif // ANT_TRANSMITPOWER_h

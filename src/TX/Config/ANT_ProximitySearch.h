@@ -1,0 +1,6 @@
+#ifndef ANT_PROXIMITYSEARCH_h
+#define ANT_PROXIMITYSEARCH_h
+
+// TODO
+
+#endif // ANT_PROXIMITYSEARCH_h

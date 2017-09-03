@@ -1,3 +1,6 @@
+#ifndef ANT_SEARCHWAVEFORM_h
+#define ANT_SEARCHWAVEFORM_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -20,3 +23,5 @@ private:
     uint8_t _channel;
     uint16_t _waveform;
 };
+
+#endif // ANT_SEARCHWAVEFORM_h

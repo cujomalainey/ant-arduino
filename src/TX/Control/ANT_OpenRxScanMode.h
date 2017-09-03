@@ -1,3 +1,8 @@
+#ifndef ANT_OPENRXSCANMODE_h
+#define ANT_OPENRXSCANMODE_h
+
+#include <TX/ANT_AntRequest.h>
+
 /**
  * Represents a Open Rx Scan Mode message, it is used to put the ANT radio into open rx scan mode
  */
@@ -14,3 +19,5 @@ public:
 private:
     bool _synchronousChannelPacketsOnly;
 };
+
+#endif // ANT_OPENRXSCANMODE_h

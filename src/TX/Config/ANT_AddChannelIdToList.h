@@ -1,3 +1,8 @@
+#ifndef ANT_ADDCHANNELIDTOLIST_h
+#define ANT_ADDCHANNELIDTOLIST_h
+
+#include <TX/ANT_AntRequest.h>
+
 /**
  * Represents Add Channel Id To List message, it is used to add
  * a channel to a specified list
@@ -27,3 +32,5 @@ private:
     uint8_t _transmissionType;
     uint8_t _listIndex;
 };
+
+#endif // ANT_ADDCHANNELIDTOLIST_h

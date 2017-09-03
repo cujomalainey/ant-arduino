@@ -1,3 +1,6 @@
+#ifndef ANT_CHANNELSEARCHSHARING_h
+#define ANT_CHANNELSEARCHSHARING_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -22,3 +25,5 @@ private:
     uint8_t _channel;
     uint8_t _cycles;
 };
+
+#endif // ANT_CHANNELSEARCHSHARING_h

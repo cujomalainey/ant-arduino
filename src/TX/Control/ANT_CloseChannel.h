@@ -1,3 +1,6 @@
+#ifndef ANT_CLOSECHANNEL_h
+#define ANT_CLOSECHANNEL_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -17,3 +20,5 @@ public:
 private:
     uint8_t _channel;
 };
+
+#endif // ANT_CLOSECHANNEL_h

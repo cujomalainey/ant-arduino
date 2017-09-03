@@ -1,3 +1,6 @@
+#ifndef ANT_CHANNELSEARCHPRIORITY_h
+#define ANT_CHANNELSEARCHPRIORITY_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -21,3 +24,5 @@ private:
     uint8_t _channel;
     uint8_t _priority;
 };
+
+#endif // ANT_CHANNELSEARCHPRIORITY_h

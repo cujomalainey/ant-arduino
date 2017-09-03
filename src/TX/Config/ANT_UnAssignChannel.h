@@ -1,3 +1,6 @@
+#ifndef ANT_UNASSIGNCHANNEL_h
+#define ANT_UNASSIGNCHANNEL_h
+
 #include <TX/ANT_AntRequest.h>
 
 #include <ANT_defines.h>
@@ -20,3 +23,5 @@ public:
 private:
     uint8_t _channel;
 };
+
+#endif // ANT_UNASSIGNCHANNEL_h

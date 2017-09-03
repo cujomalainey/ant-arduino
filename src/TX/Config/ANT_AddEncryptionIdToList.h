@@ -1,3 +1,8 @@
+#ifndef ANT_ADDENCRYPTIONIDTOLIST_h
+#define ANT_ADDENCRYPTIONIDTOLIST_h
+
+#include <TX/ANT_AntRequest.h>
+
 /**
  * Represents a Add Encryption Id To List message, it is used to add
  * an encryption id to a list
@@ -21,3 +26,5 @@ private:
     uint8_t _channel;
     uint32_t _encryptionId;
 };
+
+#endif // ANT_ADDENCRYPTIONIDTOLIST_h

@@ -1,3 +1,8 @@
+#ifndef ANT_BURSTTRANSFERDATAMSG_h
+#define ANT_BURSTTRANSFERDATAMSG_h
+
+#include <TX/ANT_AntTxDataRequest.h>
+
 /**
  * Represents a Burst Transfer Data Tx message, it is used to send a message from the ANT radio
  */
@@ -15,3 +20,5 @@ public:
     uint8_t _data[MESSAGE_SIZE];
     uint8_t _channel;
 };
+
+#endif // ANT_BURSTTRANSFERDATAMSG_h

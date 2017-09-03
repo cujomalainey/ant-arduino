@@ -1,3 +1,6 @@
+#ifndef ANT_CHANNELRFFREQUENCY_h
+#define ANT_CHANNELRFFREQUENCY_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -20,3 +23,5 @@ private:
     uint8_t _channel;
     uint8_t _frequency;
 };
+
+#endif // ANT_CHANNELRFFREQUENCY_h

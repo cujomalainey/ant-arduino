@@ -1,3 +1,6 @@
+#ifndef ANT_CONFIGENCRYPTIONIDLIST_h
+#define ANT_CONFIGENCRYPTIONIDLIST_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -24,3 +27,5 @@ private:
     uint8_t _size;
     uint8_t _type;
 };
+
+#endif // ANT_CONFIGENCRYPTIONIDLIST_h

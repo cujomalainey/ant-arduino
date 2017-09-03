@@ -1,4 +1,7 @@
-#include <TX/ANT_AntRequest.h>
+#ifndef ANT_BROADCASTMSG_h
+#define ANT_BROADCASTMSG_h
+
+#include <TX/ANT_AntTxDataRequest.h>
 
 #include <ANT_defines.h>
 
@@ -19,3 +22,5 @@ public:
     uint8_t _data[MESSAGE_SIZE];
     uint8_t _channel;
 };
+
+#endif // ANT_BROADCASTMSG_h

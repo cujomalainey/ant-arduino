@@ -1,3 +1,6 @@
+#ifndef ANT_SETNETWORKKEY_h
+#define ANT_SETNETWORKKEY_h
+
 #include <TX/ANT_AntRequest.h>
 
 #include <ANT_defines.h>
@@ -24,3 +27,5 @@ private:
     uint8_t _network;
     uint8_t _key[NETWORK_KEY_SIZE];
 };
+
+#endif // ANT_SETNETWORKKEY_h

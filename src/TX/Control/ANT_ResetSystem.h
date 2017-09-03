@@ -1,3 +1,6 @@
+#ifndef ANT_RESETSYSTEM_h
+#define ANT_RESETSYSTEM_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -12,3 +15,5 @@ public:
     uint8_t execute();
 #endif
 };
+
+#endif // ANT_RESETSYSTEM_h

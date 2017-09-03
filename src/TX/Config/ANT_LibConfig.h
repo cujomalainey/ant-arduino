@@ -1,3 +1,6 @@
+#ifndef ANT_LIBCONFIG_h
+#define ANT_LIBCONFIG_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -17,3 +20,5 @@ public:
 private:
     uint8_t _config;
 };
+
+#endif // ANT_LIBCONFIG_h

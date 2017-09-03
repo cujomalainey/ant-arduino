@@ -1,3 +1,6 @@
+#ifndef ANT_CHANNELID_h
+#define ANT_CHANNELID_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -29,3 +32,4 @@ private:
     bool _pairingBit;
     uint8_t _transmissionType;
 };
+#endif // ANT_CHANNELID_h

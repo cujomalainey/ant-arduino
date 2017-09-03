@@ -1,3 +1,6 @@
+#ifndef ANT_ASSIGNCHANNEL_h
+#define ANT_ASSIGNCHANNEL_h
+
 #include <TX/ANT_AntRequest.h>
 
 /**
@@ -24,3 +27,4 @@ protected:
     uint8_t _network = 0;
     uint8_t _extended = 0;
 };
+#endif // ANT_ASSIGNCHANNEL_h
