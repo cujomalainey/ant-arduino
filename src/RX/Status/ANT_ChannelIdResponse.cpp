@@ -4,4 +4,9 @@ ChannelIdResponse::ChannelIdResponse() : AntResponse() {
 
 }
 
+uint8_t ChannelIdResponse::getChannelNumber() {
+    // TODO
+    return 0;
+}
+
 // TODO
