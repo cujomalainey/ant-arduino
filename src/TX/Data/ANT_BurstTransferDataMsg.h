@@ -9,10 +9,7 @@
 class BurstTransferDataMsg : public AntTxDataRequest {
 public:
     BurstTransferDataMsg();
-    void setData(uint8_t* data);
-    void getData(uint8_t* data);
-    void setByte(uint8_t index, uint8_t data);
-    uint8_t getByte(uint8_t index);
+    BurstTransferDataMsg(uint8_t channel);
     void setChannelSequence(uint8_t channel);
     uint8_t getChannelSequence();
     uint8_t getData(uint8_t pos);
