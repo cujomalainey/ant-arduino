@@ -12,6 +12,9 @@ class ChannelIdResponse : public AntResponse {
 public:
     ChannelIdResponse();
     uint8_t getChannelNumber();
+    uint16_t getDeviceNumber();
+    uint8_t getDeviceType();
+    uint8_t getTransmissionType();
 
     static const uint8_t MSG_ID = CHANNEL_ID;
 };
