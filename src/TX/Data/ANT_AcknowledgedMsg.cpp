@@ -1,12 +1,16 @@
 #include <TX/Data/ANT_AcknowledgedMsg.h>
 
-#include <ANT_defines.h>
+#include <ANT_private_defines.h>
 
-#define ACKNOWLEDGE_DATA_LENGTH 0x09
 
 /* Extended message format not currently supported */
-AcknowledgedMsg::AcknowledgedMsg() : AntRequest(ACKNOWLEDGED_DATA) {
+AcknowledgedMsg::AcknowledgedMsg() : AntTxDataRequest(ACKNOWLEDGED_DATA) {
+    setDataLength(MESSAGE_SIZE);
+}
 
+AcknowledgedMsg::AcknowledgedMsg(uint8_t channel) : AntTxDataRequest(ACKNOWLEDGED_DATA) {
+    setDataLength(MESSAGE_SIZE);
+    setChannel(channel);
 }
 
 void AcknowledgedMsg::setChannel(uint8_t channel) {
@@ -18,7 +22,7 @@ uint8_t AcknowledgedMsg::getChannel() {
 }
 
 uint8_t AcknowledgedMsg::getDataLength() {
-    return ACKNOWLEDGE_DATA_LENGTH;
+    return ACKNOWLEDGED_DATA_LENGTH;
 }
 
 uint8_t AcknowledgedMsg::getData(uint8_t pos) {
