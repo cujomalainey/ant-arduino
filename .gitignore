@@ -13,4 +13,4 @@ ant_interface.h
 .tags*
 .ycm*
 .platformio*
-.swp
+*.swp
