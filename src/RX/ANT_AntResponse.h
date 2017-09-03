@@ -83,6 +83,10 @@ public:
      */
     void getChannelEventResponseMsg(AntResponse &response);
     /**
+     * Call with instance of ChannelIdResponse only if getMsgId() == CHANNEL_ID
+     */
+    void getChannelIdResponseMsg(AntResponse &response);
+    /**
      * Call with instance of ChannelStatus only if getMsgId() == CHANNEL_STATUS
      */
     void getChannelStatusMsg(AntResponse &response);
