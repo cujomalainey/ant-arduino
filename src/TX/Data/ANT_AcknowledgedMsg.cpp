@@ -26,7 +26,7 @@ uint8_t AcknowledgedMsg::getData(uint8_t pos) {
         return _channel;
     }
     else {
-        return _data[pos - 1];
+        return getDataBuffer()[pos - 1];
     }
 }
 
