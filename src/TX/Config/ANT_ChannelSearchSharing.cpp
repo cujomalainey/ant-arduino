@@ -28,13 +28,15 @@ uint8_t ChannelSearchSharing::getSearchCycles() {
 }
 
 uint8_t ChannelSearchSharing::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else {
+        return _cycles;
+    }
 }
 
 uint8_t ChannelSearchSharing::getDataLength() {
-    // TODO
-    return 0;
+    return CHANNEL_SEARCH_SHARING_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

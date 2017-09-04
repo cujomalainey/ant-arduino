@@ -23,6 +23,7 @@
 #define CHANNEL_ID_LENGTH                    0x05
 #define CHANNEL_PERIOD_LENGTH                0x03
 #define CHANNEL_RF_FREQUENCY_LENGTH          0x02
+#define CHANNEL_SEARCH_SHARING_LENGTH        0x02
 #define CLOSE_CHANNEL_LENGTH                 0x01
 #define OPEN_CHANNEL_LENGTH                  0x01
 #define OPEN_RX_SCAN_MODE_LENGTH             0x01
