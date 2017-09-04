@@ -7,26 +7,29 @@ OpenRxScanMode::OpenRxScanMode() : AntRequest(OPEN_RX_SCAN_MODE) {
 
 }
 
-OpenRxScanMode::OpenRxScanMode(bool synchronousOnly) : AntRequest(OPEN_RX_SCAN_MODE) {
+OpenRxScanMode::OpenRxScanMode(uint8_t synchronousOnly) : AntRequest(OPEN_RX_SCAN_MODE) {
     setSynchronousChannelPacketsOnly(synchronousOnly);
 }
 
-void OpenRxScanMode::setSynchronousChannelPacketsOnly(bool synchronousOnly) {
+void OpenRxScanMode::setSynchronousChannelPacketsOnly(uint8_t synchronousOnly) {
+    _extendLength = 1;
     _synchronousChannelPacketsOnly = synchronousOnly;
 }
 
-bool OpenRxScanMode::getSynchronousChannelPacketsOnly() {
+uint8_t OpenRxScanMode::getSynchronousChannelPacketsOnly() {
     return _synchronousChannelPacketsOnly;
 }
 
 uint8_t OpenRxScanMode::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return 0;
+    } else {
+        return _synchronousChannelPacketsOnly ? 1 : 0;
+    }
 }
 
 uint8_t OpenRxScanMode::getDataLength() {
-    // TODO
-    return 0;
+    return OPEN_RX_SCAN_MODE_LENGTH + _extendLength;
 }
 
 #ifdef NATIVE_API_AVAILABLE

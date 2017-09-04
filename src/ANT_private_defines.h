@@ -25,6 +25,7 @@
 #define CHANNEL_RF_FREQUENCY_LENGTH          0x02
 #define CLOSE_CHANNEL_LENGTH                 0x01
 #define OPEN_CHANNEL_LENGTH                  0x01
+#define OPEN_RX_SCAN_MODE_LENGTH             0x01
 #define REQUEST_MESSAGE_LENGTH               0x02
 #define RESET_SYSTEM_LENGTH                  0x01
 #define SET_NETWORK_KEY_LENGTH               0x09

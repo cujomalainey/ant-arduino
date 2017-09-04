@@ -9,16 +9,17 @@
 class OpenRxScanMode : public AntRequest {
 public:
     OpenRxScanMode();
-    OpenRxScanMode(bool synchronousOnly);
-    void setSynchronousChannelPacketsOnly(bool synchronousOnly);
-    bool getSynchronousChannelPacketsOnly();
+    OpenRxScanMode(uint8_t synchronousOnly);
+    void setSynchronousChannelPacketsOnly(uint8_t synchronousOnly);
+    uint8_t getSynchronousChannelPacketsOnly();
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
 #ifdef NATIVE_API_AVAILABLE
     uint8_t execute();
 #endif // NATIVE_API_AVAILABLE
 private:
-    bool _synchronousChannelPacketsOnly;
+    uint8_t _extendLength = 0;
+    uint8_t _synchronousChannelPacketsOnly;
 };
 
 #endif // ANT_OPENRXSCANMODE_h
