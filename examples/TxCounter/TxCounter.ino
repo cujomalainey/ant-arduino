@@ -71,7 +71,7 @@ void setup()
     parseMessage();
 
     bm = BroadcastMsg();
-    bm.setData(buffer);
+    bm.setDataBuffer(buffer);
     bm.setChannel(0);
     ant.send(bm);
     parseMessage();
@@ -145,7 +145,7 @@ void parseEventMessage(uint8_t code)
             Serial.println("EVENT_TX");
             buffer[0]++;
             bm = BroadcastMsg();
-            bm.setData(buffer);
+            bm.setDataBuffer(buffer);
             bm.setChannel(0);
             ant.send(bm);
             break;
