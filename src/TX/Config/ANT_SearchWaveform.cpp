@@ -28,13 +28,17 @@ uint16_t SearchWaveform::getWaveform() {
 }
 
 uint8_t SearchWaveform::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else if (pos == 1) {
+        return _waveform & 0xFF;
+    } else {
+        return _waveform >> 8;    
+    }
 }
 
 uint8_t SearchWaveform::getDataLength() {
-    // TODO
-    return 0;
+    return SEARCH_WAVEFORM_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE
