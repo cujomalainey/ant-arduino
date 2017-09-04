@@ -20,13 +20,15 @@ uint8_t TransmitPower::getTxPower() {
 }
 
 uint8_t TransmitPower::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return 0;
+    } else {
+        return _power;
+    }
 }
 
 uint8_t TransmitPower::getDataLength() {
-    // TODO
-    return 0;
+    return TRANSMIT_POWER_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

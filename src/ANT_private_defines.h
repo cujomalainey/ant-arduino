@@ -30,6 +30,7 @@
 #define REQUEST_MESSAGE_LENGTH               0x02
 #define RESET_SYSTEM_LENGTH                  0x01
 #define SET_NETWORK_KEY_LENGTH               0x09
+#define TRANSMIT_POWER_LENGTH                0x02
 #define UNASSIGN_CHANNEL_LENGTH              0x01
 
 #endif // ANT_PRIVATE_DEFINES_h
