@@ -1,8 +1,7 @@
 #include <TX/Control/ANT_ResetSystem.h>
 
-#include <ANT_defines.h>
+#include <ANT_private_defines.h>
 
-#define RESET_SYSTEM_LENGTH  0x01
 
 ResetSystem::ResetSystem() : AntRequest(RESET_SYSTEM) {
 

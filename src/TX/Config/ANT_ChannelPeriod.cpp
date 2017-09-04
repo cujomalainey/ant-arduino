@@ -1,11 +1,15 @@
 #include <TX/Config/ANT_ChannelPeriod.h>
 
-#include <ANT_defines.h>
+#include <ANT_private_defines.h>
 
-#define CHANNEL_PERIOD_LENGTH  0x03
 
 ChannelPeriod::ChannelPeriod() : AntRequest(CHANNEL_PERIOD) {
 
+}
+
+ChannelPeriod::ChannelPeriod(uint8_t channel, uint16_t period) : AntRequest(CHANNEL_PERIOD) {
+    setChannel(channel);
+    setPeriod(period);
 }
 
 void ChannelPeriod::setChannel(uint8_t channel) {

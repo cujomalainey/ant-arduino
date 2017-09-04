@@ -1,15 +1,14 @@
 #include <TX/Control/ANT_CloseChannel.h>
 
-#include <ANT_defines.h>
+#include <ANT_private_defines.h>
 
-#define CLOSE_CHANNEL_LENGTH 0x01
 
 CloseChannel::CloseChannel() : AntRequest(CLOSE_CHANNEL) {
 
 }
 
 CloseChannel::CloseChannel(uint8_t channel) : AntRequest(CLOSE_CHANNEL) {
-    _channel = channel;
+    setChannel(channel);
 }
 
 void CloseChannel::setChannel(uint8_t channel) {

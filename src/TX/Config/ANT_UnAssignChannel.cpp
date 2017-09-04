@@ -1,9 +1,14 @@
 #include <TX/Config/ANT_UnAssignChannel.h>
 
-#define UNASSIGN_CHANNEL_LENGTH  0x01
+#include <ANT_private_defines.h>
+
 
 UnAssignChannel::UnAssignChannel() : AntRequest(UNASSIGN_CHANNEL) {
 
+}
+
+UnAssignChannel::UnAssignChannel(uint8_t channel) : AntRequest(UNASSIGN_CHANNEL) {
+    setChannel(channel);
 }
 
 void UnAssignChannel::setChannel(uint8_t channel) {

@@ -1,15 +1,14 @@
 #include <TX/Control/ANT_OpenChannel.h>
 
-#include <ANT_defines.h>
+#include <ANT_private_defines.h>
 
-#define OPEN_CHANNEL_LENGTH  0x01
 
 OpenChannel::OpenChannel() : AntRequest(OPEN_CHANNEL) {
 
 }
 
 OpenChannel::OpenChannel(uint8_t channel) : AntRequest(OPEN_CHANNEL) {
-    _channel = channel;
+    setChannel(channel);
 }
 
 void OpenChannel::setChannel(uint8_t channel) {

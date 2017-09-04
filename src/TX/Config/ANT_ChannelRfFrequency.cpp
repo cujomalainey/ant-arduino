@@ -1,11 +1,15 @@
 #include <TX/Config/ANT_ChannelRfFrequency.h>
 
-#include <ANT_defines.h>
+#include <ANT_private_defines.h>
 
-#define CHANNEL_RF_FREQUENCY_LENGTH  0x02
 
 ChannelRfFrequency::ChannelRfFrequency() : AntRequest(CHANNEL_RF_FREQUENCY) {
 
+}
+
+ChannelRfFrequency::ChannelRfFrequency(uint8_t channel, uint8_t frequency) : AntRequest(CHANNEL_RF_FREQUENCY) {
+    setChannel(channel);
+    setRfFrequency(frequency);
 }
 
 void ChannelRfFrequency::setChannel(uint8_t channel) {

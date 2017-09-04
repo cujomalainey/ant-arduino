@@ -1,15 +1,16 @@
 #include <TX/Config/ANT_SetNetworkKey.h>
 
-#if defined(ARDUINO) && ARDUINO >= 100
-    #include "Arduino.h"
-#else
-    #include "WProgram.h"
-#endif
+#include <ANT_private_defines.h>
 
-#define SET_NETWORK_KEY_LENGTH  0x09
+#include <Arduino.h>
 
 SetNetworkKey::SetNetworkKey() : AntRequest(SET_NETWORK_KEY) {
     memset(_key, 0, NETWORK_KEY_SIZE);
+}
+
+SetNetworkKey::SetNetworkKey(uint8_t network, uint8_t* key) : AntRequest(SET_NETWORK_KEY) {
+    setNetwork(network);
+    setKey(key);
 }
 
 void SetNetworkKey::setNetwork(uint8_t network) {
