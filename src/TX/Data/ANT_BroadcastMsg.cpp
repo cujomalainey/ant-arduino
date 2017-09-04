@@ -1,32 +1,16 @@
 #include <TX/Data/ANT_BroadcastMsg.h>
 
-#if defined(ARDUINO) && ARDUINO >= 100
-    #include "Arduino.h"
-#else
-    #include "WProgram.h"
-#endif
+#include <ANT_private_defines.h>
 
-#define BROADCAST_DATA_LENGTH 0x09
 
 /* Extended message format not currently supported */
-BroadcastMsg::BroadcastMsg() : AntRequest(BROADCAST_DATA) {
-
+BroadcastMsg::BroadcastMsg() : AntTxDataRequest(BROADCAST_DATA) {
+    setDataLength(MESSAGE_SIZE);
 }
 
-void BroadcastMsg::setData(uint8_t* data) {
-    memcpy(_data, data, MESSAGE_SIZE);
-}
-
-void BroadcastMsg::getData(uint8_t* data) {
-    memcpy(data, _data, MESSAGE_SIZE);
-}
-
-void BroadcastMsg::setByte(uint8_t index, uint8_t data) {
-    _data[index] = data;
-}
-
-uint8_t BroadcastMsg::getByte(uint8_t index) {
-    return _data[index];
+BroadcastMsg::BroadcastMsg(uint8_t channel) : AntTxDataRequest(BROADCAST_DATA) {
+    setDataLength(MESSAGE_SIZE);
+    setChannel(channel);
 }
 
 void BroadcastMsg::setChannel(uint8_t channel) {
@@ -46,7 +30,7 @@ uint8_t BroadcastMsg::getData(uint8_t pos) {
         return _channel;
     }
     else {
-        return _data[pos - 1];
+        return getDataBuffer()[pos - 1];
     }
 }
 
