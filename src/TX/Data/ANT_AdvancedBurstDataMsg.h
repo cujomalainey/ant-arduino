@@ -15,7 +15,10 @@ public:
     uint8_t getData(uint8_t pos);
     void setDataLength(uint8_t length);
     uint8_t getDataLength();
-    uint8_t _data[MESSAGE_SIZE];
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif // NATIVE_API_AVAILABLE
+private:
     uint8_t _channel;
 };
 

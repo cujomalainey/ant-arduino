@@ -15,6 +15,9 @@ public:
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
     void setDataLength(uint8_t length);
+#ifdef NATIVE_API_AVAILABLE
+    uint8_t execute();
+#endif // NATIVE_API_AVAILABLE
 private:
     uint8_t _channel;
 };
