@@ -2,20 +2,22 @@
 
 #include <ANT_private_defines.h>
 
-ConfigureAdvancedBurst::ConfigureAdvancedBurst() {
+ConfigureAdvancedBurst::ConfigureAdvancedBurst() : AntRequest(CONFIGURE_ADVANCED_BURST) {
 
 }
 
-ConfigureAdvancedBurst::ConfigureAdvancedBurst(uint8_t enable, uint8_t maxPacketLength) {
+ConfigureAdvancedBurst::ConfigureAdvancedBurst(uint8_t enable, uint8_t maxPacketLength) : AntRequest(CONFIGURE_ADVANCED_BURST) {
     setEnable(enable);
     setMaxPacketLength(maxPacketLength);
 }
 
 void ConfigureAdvancedBurst::setEnable(uint8_t enable) {
+    // TODO mask this
     _enable = enable;
 }
 
 void ConfigureAdvancedBurst::setMaxPacketLength(uint8_t maxPacketLength) {
+    // TODO maybe mask this
     _maxPacketLength = maxPacketLength;
 }
 
