@@ -46,5 +46,9 @@
 #define CHANNEL_STATUS_NETWORK_NUMBER_MASK   0x03
 #define CHANNEL_STATUS_CHANNEL_TYPE_SHIFT    0x04
 
+/**
+ * Config ID List Defines
+ */
+#define CONFIG_ID_LIST_LIST_MAX_SIZE         0x04
 
 #endif // ANT_PRIVATE_DEFINES_h
