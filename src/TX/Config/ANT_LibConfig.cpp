@@ -19,13 +19,15 @@ uint8_t LibConfig::getConfig() {
 }
 
 uint8_t LibConfig::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return 0; 
+    } else {
+        return _config;
+    }
 }
 
 uint8_t LibConfig::getDataLength() {
-    // TODO
-    return 0;
+    return LIB_CONFIG_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE
