@@ -33,7 +33,7 @@ env:
     - PLATFORMIO_CI_SRC=examples/Callbacks/Callbacks.ino
     - PLATFORMIO_CI_SRC=examples/OpenChannel/OpenChannel.ino
     - PLATFORMIO_CI_SRC=examples/ProximitySearch/ProximitySearch.ino
-    - PLATFORMIO_CI_SRC=examples/SearchForDevices/SearchForDevices.ino
+    - PLATFORMIO_CI_SRC=examples/SearchList/SearchList.ino
     - PLATFORMIO_CI_SRC=examples/SoftwareSerialOpenChannel/SoftwareSerialOpenChannel.ino
     - PLATFORMIO_CI_SRC=examples/TxCounter/TxCounter.ino
 
