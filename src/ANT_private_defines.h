@@ -34,4 +34,13 @@
 #define TRANSMIT_POWER_LENGTH                0x02
 #define UNASSIGN_CHANNEL_LENGTH              0x01
 
+/**
+ * Channel Status BitField Defines
+ */
+#define CHANNEL_STATUS_STATE_MASK            0x03
+#define CHANNEL_STATUS_NETWORK_NUMBER_SHIFT  0x02
+#define CHANNEL_STATUS_NETWORK_NUMBER_MASK   0x03
+#define CHANNEL_STATUS_CHANNEL_TYPE_SHIFT    0x04
+
+
 #endif // ANT_PRIVATE_DEFINES_h
