@@ -1,9 +1,14 @@
 /***********************************
- * Search for Devices
+ * Search List Example
  *
  * Searches and prints out all
- * visible devices, their type
- * and RSSI.
+ * visible devices, their ID
+ * and RSSI using the search list
+ * method defined in the ANT
+ * documentation. This example is
+ * pre-configured to search for ANT+
+ * HR devices (with the exception of
+ * the network key.)
  *
  * TODOs RSSI information
  *
@@ -12,6 +17,10 @@
 
 #include "ANT.h"
 #define BAUD_RATE 9600
+#define CHANNE_PERIOD_HR 8070
+#define DEVICE_TYPE_HR 120
+#define ANTPLUS_FREQUENCY 57
+
 Ant ant = Ant();
 
 // Arbitrary key, if you want to connect to ANT+, you must get the key from thisisant.com
@@ -34,13 +43,7 @@ void setup()
     RequestMessage rm;
 
     Serial1.begin(BAUD_RATE);
-    // this will be moved into the driver eventually
-    #if defined(CORE_TEENSY)
-        Serial1.attachCts(20);
-    #else
-        // ant.attachCts()
-    #endif
-    ant.setSerial(Serial1);
+    ent.setSerial(Serial1);
     ant.send(rs);
     // Delay after resetting the radio to give the user time to connect on serial
     delay(10000);
@@ -63,11 +66,12 @@ void setup()
     snk.setKey((uint8_t*)NETWORK_KEY);
     ant.send(snk);
     parseMessage();
-
+    
+    // open all channels
     for (uint8_t i = 0; i < maxChannels; i++) {
         ac = AssignChannel();
         ac.setChannel(i);
-        ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE); //can't wildcard this
+        ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE); 
         ac.setChannelNetwork(0);
         ant.send(ac);
         parseMessage();
@@ -75,20 +79,20 @@ void setup()
         ci = ChannelId();
         ci.setChannel(i);
         ci.setDeviceNumber(0);
-        ci.setDeviceType(0);
+        ci.setDeviceType(DEVICE_TYPE_HR);
         ci.setTransmissionType(0);
         ant.send(ci);
         parseMessage();
 
         cp = ChannelPeriod();
         cp.setChannel(i);
-        cp.setPeriod(1234); //can't wildcard this
+        cp.setPeriod(CHANEL_PERIOD_HR);
         ant.send(cp);
         parseMessage();
 
         crf = ChannelRfFrequency();
         crf.setChannel(i);
-        crf.setRfFrequency(0); //can't wildcard this
+        crf.setRfFrequency(ANTPLUS_FREQUENCY);
         ant.send(crf);
         parseMessage();
 
