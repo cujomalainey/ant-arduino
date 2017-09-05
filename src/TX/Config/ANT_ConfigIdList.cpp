@@ -17,8 +17,7 @@ void ConfigIdList::setChannel(uint8_t channel) {
 }
 
 void ConfigIdList::setListSize(uint8_t size) {
-    // TODO size [0-4] (needs verification)
-    _size = size;
+    _size = size <= CONFIG_ID_LIST_LIST_MAX_SIZE ? size : CONFIG_ID_LIST_LIST_MAX_SIZE;
 }
 
 void ConfigIdList::setExclusion(uint8_t type) {
@@ -38,13 +37,17 @@ uint8_t ConfigIdList::getListType() {
 }
 
 uint8_t ConfigIdList::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else if (pos == 1) {
+        return _size;
+    } else {
+        return _type;
+    }
 }
 
 uint8_t ConfigIdList::getDataLength() {
-    // TODO
-    return 0;
+    return CONFIG_ID_LIST_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

@@ -26,6 +26,7 @@
 #define CHANNEL_SEARCH_SHARING_LENGTH        0x02
 #define CLOSE_CHANNEL_LENGTH                 0x01
 #define CONFIG_ENCRYPTION_ID_LIST_LENGTH     0x03
+#define CONFIG_ID_LIST_LENGTH                0x03
 #define LIB_CONFIG_LENGTH                    0x02
 #define OPEN_CHANNEL_LENGTH                  0x01
 #define OPEN_RX_SCAN_MODE_LENGTH             0x01
