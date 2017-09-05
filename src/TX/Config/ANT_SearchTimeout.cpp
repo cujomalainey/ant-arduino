@@ -28,13 +28,15 @@ uint8_t SearchTimeout::getTimeout() {
 }
 
 uint8_t SearchTimeout::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else {
+        return _timeout;
+    }
 }
 
 uint8_t SearchTimeout::getDataLength() {
-    // TODO
-    return 0;
+    return SEARCH_TIMEOUT_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

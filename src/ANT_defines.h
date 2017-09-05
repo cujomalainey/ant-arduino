@@ -213,6 +213,12 @@
 #define CHANNEL_SEARCH_SHARING_DISABLED 0
 
 /**
+ * Channel Search Timeout Definitions
+ */
+#define SEARCH_TIMEOUT_DISABLE_HIGH_PRIORITY_SEARCH 0x00
+#define SEARCH_TIMEOUT_INFINITE_SEARCH_TIMEOUT  0xFF
+
+/**
  * Config Encryption Id List Definitions
  */
 #define CONFIG_ENCRYPTION_ID_LIST_TYPE_WHITELIST 0x00

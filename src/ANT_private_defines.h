@@ -30,6 +30,7 @@
 #define OPEN_RX_SCAN_MODE_LENGTH             0x01
 #define REQUEST_MESSAGE_LENGTH               0x02
 #define RESET_SYSTEM_LENGTH                  0x01
+#define SEARCH_TIMEOUT_LENGTH                0x02
 #define SEARCH_WAVEFORM_LENGTH               0x03
 #define SET_NETWORK_KEY_LENGTH               0x09
 #define TRANSMIT_POWER_LENGTH                0x02
