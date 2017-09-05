@@ -17,7 +17,6 @@ void ConfigEncryptionIdList::setChannel(uint8_t channel) {
 }
 
 void ConfigEncryptionIdList::setListSize(uint8_t size) {
-    // TODO verify range is [0-4]
     _size = size <= CONFIG_ENCRYPTION_ID_LIST_MAX_LIST_SIZE ? size : CONFIG_ENCRYPTION_ID_LIST_MAX_LIST_SIZE;
 }
 
@@ -38,13 +37,17 @@ uint8_t ConfigEncryptionIdList::getListType() {
 }
 
 uint8_t ConfigEncryptionIdList::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else if (pos == 1) {
+        return _size;
+    } else {
+        return _type;
+    }
 }
 
 uint8_t ConfigEncryptionIdList::getDataLength() {
-    // TODO
-    return 0;
+    return CONFIG_ENCRYPTION_ID_LIST_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE
