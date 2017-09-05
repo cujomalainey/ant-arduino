@@ -17,7 +17,7 @@
 
 #include "ANT.h"
 #define BAUD_RATE 9600
-#define CHANNE_PERIOD_HR 8070
+#define CHANNEL_PERIOD_HR 8070
 #define DEVICE_TYPE_HR 120
 #define ANTPLUS_FREQUENCY 57
 
@@ -43,7 +43,7 @@ void setup()
     RequestMessage rm;
 
     Serial1.begin(BAUD_RATE);
-    ent.setSerial(Serial1);
+    ant.setSerial(Serial1);
     ant.send(rs);
     // Delay after resetting the radio to give the user time to connect on serial
     delay(10000);
@@ -86,7 +86,7 @@ void setup()
 
         cp = ChannelPeriod();
         cp.setChannel(i);
-        cp.setPeriod(CHANEL_PERIOD_HR);
+        cp.setPeriod(CHANNEL_PERIOD_HR);
         ant.send(cp);
         parseMessage();
 
