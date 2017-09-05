@@ -1,5 +1,7 @@
 #include <RX/Status/ANT_ChannelStatus.h>
 
+#include <ANT_private_defines.h>
+
 ChannelStatus::ChannelStatus() : AntResponse() {
 
 }
