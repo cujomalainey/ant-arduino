@@ -40,11 +40,11 @@ void ConfigureAdvancedBurst::setRetryCount(uint8_t retryCount) {
 }
 
 uint8_t ConfigureAdvancedBurst::getEnable() {
-    return enable;
+    return _enable;
 }
 
 uint8_t ConfigureAdvancedBurst::getMaxPacketLength() {
-    return maxPacketLength;
+    return _maxPacketLength;
 }
 
 uint32_t ConfigureAdvancedBurst::getRequiredFeatures() {
