@@ -23,7 +23,7 @@ public:
 #endif // NATIVE_API_AVAILABLE
 protected:
     uint8_t _channel;
-    uint8_t _searchThreshold
+    uint8_t _searchThreshold;
 };
 
 #endif // ANT_PROXIMITYSEARCH_h
