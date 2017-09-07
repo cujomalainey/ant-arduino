@@ -25,7 +25,7 @@ void setup()
     ChannelId ci;
     ChannelPeriod cp;
     ChannelRfFrequency crf;
-    BroadcastMsg bm;
+    BroadcastDataMsg bm;
     OpenChannel oc;
 
     Serial1.begin(BAUD_RATE);
@@ -70,7 +70,7 @@ void setup()
     ant.send(crf);
     parseMessage();
 
-    bm = BroadcastMsg();
+    bm = BroadcastDataMsg();
     bm.setDataBuffer(buffer);
     bm.setChannel(0);
     ant.send(bm);
@@ -129,7 +129,7 @@ void parseMessage() {
 
 void parseEventMessage(uint8_t code)
 {
-    BroadcastMsg bm;
+    BroadcastDataMsg bm;
     Serial.print("Code: ");
     switch (code)
     {
