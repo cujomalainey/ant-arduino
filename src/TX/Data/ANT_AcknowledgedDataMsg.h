@@ -8,10 +8,10 @@
 /**
  * Represents a Acknowledged Tx message, it is used to send a message from the ANT radio
  */
-class AcknowledgedMsg : public AntTxDataRequest {
+class AcknowledgedDataMsg : public AntTxDataRequest {
 public:
-    AcknowledgedMsg();
-    AcknowledgedMsg(uint8_t channel);
+    AcknowledgedDataMsg();
+    AcknowledgedDataMsg(uint8_t channel);
     void setChannel(uint8_t channel);
     uint8_t getChannel();
     uint8_t getData(uint8_t pos);
