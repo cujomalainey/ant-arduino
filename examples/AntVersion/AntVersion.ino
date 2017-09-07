@@ -274,7 +274,6 @@ void parseMessage() {
 
 void parseEventMessage(uint8_t code)
 {
-    BroadcastMsg bm;
     Serial.print("Code: ");
     switch (code)
     {
