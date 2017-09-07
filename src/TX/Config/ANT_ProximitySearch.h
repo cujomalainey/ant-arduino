@@ -21,7 +21,7 @@ public:
 #ifdef NATIVE_API_AVAILABLE
     uint8_t execute();
 #endif // NATIVE_API_AVAILABLE
-protected:
+private:
     uint8_t _channel;
     uint8_t _searchThreshold;
 };

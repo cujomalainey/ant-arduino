@@ -22,7 +22,7 @@ public:
 #ifdef NATIVE_API_AVAILABLE
     uint8_t execute();
 #endif
-protected:
+private:
     uint8_t _channel;
     uint8_t _channelType;
     uint8_t _network;

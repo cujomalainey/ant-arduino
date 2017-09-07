@@ -18,7 +18,7 @@ public:
 #ifdef NATIVE_API_AVAILABLE
     uint8_t execute();
 #endif // NATIVE_API_AVAILABLE
-protected:
+private:
     uint16_t _eventFilter;
 };
 

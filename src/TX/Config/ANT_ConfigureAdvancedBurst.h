@@ -28,7 +28,7 @@ public:
 #ifdef NATIVE_API_AVAILABLE
     uint8_t execute();
 #endif
-protected:
+private:
     uint8_t _enable;
     uint8_t _maxPacketLength;
     uint32_t _requiredFeatures;
