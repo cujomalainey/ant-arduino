@@ -45,5 +45,5 @@
 #include <TX/Data/ANT_BurstTransferDataMsg.h>
 
 // Test (TX)
-#include <TX/Data/ANT_CWInit.h>
-#include <TX/Data/ANT_CWTest.h>
+#include <TX/Test/ANT_CWInit.h>
+#include <TX/Test/ANT_CWTest.h>
