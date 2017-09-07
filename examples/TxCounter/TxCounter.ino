@@ -144,7 +144,7 @@ void parseEventMessage(uint8_t code)
         case STATUS_EVENT_TX:
             Serial.println("EVENT_TX");
             buffer[0]++;
-            bm = BroadcastMsg();
+            bm = BroadcastDataMsg();
             bm.setDataBuffer(buffer);
             bm.setChannel(0);
             ant.send(bm);
