@@ -11,7 +11,7 @@
 #include <TX/Config/ANT_ConfigEncryptionIdList.h>
 #include <TX/Config/ANT_ConfigIdList.h>
 #include <TX/Config/ANT_ConfigureAdvancedBurst.h>
-#include <TX/Config/ANT_ConfigureFilter.h>
+#include <TX/Config/ANT_ConfigureEventFilter.h>
 #include <TX/Config/ANT_ConfigureSelectiveDataUpdates.h>
 #include <TX/Config/ANT_EnableExtRxMessages.h>
 #include <TX/Config/ANT_EnableSingleChannelEncryption.h>
