@@ -1,6 +1,8 @@
 #ifndef ANT_PROXIMITYSEARCH_h
 #define ANT_PROXIMITYSEARCH_h
 
+#include <TX/ANT_AntRequest.h>
+
 /**
  * Represents a set proximity search packet
  *
