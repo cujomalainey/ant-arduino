@@ -1,6 +1,8 @@
 #ifndef ANT_CWINIT_h
 #define ANT_CWINIT_h
 
+#include <TX/ANT_AntRequest.h>
+
 /**
  * Represents a cw init packet
  *
