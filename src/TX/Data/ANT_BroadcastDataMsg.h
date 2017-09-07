@@ -8,10 +8,10 @@
 /**
  * Represents a Broadcast Tx message, it is used to send a message from the ANT radio
  */
-class BroadcastMsg : public AntTxDataRequest {
+class BroadcastDataMsg : public AntTxDataRequest {
 public:
-    BroadcastMsg();
-    BroadcastMsg(uint8_t channel);
+    BroadcastDataMsg();
+    BroadcastDataMsg(uint8_t channel);
     void setChannel(uint8_t channel);
     uint8_t getChannel();
     uint8_t getData(uint8_t pos);
