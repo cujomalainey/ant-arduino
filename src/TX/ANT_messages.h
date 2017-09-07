@@ -9,7 +9,7 @@
 #include <TX/Config/ANT_ChannelSearchPriority.h>
 #include <TX/Config/ANT_ChannelSearchSharing.h>
 #include <TX/Config/ANT_ConfigEncryptionIdList.h>
-#include <TX/Config/ANT_ConfigList.h>
+#include <TX/Config/ANT_ConfigIdList.h>
 #include <TX/Config/ANT_ConfigureAdvancedBurst.h>
 #include <TX/Config/ANT_ConfigureFilter.h>
 #include <TX/Config/ANT_ConfigureSelectiveDataUpdates.h>
