@@ -35,12 +35,6 @@ void setup()
     OpenChannel oc;
 
     soft.begin(BAUD_RATE);
-    // this will be moved into the driver eventually
-    #if defined(CORE_TEENSY)
-        Serial1.attachCts(20);
-    #else
-        // ant.attachCts()
-    #endif
     ant.setSerial(soft);
     ant.send(rs);
     // Delay after resetting the radio to give the user time to connect on serial

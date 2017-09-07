@@ -31,12 +31,6 @@ void setup()
     OpenChannel oc;
 
     Serial1.begin(BAUD_RATE);
-    // this will be moved into the driver eventually
-    #if defined(CORE_TEENSY)
-        Serial1.attachCts(20);
-    #else
-        // ant.attachCts()
-    #endif
     ant.onBroadcastData(handleBroadcastMessage);
     ant.onStartUpMessage(handleStartUpMessage);
     ant.onPacketError(handleAntError);
