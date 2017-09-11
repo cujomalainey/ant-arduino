@@ -5,6 +5,8 @@
  * proximity bins, display found
  * devices and their respective bins
  *
+ * THIS EXAMPLE IS INCOMPLETE
+ *
  * Author Curtis Malainey
  ************************************/
 

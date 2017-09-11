@@ -10,6 +10,8 @@
  * HR devices (with the exception of
  * the network key.)
  *
+ * THIS EXAMPLE IS INCOMPLETE
+ *
  * TODOs RSSI information
  *
  * Author Curtis Malainey
