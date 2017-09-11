@@ -2,3 +2,15 @@
 /deploy.sh
 .DS_Store
 .pioenvs
+
+# ignore any soft device source for testing
+nrf_*
+ant_error.h
+ant_parameters.h
+ant_interface.h
+
+# ide files
+.tags*
+.ycm*
+.platformio*
+*.swp

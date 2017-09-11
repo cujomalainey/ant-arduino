@@ -8,14 +8,14 @@ Arduino library for communicating with ANT radios, with support for nrf51 device
 
 ## News
 
+* 09/10/2017 System refactor complete
 * 12/26/2016 More examples and Tx added
 * 06/08/2016 Initial Experimental Rx only release
 * 04/21/2016 Project forked from Andrew Wrapp xbee-arduino
 
 ## Roadmap
 
-* v1.0 system refactor (in progress)
-* v1.5 callback system implemented
+* v1.5 callback system implemented (partially implemented in current release)
 * ~~v1.6 SPI support~~ (Arduino has no support for being a SPI slave, maybe mbed)
 * v2.0 compile switch to handle running natively on an nRF52 dev board
 

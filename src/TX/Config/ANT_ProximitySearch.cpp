@@ -1,0 +1,51 @@
+#include <TX/Config/ANT_ProximitySearch.h>
+
+#include <ANT_private_defines.h>
+
+ProximitySearch::ProximitySearch() : AntRequest(PROXIMITY_SEARCH) {
+
+}
+
+ProximitySearch::ProximitySearch(uint8_t channel) : AntRequest(PROXIMITY_SEARCH) {
+    setChannel(channel);
+}
+
+ProximitySearch::ProximitySearch(uint8_t channel, uint8_t searchThreshold) : AntRequest(PROXIMITY_SEARCH) {
+    setChannel(channel);
+    setSearchThreshold(searchThreshold);
+}
+
+void ProximitySearch::setChannel(uint8_t channel) {
+    _channel = channel;
+}
+
+void ProximitySearch::setSearchThreshold(uint8_t searchThreshold) {
+    _searchThreshold = searchThreshold;
+}
+
+uint8_t ProximitySearch::getChannel() {
+    return _channel;
+}
+
+uint8_t ProximitySearch::getSearchThreshold() {
+    return _searchThreshold;
+}
+
+uint8_t ProximitySearch::getData(uint8_t pos) {
+    // TODO
+    return 0;
+}
+
+uint8_t ProximitySearch::getDataLength() {
+    // TODO
+    return 0;
+}
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t ProximitySearch::execute() {
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE
