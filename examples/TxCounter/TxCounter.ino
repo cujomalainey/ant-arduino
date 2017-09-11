@@ -12,6 +12,8 @@
 #define BAUD_RATE 9600
 Ant ant = Ant();
 
+const uint8_t NETWORK_KEY[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
+
 uint8_t buffer[] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 void parseMessage();
@@ -35,6 +37,12 @@ void setup()
     delay(10000);
     Serial.begin(9600);
     Serial.println("Running");
+    parseMessage();
+
+    snk = SetNetworkKey();
+    snk.setNetwork(0);
+    snk.setKey((uint8_t*)NETWORK_KEY);
+    ant.send(snk);
     parseMessage();
 
     ac = AssignChannel();
