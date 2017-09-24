@@ -73,6 +73,7 @@ uint8_t ChannelId::getData(uint8_t pos) {
     } else if (pos == 2) {
         return (uint8_t)(_deviceNumber >> BITS_IN_BYTE);
     } else if (pos == 3) {
+        // TODO get rid of magic numbers
         return _pairingBit ? ( _deviceType | 0x80 ) : ( _deviceType & 0x7F );
     } else {
         return _transmissionType;
