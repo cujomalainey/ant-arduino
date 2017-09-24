@@ -136,8 +136,8 @@ public:
 protected:
     // pointer to frameData
     uint8_t* _frameDataPtr;
-    void setCommon(AntResponse &target);
 private:
+    void setCommon(AntResponse &target);
     uint8_t _msgId;
     uint8_t _length;
     uint8_t _checksum;
