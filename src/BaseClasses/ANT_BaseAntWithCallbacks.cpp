@@ -102,7 +102,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
         if (loopTop() && getResponse().getMsgId() == msgId) {
             // If the type is right, call the right
             // conversion function based on the
-            // ApiId and call the match function.
+            // MsgId and call the match function.
             // Because the match function is
             // essentially called in the same way,
             // regardless of the subclass used, the

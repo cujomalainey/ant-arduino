@@ -25,6 +25,10 @@ void AssignChannel::setChannelNetwork(uint8_t network) {
     _network = network;
 }
 
+void AssignChannel::setExtendedAssignment(uint8_t extended) {
+    _extended = extended;
+}
+
 uint8_t AssignChannel::getChannel() {
     return _channel;
 }
@@ -37,8 +41,12 @@ uint8_t AssignChannel::getChannelNetwork() {
     return _network;
 }
 
+uint8_t AssignChannel::getExtendedAssignment() {
+    return _extended;
+}
+
 uint8_t AssignChannel::getDataLength() {
-    return ASSIGN_CHANNEL_LENGTH;
+    return _extended == 0 ? ASSIGN_CHANNEL_LENGTH : ASSIGN_CHANNEL_LENGTH + 1;
 }
 
 uint8_t AssignChannel::getData(uint8_t pos) {
@@ -46,8 +54,10 @@ uint8_t AssignChannel::getData(uint8_t pos) {
         return _channel;
     } else if (pos == 1) {
         return _channelType;
-    } else {
+    } else if (pos == 2) {
         return _network;
+    } else {
+        return _extended;
     }
 }
 
