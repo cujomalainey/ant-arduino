@@ -19,63 +19,105 @@ bool BaseAntWithCallbacks::loopTop() {
 void BaseAntWithCallbacks::loopBottom() {
     bool called = false;
     uint8_t id = getResponse().getMsgId();
-    // TODO make this a switch
-    if (id == ACKNOWLEDGED_DATA) {
-        AcknowledgedData response;
-        getResponse().getAcknowledgedDataMsg(response);
-        called = _onAcknowledgedData.call(response);
-    } else if (id == ADVANCED_BURST_DATA) {
-        AdvancedBurstData response;
-        getResponse().getAdvancedBurstDataMsg(response);
-        called = _onAdvancedBurstData.call(response);
-    } else if (id == BROADCAST_DATA) {
-        BroadcastData response;
-        getResponse().getBroadcastDataMsg(response);
-        called = _onBroadcastData.call(response);
-    } else if (id == BURST_TRANSFER_DATA) {
-        BurstTransferData response;
-        getResponse().getBurstTransferDataMsg(response);
-        called = _onBurstTransferData.call(response);
-    } else if (id == ADVANCED_BURST_CAPABILITES) { // also ADVANCED_BURST_CONFIGURATION
-        AdvancedBurstCapabilitiesConfiguration response;
-        getResponse().getAdvancedBurstCapabilitiesConfigurationMsg(response);
-        called = _onAdvancedBurstCapabilitiesConfiguration.call(response);
-    } else if (id == ANT_VERSION) {
-        AntVersion response;
-        getResponse().getAntVersionMsg(response);
-        called = _onAntVersion.call(response);
-    } else if (id == CAPABILITIES) {
-        Capabilities response;
-        getResponse().getCapabilitiesMsg(response);
-        called = _onCapabilities.call(response);
-    } else if (id == CHANNEL_EVENT) { // also CHANNEL_RESPONSE
-        ChannelEventResponse response;
-        getResponse().getChannelEventResponseMsg(response);
-        called = _onChannelEventResponse.call(response);
-    } else if (id == CHANNEL_ID) {
-        ChannelIdResponse response;
-        getResponse().getChannelIdResponseMsg(response);
-        called = _onChannelIdResponse.call(response);
-    } else if (id == CHANNEL_STATUS) {
-        ChannelStatus response;
-        getResponse().getChannelStatusMsg(response);
-        called = _onChannelStatus.call(response);
-    } else if (id == ENCRYPTION_MODE_PARAMETERS) {
-        EncryptionModeParameters response;
-        getResponse().getEncryptionModeParametersMsg(response);
-        called = _onEncryptionModeParameters.call(response);
-    } else if (id == EVENT_FILTER) {
-        EventFilter response;
-        getResponse().getEventFilterMsg(response);
-        called = _onEventFilter.call(response);
-    } else if (id == SELECTIVE_DATA_UPDATE_MASK_SETTING) {
-        SelectiveDataUpdateMaskSetting response;
-        getResponse().getSelectiveDataUpdateMaskSettingMsg(response);
-        called = _onSelectiveDataUpdateMaskSetting.call(response);
-    } else if (id == START_UP_MESSAGE) {
-        StartUpMessage response;
-        getResponse().getStartUpMsg(response);
-        called = _onStartUpMessage.call(response);
+    switch (id) {
+        case ACKNOWLEDGED_DATA:
+        {
+            AcknowledgedData response;
+            getResponse().getAcknowledgedDataMsg(response);
+            called = _onAcknowledgedData.call(response);
+            break;
+        }
+        case ADVANCED_BURST_DATA:
+        {
+            AdvancedBurstData response;
+            getResponse().getAdvancedBurstDataMsg(response);
+            called = _onAdvancedBurstData.call(response);
+            break;
+        }
+        case BROADCAST_DATA:
+        {
+            BroadcastData response;
+            getResponse().getBroadcastDataMsg(response);
+            called = _onBroadcastData.call(response);
+            break;
+        }
+        case BURST_TRANSFER_DATA:
+        {
+            BurstTransferData response;
+            getResponse().getBurstTransferDataMsg(response);
+            called = _onBurstTransferData.call(response);
+            break;
+        }
+        case ADVANCED_BURST_CAPABILITES:
+        {   // also ADVANCED_BURST_CONFIGURATION
+            AdvancedBurstCapabilitiesConfiguration response;
+            getResponse().getAdvancedBurstCapabilitiesConfigurationMsg(response);
+            called = _onAdvancedBurstCapabilitiesConfiguration.call(response);
+            break;
+        }
+        case ANT_VERSION:
+        {
+            AntVersion response;
+            getResponse().getAntVersionMsg(response);
+            called = _onAntVersion.call(response);
+            break;
+        }
+        case CAPABILITIES:
+        {
+            Capabilities response;
+            getResponse().getCapabilitiesMsg(response);
+            called = _onCapabilities.call(response);
+            break;
+        }
+        case CHANNEL_EVENT:
+        {   // also CHANNEL_RESPONSE
+            ChannelEventResponse response;
+            getResponse().getChannelEventResponseMsg(response);
+            called = _onChannelEventResponse.call(response);
+            break;
+        }
+        case CHANNEL_ID:
+        {
+            ChannelIdResponse response;
+            getResponse().getChannelIdResponseMsg(response);
+            called = _onChannelIdResponse.call(response);
+            break;
+        }
+        case CHANNEL_STATUS:
+        {
+            ChannelStatus response;
+            getResponse().getChannelStatusMsg(response);
+            called = _onChannelStatus.call(response);
+            break;
+        }
+        case ENCRYPTION_MODE_PARAMETERS:
+        {
+            EncryptionModeParameters response;
+            getResponse().getEncryptionModeParametersMsg(response);
+            called = _onEncryptionModeParameters.call(response);
+            break;
+        }
+        case EVENT_FILTER:
+        {
+            EventFilter response;
+            getResponse().getEventFilterMsg(response);
+            called = _onEventFilter.call(response);
+            break;
+        }
+        case SELECTIVE_DATA_UPDATE_MASK_SETTING:
+        {
+            SelectiveDataUpdateMaskSetting response;
+            getResponse().getSelectiveDataUpdateMaskSettingMsg(response);
+            called = _onSelectiveDataUpdateMaskSetting.call(response);
+            break;
+        }
+        case START_UP_MESSAGE:
+        {
+            StartUpMessage response;
+            getResponse().getStartUpMsg(response);
+            called = _onStartUpMessage.call(response);
+            break;
+        }
     }
 
     if (!called)
