@@ -164,16 +164,16 @@ public:
     // }
 
     /**
-     * Sends a XBeeRequest (TX packet) out the serial port, and wait
+     * Sends a AntRequest (TX packet) out the serial port, and wait
      * for a status response API frame (up until the given timeout).
      * Essentially this just calls send() and waitForStatus().
      * See waitForStatus for the meaning of the return value and
      * more details.
      */
-    // uint8_t sendAndWait(AntRequest &request, uint8_t id, uint16_t timeout) {
-    //     send(request);
-    //     return waitForStatus(id, timeout);
-    // }
+    uint8_t sendAndWait(AntRequest &request, uint16_t timeout) {
+        send(request);
+        return waitForStatus(request.getMsgId(), timeout);
+    }
 
     /**
      * Wait for a API response to respond and
