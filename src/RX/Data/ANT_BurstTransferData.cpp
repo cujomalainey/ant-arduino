@@ -7,28 +7,25 @@ BurstTransferData::BurstTransferData() : AntRxDataResponse() {
 }
 
 uint8_t BurstTransferData::getChannelNumber() {
-    // TODO UNVERIFIED
     return AntRxDataResponse::getData(0);
 }
 
 uint8_t BurstTransferData::getData(uint8_t index) {
-    // TODO UNVERIFIED
     // skip channel byte
     return AntRxDataResponse::getData(index + 1);
 }
 
-// uint8_t* AcknowledgedData::getData() {
-//     // TODO UNVERIFIED
-//     // skip channel byte
-//     return AntRxDataResponse::getData() + 1;
-// }
+uint8_t* BurstTransferData::getData() {
+    // skip channel byte
+    return AntRxDataResponse::getData() + 1;
+}
 
-// uint8_t AdvancedBurstData::getExtendedDataLength() {
+// uint8_t BurstTransferData::getExtendedDataLength() {
 //     // TODO not inplemented
 //     return INVALID_REQUEST;
 // }
 
-// uint8_t AdvancedBurstData::getExtendedData(uint8_t index) {
+// uint8_t BurstTransferData::getExtendedData(uint8_t index) {
 //     // TODO not inplemented
 //     return INVALID_REQUEST;
 // }
