@@ -238,6 +238,7 @@
 #define CHECKSUM_FAILURE                  1
 #define PACKET_EXCEEDS_BYTE_ARRAY_LENGTH  2
 #define UNEXPECTED_START_BYTE             3
+#define ANT_WAIT_TIMEOUT                  255
 
 /**
  * Framework Defines

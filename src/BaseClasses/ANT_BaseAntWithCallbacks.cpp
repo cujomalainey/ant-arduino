@@ -82,30 +82,18 @@ void BaseAntWithCallbacks::loopBottom() {
         _onOtherResponse.call(getResponse());
 }
 
-// uint8_t BaseAntWithCallbacks::matchStatus(uint8_t frameId) {
-//     uint8_t id = getResponse().getMsgId();
-//     uint8_t *data = getResponse().getData();
-//     uint8_t len = getResponse().getFrameDataLength();
-//     uint8_t offset = 0;
+uint8_t BaseAntWithCallbacks::matchStatus(uint8_t msgId) {
+    ChannelEventResponse msg;
 
-//     // Figure out if this frame has a frameId and if so, where the
-//     // status byte to return is located
-//     if (id == AT_COMMAND_RESPONSE)
-//         offset = 3;
-//     else if (id == REMOTE_AT_COMMAND_RESPONSE)
-//         offset = 13;
-//     else if (id == TX_STATUS_RESPONSE)
-//         offset = 1;
-//     else if (id == ZB_TX_STATUS_RESPONSE)
-//         offset = 4;
-
-//     // If this is an API frame that contains a status, the frame is
-//     // long enough to contain it and the frameId matches the one
-//     // given, return the status byte
-//     if (offset && offset < len && data[0] == frameId)
-//         return data[offset];
-//     return 0xff;
-// }
+    if (getResponse().getMsgId() == CHANNEL_RESPONSE)
+    {
+        getResponse().getChannelEventResponseMsg(msg);
+        if (msg.getResponseMsgId() == msgId) {
+            return msg.getCode();
+        }
+    }
+    return 0xff;
+}
 
 // uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t apiId, void *response, uint16_t timeout, void *func, uintptr_t data, int16_t frameId) {
 //     unsigned long start = millis();
@@ -238,17 +226,17 @@ void BaseAntWithCallbacks::loopBottom() {
 //     return XBEE_WAIT_TIMEOUT;
 // }
 
-// uint8_t BaseAntWithCallbacks::waitForStatus(uint8_t frameId, uint16_t timeout) {
-//     unsigned long start = millis();
-//     do {
-//         if (loopTop()) {
-//             uint8_t status = matchStatus(frameId);
-//             if (status != 0xff)
-//                 return status;
+uint8_t BaseAntWithCallbacks::waitForStatus(uint8_t msgId, uint16_t timeout) {
+    unsigned long start = millis();
+    do {
+        if (loopTop()) {
+            uint8_t status = matchStatus(msgId);
+            if (status != 0xff)
+                return status;
 
-//             // Call regular callbacks
-//             loopBottom();
-//         }
-//     } while (millis() - start < timeout);
-//     return XBEE_WAIT_TIMEOUT ;
-// }
+            // Call regular callbacks
+            loopBottom();
+        }
+    } while (millis() - start < timeout);
+    return ANT_WAIT_TIMEOUT;
+}

@@ -176,7 +176,7 @@ public:
     // }
 
     /**
-     * Wait for a status API response to respond and
+     * Wait for a API response to respond and
      * return the status from the packet i.e. the ChannelEventResponse
      *
      * While waiting, any other responses received are passed to the
@@ -187,7 +187,7 @@ public:
      * After this method returns, the response itself can still be
      * retrieved using getResponse() as normal.
      */
-    // uint8_t waitForStatus(uint8_t id, uint16_t timeout);
+    uint8_t waitForStatus(uint8_t msgId, uint16_t timeout);
 private:
     /**
      * Internal version of waitFor that does not need to be
@@ -202,10 +202,10 @@ private:
 
     /**
      * Helper that checks if the current response is a status
-     * response with the given frame id. If so, returns the status
+     * response with the given msg id. If so, returns the status
      * byte from the response, otherwise returns 0xff.
      */
-    // uint8_t matchStatus(uint8_t frameId);
+    uint8_t matchStatus(uint8_t msgId);
 
     /**
      * Top half of a typical loop(). Calls readPacket(), calls
