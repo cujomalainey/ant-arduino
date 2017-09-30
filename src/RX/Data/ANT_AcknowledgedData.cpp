@@ -7,21 +7,18 @@ AcknowledgedData::AcknowledgedData() : AntRxDataResponse() {
 }
 
 uint8_t AcknowledgedData::getChannelNumber() {
-    // TODO UNVERIFIED
     return AntRxDataResponse::getData(0);
 }
 
 uint8_t AcknowledgedData::getData(uint8_t index) {
-    // TODO UNVERIFIED
     // skip channel byte
     return AntRxDataResponse::getData(index + 1);
 }
 
-// uint8_t* AcknowledgedData::getData() {
-//     // TODO UNVERIFIED
-//     // skip channel byte
-//     return AntRxDataResponse::getData() + 1;
-// }
+uint8_t* AcknowledgedData::getData() {
+    // skip channel byte
+    return AntRxDataResponse::getData() + 1;
+}
 
 uint8_t AcknowledgedData::getExtendedDataLength() {
     // TODO not inplemented
