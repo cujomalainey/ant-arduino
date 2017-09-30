@@ -158,10 +158,10 @@ public:
      * After this method returns, the response itself can still be
      * retrieved using getResponse() as normal.
      */
-    // template <typename Response>
-    // uint8_t waitFor(Response& response, uint16_t timeout, bool (*func)(Response&, uintptr_t) = NULL, uintptr_t data = 0, int16_t frameId = -1) {
-    //     return waitForInternal(Response::API_ID, &response, timeout, (void*)func, data, frameId);
-    // }
+    template <typename Response>
+    uint8_t waitFor(Response& response, uint16_t timeout, bool (*func)(Response&, uintptr_t) = NULL, uintptr_t data = 0) {
+        return waitForInternal(Response::MSG_ID, &response, timeout, (void*)func, data);
+    }
 
     /**
      * Sends a AntRequest (TX packet) out the serial port, and wait
@@ -198,7 +198,7 @@ private:
      * function to the corresponding type. This means that the
      * void* given must match the api id!
      */
-    // uint8_t waitForInternal(uint8_t apiId, void *response, uint16_t timeout, void *func, uintptr_t data, int16_t frameId);
+    uint8_t waitForInternal(uint8_t msgId, void *response, uint16_t timeout, void *func, uintptr_t data);
 
     /**
      * Helper that checks if the current response is a status
