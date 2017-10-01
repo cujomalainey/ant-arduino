@@ -33,6 +33,7 @@
 #define CONFIGURE_ADVANCED_BURST_LENGTH      0x0C
 #define CONFIGURE_EVENT_FILTER_LENTGH        0x03
 #define CW_INIT_LENGTH                       0x01
+#define FREQUENCY_AGILITY_LENGTH             0x04
 #define LIB_CONFIG_LENGTH                    0x02
 #define OPEN_CHANNEL_LENGTH                  0x01
 #define OPEN_RX_SCAN_MODE_LENGTH             0x01
