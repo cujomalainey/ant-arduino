@@ -56,13 +56,23 @@ uint8_t AddChannelIdToList::getListIndex() {
 }
 
 uint8_t AddChannelIdToList::getData(uint8_t pos) {
-    // TODO not implemented
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else if (pos == 1) {
+        return _deviceNumber & 0xFF;
+    } else if (pos == 2) {
+        return _deviceNumber >> 8;
+    } else if (pos == 3) {
+        return _deviceType & 0x7F;
+    } else if (pos == 4) {
+        return _transmissionType;
+    } else {
+        return _listIndex;
+    }
 }
 
 uint8_t AddChannelIdToList::getDataLength() {
-    // TODO not implemented
-    return 0;
+    return ADD_CHANNEL_ID_TO_LIST_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

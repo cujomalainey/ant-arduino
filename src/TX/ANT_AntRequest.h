@@ -14,7 +14,6 @@ class AntRequest {
 public:
     /**
      * Constructor
-     * TODO make protected
      */
     AntRequest(uint8_t msgId);
     /**

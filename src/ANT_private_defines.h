@@ -15,6 +15,7 @@
  * Message Length Defines
  */
 #define ACKNOWLEDGED_DATA_LENGTH             0x09
+#define ADD_CHANNEL_ID_TO_LIST_LENGTH        0x06
 #define ADVANCED_BURST_DATA_LENGTH           0x09
 #define ASSIGN_CHANNEL_LENGTH                0x03
 #define BROADCAST_DATA_LENGTH                0x09
