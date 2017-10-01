@@ -10,7 +10,7 @@ uint8_t ChannelIdResponse::getChannelNumber() {
 
 uint16_t ChannelIdResponse::getDeviceNumber() {
     uint16_t deviceNumber = getFrameData()[1];
-    deviceNumber |= getFrameData()[2] << 8;
+    deviceNumber |= getFrameData()[2] << BITS_IN_BYTE;
     return deviceNumber;
 }
 

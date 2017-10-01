@@ -247,6 +247,7 @@
 #define MESSAGE_SIZE                    0x08
 #define INVALID_REQUEST                 0xFF
 #define BITS_IN_BYTE                    0x08
+#define BITS_IN_SHORT                   0x10
 
 /**
  * SoftDevice API available, build native ant

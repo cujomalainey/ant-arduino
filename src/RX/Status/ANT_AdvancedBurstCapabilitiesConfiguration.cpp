@@ -14,7 +14,7 @@ uint8_t AdvancedBurstCapabilitiesConfiguration::getSupportedMaxPacketLength() {
 
 uint32_t AdvancedBurstCapabilitiesConfiguration::getSupportedFeatures() {
     uint8_t* frame = getFrameData();
-    return ( frame[2] ) + ( frame[3] << 8 ) + ( frame[4] << 16 );
+    return ( frame[2] ) + ( frame[3] << BITS_IN_BYTE ) + ( frame[4] << BITS_IN_SHORT );
 }
 
 uint8_t AdvancedBurstCapabilitiesConfiguration::enable() {
@@ -27,14 +27,14 @@ uint8_t AdvancedBurstCapabilitiesConfiguration::getMaxPacketLength() {
 
 uint32_t AdvancedBurstCapabilitiesConfiguration::getRequiredFeatures() {
     uint32_t features = getFrameData()[3];
-    features |= getFrameData()[4] << 8;
-    features |= getFrameData()[5] << 16;
+    features |= getFrameData()[4] << BITS_IN_BYTE;
+    features |= getFrameData()[5] << BITS_IN_SHORT;
     return features;
 }
 
 uint32_t AdvancedBurstCapabilitiesConfiguration::getOptionalFeatures() {
     uint32_t features = getFrameData()[6];
-    features |= getFrameData()[7] << 8;
-    features |= getFrameData()[8] << 16;
+    features |= getFrameData()[7] << BITS_IN_BYTE;
+    features |= getFrameData()[8] << BITS_IN_SHORT;
     return features;
 }
