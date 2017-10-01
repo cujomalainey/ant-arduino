@@ -31,7 +31,7 @@ uint8_t SerialNumberSetChannelId::getChannel() {
 }
 
 uint8_t SerialNumberSetChannelId::getDeviceType() {
-    return _deviceType
+    return _deviceType;
 }
 
 bool SerialNumberSetChannelId::getPairingBit() {
