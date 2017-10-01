@@ -30,6 +30,7 @@
 #define CLOSE_CHANNEL_LENGTH                 0x01
 #define CONFIG_ENCRYPTION_ID_LIST_LENGTH     0x03
 #define CONFIG_ID_LIST_LENGTH                0x03
+#define CONFIGURE_ADVANCED_BURST_LENGTH      0x0C
 #define CONFIGURE_EVENT_FILTER_LENTGH        0x03
 #define CW_INIT_LENGTH                       0x01
 #define LIB_CONFIG_LENGTH                    0x02
