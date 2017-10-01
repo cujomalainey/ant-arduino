@@ -1,6 +1,0 @@
-#ifndef ANT_EVENTFILTER_h
-#define ANT_EVENTFILTER_h
-
-// TODO
-
-#endif // ANT_EVENTFILTER_h
