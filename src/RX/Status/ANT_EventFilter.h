@@ -11,7 +11,10 @@
 class EventFilter : public AntResponse {
 public:
     EventFilter();
-    // TODO
+
+    uint8_t getChannelNumber();
+    uint16_t getEventFilter();
+
     static const uint8_t MSG_ID = EVENT_FILTER;
 };
 
