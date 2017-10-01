@@ -35,6 +35,7 @@
 #define CONFIGURE_SELECTIVE_DATA_UPDATES_LENGTH 0x02
 #define CW_INIT_LENGTH                          0x01
 #define ENABLE_EXT_RX_MESSAGES_LENGTH           0x02
+#define ENABLE_SINGLE_CHANNEL_ENCRYPTION_LENGTH 0x04
 #define FREQUENCY_AGILITY_LENGTH                0x04
 #define LIB_CONFIG_LENGTH                       0x02
 #define OPEN_CHANNEL_LENGTH                     0x01

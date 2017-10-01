@@ -4,7 +4,8 @@
 #include <TX/ANT_AntRequest.h>
 
 /**
- * Represents a enable Ext rx messages,
+ * Represents a enable Ext rx messages
+ *
  * used to enable extended fields on data messages
  */
 class EnableExtRxMessages : public AntRequest {
