@@ -158,25 +158,25 @@ public:
      * After this method returns, the response itself can still be
      * retrieved using getResponse() as normal.
      */
-    // template <typename Response>
-    // uint8_t waitFor(Response& response, uint16_t timeout, bool (*func)(Response&, uintptr_t) = NULL, uintptr_t data = 0, int16_t frameId = -1) {
-    //     return waitForInternal(Response::API_ID, &response, timeout, (void*)func, data, frameId);
-    // }
+    template <typename Response>
+    uint8_t waitFor(Response& response, uint16_t timeout, bool (*func)(Response&, uintptr_t) = NULL, uintptr_t data = 0) {
+        return waitForInternal(Response::MSG_ID, &response, timeout, (void*)func, data);
+    }
 
     /**
-     * Sends a XBeeRequest (TX packet) out the serial port, and wait
-     * for a status response API frame (up until the given timeout).
+     * Sends a AntRequest (TX packet) out the serial port, and wait
+     * for a channel response (up until the given timeout).
      * Essentially this just calls send() and waitForStatus().
      * See waitForStatus for the meaning of the return value and
      * more details.
      */
-    // uint8_t sendAndWait(AntRequest &request, uint8_t id, uint16_t timeout) {
-    //     send(request);
-    //     return waitForStatus(id, timeout);
-    // }
+    uint8_t sendAndWait(AntRequest &request, uint16_t timeout) {
+        send(request);
+        return waitForStatus(request.getMsgId(), timeout);
+    }
 
     /**
-     * Wait for a status API response to respond and
+     * Wait for a API response to respond and
      * return the status from the packet i.e. the ChannelEventResponse
      *
      * While waiting, any other responses received are passed to the
@@ -187,7 +187,7 @@ public:
      * After this method returns, the response itself can still be
      * retrieved using getResponse() as normal.
      */
-    // uint8_t waitForStatus(uint8_t id, uint16_t timeout);
+    uint8_t waitForStatus(uint8_t msgId, uint16_t timeout);
 private:
     /**
      * Internal version of waitFor that does not need to be
@@ -198,14 +198,14 @@ private:
      * function to the corresponding type. This means that the
      * void* given must match the api id!
      */
-    // uint8_t waitForInternal(uint8_t apiId, void *response, uint16_t timeout, void *func, uintptr_t data, int16_t frameId);
+    uint8_t waitForInternal(uint8_t msgId, void *response, uint16_t timeout, void *func, uintptr_t data);
 
     /**
      * Helper that checks if the current response is a status
-     * response with the given frame id. If so, returns the status
+     * response with the given msg id. If so, returns the status
      * byte from the response, otherwise returns 0xff.
      */
-    // uint8_t matchStatus(uint8_t frameId);
+    uint8_t matchStatus(uint8_t msgId);
 
     /**
      * Top half of a typical loop(). Calls readPacket(), calls

@@ -14,9 +14,11 @@ public:
     void setChannel(uint8_t channel);
     void setChannelType(uint8_t channelType);
     void setChannelNetwork(uint8_t network);
+    void setExtendedAssignment(uint8_t extended);
     uint8_t getChannel();
     uint8_t getChannelType();
     uint8_t getChannelNetwork();
+    uint8_t getExtendedAssignment();
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
 #ifdef NATIVE_API_AVAILABLE
@@ -26,8 +28,7 @@ private:
     uint8_t _channel;
     uint8_t _channelType;
     uint8_t _network;
-    // TODO what is this var??
-    uint8_t _extended;
+    uint8_t _extended = 0;
 };
 
 #endif // ANT_ASSIGNCHANNEL_h

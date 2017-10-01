@@ -70,13 +70,19 @@ uint8_t FrequencyAgility::getFrequency3() {
 }
 
 uint8_t FrequencyAgility::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else if (pos == 1) {
+        return _freq1;
+    } else if (pos == 2) {
+        return _freq2;
+    } else {
+        return _freq3;
+    }
 }
 
 uint8_t FrequencyAgility::getDataLength() {
-    // TODO
-    return 0;
+    return FREQUENCY_AGILITY_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

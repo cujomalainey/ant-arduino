@@ -10,8 +10,15 @@ class BurstTransferDataMsg : public AntTxDataRequest {
 public:
     BurstTransferDataMsg();
     BurstTransferDataMsg(uint8_t channel);
-    void setChannelSequence(uint8_t channel);
+    void setChannelNumber(uint8_t channel);
+    /**
+     * Sets the sequence number for the message (upper 3 bits of first byte)
+     *
+     * Make sure your read up on seqno in the ant docs before you use this
+     */
+    void setSequenceNumber(uint8_t seqNo);
     uint8_t getChannelSequence();
+    uint8_t getSequenceNumber();
     uint8_t getData(uint8_t pos);
     uint8_t getDataLength();
     void setDataLength(uint8_t length);

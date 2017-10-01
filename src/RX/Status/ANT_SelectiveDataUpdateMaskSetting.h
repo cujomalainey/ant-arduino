@@ -8,7 +8,13 @@
 class SelectiveDataUpdateMaskSetting : public AntResponse {
 public:
     SelectiveDataUpdateMaskSetting();
-    // TODO
+
+    uint8_t getSDUMaskNumber();
+    /**
+     * An array of length 8
+     */
+    uint8_t* getSDUMask();
+
     static const uint8_t MSG_ID = SELECTIVE_DATA_UPDATE_MASK_SETTING;
 };
 

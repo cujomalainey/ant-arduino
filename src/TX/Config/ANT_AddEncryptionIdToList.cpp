@@ -21,7 +21,7 @@ void AddEncryptionIdToList::setEncryptionId(uint32_t encryptionId) {
 }
 
 void AddEncryptionIdToList::setListIndex(uint8_t listIndex) {
-    // TODO
+    _listIndex = listIndex;
 }
 
 uint8_t AddEncryptionIdToList::getChannel() {
@@ -33,18 +33,27 @@ uint32_t AddEncryptionIdToList::getEncryptionId() {
 }
 
 uint8_t AddEncryptionIdToList::getListIndex() {
-    // TODO
-    return 0;
+    return _listIndex;
 }
 
 uint8_t AddEncryptionIdToList::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else if (pos == 1) {
+        return _encryptionId & 0xFF;
+    } else if (pos == 2) {
+        return (_encryptionId >> 8) & 0xFF;
+    } else if (pos == 3) {
+        return (_encryptionId >> 16) & 0xFF;
+    } else if (pos == 4) {
+        return _encryptionId >> 24;
+    } else {
+        return _listIndex;
+    }
 }
 
 uint8_t AddEncryptionIdToList::getDataLength() {
-    // TODO
-    return 0;
+    return ADD_ENCRYPTION_ID_TO_LIST_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

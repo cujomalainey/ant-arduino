@@ -12,12 +12,10 @@ ConfigureAdvancedBurst::ConfigureAdvancedBurst(uint8_t enable, uint8_t maxPacket
 }
 
 void ConfigureAdvancedBurst::setEnable(uint8_t enable) {
-    // TODO mask this
     _enable = enable;
 }
 
 void ConfigureAdvancedBurst::setMaxPacketLength(uint8_t maxPacketLength) {
-    // TODO maybe mask this
     _maxPacketLength = maxPacketLength;
 }
 
@@ -64,13 +62,29 @@ uint8_t ConfigureAdvancedBurst::getRetryCount() {
 }
 
 uint8_t ConfigureAdvancedBurst::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return 0;
+    } else if (pos == 1) {
+        return _enable;
+    } else if (pos == 2) {
+        return _maxPacketLength;
+    } else if (pos == 3) {
+        return _requiredFeatures & 0xFF;
+    } else if (pos == 4) {
+        return (_requiredFeatures >> 8) & 0xFF;
+    } else if (pos == 5) {
+        return (_requiredFeatures >> 16) & 0xFF;
+    } else if (pos == 6) {
+        return _optionalFeatures & 0xFF;
+    } else if (pos == 7) {
+        return (_optionalFeatures >> 8) & 0xFF;
+    } else {
+        return (_optionalFeatures >> 16) & 0xFF;
+    }
 }
 
 uint8_t ConfigureAdvancedBurst::getDataLength() {
-    // TODO
-    return 0;
+    return CONFIGURE_ADVANCED_BURST_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

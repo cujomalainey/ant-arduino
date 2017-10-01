@@ -238,6 +238,7 @@
 #define CHECKSUM_FAILURE                  1
 #define PACKET_EXCEEDS_BYTE_ARRAY_LENGTH  2
 #define UNEXPECTED_START_BYTE             3
+#define ANT_WAIT_TIMEOUT                  255
 
 /**
  * Framework Defines
@@ -246,6 +247,7 @@
 #define MESSAGE_SIZE                    0x08
 #define INVALID_REQUEST                 0xFF
 #define BITS_IN_BYTE                    0x08
+#define BITS_IN_SHORT                   0x10
 
 /**
  * SoftDevice API available, build native ant

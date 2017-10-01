@@ -12,7 +12,7 @@ class ChannelEventResponse : public AntResponse {
 public:
     ChannelEventResponse();
     uint8_t getChannelNumber();
-    uint8_t getMsgId();
+    uint8_t getResponseMsgId();
     uint8_t getCode();
     uint8_t getExtendedEventParameters();
 

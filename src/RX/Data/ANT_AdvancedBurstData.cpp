@@ -7,12 +7,15 @@ AdvancedBurstData::AdvancedBurstData() : AntRxDataResponse() {
 }
 
 uint8_t AdvancedBurstData::getChannelNumber() {
-    // TODO UNVERIFIED
-    return AntRxDataResponse::getData(0);
+    return AntRxDataResponse::getData(0) & ADVANCED_BURST_DATA_CHANNEL_MASK;
 }
 
+uint8_t AdvancedBurstData::getSequenceNumber() {
+    return (AntRxDataResponse::getData(0) & ~ADVANCED_BURST_DATA_CHANNEL_MASK) >> ADVANCED_BURST_DATA_SEQUENCENUMBER_SHIFT;
+}
+
+
 uint8_t AdvancedBurstData::getData(uint8_t index) {
-    // TODO UNVERIFIED
     // skip channel byte
     return AntRxDataResponse::getData(index + 1);
 }
@@ -21,16 +24,6 @@ uint8_t AdvancedBurstData::getData(uint8_t index) {
 //     // TODO UNVERIFIED
 //     // skip channel byte
 //     return AntRxDataResponse::getData() + 1;
-// }
-
-// uint8_t AdvancedBurstData::getExtendedDataLength() {
-//     // TODO not inplemented
-//     return INVALID_REQUEST;
-// }
-
-// uint8_t AdvancedBurstData::getExtendedData(uint8_t index) {
-//     // TODO not inplemented
-//     return INVALID_REQUEST;
 // }
 
 uint8_t AdvancedBurstData::getDataLength() {

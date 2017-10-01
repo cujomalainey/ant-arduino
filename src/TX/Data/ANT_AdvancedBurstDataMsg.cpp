@@ -7,15 +7,16 @@ AdvancedBurstDataMsg::AdvancedBurstDataMsg() : AntTxDataRequest(ADVANCED_BURST_D
 }
 
 AdvancedBurstDataMsg::AdvancedBurstDataMsg(uint8_t channel, uint8_t length) : AntTxDataRequest(ADVANCED_BURST_DATA) {
-    setChannelSequence(channel);
+    setChannelNumber(channel);
     setDataLength(length);
 }
 
-void AdvancedBurstDataMsg::setChannelSequence(uint8_t channel) {
+void AdvancedBurstDataMsg::setChannelNumber(uint8_t channel) {
+    // TODO fix this to handle sequence
     _channel = channel;
 }
 
-uint8_t AdvancedBurstDataMsg::getChannelSequence() {
+uint8_t AdvancedBurstDataMsg::getChannelNumber() {
     return _channel;
 }
 

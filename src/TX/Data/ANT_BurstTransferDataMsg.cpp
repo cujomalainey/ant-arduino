@@ -7,14 +7,15 @@ BurstTransferDataMsg::BurstTransferDataMsg() : AntTxDataRequest(BURST_TRANSFER_D
 }
 
 BurstTransferDataMsg::BurstTransferDataMsg(uint8_t channel) : AntTxDataRequest(BURST_TRANSFER_DATA) {
-    setChannelSequence(channel);
+    setChannelNumber(channel);
 }
 
-void BurstTransferDataMsg::setChannelSequence(uint8_t channel) {
+void BurstTransferDataMsg::setChannelNumber(uint8_t channel) {
+    // TODO handle sequence number bits
     _channel = channel;
 }
 
-uint8_t BurstTransferDataMsg::getChannelSequence() {
+uint8_t BurstTransferDataMsg::getSequenceNumber() {
     return _channel;
 }
 

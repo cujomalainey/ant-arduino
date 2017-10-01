@@ -15,7 +15,6 @@
 #include <TX/Config/ANT_ConfigureSelectiveDataUpdates.h>
 #include <TX/Config/ANT_EnableExtRxMessages.h>
 #include <TX/Config/ANT_EnableSingleChannelEncryption.h>
-#include <TX/Config/ANT_EventFilter.h>
 #include <TX/Config/ANT_FrequencyAgility.h>
 #include <TX/Config/ANT_LibConfig.h>
 #include <TX/Config/ANT_LowPrioritySearchTimeout.h>

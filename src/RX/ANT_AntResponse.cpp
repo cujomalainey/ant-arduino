@@ -75,8 +75,6 @@ void AntResponse::getStartUpMsg(AntResponse &response) {
 void AntResponse::getBroadcastDataMsg(AntResponse &rxResponse) {
     BroadcastData* bdm = static_cast<BroadcastData*>(&rxResponse);
 
-    //TODO verify response msg id matches this msg for this response
-
     // pass pointer array to subclass
     bdm->setFrameData(getFrameData());
     setCommon(rxResponse);

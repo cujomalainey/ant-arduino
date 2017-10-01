@@ -32,13 +32,15 @@ uint8_t ProximitySearch::getSearchThreshold() {
 }
 
 uint8_t ProximitySearch::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else {
+        return _searchThreshold;
+    }
 }
 
 uint8_t ProximitySearch::getDataLength() {
-    // TODO
-    return 0;
+    return PROXIMITY_SEARCH_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

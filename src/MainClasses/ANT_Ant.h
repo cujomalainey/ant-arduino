@@ -3,7 +3,6 @@
 
 #include <BaseClasses/ANT_BaseAnt.h>
 
-// TODO add reset/clear method since responses are often reused
 /**
  * Primary interface for communicating with an Ant Radio.
  * This class provides methods for sending and receiving packets with an Ant radio via the serial port.

@@ -2,4 +2,52 @@
 
 #include <ANT_private_defines.h>
 
-// TODO
+LowPrioritySearchTimeout::LowPrioritySearchTimeout() : AntRequest(LOW_PRIORITY_SEARCH_TIMEOUT) {
+
+}
+
+LowPrioritySearchTimeout::LowPrioritySearchTimeout(uint8_t channel)  : AntRequest(LOW_PRIORITY_SEARCH_TIMEOUT){
+    setChannel(channel);
+}
+
+LowPrioritySearchTimeout::LowPrioritySearchTimeout(uint8_t channel, uint8_t timeout)  : AntRequest(LOW_PRIORITY_SEARCH_TIMEOUT){
+    setChannel(channel);
+    setTimeout(timeout);
+}
+
+void LowPrioritySearchTimeout::setChannel(uint8_t channel) {
+    _channel = channel;
+}
+
+void LowPrioritySearchTimeout::setTimeout(uint8_t timeout) {
+    _timeout = timeout;
+}
+
+uint8_t LowPrioritySearchTimeout::getChannel() {
+    return _channel;
+}
+
+uint8_t LowPrioritySearchTimeout::getTimeout() {
+    return _timeout;
+}
+
+uint8_t LowPrioritySearchTimeout::getData(uint8_t pos) {
+    if (pos == 0) {
+        return _channel;
+    } else {
+        return _timeout;
+    }
+}
+
+uint8_t LowPrioritySearchTimeout::getDataLength() {
+    return LOW_PRIORITY_SEARCH_TIMEOUT_LENGTH;
+}
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t LowPrioritySearchTimeout::execute() {
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

@@ -19,13 +19,17 @@ uint16_t ConfigureEventFilter::getEventFilter() {
 }
 
 uint8_t ConfigureEventFilter::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return 0;
+    } else if (pos == 1) {
+        return _eventFilter & 0xFF;
+    } else {
+        return _eventFilter >> 8;
+    }
 }
 
 uint8_t ConfigureEventFilter::getDataLength() {
-    // TODO
-    return 0;
+    return CONFIGURE_EVENT_FILTER_LENTGH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

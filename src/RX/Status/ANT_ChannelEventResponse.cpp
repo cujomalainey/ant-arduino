@@ -8,7 +8,7 @@ uint8_t ChannelEventResponse::getChannelNumber() {
     return  getFrameData()[0];
 }
 
-uint8_t ChannelEventResponse::getMsgId() {
+uint8_t ChannelEventResponse::getResponseMsgId() {
     return getFrameData()[1];
 }
 

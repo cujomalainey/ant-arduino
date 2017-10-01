@@ -19,6 +19,7 @@ void handleBroadcastMessage(BroadcastData& bd, uintptr_t data);
 void handleAntError(uint8_t code, uintptr_t data);
 void handleStartUpMessage(StartUpMessage& sum, uintptr_t data);
 void handleChannelEventResponse(ChannelEventResponse& cer, uintptr_t data);
+bool itsAlive(StartUpMessage& sm, uintptr_t data);
 
 void setup()
 {
@@ -29,6 +30,7 @@ void setup()
     ChannelPeriod cp;
     ChannelRfFrequency crf;
     OpenChannel oc;
+    StartUpMessage sm;
 
     Serial1.begin(BAUD_RATE);
     ant.onBroadcastData(handleBroadcastMessage);
@@ -37,24 +39,39 @@ void setup()
     ant.onChannelEventResponse(handleChannelEventResponse);
     ant.onOtherResponse(handleMessageWithNoCallback);
     ant.begin(Serial1);
-    ant.send(rs);
-    // Delay after resetting the radio to give the user time to connect on serial
-    delay(10000);
+
     Serial.begin(9600);
+    delay(10000);
+    // Delay to give the user time to connect on serial
+
     Serial.println("Running");
+
+    ant.send(rs);
+    ant.waitFor(sm, 2000, itsAlive); // wait 2s for device to start
 
     snk = SetNetworkKey();
     snk.setNetwork(0);
     snk.setKey((uint8_t*)NETWORK_KEY);
     ant.send(snk);
-    ant.loop();
+    if(ant.waitForStatus(snk.getMsgId(), 1000)) {
+        Serial.println("No Response for setting network key");
+    } else {
+        ChannelEventResponse cer = ChannelEventResponse();
+        ant.getResponse().getChannelEventResponseMsg(cer);
+        handleChannelEventResponse(cer, 0);
+    }
 
     ac = AssignChannel();
     ac.setChannel(0);
     ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE); //can't wildcard this
     ac.setChannelNetwork(0);
-    ant.send(ac);
-    ant.loop();
+    if (ant.sendAndWait(ac, 2000)) {
+        Serial.println("No Response for assigning channel");
+    } else {
+        ChannelEventResponse cer = ChannelEventResponse();
+        ant.getResponse().getChannelEventResponseMsg(cer);
+        handleChannelEventResponse(cer, 0);
+    }
 
     ci = ChannelId();
     ci.setChannel(0);
@@ -144,4 +161,9 @@ void handleChannelEventResponse(ChannelEventResponse& cer, uintptr_t data) {
             Serial.println(code);
             break;
     }
+}
+
+bool itsAlive(StartUpMessage& sm, uintptr_t data) {
+    Serial.println("Radio Reset!");
+    return true;
 }

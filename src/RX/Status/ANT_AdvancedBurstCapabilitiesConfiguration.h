@@ -11,15 +11,25 @@
 class AdvancedBurstCapabilitiesConfiguration : public AntResponse {
 public:
     AdvancedBurstCapabilitiesConfiguration();
+    /**
+     * returns 0 for a capabilities message, 1 for a current configuration
+     */
     uint8_t getMsgType();
     // Capabilities Methods
     uint8_t getSupportedMaxPacketLength();
     uint32_t getSupportedFeatures();
+
     // Current Configuration Methods
-    bool enable();
+
+    /**
+     * Defines whether advanced burst is enabled
+     */
+    uint8_t enable();
     uint8_t getMaxPacketLength();
     uint32_t getRequiredFeatures();
     uint32_t getOptionalFeatures();
+
+    // TODO Stall count, retry count
 
     static const uint8_t MSG_ID = ADVANCED_BURST_CAPABILITES;
 };
