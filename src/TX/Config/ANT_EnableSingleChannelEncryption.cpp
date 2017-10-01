@@ -7,7 +7,7 @@ EnableSingleChannelEncryption::EnableSingleChannelEncryption() : AntRequest(ENAB
 }
 
 EnableSingleChannelEncryption::EnableSingleChannelEncryption(uint8_t channel) : AntRequest(ENABLE_SINGLE_CHANNEL_ENCRYPTION) {
-
+    setChannel(channel);
 }
 
 void EnableSingleChannelEncryption::setChannel(uint8_t channel) {

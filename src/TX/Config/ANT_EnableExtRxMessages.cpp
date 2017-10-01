@@ -7,7 +7,7 @@ EnableExtRxMessages::EnableExtRxMessages() : AntRequest(ENABLE_EXT_RX_MESSAGES) 
 }
 
 EnableExtRxMessages::EnableExtRxMessages(uint8_t enable) : AntRequest(ENABLE_EXT_RX_MESSAGES) {
-
+    setEnable(enable);
 }
 
 void EnableExtRxMessages::setEnable(uint8_t enable) {

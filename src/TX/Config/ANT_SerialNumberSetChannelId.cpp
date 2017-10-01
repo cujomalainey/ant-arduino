@@ -7,7 +7,7 @@ SerialNumberSetChannelId::SerialNumberSetChannelId() : AntRequest(SERIAL_NUMBER_
 }
 
 SerialNumberSetChannelId::SerialNumberSetChannelId(uint8_t channel) : AntRequest(SERIAL_NUMBER_SET_CHANNEL_ID) {
-
+    setChannel(channel);
 }
 
 void SerialNumberSetChannelId::setChannel(uint8_t channel) {

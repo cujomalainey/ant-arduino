@@ -6,8 +6,13 @@ SetChannelTransmitPower::SetChannelTransmitPower() : AntRequest(SET_CHANNEL_TRAN
 
 }
 
-SetChannelTransmitPower::SetChannelTransmitPower(uint8_t channel, uint8_t transmitPower) : AntRequest(SET_CHANNEL_TRANSMIT_POWER) {
+SetChannelTransmitPower::SetChannelTransmitPower(uint8_t channel) : AntRequest(SET_CHANNEL_TRANSMIT_POWER) {
+    setChannel(channel);
+}
 
+SetChannelTransmitPower::SetChannelTransmitPower(uint8_t channel, uint8_t transmitPower) : AntRequest(SET_CHANNEL_TRANSMIT_POWER) {
+    setChannel(channel);
+    setTransmitPower(transmitPower);
 }
 
 void SetChannelTransmitPower::setChannel(uint8_t channel) {

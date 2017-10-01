@@ -11,6 +11,7 @@
 class SetChannelTransmitPower : public AntRequest {
 public:
     SetChannelTransmitPower();
+    SetChannelTransmitPower(uint8_t channel);
     SetChannelTransmitPower(uint8_t channel, uint8_t transmitPower);
     void setChannel(uint8_t channel);
     void setTransmitPower(uint8_t transmitPower);
