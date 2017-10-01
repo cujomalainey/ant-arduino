@@ -14,36 +14,37 @@
 /**
  * Message Length Defines
  */
-#define ACKNOWLEDGED_DATA_LENGTH             0x09
-#define ADD_CHANNEL_ID_TO_LIST_LENGTH        0x06
-#define ADD_ENCRYPTION_ID_TO_LIST_LENGTH     0x06
-#define ADVANCED_BURST_DATA_LENGTH           0x09
-#define ASSIGN_CHANNEL_LENGTH                0x03
-#define BROADCAST_DATA_LENGTH                0x09
-#define BURST_DATA_TRANSFER_LENGTH           0x09
-#define BURST_TRANSFER_DATA_LENGTH           0x09
-#define CHANNEL_ID_LENGTH                    0x05
-#define CHANNEL_PERIOD_LENGTH                0x03
-#define CHANNEL_RF_FREQUENCY_LENGTH          0x02
-#define CHANNEL_SEARCH_PRIORITY_LENGTH       0x02
-#define CHANNEL_SEARCH_SHARING_LENGTH        0x02
-#define CLOSE_CHANNEL_LENGTH                 0x01
-#define CONFIG_ENCRYPTION_ID_LIST_LENGTH     0x03
-#define CONFIG_ID_LIST_LENGTH                0x03
-#define CONFIGURE_ADVANCED_BURST_LENGTH      0x0C
-#define CONFIGURE_EVENT_FILTER_LENTGH        0x03
-#define CW_INIT_LENGTH                       0x01
-#define FREQUENCY_AGILITY_LENGTH             0x04
-#define LIB_CONFIG_LENGTH                    0x02
-#define OPEN_CHANNEL_LENGTH                  0x01
-#define OPEN_RX_SCAN_MODE_LENGTH             0x01
-#define REQUEST_MESSAGE_LENGTH               0x02
-#define RESET_SYSTEM_LENGTH                  0x01
-#define SEARCH_TIMEOUT_LENGTH                0x02
-#define SEARCH_WAVEFORM_LENGTH               0x03
-#define SET_NETWORK_KEY_LENGTH               0x09
-#define TRANSMIT_POWER_LENGTH                0x02
-#define UNASSIGN_CHANNEL_LENGTH              0x01
+#define ACKNOWLEDGED_DATA_LENGTH                0x09
+#define ADD_CHANNEL_ID_TO_LIST_LENGTH           0x06
+#define ADD_ENCRYPTION_ID_TO_LIST_LENGTH        0x06
+#define ADVANCED_BURST_DATA_LENGTH              0x09
+#define ASSIGN_CHANNEL_LENGTH                   0x03
+#define BROADCAST_DATA_LENGTH                   0x09
+#define BURST_DATA_TRANSFER_LENGTH              0x09
+#define BURST_TRANSFER_DATA_LENGTH              0x09
+#define CHANNEL_ID_LENGTH                       0x05
+#define CHANNEL_PERIOD_LENGTH                   0x03
+#define CHANNEL_RF_FREQUENCY_LENGTH             0x02
+#define CHANNEL_SEARCH_PRIORITY_LENGTH          0x02
+#define CHANNEL_SEARCH_SHARING_LENGTH           0x02
+#define CLOSE_CHANNEL_LENGTH                    0x01
+#define CONFIG_ENCRYPTION_ID_LIST_LENGTH        0x03
+#define CONFIG_ID_LIST_LENGTH                   0x03
+#define CONFIGURE_ADVANCED_BURST_LENGTH         0x0C
+#define CONFIGURE_EVENT_FILTER_LENTGH           0x03
+#define CONFIGURE_SELECTIVE_DATA_UPDATES_LENGTH 0x02
+#define CW_INIT_LENGTH                          0x01
+#define FREQUENCY_AGILITY_LENGTH                0x04
+#define LIB_CONFIG_LENGTH                       0x02
+#define OPEN_CHANNEL_LENGTH                     0x01
+#define OPEN_RX_SCAN_MODE_LENGTH                0x01
+#define REQUEST_MESSAGE_LENGTH                  0x02
+#define RESET_SYSTEM_LENGTH                     0x01
+#define SEARCH_TIMEOUT_LENGTH                   0x02
+#define SEARCH_WAVEFORM_LENGTH                  0x03
+#define SET_NETWORK_KEY_LENGTH                  0x09
+#define TRANSMIT_POWER_LENGTH                   0x02
+#define UNASSIGN_CHANNEL_LENGTH                 0x01
 
 /**
  * Channel Status BitField Defines
@@ -63,5 +64,12 @@
  */
 #define ADVANCED_BURST_DATA_CHANNEL_MASK     0x1F
 #define ADVANCED_BURST_DATA_SEQUENCENUMBER_SHIFT 5
+
+/**
+ * Configure Selective Data Updates defines
+ */
+#define CONFIGURE_SELECTIVE_DATA_UPDATES_SDU_DISABLE 0xFF
+#define CONFIGURE_SELECTIVE_DATA_UPDATES_SDU_NUMBER_MASK 0x1F
+#define CONFIGURE_SELECTIVE_DATA_UPDATES_FILTER_BIT_MASK 0x80
 
 #endif // ANT_PRIVATE_DEFINES_h
