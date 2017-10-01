@@ -10,14 +10,14 @@ AcknowledgedDataMsg::AcknowledgedDataMsg() : AntTxDataRequest(ACKNOWLEDGED_DATA)
 
 AcknowledgedDataMsg::AcknowledgedDataMsg(uint8_t channel) : AntTxDataRequest(ACKNOWLEDGED_DATA) {
     setDataLength(MESSAGE_SIZE);
-    setChannel(channel);
+    setChannelNumber(channel);
 }
 
-void AcknowledgedDataMsg::setChannel(uint8_t channel) {
+void AcknowledgedDataMsg::setChannelNumber(uint8_t channel) {
     _channel = channel;
 }
 
-uint8_t AcknowledgedDataMsg::getChannel() {
+uint8_t AcknowledgedDataMsg::getChannelNumber() {
     return _channel;
 }
 

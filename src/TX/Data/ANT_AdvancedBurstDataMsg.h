@@ -10,8 +10,10 @@ class AdvancedBurstDataMsg : public AntTxDataRequest {
 public:
     AdvancedBurstDataMsg();
     AdvancedBurstDataMsg(uint8_t channel, uint8_t length);
-    void setChannelSequence(uint8_t channel);
-    uint8_t getChannelSequence();
+    void setChannelNumber(uint8_t channel);
+    void setSequenceNumber(uint8_t seqNo);
+    uint8_t getChannelNumber();
+    uint8_t getSequenceNumber();
     uint8_t getData(uint8_t pos);
     void setDataLength(uint8_t length);
     uint8_t getDataLength();

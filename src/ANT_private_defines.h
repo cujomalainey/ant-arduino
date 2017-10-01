@@ -52,4 +52,10 @@
  */
 #define CONFIG_ID_LIST_LIST_MAX_SIZE         0x04
 
+/**
+ * Advanced burst defines
+ */
+#define ADVANCED_BURST_DATA_CHANNEL_MASK     0x1F
+#define ADVANCED_BURST_DATA_SEQUENCENUMBER_SHIFT 5
+
 #endif // ANT_PRIVATE_DEFINES_h

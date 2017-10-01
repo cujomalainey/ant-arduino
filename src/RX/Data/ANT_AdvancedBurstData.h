@@ -15,6 +15,7 @@ public:
      * Returns source channel
      */
     uint8_t getChannelNumber();
+    uint8_t getSequenceNumber();
     /**
      * Returns sepcified byte of data from payload
      */
