@@ -41,6 +41,7 @@
 #define LOW_PRIORITY_SEARCH_TIMEOUT_LENGTH      0x02
 #define OPEN_CHANNEL_LENGTH                     0x01
 #define OPEN_RX_SCAN_MODE_LENGTH                0x01
+#define PROXIMITY_SEARCH_LENGTH                 0x02
 #define REQUEST_MESSAGE_LENGTH                  0x02
 #define RESET_SYSTEM_LENGTH                     0x01
 #define SEARCH_TIMEOUT_LENGTH                   0x02
