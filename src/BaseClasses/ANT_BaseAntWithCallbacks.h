@@ -165,7 +165,7 @@ public:
 
     /**
      * Sends a AntRequest (TX packet) out the serial port, and wait
-     * for a status response API frame (up until the given timeout).
+     * for a channel response (up until the given timeout).
      * Essentially this just calls send() and waitForStatus().
      * See waitForStatus for the meaning of the return value and
      * more details.
