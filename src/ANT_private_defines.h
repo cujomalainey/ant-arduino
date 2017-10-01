@@ -38,6 +38,7 @@
 #define ENABLE_SINGLE_CHANNEL_ENCRYPTION_LENGTH 0x04
 #define FREQUENCY_AGILITY_LENGTH                0x04
 #define LIB_CONFIG_LENGTH                       0x02
+#define LOW_PRIORITY_SEARCH_TIMEOUT_LENGTH      0x02
 #define OPEN_CHANNEL_LENGTH                     0x01
 #define OPEN_RX_SCAN_MODE_LENGTH                0x01
 #define REQUEST_MESSAGE_LENGTH                  0x02
