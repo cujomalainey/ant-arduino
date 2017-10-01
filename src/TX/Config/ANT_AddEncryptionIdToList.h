@@ -23,9 +23,9 @@ public:
     uint8_t execute();
 #endif
 private:
-    // TODO missing var for list index?
     uint8_t _channel;
     uint32_t _encryptionId;
+    uint8_t _listIndex;
 };
 
 #endif // ANT_ADDENCRYPTIONIDTOLIST_h
