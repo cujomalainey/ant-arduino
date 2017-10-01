@@ -19,7 +19,7 @@ public:
     uint8_t getDataLength();
 #ifdef NATIVE_API_AVAILABLE
     uint8_t execute();
-#endif
+#endif // NATIVE_API_AVAILABLE
 private:
     uint8_t _channel;
     uint16_t _waveform;
