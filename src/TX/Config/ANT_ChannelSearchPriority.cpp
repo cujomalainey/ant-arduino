@@ -28,13 +28,15 @@ uint8_t ChannelSearchPriority::getPriority() {
 }
 
 uint8_t ChannelSearchPriority::getData(uint8_t pos) {
-    // TODO
-    return 0;
+    if (pos == 0) {
+        return _channel;
+    } else {
+        return _priority;
+    }
 }
 
 uint8_t ChannelSearchPriority::getDataLength() {
-    // TODO
-    return 0;
+    return CHANNEL_SEARCH_PRIORITY_LENGTH;
 }
 
 #ifdef NATIVE_API_AVAILABLE

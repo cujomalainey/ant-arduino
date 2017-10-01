@@ -25,6 +25,7 @@
 #define CHANNEL_ID_LENGTH                    0x05
 #define CHANNEL_PERIOD_LENGTH                0x03
 #define CHANNEL_RF_FREQUENCY_LENGTH          0x02
+#define CHANNEL_SEARCH_PRIORITY_LENGTH       0x02
 #define CHANNEL_SEARCH_SHARING_LENGTH        0x02
 #define CLOSE_CHANNEL_LENGTH                 0x01
 #define CONFIG_ENCRYPTION_ID_LIST_LENGTH     0x03
