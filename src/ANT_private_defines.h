@@ -43,6 +43,7 @@
 #define RESET_SYSTEM_LENGTH                     0x01
 #define SEARCH_TIMEOUT_LENGTH                   0x02
 #define SEARCH_WAVEFORM_LENGTH                  0x03
+#define SERIAL_NUMBER_SET_CHANNEL_ID_LENGTH     0x03
 #define SET_NETWORK_KEY_LENGTH                  0x09
 #define TRANSMIT_POWER_LENGTH                   0x02
 #define UNASSIGN_CHANNEL_LENGTH                 0x01
