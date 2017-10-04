@@ -8,6 +8,7 @@ Arduino library for communicating with ANT radios, with support for nrf51 device
 
 ## News
 
+* 10/01/2017 [Antplus-arduino](https://github.com/cujomalainey/antplus-arduino) released
 * 09/30/2017 Callback system complete, v1.0.0 released
 * 09/10/2017 System refactor complete
 * 12/26/2016 More examples and Tx added
