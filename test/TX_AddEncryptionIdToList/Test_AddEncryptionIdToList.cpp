@@ -26,6 +26,11 @@ void test_setEncryptionId(void) {
     TEST_ASSERT_EQUAL_UINT16(0x11223344, msg.getEncryptionId());
 }
 
+void test_setListIndex(void) {
+    msg.setListIndex(3);
+    TEST_ASSERT_EQUAL_UINT8(3, msg.getListIndex());
+}
+
 void test_getDataLength(void) {
     TEST_ASSERT_EQUAL_UINT8(6, msg.getDataLength());
 }
@@ -41,6 +46,7 @@ int main(int argc, char **argv) {
     UNITY_BEGIN();
     RUN_TEST(test_constructors);
     RUN_TEST(test_setEncryptionId);
+    RUN_TEST(test_setListIndex);
     RUN_TEST(test_getDataLength);
     RUN_TEST(test_serialize);
     UNITY_END();

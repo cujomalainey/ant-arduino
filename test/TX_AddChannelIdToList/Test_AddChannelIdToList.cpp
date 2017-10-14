@@ -38,6 +38,11 @@ void test_setTransmisionType(void) {
     TEST_ASSERT_EQUAL_UINT8(12, msg.getTransmissionType());
 }
 
+void test_setListIndex(void) {
+    msg.setListIndex(4);
+    TEST_ASSERT_EQUAL_UINT8(4, msg.getListIndex());
+}
+
 void test_getDataLength(void) {
     TEST_ASSERT_EQUAL_UINT8(6, msg.getDataLength());
 }
@@ -56,6 +61,7 @@ int main(int argc, char **argv) {
     RUN_TEST(test_setDeviceNumber);
     RUN_TEST(test_setDeviceType);
     RUN_TEST(test_setTransmisionType);
+    RUN_TEST(test_setListIndex);
     RUN_TEST(test_getDataLength);
     RUN_TEST(test_serialize);
     UNITY_END();
