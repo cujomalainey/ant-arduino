@@ -2,6 +2,8 @@ language: python
 python:
     - "2.7"
 
+- secure: fPYfNEnHO/5KjLPp0NuIck3QRRFfUPt+S2XPhDyDsflP9rXRamnP9DfQ38K4v9F2FHcOjWCCaDrXuu6rsCZnN87FBL/TDtwcux0ZnDK+CW+yn8MsGsTE0r7wTN148w7u5zr0xD/LR00vgi1gyL56YdaCtRlZjug1T8eWyLbgAd9lhUsDP+91R6w74MdSJPANFUoUsiGfHWrLbeb0fXOLhmS7LlJ6RPViVQ6s9Eh4b7r79WlgXdrke9xzY9ZaCyzRasnYluLcBBjn9v7k25FJLIFVZJBOjlcYjIFVl2fINbPGo7mzBVDiToBQK9kHbUYqkfs73bC8fzeNHtYKnad6vA==
+
 install:
     - pip install -U platformio
 
