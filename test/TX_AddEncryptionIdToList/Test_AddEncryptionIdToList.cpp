@@ -1,36 +1,48 @@
 #include "unity.h"
+#include "ANT.h"
+#include "Util/Testing.h"
 
 #ifdef UNIT_TEST
 
-void setUp(void) {
-// set stuff up here
+const uint8_t expectedOut[] = {0xA4, 6, 0x59, 1, 0x78, 0x56, 0x34, 0x12, 3, 241};
+Stream mock_stream = Stream(NULL, expectedOut);
+AntWithCallbacks ant = AntWithCallbacks();
+AddEncryptionIdToList msg;
+
+void test_constructors(void) {
+    msg = AddEncryptionIdToList(1, 0x12345678, 3);
+    TEST_ASSERT_EQUAL_UINT8(1, msg.getChannel());
+    TEST_ASSERT_EQUAL_UINT32(0x12345678, msg.getEncryptionId());
+    TEST_ASSERT_EQUAL_UINT8(3, msg.getListIndex());
 }
 
-void tearDown(void) {
-// clean stuff up here
+void test_setChannel(void) {
+    msg.setChannel(3);
+    TEST_ASSERT_EQUAL_UINT8(3, msg.getChannel());
 }
 
-void test_function_calculator_addition2(void) {
-    TEST_ASSERT_EQUAL(32, 25 + 7);
+void test_setEncryptionId(void) {
+    msg.setEncryptionId(0x11223344);
+    TEST_ASSERT_EQUAL_UINT16(0x11223344, msg.getEncryptionId());
 }
 
-void test_function_calculator_subtraction2(void) {
-    TEST_ASSERT_EQUAL(20, 23 - 3);
+void test_getDataLength(void) {
+    TEST_ASSERT_EQUAL_UINT8(6, msg.getDataLength());
 }
 
-void test_function_calculator_multiplication2(void) {
-    TEST_ASSERT_EQUAL(50, 25 * 2);
-}
-
-void test_function_calculator_division2(void) {
-    TEST_ASSERT_EQUAL(32, 100 / 3);
+void test_serialize(void) {
+    // Asserts are in mock stream
+    ant.begin(mock_stream);
+    msg = AddEncryptionIdToList(1, 0x12345678, 3);
+    ant.send(msg);
 }
 
 int main(int argc, char **argv) {
     UNITY_BEGIN();
-    RUN_TEST(test_function_calculator_addition2);
-    RUN_TEST(test_function_calculator_subtraction2);
-    RUN_TEST(test_function_calculator_multiplication2);
+    RUN_TEST(test_constructors);
+    RUN_TEST(test_setEncryptionId);
+    RUN_TEST(test_getDataLength);
+    RUN_TEST(test_serialize);
     UNITY_END();
 
     return 0;
