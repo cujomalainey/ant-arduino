@@ -6,7 +6,12 @@
 
 #include <ANT_defines.h>
 
+#ifdef UNIT_TEST
+// Includes a mock stream object for unit testing
+#include "Util/Testing.h"
+#else
 #include "Arduino.h"
+#endif
 
 class BaseAnt {
 public:

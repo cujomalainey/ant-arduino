@@ -2,7 +2,11 @@
 
 #include <ANT_private_defines.h>
 
-#include <Arduino.h>
+#ifdef UNIT_TEST
+#include "Util/Testing.h"
+#else
+#include "Arduino.h"
+#endif
 
 SetNetworkKey::SetNetworkKey() : AntRequest(SET_NETWORK_KEY) {
     memset(_key, 0, NETWORK_KEY_SIZE);
