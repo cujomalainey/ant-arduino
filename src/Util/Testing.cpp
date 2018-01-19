@@ -26,7 +26,9 @@ uint8_t Stream::read() {
 }
 
 void Stream::write(uint8_t data) {
-    TEST_ASSERT_EQUAL(data, _outBuffer[_wrote++]);
+    if (_wrote < sizeof(_outBuffer)) {
+        TEST_ASSERT_EQUAL(data, _outBuffer[_wrote++]);
+    }
 }
 
 
