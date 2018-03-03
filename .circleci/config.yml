@@ -23,7 +23,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            pip install -U platformio
+            sudo pip install -U platformio
 
       # other common Python testing frameworks include pytest and nose
       # https://pytest.org
