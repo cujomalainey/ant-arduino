@@ -23,8 +23,6 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
             pip install -U platformio
 
       # other common Python testing frameworks include pytest and nose
@@ -33,7 +31,6 @@ jobs:
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
             pio test -e native
 
       - store_artifacts:
