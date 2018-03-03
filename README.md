@@ -5,7 +5,7 @@ Arduino library for communicating with ANT radios, with support for nrf51 device
 ## Status
 
 [![Build Status](https://travis-ci.org/cujomalainey/ant-arduino.svg?branch=master)](https://travis-ci.org/cujomalainey/ant-arduino)
-[![Test Status](https://api.shippable.com/projects/59e1a6d18c5f5607004d23b4/badge?branch=master)](https://app.shippable.com/github/cujomalainey/ant-arduino)
+[![Test Status](https://img.shields.io/circleci/project/github/cujomalainey/ant-arduino/master.svg)](https://circleci.com/gh/cujomalainey/ant-arduino)
 
 ## News
 
