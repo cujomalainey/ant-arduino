@@ -31,7 +31,7 @@ uint8_t CWTest::getData(uint8_t pos) {
     }
 }
 
-uint8_t getDataLength() {
+uint8_t CWTest::getDataLength() {
     return CW_TEST_LENGTH;
 }
 
