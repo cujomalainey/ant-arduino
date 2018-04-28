@@ -52,10 +52,12 @@ uint8_t SetEncryptionInfo::getDataLength() {
 }
 
 #ifdef NATIVE_API_AVAILABLE
+
 uint8_t SetEncryptionInfo::execute() {
     // TODO
     return 0;
 }
+
 #endif // NATIVE_API_AVAILABLE
 
 uint8_t SetEncryptionInfo::getDataStringSize() {
