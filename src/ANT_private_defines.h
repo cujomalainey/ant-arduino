@@ -49,6 +49,7 @@
 #define SEARCH_WAVEFORM_LENGTH                  0x03
 #define SERIAL_NUMBER_SET_CHANNEL_ID_LENGTH     0x03
 #define SET_CHANNEL_TRANSMIT_POWER_LENGTH       0x02
+#define SET_ENCRYPTION_KEY_LENGTH               0x11
 #define SET_NETWORK_KEY_LENGTH                  0x09
 #define TRANSMIT_POWER_LENGTH                   0x02
 #define UNASSIGN_CHANNEL_LENGTH                 0x01

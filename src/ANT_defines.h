@@ -244,6 +244,7 @@
  * Framework Defines
  */
 #define NETWORK_KEY_SIZE                0x08
+#define ENCRYPTION_KEY_SIZE             0x10
 #define MESSAGE_SIZE                    0x08
 #define INVALID_REQUEST                 0xFF
 #define BITS_IN_BYTE                    0x08
