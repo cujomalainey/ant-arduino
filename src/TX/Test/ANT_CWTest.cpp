@@ -40,7 +40,7 @@ uint8_t CWTest::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t execute() {
+uint8_t CWTest::execute() {
     // TODO
     return 0;
 }
