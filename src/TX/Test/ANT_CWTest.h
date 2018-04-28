@@ -10,6 +10,7 @@
 class CWTest : public AntRequest {
 public:
     CWTest();
+    CWTest(uint8_t power, uint8_t frequency);
     void setTransmitPower(uint8_t power);
     void setChannelRfFrequency(uint8_t frequency);
     uint8_t getTransmitPower();

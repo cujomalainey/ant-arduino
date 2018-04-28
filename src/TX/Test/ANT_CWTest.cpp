@@ -5,6 +5,9 @@
 CWTest::CWTest() : AntRequest(CW_TEST) {
 }
 
+CWTest::CWTest(uint8_t power, uint8_t frequency) : AntRequest(CW_TEST), _transmitPower(power), _channelRfFrequency(frequency) {
+}
+
 void CWTest::setTransmitPower(uint8_t power) {
     _transmitPower = power;
 }
