@@ -131,4 +131,4 @@ Questions about this project should be posted to http://groups.google.com/group/
 ## Consulting/Commercial Licenses
 At the current time there is zero support for commercial usage. Contact me via email if you are looking to use this code commercially.
 
-If you are looking for commercial support for ANT radios go to thisisant.com
+If you are looking for commercial support for ANT radios go to [thisisant.com](http://thisisant.com)
