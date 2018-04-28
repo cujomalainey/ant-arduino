@@ -2,4 +2,44 @@
 
 #include <ANT_private_defines.h>
 
-// TODO
+CWTest::CWTest() : AntRequest(CW_TEST) {
+}
+
+void CWTest::setTransmitPower(uint8_t power) {
+    _transmitPower = power;
+}
+
+void CWTest::setChannelRfFrequency(uint8_t frequency) {
+    _channelRfFrequency = frequency;
+}
+
+uint8_t CWTest::getTransmitPower() {
+    return _transmitPower;
+}
+
+uint8_t CWTest::getChannelRfFrequency() {
+    return _channelRfFrequency;
+}
+
+uint8_t CWTest::getData(uint8_t pos) {
+    if (pos == 0) {
+        return 0;
+    } else if (pos == 1) {
+        return _transmitPower;
+    } else {
+        return _channelRfFrequency;
+    }
+}
+
+uint8_t getDataLength() {
+    return CW_TEST_LENGTH;
+}
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint8_t execute() {
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

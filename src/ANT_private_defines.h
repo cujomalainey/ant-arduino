@@ -34,6 +34,7 @@
 #define CONFIGURE_EVENT_FILTER_LENTGH           0x03
 #define CONFIGURE_SELECTIVE_DATA_UPDATES_LENGTH 0x02
 #define CW_INIT_LENGTH                          0x01
+#define CW_TEST_LENGTH                          0x03
 #define ENABLE_EXT_RX_MESSAGES_LENGTH           0x02
 #define ENABLE_SINGLE_CHANNEL_ENCRYPTION_LENGTH 0x04
 #define FREQUENCY_AGILITY_LENGTH                0x04
