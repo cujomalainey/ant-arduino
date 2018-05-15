@@ -14,3 +14,6 @@ ant_interface.h
 .ycm*
 .platformio*
 *.swp
+
+# ignore main file for testing
+src/main.cpp
