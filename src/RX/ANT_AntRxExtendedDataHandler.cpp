@@ -5,10 +5,10 @@ AntRxExtendedDataHandler::AntRxExtendedDataHandler() : AntRxDataResponse() {
 
 uint8_t AntRxExtendedDataHandler::getFlagByte() {
     if (enabled) {
-	// TODO magic number
-	return getData(10);
+        // TODO magic number
+        return getData(10);
     } else {
-	return 0x00;
+        return 0x00;
     }
 }
 
