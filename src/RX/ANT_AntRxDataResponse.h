@@ -28,5 +28,42 @@ public:
      * its the same for all messages
      */
     uint8_t getDataOffset();
+    /**
+     * Call this method to determine what extended fields are available
+     * TODO explain how to use
+     */
+    virtual uint8_t getFlagByte();
+    /**
+     * TODO
+     */
+    uint16_t getDeviceNumber();
+    /**
+     * TODO
+     */
+    uint8_t getDeviceType();
+    /**
+     * TODO
+     */
+    uint8_t getTransmissionType();
+    /**
+     * TODO
+     */
+    uint8_t getMeasurementType();
+    /**
+     * TODO
+     */
+    int8_t getRSSIValue();
+    /**
+     * TODO
+     */
+    int8_t getThresholdConfigurationValue();
+    /**
+     * TODO
+     */
+    uint16_t getRxTimestamp();
+protected:
+    void setExtendedDataAvailibility(bool extendedAvailable);
+private:
+    bool enabled;
 };
 #endif //ANT_ANTRXDATARESPONSE_h

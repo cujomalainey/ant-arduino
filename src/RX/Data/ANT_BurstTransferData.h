@@ -22,8 +22,6 @@ public:
     uint8_t getData(uint8_t index);
     uint8_t* getData();
     uint8_t getDataLength();
-    uint8_t getExtendedDataLength();
-    uint8_t getExtendedData(uint8_t index);
 
     static const uint8_t MSG_ID = BURST_TRANSFER_DATA;
 };
