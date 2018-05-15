@@ -28,25 +28,40 @@ uint8_t AntRxDataResponse::getFlagByte() {
 }
 
 uint16_t AntRxDataResponse::getDeviceNumber() {
+    // TODO
+    return 0;
 }
 
 uint8_t AntRxDataResponse::getDeviceType() {
+    // TODO
+    return 0;
 }
 
 uint8_t AntRxDataResponse::getTransmissionType() {
+    // TODO
+    return 0;
 }
 
 uint8_t AntRxDataResponse::getMeasurementType() {
+    // TODO
+    return 0;
 }
 
 int8_t AntRxDataResponse::getRSSIValue() {
+    // TODO
+    return 0;
 }
 
 int8_t AntRxDataResponse::getThresholdConfigurationValue() {
+    // TODO
+    return 0;
 }
 
 uint16_t AntRxDataResponse::getRxTimestamp() {
+    // TODO
+    return 0;
 }
 
 void AntRxDataResponse::setExtendedDataAvailibility(bool extendedAvailable) {
+    // TODO
 }
