@@ -19,12 +19,8 @@ uint8_t AntRxDataResponse::getDataOffset() {
 }
 
 uint8_t AntRxDataResponse::getFlagByte() {
-    if (enabled) {
-        // TODO magic number
-        return getData(10);
-    } else {
-        return 0x00;
-    }
+    // TODO magic number
+    return getData(10);
 }
 
 uint16_t AntRxDataResponse::getDeviceNumber() {

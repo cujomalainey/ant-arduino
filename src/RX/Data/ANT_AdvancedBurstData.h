@@ -21,6 +21,11 @@ public:
      */
     uint8_t getData(uint8_t index);
     uint8_t getDataLength();
+    /**
+     * AdvancedBurstData does not support extended data
+     * therefore we lock it out with this method
+     */
+    uint8_t getFlagByte();
 
     static const uint8_t MSG_ID = ADVANCED_BURST_DATA;
 };

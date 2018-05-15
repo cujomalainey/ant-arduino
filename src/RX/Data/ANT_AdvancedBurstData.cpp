@@ -20,6 +20,11 @@ uint8_t AdvancedBurstData::getData(uint8_t index) {
     return AntRxDataResponse::getData(index + 1);
 }
 
+uint8_t AdvancedBurstData::getFlagByte() {
+    // hardcode disable flags since extended data not available in advanced burst data
+    return 0x00;
+}
+
 // uint8_t* AcknowledgedData::getData() {
 //     // TODO UNVERIFIED
 //     // skip channel byte
