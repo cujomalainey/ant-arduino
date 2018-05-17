@@ -21,6 +21,7 @@ public:
     uint8_t getData(uint8_t index);
     uint8_t* getData();
     uint8_t getDataLength();
+    uint8_t getFlagByte();
 
     static const uint8_t MSG_ID = ACKNOWLEDGED_DATA;
 };

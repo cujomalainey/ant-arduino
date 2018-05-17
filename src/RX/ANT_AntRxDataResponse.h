@@ -30,40 +30,36 @@ public:
     uint8_t getDataOffset();
     /**
      * Call this method to determine what extended fields are available
-     * TODO explain how to use
+     * Use LIB_CONFIG defines to check bits if they are set
      */
-    virtual uint8_t getFlagByte();
+    virtual uint8_t getFlagByte() = 0;
     /**
-     * TODO
+     * Will return device number if getFlagByte() & LIB_CONFIG_CHANNEL_ID is true
      */
     uint16_t getDeviceNumber();
     /**
-     * TODO
+     * Will return device type if getFlagByte() & LIB_CONFIG_CHANNEL_ID is true
      */
     uint8_t getDeviceType();
     /**
-     * TODO
+     * Will return transmission type if getFlagByte() & LIB_CONFIG_CHANNEL_ID is true
      */
     uint8_t getTransmissionType();
     /**
-     * TODO
+     * Will return measurement type if getFlagByte() & LIB_CONFIG_RSSI is true
      */
     uint8_t getMeasurementType();
     /**
-     * TODO
+     * Will return rssi value if getFlagByte() & LIB_CONFIG_RSSI is true
      */
     int8_t getRSSIValue();
     /**
-     * TODO
+     * Will return threshoold configuration value if getFlagByte() & LIB_CONFIG_RSSI is true
      */
     int8_t getThresholdConfigurationValue();
     /**
-     * TODO
+     * Will return RX timestamp if getFlagByte() & LIB_CONFIG_RX_TIMESTAMP is true
      */
     uint16_t getRxTimestamp();
-protected:
-    void setExtendedDataAvailibility(bool extendedAvailable);
-private:
-    bool enabled;
 };
 #endif //ANT_ANTRXDATARESPONSE_h

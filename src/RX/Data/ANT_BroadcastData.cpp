@@ -23,3 +23,11 @@ uint8_t* BroadcastData::getData() {
 uint8_t BroadcastData::getDataLength() {
     return BROADCAST_DATA_LENGTH;
 }
+
+uint8_t BroadcastData::getFlagByte() {
+    if (getLength() > BROADCASTDATA_DEFAULT_MSG_LENGTH) {
+        return AntRxDataResponse::getData(EXTENDEDDATA_FLAGBYTE_BYTE);
+    } else {
+        return 0x00;
+    }
+}
