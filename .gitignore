@@ -2,6 +2,7 @@
 /deploy.sh
 .DS_Store
 .pioenvs
+tags
 
 # ignore any soft device source for testing
 nrf_*
