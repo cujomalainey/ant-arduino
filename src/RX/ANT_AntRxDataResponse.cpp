@@ -87,7 +87,7 @@ uint16_t AntRxDataResponse::getRxTimestamp() {
         if (getFlagByte() & LIB_CONFIG_RSSI) {
             offset += EXTENDEDDATA_RSSIOUTPUT_SIZE;
         }
-        return getData(EXTENDEDDATA_RXTIMESTAMP_LSB_BYTE + offset) | (getData(EXTENDEDDATA_DEVICENUMBER_MSB_BYTE) << EXTENDEDDATA_RXTIMESTAMP_MSB_SHIFT);
+        return getData(EXTENDEDDATA_RXTIMESTAMP_LSB_BYTE + offset) | (getData(EXTENDEDDATA_DEVICENUMBER_MSB_BYTE + offset) << EXTENDEDDATA_RXTIMESTAMP_MSB_SHIFT);
     } else {
         return 0;
     }
