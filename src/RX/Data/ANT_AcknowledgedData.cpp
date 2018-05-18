@@ -20,16 +20,14 @@ uint8_t* AcknowledgedData::getData() {
     return AntRxDataResponse::getData() + 1;
 }
 
-uint8_t AcknowledgedData::getExtendedDataLength() {
-    // TODO not inplemented
-    return INVALID_REQUEST;
-}
-
-uint8_t AcknowledgedData::getExtendedData(uint8_t index) {
-    // TODO not inplemented
-    return INVALID_REQUEST;
-}
-
 uint8_t AcknowledgedData::getDataLength() {
     return ACKNOWLEDGED_DATA_LENGTH;
+}
+
+uint8_t AcknowledgedData::getFlagByte() {
+    if (getLength() > ACKNOWLEDGEDDATA_DEFAULT_MSG_LENGTH) {
+        return AntRxDataResponse::getData(EXTENDEDDATA_FLAGBYTE_BYTE);
+    } else {
+        return 0x00;
+    }
 }

@@ -20,16 +20,14 @@ uint8_t* BroadcastData::getData() {
     return AntRxDataResponse::getData() + 1;
 }
 
-uint8_t BroadcastData::getExtendedDataLength() {
-    // TODO not inplemented
-    return INVALID_REQUEST;
-}
-
-uint8_t BroadcastData::getExtendedData(uint8_t index) {
-    // TODO not inplemented
-    return INVALID_REQUEST;
-}
-
 uint8_t BroadcastData::getDataLength() {
     return BROADCAST_DATA_LENGTH;
+}
+
+uint8_t BroadcastData::getFlagByte() {
+    if (getLength() > BROADCASTDATA_DEFAULT_MSG_LENGTH) {
+        return AntRxDataResponse::getData(EXTENDEDDATA_FLAGBYTE_BYTE);
+    } else {
+        return 0x00;
+    }
 }
