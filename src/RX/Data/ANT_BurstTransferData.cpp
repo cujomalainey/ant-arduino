@@ -33,3 +33,11 @@ uint8_t* BurstTransferData::getData() {
 uint8_t BurstTransferData::getDataLength() {
     return BURST_DATA_TRANSFER_LENGTH;
 }
+
+uint8_t BurstTransferData::getFlagByte() {
+    if (getLength() > BURSTTRANSFERDATA_DEFAULT_MSG_LENGTH) {
+        return AntRxDataResponse::getData(EXTENDEDDATA_FLAGBYTE_BYTE);
+    } else {
+        return 0x00;
+    }
+}
