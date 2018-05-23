@@ -5,10 +5,7 @@
 
 /**
  * Super class of all Ant requests (TX packets)
- * Users should never create an instance of this class; instead use an subclass of this class
- * It is recommended to reuse Subclasses of the class to conserve memory
- * <p/>
- * This class allocates a buffer to
+ * It is recommended to reuse subclasses of the class to conserve memory
  */
 class AntRequest {
 public:
@@ -20,7 +17,6 @@ public:
      * Returns the Msg id
      */
     uint8_t getMsgId();
-    // setting = 0 makes this a pure virtual function, meaning the subclass must implement, like abstract in java
     /**
      * Starting after the frame id (pos = 0) and up to but not including the checksum
      * Note: Unlike Dynastream's definition of the frame data, this does not start with the MSG ID.
