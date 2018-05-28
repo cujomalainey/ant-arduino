@@ -13,11 +13,11 @@ AcknowledgedDataMsg::AcknowledgedDataMsg(uint8_t channel) : AntTxDataRequest(ACK
     setChannelNumber(channel);
 }
 
-void AcknowledgedDataMsg::setChannelNumber(uint8_t channel) {
+void AcknowledgedDataMsg::setChannel(uint8_t channel) {
     _channel = channel;
 }
 
-uint8_t AcknowledgedDataMsg::getChannelNumber() {
+uint8_t AcknowledgedDataMsg::getChannel() {
     return _channel;
 }
 
