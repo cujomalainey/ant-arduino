@@ -41,13 +41,13 @@ void setup()
     ant.send(snk);
     parseMessage();
 
-    ac.setChannel(0);
+    ac.setChannel(OPEN_RX_SCAN_MODE_CHANNEL);
     ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE); //can't wildcard this
     ac.setChannelNetwork(0);
     ant.send(ac);
     parseMessage();
 
-    ci.setChannel(0);
+    ci.setChannel(OPEN_RX_SCAN_MODE_CHANNEL);
     ci.setDeviceNumber(0);
     ci.setDeviceType(0);
     ci.setTransmissionType(0);
@@ -58,7 +58,7 @@ void setup()
     ant.send(lb);
     parseMessage();
 
-    crf.setChannel(0);
+    crf.setChannel(OPEN_RX_SCAN_MODE_CHANNEL);
     crf.setRfFrequency(0); //can't wildcard this
     ant.send(crf);
     parseMessage();

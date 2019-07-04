@@ -99,6 +99,11 @@
 #define CHANNEL_TYPE_SHARED_TRANSMIT          0x30
 
 /**
+ * Open Rx Scan Mode information
+ */
+#define OPEN_RX_SCAN_MODE_CHANNEL             0
+
+/**
  * Channel Response Message Codes
  */
 #define STATUS_RESPONSE_NO_ERROR               0x00
