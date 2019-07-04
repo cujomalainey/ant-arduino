@@ -1,6 +1,6 @@
 # ant-arduino
 
-Arduino library for communicating with ANT radios, with support for nrf51 devices. This library Includes support for the majority of packet types.
+Arduino library for communicating with ANT radios, with support for nRF51 devices. This library Includes support for the majority of packet types.
 
 ## Status
 
@@ -98,8 +98,8 @@ For development and general tinkering I highly recommend using an Arduino that h
 
 ANT radios come in multiple models, but this driver is designed to only support the following:
 
-* NRF51
-* NRF52
+* nRF51
+* nRF52
 
 You will need 3.3V regulator and logic shifting to convert from 5V (Arduino) to 3.3V (ANT). The Arduino is 3.3V tolerant.
 
