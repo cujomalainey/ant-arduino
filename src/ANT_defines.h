@@ -99,6 +99,14 @@
 #define CHANNEL_TYPE_SHARED_TRANSMIT          0x30
 
 /**
+ * Transmission Type Bit Field
+ */
+#define TRANSMISSION_TYPE_INDEPENDENT  0x1
+#define TRANSMISSION_TYPE_SHARED_1BYTE 0x2
+#define TRANSMISSION_TYPE_SHARED_2BYTE 0x3
+#define TRANSMISSION_TYPE_GLOBALDATAPGESUSED 0x4
+
+/**
  * Open Rx Scan Mode information
  */
 #define OPEN_RX_SCAN_MODE_CHANNEL             0
