@@ -1,46 +1,28 @@
-#include <MainClasses/ANT_Ant.h>
+#include <BaseClasses/ANT_BaseSerialAnt.h>
 #include <ANT_private_defines.h>
 
-Ant::Ant() : BaseAnt() {
+template<class T>
+BaseSerialAnt<T>::BaseSerialAnt() : BaseAnt() {
     _pos = 0;
     _checksumTotal = 0;
     getResponse().setFrameData(_responseFrameData);
 
-    // Contributed by Paul Stoffregen for Teensy support
-#if defined(__AVR_ATmega32U4__) || defined(__MK20DX128__)
-    _serial = &Serial1;
-#else
-    _serial = &Serial;
-#endif
 }
 
-void Ant::resetResponse() {
+template<class T>
+void BaseSerialAnt<T>::resetResponse() {
     _pos = 0;
     _checksumTotal = 0;
     getResponse().reset();
 }
 
-void Ant::begin(Stream &serial) {
-    _serial = &serial;
+template<class T>
+void BaseSerialAnt<T>::begin(T &serial) {
+    setSerial(serial);
 }
 
-void Ant::setSerial(Stream &serial) {
-    _serial = &serial;
-}
-
-bool Ant::available() {
-    return _serial->available();
-}
-
-uint8_t Ant::read() {
-    return _serial->read();
-}
-
-void Ant::write(uint8_t val) {
-    _serial->write(val);
-}
-
-void Ant::readPacket() {
+template<class T>
+void BaseSerialAnt<T>::readPacket() {
     // reset previous response
     if (getResponse().isAvailable() || getResponse().isError()) {
         // discard previous packet and start over
@@ -110,7 +92,8 @@ void Ant::readPacket() {
     }
 }
 
-void Ant::send(AntRequest &request) {
+template<class T>
+void BaseSerialAnt<T>::send(AntRequest &request) {
     // checksum is XOR of all bytes
     uint8_t checksum = 0;
 
@@ -135,3 +118,9 @@ void Ant::send(AntRequest &request) {
     // send checksum
     write(checksum);
 }
+
+#ifdef ARDUINO
+template class BaseSerialAnt<Stream>;
+#elif defined(__MBED__)
+template class BaseSerialAnt<UARTSerial>;
+#endif

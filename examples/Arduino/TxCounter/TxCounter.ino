@@ -10,7 +10,7 @@
 
 #include "ANT.h"
 #define BAUD_RATE 9600
-Ant ant = Ant();
+AntArduino ant;
 
 const uint8_t NETWORK_KEY[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
 

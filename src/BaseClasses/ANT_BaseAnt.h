@@ -1,19 +1,14 @@
 #ifndef ANT_BASEANT_h
 #define ANT_BASEANT_h
 
+#include <BaseClasses/ANT_BaseFramework.h>
+
 #include <RX/ANT_AntResponse.h>
 #include <TX/ANT_AntRequest.h>
 
 #include <ANT_defines.h>
 
-#ifdef UNIT_TEST
-// Includes a mock stream object for unit testing
-#include "Util/Testing.h"
-#else
-#include "Arduino.h"
-#endif
-
-class BaseAnt {
+class BaseAnt : protected BaseFramework {
 public:
     BaseAnt();
     /**

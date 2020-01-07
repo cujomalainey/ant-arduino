@@ -44,7 +44,7 @@
  * methods already running).
  */
 
-template <typename Arg> struct Callback {
+template <typename Arg> struct AntCallback {
     void (*func)(Arg, uintptr_t);
     uintptr_t data;
     void set(void (*func)(Arg, uintptr_t), uintptr_t data) {
@@ -171,7 +171,7 @@ public:
      * more details.
      */
     uint8_t sendAndWait(AntRequest &request, uint16_t timeout) {
-        send(request);
+        this->send(request);
         return waitForStatus(request.getMsgId(), timeout);
     }
 
@@ -221,23 +221,23 @@ private:
      */
     void loopBottom();
 
-    Callback<uint8_t> _onPacketError;
-    Callback<AntResponse&> _onResponse;
-    Callback<AntResponse&> _onOtherResponse;
-    Callback<AcknowledgedData&> _onAcknowledgedData;
-    Callback<AdvancedBurstData&> _onAdvancedBurstData;
-    Callback<BroadcastData&> _onBroadcastData;
-    Callback<BurstTransferData&> _onBurstTransferData;
-    Callback<AdvancedBurstCapabilitiesConfiguration&> _onAdvancedBurstCapabilitiesConfiguration;
-    Callback<AntVersion&> _onAntVersion;
-    Callback<Capabilities&> _onCapabilities;
-    Callback<ChannelEventResponse&> _onChannelEventResponse;
-    Callback<ChannelIdResponse&> _onChannelIdResponse;
-    Callback<ChannelStatus&> _onChannelStatus;
-    Callback<EncryptionModeParameters&> _onEncryptionModeParameters;
-    Callback<EventFilter&> _onEventFilter;
-    Callback<SelectiveDataUpdateMaskSetting&> _onSelectiveDataUpdateMaskSetting;
-    Callback<StartUpMessage&> _onStartUpMessage;
+    AntCallback<uint8_t> _onPacketError;
+    AntCallback<AntResponse&> _onResponse;
+    AntCallback<AntResponse&> _onOtherResponse;
+    AntCallback<AcknowledgedData&> _onAcknowledgedData;
+    AntCallback<AdvancedBurstData&> _onAdvancedBurstData;
+    AntCallback<BroadcastData&> _onBroadcastData;
+    AntCallback<BurstTransferData&> _onBurstTransferData;
+    AntCallback<AdvancedBurstCapabilitiesConfiguration&> _onAdvancedBurstCapabilitiesConfiguration;
+    AntCallback<AntVersion&> _onAntVersion;
+    AntCallback<Capabilities&> _onCapabilities;
+    AntCallback<ChannelEventResponse&> _onChannelEventResponse;
+    AntCallback<ChannelIdResponse&> _onChannelIdResponse;
+    AntCallback<ChannelStatus&> _onChannelStatus;
+    AntCallback<EncryptionModeParameters&> _onEncryptionModeParameters;
+    AntCallback<EventFilter&> _onEventFilter;
+    AntCallback<SelectiveDataUpdateMaskSetting&> _onSelectiveDataUpdateMaskSetting;
+    AntCallback<StartUpMessage&> _onStartUpMessage;
 };
 
 #endif // ANT_BASEANTWITHCALLBACKS_h

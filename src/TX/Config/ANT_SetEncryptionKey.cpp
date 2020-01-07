@@ -1,12 +1,7 @@
 #include <TX/Config/ANT_SetEncryptionKey.h>
 
 #include <ANT_private_defines.h>
-
-#ifdef UNIT_TEST
-#include "Util/Testing.h"
-#else
-#include "Arduino.h"
-#endif
+#include <BaseClasses/ANT_BaseFramework.h>
 
 SetEncryptionKey::SetEncryptionKey() : AntRequest(SET_ENCRYPTION_KEY) {
 }

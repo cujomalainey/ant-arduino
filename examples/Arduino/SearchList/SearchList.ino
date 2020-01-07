@@ -23,7 +23,7 @@
 #define DEVICE_TYPE_HR 120
 #define ANTPLUS_FREQUENCY 57
 
-Ant ant = Ant();
+ArduinoAnt ant;
 
 // Arbitrary key, if you want to connect to ANT+, you must get the key from thisisant.com
 const uint8_t NETWORK_KEY[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
@@ -68,12 +68,12 @@ void setup()
     snk.setKey((uint8_t*)NETWORK_KEY);
     ant.send(snk);
     parseMessage();
-    
+
     // open all channels
     for (uint8_t i = 0; i < maxChannels; i++) {
         ac = AssignChannel();
         ac.setChannel(i);
-        ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE); 
+        ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE);
         ac.setChannelNetwork(0);
         ant.send(ac);
         parseMessage();

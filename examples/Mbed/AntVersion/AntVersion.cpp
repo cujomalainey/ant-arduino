@@ -8,23 +8,24 @@
  ************************************/
 
 #include "ANT.h"
+#include "mbed.h"
 #define BAUD_RATE 9600
-ArduinoAnt ant;
+Serial pc(USBTX, USBRX);
+UARTSerial Serial1(D1, D0);
+MbedSerialAnt ant;
 
 void parseMessage();
 void parseEventMessage(uint8_t code);
 
-void setup()
+int main()
 {
     ResetSystem rs;
     RequestMessage rm = RequestMessage();
-    Serial1.begin(BAUD_RATE);
     ant.setSerial(Serial1);
     ant.send(rs);
     // Delay after resetting the radio to give the user time to connect on serial
-    delay(10000);
-    Serial.begin(BAUD_RATE);
-    Serial.println("Running");
+    wait_ms(10000);
+    pc.printf("Running\n");
 
     parseMessage();
 
@@ -39,11 +40,10 @@ void setup()
     rm.setRequestedMessage(ADVANCED_BURST_CAPABILITES);
     ant.send(rm);
     parseMessage();
-}
 
-void loop()
-{
-    parseMessage();
+    while(1) {
+        parseMessage();
+    }
 }
 
 void parseMessage() {
@@ -55,9 +55,8 @@ void parseMessage() {
             {
                 ChannelEventResponse cer = ChannelEventResponse();
                 ant.getResponse().getChannelEventResponseMsg(cer);
-                Serial.println("Received Msg: ChannelEventResponse");
-                Serial.print("Channel: ");
-                Serial.println(cer.getChannelNumber());
+                pc.printf("Received Msg: ChannelEventResponse\n");
+                pc.printf("Channel: %d\n", cer.getChannelNumber());
                 parseEventMessage(cer.getCode());
                 break;
             }
@@ -67,17 +66,17 @@ void parseMessage() {
                 AntVersion av = AntVersion();
                 uint64_t version = 0;
                 ant.getResponse().getAntVersionMsg(av);
-                Serial.print("Version: ");
+                pc.printf("Version: ");
                 for (uint8_t i = 0; i < av.getPacketLength(); i++)
                 {
                     version += (((uint64_t)av.getVersionByte(i)) << i*8);
                 }
 
                 uint64_t xx = version/1000000000ULL;
-                if (xx >0) Serial.print((long)xx);
-                    Serial.print((long)(version-xx*1000000000));
+                if (xx >0) pc.printf("%ld", (long)xx);
+                    pc.printf("%ld", (long)(version-xx*1000000000));
 
-                Serial.println("");
+                pc.printf("\n");
                 break;
             }
 
@@ -85,9 +84,8 @@ void parseMessage() {
             {
                 StartUpMessage sum = StartUpMessage();
                 ant.getResponse().getStartUpMsg(sum);
-                Serial.println("Received Msg: StartupMessage");
-                Serial.print("Message: ");
-                Serial.println(sum.getMessage());
+                pc.printf("Received Msg: StartupMessage\n");
+                pc.printf("Message: %d", sum.getMessage());
                 break;
             }
 
@@ -96,128 +94,126 @@ void parseMessage() {
                 Capabilities cap = Capabilities();
                 ant.getResponse().getCapabilitiesMsg(cap);
 
-                Serial.print("Max Channels:");
-                Serial.println(cap.getMaxChannels());
+                pc.printf("Max Channels: %d\n", cap.getMaxChannels());
 
-                Serial.print("Max Networks:");
-                Serial.println(cap.getMaxNetworks());
+                pc.printf("Max Networks: %d\n", cap.getMaxNetworks());
 
-                Serial.println("Standard Options:");
+                pc.printf("Standard Options:\n");
                 if ( cap.getStandardOptions() & CAPABILITY_NO_RECEIVE_CHANNELS  )
                 {
-                    Serial.println("No Receive Channels");
+                    pc.printf("No Receive Channels\n");
                 }
                 if ( cap.getStandardOptions() & CAPABILITY_NO_TRANSMIT_CHANNELS )
                 {
-                    Serial.println("No Transmit Channels");
+                    pc.printf("No Transmit Channels\n");
                 }
                 if ( cap.getStandardOptions() & CAPABILITY_NO_RECEIVE_MESSAGES  )
                 {
-                    Serial.println("No Receive Messages");
+                    pc.printf("No Receive Messages\n");
                 }
                 if ( cap.getStandardOptions() & CAPABILITY_NO_TRANSMIT_MESSAGES )
                 {
-                    Serial.println("No Transmit Messages");
+                    pc.printf("No Transmit Messages");
                 }
                 if ( cap.getStandardOptions() & CAPABILITY_NO_ACKD_MESSAGES     )
                 {
-                    Serial.println("No Ackd Messages");
+                    pc.printf("No Ackd Messages\n");
                 }
                 if ( cap.getStandardOptions() & CAPABILITY_NO_BURST_MESSAGES    )
                 {
-                    Serial.println("No Burst Messages");
+                    pc.printf("No Burst Messages\n");
                 }
 
-                Serial.println("Advanced Options:");
+                pc.printf("Advanced Options:\n");
                 if ( cap.getAdvancedOptions(0) & CAPABILITY_NETWORK_ENABLED              )
                 {
-                    Serial.println("Network Enabled");
+                    pc.printf("Network Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(0) & CAPABILITY_SERIAL_NUMBER_ENABLED        )
                 {
-                    Serial.println("Serial Number Enabled");
+                    pc.printf("Serial Number Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(0) & CAPABILITY_PER_CHANNEL_TX_POWER_ENABLED )
                 {
-                    Serial.println("Per Channel Tx Power Enabled");
+                    pc.printf("Per Channel Tx Power Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(0) & CAPABILITY_LOW_PRIORITY_SEARCH_ENABLED  )
                 {
-                    Serial.println("Low Priority Search Enabled");
+                    pc.printf("Low Priority Search Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(0) & CAPABILITY_SCRIPT_ENABLED               )
                 {
-                    Serial.println("Script Enabled");
+                    pc.printf("Script Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(0) & CAPABILITY_SEARCH_LIST_ENABLED          )
                 {
-                    Serial.println("Search List Enabled");
+                    pc.printf("Search List Enabled\n");
                 }
 
-                Serial.println("Advanced Options 2:");
+                pc.printf("Advanced Options 2:\n");
                 if ( cap.getAdvancedOptions(1) & CAPABILITY_LED_ENABLED         )
                 {
-                    Serial.println("LED Enabled");
+                    pc.printf("LED Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(1) & CAPABILITY_EXT_MESSAGE_ENABLED )
                 {
-                    Serial.println("Ext Message Enabled");
+                    pc.printf("Ext Message Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(1) & CAPABILITY_SCAN_MODE_ENABLED   )
                 {
-                    Serial.println("Scan Mode Enabled");
+                    pc.printf("Scan Mode Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(1) & CAPABILITY_PROX_SEARCH_ENABLED )
                 {
-                    Serial.println("Prox Search Enabled");
+                    pc.printf("Prox Search Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(1) & CAPABILITY_EXT_ASSIGN_ENABLED  )
                 {
-                    Serial.println("Ext Assign Enabled");
+                    pc.printf("Ext Assign Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(1) & CAPABILITY_FS_ANTFS_ENABLED    )
                 {
-                    Serial.println("FS ANTFS Enabled");
+                    pc.printf("FS ANTFS Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(1) & CAPABILITY_FIT1_ENABLED        )
                 {
-                    Serial.println("FIT1 Enabled");
+                    pc.printf("FIT1 Enabled\n");
                 }
 
-                Serial.println("Advanced Options 3:");
+                pc.printf("Advanced Options 3:\n");
                 if ( cap.getAdvancedOptions(2) & CAPABILITY_ADVANCED_BURST_ENABLED         )
                 {
-                    Serial.println("Advanced Burst Enabled");
+                    pc.printf("Advanced Burst Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(2) & CAPABILITY_EVENT_BUFFERING_ENABLED        )
                 {
-                    Serial.println("Event Buffering Enabled");
+                    pc.printf("Event Buffering Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(2) & CAPABILITY_EVENT_FILTERING_ENABLED        )
                 {
-                    Serial.println("Event Filtering Enabled");
+                    pc.printf("Event Filtering Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(2) & CAPABILITY_HIGH_DUTY_SEARCH_ENABLED       )
                 {
-                    Serial.println("High Duty Search Enabled");
+                    pc.printf("High Duty Search Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(2) & CAPABILITY_SEARCH_SHARING_ENABLED         )
                 {
-                    Serial.println("Search Sharing Enabled");
+                    pc.printf("Search Sharing Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(2) & CAPABILITY_SELECTIVE_DATA_UPDATES_ENABLED )
                 {
-                    Serial.println("Selective Data Updates Enabled");
+                    pc.printf("Selective Data Updates Enabled\n");
                 }
                 if ( cap.getAdvancedOptions(2) & CAPABILITY_ENCRYPTED_CHANNEL_ENABLED      )
                 {
-                    Serial.println("Encrypted Channel Enabled");
+                    pc.printf("Encrypted Channel Enabled\n");
                 }
 
-                Serial.println("Advanced Options 4:");
+                pc.printf("Advanced Options 4:\n");
                 if ( cap.getAdvancedOptions(3) & CAPABILITY_RFACTIVE_NOTIFICATION_ENABLED )
                 {
-                    Serial.println("RfActive Notification Enabled");
+                    pc.printf("RfActive Notification Enabled\n");
                 }
                 break;
             }
@@ -227,68 +223,66 @@ void parseMessage() {
                 uint8_t packet_length = 0;
                 AdvancedBurstCapabilitiesConfiguration abc = AdvancedBurstCapabilitiesConfiguration();
                 ant.getResponse().getAdvancedBurstCapabilitiesConfigurationMsg(abc);
-                Serial.print("Supported Max Packet Length:");
+                pc.printf("Supported Max Packet Length:");
                 packet_length = abc.getSupportedMaxPacketLength();
                 switch ( packet_length )
                 {
                     case ADV_BURST_MAX_PACKET_LENGTH_8_BYTE:
-                        Serial.println("8-byte");
+                        pc.printf("8-byte\n");
                         break;
 
                     case ADV_BURST_MAX_PACKET_LENGTH_16_BYTE:
-                        Serial.println("16-byte");
+                        pc.printf("16-byte\n");
                         break;
 
                     case ADV_BURST_MAX_PACKET_LENGTH_24_BYTE:
-                        Serial.println("24-byte");
+                        pc.printf("24-byte\n");
                         break;
                 }
 
-                Serial.println("Supported Features:");
+                pc.printf("Supported Features:\n");
                 if ( abc.getSupportedFeatures() & ADV_BURST_FREQUENCY_HOP_ENABLED )
                 {
-                    Serial.println("Frequency Hop Enabled");
+                    pc.printf("Frequency Hop Enabled\n");
                 }
                 break;
             }
 
             default:
-                Serial.print("Undefined Message: ");
-                Serial.println(msgId, HEX);
+                pc.printf("Undefined Message: %x\n", msgId);
                 break;
         }
     }
     else if (ant.getResponse().isError())
     {
-        Serial.print("ANT MSG ERROR: ");
-        Serial.println(ant.getResponse().getErrorCode());
+        pc.printf("ANT MSG ERROR: %d\n", ant.getResponse().getErrorCode());
     }
 }
 
 
 void parseEventMessage(uint8_t code)
 {
-    Serial.print("Code: ");
+    pc.printf("Code: ");
     switch (code)
     {
         case STATUS_RESPONSE_NO_ERROR:
-            Serial.println("RESPONSE_NO_ERROR");
+            pc.printf("RESPONSE_NO_ERROR\n");
             break;
 
         case STATUS_EVENT_CHANNEL_CLOSED:
-            Serial.println("EVENT_CHANNEL_CLOSED");
+            pc.printf("EVENT_CHANNEL_CLOSED\n");
             break;
 
         case STATUS_EVENT_TX:
-            Serial.println("EVENT_TX");
+            pc.printf("EVENT_TX\n");
             break;
 
         case STATUS_INVALID_MESSAGE:
-            Serial.println("INVALID_MESSAGE");
+            pc.printf("INVALID_MESSAGE\n");
             break;
 
         default:
-            Serial.println(code);
+            pc.printf("%d\n", code);
             break;
     }
 }

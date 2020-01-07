@@ -28,9 +28,9 @@ bool BaseAnt::readPacket(int timeout) {
         return false;
     }
 
-    unsigned long start = millis();
+    unsigned long start = getMs();
 
-    while (int((millis() - start)) < timeout) {
+    while (int((getMs() - start)) < timeout) {
 
         readPacket();
 

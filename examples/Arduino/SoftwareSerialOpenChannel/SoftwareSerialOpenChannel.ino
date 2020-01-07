@@ -15,7 +15,7 @@
 #define BAUD_RATE 9600
 #define SOFT_RX_PIN 2
 #define SOFT_TX_PIN 3
-Ant ant = Ant();
+ArduinoAnt ant;
 SoftwareSerial soft(SOFT_RX_PIN, SOFT_TX_PIN);
 
 // Arbitrary key, if you want to connect to ANT+, you must get the key from thisisant.com

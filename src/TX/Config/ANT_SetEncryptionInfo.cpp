@@ -1,12 +1,8 @@
 #include <TX/Config/ANT_SetEncryptionInfo.h>
 
 #include <ANT_private_defines.h>
+#include <BaseClasses/ANT_BaseFramework.h>
 
-#ifdef UNIT_TEST
-#include "Util/Testing.h"
-#else
-#include "Arduino.h"
-#endif
 
 SetEncryptionInfo::SetEncryptionInfo() : AntRequest(SET_ENCRYPTION_INFO) {
 }
