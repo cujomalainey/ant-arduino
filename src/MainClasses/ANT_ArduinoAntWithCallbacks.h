@@ -1,7 +1,7 @@
 #ifndef ANT_ARDUINOANTWITHCALLBACKS_h
 #define ANT_ARDUINOANTWITHCALLBACKS_h
 
-#ifdef ARDUINO
+#if defined(ARDUINO) || defined(UNIT_TEST)
 
 #include <BaseClasses/ANT_BaseAntWithCallbacks.h>
 #include <MainClasses/ANT_ArduinoAnt.h>
@@ -11,6 +11,6 @@ public:
     ArduinoAntWithCallbacks();
 };
 
-#endif // ARDUINO
+#endif // defined(ARDUINO) || defined(UNIT_TEST)
 
 #endif // ANT_ARDUINOANTWITHCALLBACKS_h

@@ -119,7 +119,7 @@ void BaseSerialAnt<T>::send(AntRequest &request) {
     write(checksum);
 }
 
-#ifdef ARDUINO
+#if defined(ARDUINO) || defined(UNIT_TEST)
 template class BaseSerialAnt<Stream>;
 #elif defined(__MBED__)
 template class BaseSerialAnt<UARTSerial>;

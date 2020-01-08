@@ -1,4 +1,4 @@
-#ifdef ARDUINO
+#if defined(ARDUINO) || defined(UNIT_TEST)
 
 #include <MainClasses/ANT_ArduinoAnt.h>
 #include <ANT_private_defines.h>
@@ -32,4 +32,4 @@ uint32_t ArduinoAnt::getMs() {
     return millis();
 }
 
-#endif // ARDUINO
+#endif // defined(ARDUINO) || defined(UNIT_TEST)

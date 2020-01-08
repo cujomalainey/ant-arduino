@@ -1,7 +1,7 @@
 #ifndef ANT_ARDUINOANT_h
 #define ANT_ARDUINOANT_h
 
-#ifdef ARDUINO
+#if defined(ARDUINO) || defined(UNIT_TEST)
 
 #include <BaseClasses/ANT_BaseSerialAnt.h>
 
@@ -21,6 +21,6 @@ protected:
     Stream* _serial;
 };
 
-#endif // ARDUINO
+#endif // defined(ARDUINO) || defined(UNIT_TEST)
 
 #endif // ANT_ARDUINOANT_h
