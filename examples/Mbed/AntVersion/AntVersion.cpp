@@ -4,13 +4,19 @@
  * Writes the ANT radios version and
  * capabilities to the serial port
  *
+ * This example is designed for
+ * Teensy, you may need to change
+ * the usbserial port class based
+ * on your board
+ *
  * Author Curtis Malainey
  ************************************/
 
 #include "ANT.h"
 #include "mbed.h"
 #define BAUD_RATE 9600
-Serial pc(USBTX, USBRX);
+#include "USBSerial.h"
+USBSerial pc;
 UARTSerial Serial1(D1, D0);
 MbedSerialAnt ant;
 
