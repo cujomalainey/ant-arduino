@@ -34,7 +34,7 @@ uint8_t ConfigureEventFilter::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t execute() {
+uint32_t ConfigureEventFilter::execute() {
     // TODO
     return 0;
 }

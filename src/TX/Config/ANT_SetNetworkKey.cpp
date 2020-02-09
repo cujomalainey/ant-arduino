@@ -51,7 +51,7 @@ uint8_t SetNetworkKey::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t SetNetworkKey::execute() {
+uint32_t SetNetworkKey::execute() {
     // TODO
     return 0;
 }

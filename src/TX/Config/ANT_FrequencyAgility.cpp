@@ -87,7 +87,7 @@ uint8_t FrequencyAgility::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t FrequencyAgility::execute() {
+uint32_t FrequencyAgility::execute() {
     // TODO
     return 0;
 }

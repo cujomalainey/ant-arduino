@@ -34,7 +34,7 @@ uint8_t OpenRxScanMode::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t OpenRxScanMode::execute() {
+uint32_t OpenRxScanMode::execute() {
     // TODO
     return 0;
 }

@@ -9,10 +9,10 @@
 class ResetSystem : public AntRequest {
 public:
     ResetSystem();
-    uint8_t getData(uint8_t pos);
-    uint8_t getDataLength();
+    uint8_t getData(uint8_t pos) override;
+    uint8_t getDataLength() override;
 #ifdef NATIVE_API_AVAILABLE
-    uint8_t execute();
+    uint32_t execute() override;
 #endif
 };
 

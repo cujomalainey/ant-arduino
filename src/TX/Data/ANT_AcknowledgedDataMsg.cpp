@@ -36,7 +36,7 @@ uint8_t AcknowledgedDataMsg::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t AcknowledgedDataMsg::execute() {
+uint32_t AcknowledgedDataMsg::execute() {
     // TODO
     return 0;
 }

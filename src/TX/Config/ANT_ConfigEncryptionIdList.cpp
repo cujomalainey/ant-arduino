@@ -52,7 +52,7 @@ uint8_t ConfigEncryptionIdList::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ConfigEncryptionIdList::execute() {
+uint32_t ConfigEncryptionIdList::execute() {
     // TODO
     return 0;
 }

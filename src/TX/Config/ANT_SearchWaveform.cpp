@@ -33,7 +33,7 @@ uint8_t SearchWaveform::getData(uint8_t pos) {
     } else if (pos == 1) {
         return _waveform & 0xFF;
     } else {
-        return _waveform >> 8;    
+        return _waveform >> 8;
     }
 }
 
@@ -43,7 +43,7 @@ uint8_t SearchWaveform::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t SearchWaveform::execute() {
+uint32_t SearchWaveform::execute() {
     // TODO
     return 0;
 }

@@ -29,7 +29,7 @@ uint8_t CloseChannel::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t CloseChannel::execute() {
+uint32_t CloseChannel::execute() {
     // TODO
     return 0;
 }

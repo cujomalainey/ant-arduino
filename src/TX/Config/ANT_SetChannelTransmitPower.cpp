@@ -46,7 +46,7 @@ uint8_t SetChannelTransmitPower::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t SetChannelTransmitPower::execute() {
+uint32_t SetChannelTransmitPower::execute() {
     // TODO
     return 0;
 }

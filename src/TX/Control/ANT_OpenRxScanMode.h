@@ -12,10 +12,10 @@ public:
     OpenRxScanMode(uint8_t synchronousOnly);
     void setSynchronousChannelPacketsOnly(uint8_t synchronousOnly);
     uint8_t getSynchronousChannelPacketsOnly();
-    uint8_t getData(uint8_t pos);
-    uint8_t getDataLength();
+    uint8_t getData(uint8_t pos) override;
+    uint8_t getDataLength() override;
 #ifdef NATIVE_API_AVAILABLE
-    uint8_t execute();
+    uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
     uint8_t _extendLength = 0;

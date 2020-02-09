@@ -52,7 +52,7 @@ uint8_t ConfigIdList::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ConfigIdList::execute() {
+uint32_t ConfigIdList::execute() {
     // TODO
     return 0;
 }

@@ -33,7 +33,7 @@ uint8_t TransmitPower::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t TransmitPower::execute() {
+uint32_t TransmitPower::execute() {
     // TODO
     return 0;
 }

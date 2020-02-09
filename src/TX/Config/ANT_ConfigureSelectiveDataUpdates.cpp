@@ -51,7 +51,7 @@ uint8_t ConfigureSelectiveDataUpdates::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t execute() {
+uint32_t ConfigureSelectiveDataUpdates::execute() {
     // TODO
     return 0;
 }

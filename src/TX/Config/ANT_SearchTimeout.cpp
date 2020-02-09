@@ -41,7 +41,7 @@ uint8_t SearchTimeout::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t SearchTimeout::execute() {
+uint32_t SearchTimeout::execute() {
     // TODO
     return 0;
 }

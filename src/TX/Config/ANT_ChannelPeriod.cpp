@@ -44,7 +44,7 @@ uint8_t ChannelPeriod::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ChannelPeriod::execute() {
+uint32_t ChannelPeriod::execute() {
     // TODO
     return 0;
 }

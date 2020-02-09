@@ -276,8 +276,9 @@
 /**
  * SoftDevice API available, build native ant
  */
-#if (defined(S332) || defined(S212))
-    #define NATIVE_API_AVAILABLE
+#if defined(S340) || defined(S312) || defined(S332) || defined(S340)
+  #include "ant_interface.h"
+  #define NATIVE_API_AVAILABLE
 #endif
 
 #endif // ANT_DEFINES_h

@@ -16,7 +16,7 @@ uint8_t CWInit::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t CWInit::execute() {
+uint32_t CWInit::execute() {
     // TODO
     return 0;
 }

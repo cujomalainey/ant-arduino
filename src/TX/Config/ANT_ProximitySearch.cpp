@@ -45,7 +45,7 @@ uint8_t ProximitySearch::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ProximitySearch::execute() {
+uint32_t ProximitySearch::execute() {
     // TODO
     return 0;
 }

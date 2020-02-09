@@ -35,7 +35,7 @@ void BurstTransferDataMsg::setDataLength(uint8_t length) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t BurstTransferDataMsg::execute() {
+uint32_t BurstTransferDataMsg::execute() {
     // TODO
     return 0;
 }

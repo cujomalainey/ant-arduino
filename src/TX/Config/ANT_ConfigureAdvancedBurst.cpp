@@ -89,7 +89,7 @@ uint8_t ConfigureAdvancedBurst::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ConfigureAdvancedBurst::execute() {
+uint32_t ConfigureAdvancedBurst::execute() {
     // TODO
     return 0;
 }

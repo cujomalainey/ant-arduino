@@ -33,7 +33,7 @@ uint8_t EnableExtRxMessages::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t EnableExtRxMessages::execute() {
+uint32_t EnableExtRxMessages::execute() {
     // TODO
     return 0;
 }

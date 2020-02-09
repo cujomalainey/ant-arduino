@@ -58,7 +58,7 @@ uint8_t AddEncryptionIdToList::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t AddEncryptionIdToList::execute() {
+uint32_t AddEncryptionIdToList::execute() {
     // TODO
     return 0;
 }

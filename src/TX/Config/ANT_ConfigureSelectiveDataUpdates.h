@@ -27,10 +27,10 @@ public:
     uint8_t getChannelNumber();
     uint8_t getSDUMaskNumer();
     uint8_t getFilterAcknowledged();
-    uint8_t getData(uint8_t pos);
-    uint8_t getDataLength();
+    uint8_t getData(uint8_t pos) override;
+    uint8_t getDataLength() override;
 #ifdef NATIVE_API_AVAILABLE
-    uint8_t execute();
+    uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
     uint8_t _channel;

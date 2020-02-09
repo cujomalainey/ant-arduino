@@ -45,7 +45,7 @@ uint8_t LowPrioritySearchTimeout::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t LowPrioritySearchTimeout::execute() {
+uint32_t LowPrioritySearchTimeout::execute() {
     // TODO
     return 0;
 }

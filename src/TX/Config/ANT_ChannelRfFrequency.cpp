@@ -42,7 +42,7 @@ uint8_t ChannelRfFrequency::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ChannelRfFrequency::execute() {
+uint32_t ChannelRfFrequency::execute() {
     // TODO
     return 0;
 }

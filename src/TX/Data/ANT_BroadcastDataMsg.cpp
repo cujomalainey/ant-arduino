@@ -36,7 +36,7 @@ uint8_t BroadcastDataMsg::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t BroadcastDataMsg::execute() {
+uint32_t BroadcastDataMsg::execute() {
     // TODO
     return 0;
 }

@@ -41,7 +41,7 @@ uint8_t ChannelSearchPriority::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ChannelSearchPriority::execute() {
+uint32_t ChannelSearchPriority::execute() {
     // TODO
     return 0;
 }

@@ -60,7 +60,7 @@ uint8_t EnableSingleChannelEncryption::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t EnableSingleChannelEncryption::execute() {
+uint32_t EnableSingleChannelEncryption::execute() {
     // TODO
     return 0;
 }

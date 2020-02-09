@@ -36,7 +36,7 @@ uint8_t AdvancedBurstDataMsg::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t AdvancedBurstDataMsg::execute() {
+uint32_t AdvancedBurstDataMsg::execute() {
     // TODO
     return 0;
 }

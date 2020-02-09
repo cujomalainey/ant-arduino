@@ -33,7 +33,7 @@ public:
     /**
      * Call to native API by NativeAnt when sent
      */
-    virtual uint8_t execute() = 0;
+    virtual uint32_t execute() = 0;
 #endif // NATIVE_API_AVAILABLE
 private:
     uint8_t _msgId;

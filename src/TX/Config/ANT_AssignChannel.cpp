@@ -63,7 +63,7 @@ uint8_t AssignChannel::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t AssignChannel::execute() {
+uint32_t AssignChannel::execute() {
     // TODO
     return 0;
 }

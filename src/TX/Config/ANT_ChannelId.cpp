@@ -82,7 +82,7 @@ uint8_t ChannelId::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ChannelId::execute() {
+uint32_t ChannelId::execute() {
     // TODO
     return 0;
 }

@@ -77,7 +77,7 @@ uint8_t AddChannelIdToList::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t AddChannelIdToList::execute() {
+uint32_t AddChannelIdToList::execute() {
     // TODO not implemented
     return 0;
 }

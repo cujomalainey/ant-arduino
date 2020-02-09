@@ -41,7 +41,7 @@ uint8_t ChannelSearchSharing::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ChannelSearchSharing::execute() {
+uint32_t ChannelSearchSharing::execute() {
     // TODO
     return 0;
 }

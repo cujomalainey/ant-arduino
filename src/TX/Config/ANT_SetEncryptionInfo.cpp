@@ -49,7 +49,7 @@ uint8_t SetEncryptionInfo::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t SetEncryptionInfo::execute() {
+uint32_t SetEncryptionInfo::execute() {
     // TODO
     return 0;
 }

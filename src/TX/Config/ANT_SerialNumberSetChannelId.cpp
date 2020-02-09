@@ -58,7 +58,7 @@ uint8_t SerialNumberSetChannelId::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t SerialNumberSetChannelId::execute() {
+uint32_t SerialNumberSetChannelId::execute() {
     // TODO
     return 0;
 }
