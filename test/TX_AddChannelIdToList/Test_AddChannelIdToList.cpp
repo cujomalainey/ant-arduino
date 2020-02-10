@@ -6,7 +6,7 @@
 
 const uint8_t expectedOut[] = {0xA4, 6, 0x59, 2, 0x44, 0x33, 120, 34, 2, 214};
 Stream mock_stream = Stream(NULL, expectedOut);
-ArduinoAntWithCallbacks ant;
+ArduinoSerialAntWithCallbacks ant;
 AddChannelIdToList msg;
 
 void test_constructors(void) {

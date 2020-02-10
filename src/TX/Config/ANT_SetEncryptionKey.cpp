@@ -51,8 +51,7 @@ uint8_t SetEncryptionKey::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t SetEncryptionKey::execute() {
-    // TODO
-    return 0;
+    return sd_ant_crypto_key_set(_volatileKeyIndex, _encryptionKey);
 }
 
 #endif // NATIVE_API_AVAILABLE

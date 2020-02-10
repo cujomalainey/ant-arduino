@@ -34,8 +34,10 @@ uint8_t EnableExtRxMessages::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t EnableExtRxMessages::execute() {
-    // TODO
-    return 0;
+    if (_enable)
+        return sd_ant_lib_config_set(LIB_CONFIG_CHANNEL_ID);
+    else
+        return sd_ant_lib_config_clear(LIB_CONFIG_CHANNEL_ID);
 }
 
 #endif // NATIVE_API_AVAILABLE

@@ -79,6 +79,7 @@ uint8_t AddChannelIdToList::getDataLength() {
 
 uint32_t AddChannelIdToList::execute() {
     // TODO not implemented
+    // return sd_ant_id_list_add(_channel, _encryptionId, _listIndex);
     return 0;
 }
 

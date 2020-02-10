@@ -24,12 +24,16 @@
 #include <ANT_defines.h>
 
 /* Available Main Classes */
-#include <MainClasses/ANT_ArduinoAnt.h>
-#include <MainClasses/ANT_ArduinoAntWithCallbacks.h>
+#include <MainClasses/ANT_ArduinoSerialAnt.h>
+#include <MainClasses/ANT_ArduinoSerialAntWithCallbacks.h>
+#include <MainClasses/ANT_ArduinoNativeAnt.h>
+// #include <MainClasses/ANT_ArduinoNativeAntWithCallbacks.h>
 #include <MainClasses/ANT_MbedSerialAnt.h>
 #include <MainClasses/ANT_MbedSerialAntWithCallbacks.h>
-// #include <MainClasses/ANT_NativeAnt.h>
-// #include <MainClasses/ANT_NativeAntWithCallbacks.h>
+#include <MainClasses/ANT_MbedSpiAnt.h>
+// #include <MainClasses/ANT_MbedSpiAntWithCallbacks.h>
+// #include <MainClasses/ANT_MbedNativeAnt.h>
+// #include <MainClasses/ANT_MbedNativeAntWithCallbacks.h>
 
 /* Messages */
 #include <TX/ANT_messages.h>

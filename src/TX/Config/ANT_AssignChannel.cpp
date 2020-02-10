@@ -64,8 +64,7 @@ uint8_t AssignChannel::getData(uint8_t pos) {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t AssignChannel::execute() {
-    // TODO
-    return 0;
+    return sd_ant_channel_assign(_channel, _channelType, _network, _extended);
 }
 
 #endif // NATIVE_API_AVAILABLE

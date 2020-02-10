@@ -30,8 +30,7 @@ uint8_t OpenChannel::getData(uint8_t pos) {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t OpenChannel::execute() {
-    // TODO
-    return 0;
+    return sd_ant_channel_open(_channel);
 }
 
 #endif // NATIVE_API_AVAILABLE

@@ -21,3 +21,11 @@ uint8_t ChannelStatus::getNetworkNumber() {
 uint8_t ChannelStatus::getChannelType() {
     return getFrameData()[1] >> CHANNEL_STATUS_CHANNEL_TYPE_SHIFT;
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint32_t ChannelStatus::backfill() {
+    return sd_ant_channel_status_get(getFrameData()[0], getFrameData() + 1);
+}
+
+#endif // NATIVE_API_AVAILABLE

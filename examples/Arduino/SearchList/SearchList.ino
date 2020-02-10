@@ -23,7 +23,7 @@
 #define DEVICE_TYPE_HR 120
 #define ANTPLUS_FREQUENCY 57
 
-ArduinoAnt ant;
+ArduinoSerialAnt ant;
 
 // Arbitrary key, if you want to connect to ANT+, you must get the key from thisisant.com
 const uint8_t NETWORK_KEY[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};

@@ -33,8 +33,7 @@ uint8_t LibConfig::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t LibConfig::execute() {
-    // TODO
-    return 0;
+    return sd_ant_lib_config_set(_config);
 }
 
 #endif // NATIVE_API_AVAILABLE

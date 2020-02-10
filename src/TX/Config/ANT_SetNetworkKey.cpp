@@ -52,8 +52,7 @@ uint8_t SetNetworkKey::getData(uint8_t pos) {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t SetNetworkKey::execute() {
-    // TODO
-    return 0;
+    return sd_ant_network_address_set(_network, _key);
 }
 
 #endif // NATIVE_API_AVAILABLE

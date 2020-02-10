@@ -44,3 +44,25 @@ bool BaseAnt::readPacket(int timeout) {
     // timed out
     return false;
 }
+
+uint8_t BaseAnt::bufferMessage(uint8_t *buf, AntRequest &request, uint8_t checksum) {
+    uint8_t write_pos = 0;
+
+    // write length
+    checksum ^= request.getDataLength();
+    buf[write_pos++] = request.getDataLength();
+
+    // write msg id
+    buf[write_pos++] = request.getMsgId();
+    checksum ^= request.getMsgId();
+
+    for (int i = -1; i < request.getDataLength(); i++) {
+        buf[write_pos++] = request.getData(i);
+        checksum ^= request.getData(i);
+    }
+
+    // write checksum
+    buf[write_pos++] = checksum;
+
+    return write_pos;
+}

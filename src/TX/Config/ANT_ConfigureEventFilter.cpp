@@ -35,8 +35,7 @@ uint8_t ConfigureEventFilter::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t ConfigureEventFilter::execute() {
-    // TODO
-    return 0;
+    return sd_ant_event_filtering_set(_eventFilter);
 }
 
 #endif // NATIVE_API_AVAILABLE

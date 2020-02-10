@@ -44,8 +44,7 @@ uint8_t SearchWaveform::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t SearchWaveform::execute() {
-    // TODO
-    return 0;
+    return sd_ant_search_waveform_set(_channel, _waveform);
 }
 
 #endif

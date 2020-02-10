@@ -50,8 +50,7 @@ uint8_t SetEncryptionInfo::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t SetEncryptionInfo::execute() {
-    // TODO
-    return 0;
+    return sd_ant_crypto_info_set(_setParameter, _dataString);
 }
 
 #endif // NATIVE_API_AVAILABLE

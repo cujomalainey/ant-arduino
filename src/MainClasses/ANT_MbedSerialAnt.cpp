@@ -20,8 +20,8 @@ uint8_t MbedSerialAnt::read() {
     return buf;
 }
 
-void MbedSerialAnt::write(uint8_t val) {
-    _serial->write(&val, 1);
+void MbedSerialAnt::write(uint8_t *buf, uint8_t len) {
+    _serial->write(buf, len);
 }
 
 uint32_t MbedSerialAnt::getMs() {

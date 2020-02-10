@@ -17,8 +17,7 @@ uint8_t CWInit::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t CWInit::execute() {
-    // TODO
-    return 0;
+    return sd_ant_cw_test_mode_init();
 }
 
 #endif // NATIVE_API_AVAILABLE

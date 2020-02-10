@@ -61,8 +61,7 @@ uint8_t EnableSingleChannelEncryption::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t EnableSingleChannelEncryption::execute() {
-    // TODO
-    return 0;
+    return sd_ant_crypto_channel_enable(_channel, _encryptionMode, _volatileKeyIndex, _decimationRate);
 }
 
 #endif // NATIVE_API_AVAILABLE

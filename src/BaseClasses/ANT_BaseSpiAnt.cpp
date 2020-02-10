@@ -1,28 +1,29 @@
-#include <BaseClasses/ANT_BaseSerialAnt.h>
+#include <BaseClasses/ANT_BaseSpiAnt.h>
 #include <ANT_private_defines.h>
 
-template<class T>
-BaseSerialAnt<T>::BaseSerialAnt() : BaseAnt() {
+
+template<class S, class I, class O>
+BaseSpiAnt<S, I, O>::BaseSpiAnt() : BaseAnt() {
     _pos = 0;
     _checksumTotal = 0;
     getResponse().setFrameData(_responseFrameData);
 
 }
 
-template<class T>
-void BaseSerialAnt<T>::resetResponse() {
+template<class S, class I, class O>
+void BaseSpiAnt<S, I, O>::resetResponse() {
     _pos = 0;
     _checksumTotal = 0;
     getResponse().reset();
 }
 
-template<class T>
-void BaseSerialAnt<T>::begin(T &serial) {
-    setSerial(serial);
+template<class S, class I, class O>
+void BaseSpiAnt<S, I, O>::begin(S &spi, I &hostEnable, O &hostMsgReady, O &hostSrdy) {
+    setSpi(spi, hostEnable, hostMsgReady, hostSrdy);
 }
 
-template<class T>
-void BaseSerialAnt<T>::readPacket() {
+template<class S, class I, class O>
+void BaseSpiAnt<S, I, O>::readPacket() {
     // reset previous response
     if (getResponse().isAvailable() || getResponse().isError()) {
         // discard previous packet and start over
@@ -93,26 +94,71 @@ void BaseSerialAnt<T>::readPacket() {
     }
 }
 
-template<class T>
-uint32_t BaseSerialAnt<T>::send(AntRequest &request) {
-    // checksum is XOR of all bytes
-    uint8_t checksum = 0;
+// TODO remove
+#define SYNC_MASK 0xFE
+#define SYNC_BYTE 0xA4
+#define SYNC_READ_BIT 1
+#define ERROR_BAD_SYNC 2
+#define SUCCESS 0
+template<class S, class I, class O>
+uint32_t BaseSpiAnt<S, I, O>::send(AntRequest &request) {
+    uint8_t sync, packetRead = 0;
     uint8_t write_pos = 0;
+    uint8_t checksum = 0;
     uint8_t buf[ANT_MAX_MSG_DATA_SIZE];
 
+    setHostMsgReady(0);
+
+    // block until radio acks
+    while(available()) {}
+
+    setHostSRdy(0);
+
+    sync = read();
+
+    if ((sync & SYNC_MASK) != SYNC_BYTE) {
+        setHostSRdy(1);
+        return ERROR_BAD_SYNC;
+    }
+
+    // ant synced as a write
+    // read back and send write next
+    if (!(sync & SYNC_READ_BIT)) {
+        _pos = 1;
+        // readPacket();
+        setHostMsgReady(1);
+        packetRead = 1;
+
+        // block until radio acks
+        while(!available()) {}
+
+        sync = read();
+    }
+
+    // buffer initial byte
+    // TODO does this need write bit set?
     checksum ^= ANT_START_BYTE;
     buf[write_pos++] = ANT_START_BYTE;
 
     write_pos += bufferMessage(&buf[write_pos], request, checksum);
 
-    write(buf, write_pos);
+    // TODO rewrite buffer write
+    // data, offset for start byte sent by radio
+    write(buf[0]);
 
-    // return value not used in serial mode
-    return 0;
+    return SUCCESS | packetRead;
 }
 
-#if defined(ARDUINO) || defined(UNIT_TEST)
-template class BaseSerialAnt<Stream>;
-#elif defined(__MBED__)
-template class BaseSerialAnt<UARTSerial>;
+template<class S, class I, class O>
+void BaseSpiAnt<S, I, O>::resetRadio() {
+    setHostMsgReady(1);
+    setHostSRdy(1);
+    setHostSRdy(0);
+    // TODO wait 1 ms
+    setHostMsgReady(0);
+    setHostSRdy(1);
+}
+
+#if defined(__MBED__)
+template class BaseSpiAnt<SPISlave, DigitalIn, DigitalOut>;
 #endif

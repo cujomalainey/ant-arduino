@@ -88,8 +88,7 @@ uint8_t FrequencyAgility::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t FrequencyAgility::execute() {
-    // TODO
-    return 0;
+    return sd_ant_auto_freq_hop_table_set(_channel, _freq1, _freq2, _freq3);
 }
 
 #endif // NATIVE_API_AVAILABLE

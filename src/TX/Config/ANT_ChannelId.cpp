@@ -83,8 +83,7 @@ uint8_t ChannelId::getData(uint8_t pos) {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t ChannelId::execute() {
-    // TODO
-    return 0;
+    return sd_ant_channel_id_set(_channel, _deviceNumber, _deviceType, _transmissionType);
 }
 
 #endif // NATIVE_API_AVAILABLE

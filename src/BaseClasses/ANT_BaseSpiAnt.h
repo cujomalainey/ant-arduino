@@ -1,10 +1,10 @@
-#ifndef ANT_BASESERIALANT_h
-#define ANT_BASESERIALANT_h
+#ifndef ANT_BASESPIANT_h
+#define ANT_BASESPIANT_h
 
 #include <BaseClasses/ANT_BaseAnt.h>
 
 /**
- * Primary interface for communicating with an Ant Radio via serial.
+ * Primary interface for communicating with an Ant Radio via SPI.
  * This class provides methods for sending and receiving packets with an Ant radio via the serial port.
  * The Ant radio must be configured with the network stack
  * in order to use this software.
@@ -26,12 +26,12 @@
  * \edited by Curtis Malainey
  */
 
-template<class T>
-class BaseSerialAnt : virtual public BaseAnt {
+template<class S, class I, class O>
+class BaseSpiAnt : virtual public BaseAnt {
 public:
-    BaseSerialAnt();
+    BaseSpiAnt();
     /**
-     * Will read as much data on the serial port as possible till either it has a packet, gets an error or runs out of data
+     * Will read as much data on the spi port as possible till either it has a packet, gets an error or runs out of data
      * You may call <i>ant</i>.getResponse().isAvailable() after calling this method to determine if
      * a packet is ready, or <i>ant</i>.getResponse().isError() to determine if
      * a error occurred.
@@ -46,19 +46,25 @@ public:
     /**
      * Starts the serial connection on the specified serial port
      */
-    void begin(T &serial);
+    void begin(S &spi, I &hostEnable, O &hostMsgReady, O &hostSrdy);
     /**
      * Sends a AntRequest (TX packet) out the serial port
      */
     uint32_t send(AntRequest &request) override;
     /**
-     * Associates a serial device with the ANT driver
+     * Set communication device and pins
      */
-    virtual void setSerial(T &serial) = 0;
+    virtual void setSpi(S &spi, I &hostEnable, O &hostMsgReady, O &hostSrdy) = 0;
+    /**
+     * Hardware reset radio using SPI wires without reset pin
+     */
+    void resetRadio();
 protected:
+    virtual void setHostMsgReady(uint8_t value) = 0;
+    virtual void setHostSRdy(uint8_t value) = 0;
     virtual uint8_t read() = 0;
     virtual uint8_t available() = 0;
-    virtual void write(uint8_t* byte, uint8_t len) = 0;
+    virtual void write(uint8_t byte) = 0;
 private:
     void resetResponse();
     // current packet position for response.  just a state variable for packet parsing and has no relevance for the response otherwise
@@ -70,4 +76,4 @@ private:
     uint8_t _responseFrameData[ANT_MAX_MSG_DATA_SIZE];
 };
 
-#endif // ANT_BASESERIALANT_h
+#endif // ANT_BASESPIANT_h

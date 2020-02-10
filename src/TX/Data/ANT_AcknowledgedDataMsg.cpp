@@ -37,8 +37,7 @@ uint8_t AcknowledgedDataMsg::getData(uint8_t pos) {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t AcknowledgedDataMsg::execute() {
-    // TODO
-    return 0;
+    return sd_ant_acknowledge_message_tx(_channel, 8, getDataBuffer());
 }
 
 #endif // NATIVE_API_AVAILABLE

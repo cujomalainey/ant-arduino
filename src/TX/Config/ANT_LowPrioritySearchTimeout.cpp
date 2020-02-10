@@ -46,8 +46,7 @@ uint8_t LowPrioritySearchTimeout::getDataLength() {
 #ifdef NATIVE_API_AVAILABLE
 
 uint32_t LowPrioritySearchTimeout::execute() {
-    // TODO
-    return 0;
+    return sd_ant_channel_low_priority_rx_search_timeout_set(_channel, _timeout);
 }
 
 #endif // NATIVE_API_AVAILABLE
