@@ -18,3 +18,4 @@ ant_interface.h
 
 # ignore main file for testing
 src/main.cpp
+.pio/build/project.checksum
