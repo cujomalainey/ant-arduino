@@ -42,9 +42,8 @@ uint8_t ChannelRfFrequency::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ChannelRfFrequency::execute() {
-    // TODO
-    return 0;
+uint32_t ChannelRfFrequency::execute() {
+    return sd_ant_channel_radio_freq_set(_channel, _frequency);
 }
 
 #endif // NATIVE_API_AVAILABLE

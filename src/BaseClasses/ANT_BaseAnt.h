@@ -1,17 +1,12 @@
 #ifndef ANT_BASEANT_h
 #define ANT_BASEANT_h
 
+#include <BaseClasses/ANT_BaseFramework.h>
+
 #include <RX/ANT_AntResponse.h>
 #include <TX/ANT_AntRequest.h>
 
 #include <ANT_defines.h>
-
-#ifdef UNIT_TEST
-// Includes a mock stream object for unit testing
-#include "Util/Testing.h"
-#else
-#include "Arduino.h"
-#endif
 
 class BaseAnt {
 public:
@@ -49,7 +44,10 @@ public:
     /**
      * Sends a AntRequest (TX packet)
      */
-    virtual void send(AntRequest &request) = 0;
+    virtual uint32_t send(AntRequest &request) = 0;
+protected:
+    virtual uint32_t getMs() = 0;
+    uint8_t bufferMessage(uint8_t *buf, AntRequest &msg, uint8_t checksum);
 private:
     AntResponse _response;
 };

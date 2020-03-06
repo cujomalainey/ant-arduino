@@ -16,6 +16,9 @@ public:
     uint8_t getNetworkNumber();
     uint8_t getChannelType();
 
+#ifdef NATIVE_API_AVAILABLE
+    uint32_t backfill();
+#endif // NATIVE_API_AVAILABLE
     static const uint8_t MSG_ID = CHANNEL_STATUS;
 };
 

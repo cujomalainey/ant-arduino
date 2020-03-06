@@ -15,10 +15,10 @@ public:
     void setSubId(uint8_t subId);
     uint8_t getRequestedMessage();
     uint8_t getSubId();
-    uint8_t getData(uint8_t pos);
-    uint8_t getDataLength();
+    uint8_t getData(uint8_t pos) override;
+    uint8_t getDataLength() override;
 #ifdef NATIVE_API_AVAILABLE
-    uint8_t execute();
+    uint32_t execute() override;
 #endif
 private:
     uint8_t _msgId;

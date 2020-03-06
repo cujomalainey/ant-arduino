@@ -1,20 +1,17 @@
 /***********************************
- * Ant Open Channel Example
+ * Ant RSSI Scan Example
  *
- * Opens a channel with a preset
- * network key, period and frequncy.
- * All other fields are wildcarded.
- * Radio output is parsed and
- * transmitted to the serial monitor
+ * Opens a channel in rx scan mode
+ * then reports all found devices
+ * and their RSSI values
  *
  * Author Curtis Malainey
  ************************************/
 
 #include "ANT.h"
 #define BAUD_RATE 9600
-Ant ant = Ant();
+ArduinoSerialAnt ant;
 
-// Arbitrary key, if you want to connect to ANT+, you must get the key from thisisant.com
 const uint8_t NETWORK_KEY[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
 
 void parseMessage();
@@ -26,54 +23,47 @@ void setup()
     ResetSystem rs;
     SetNetworkKey snk;
     ChannelId ci;
-    ChannelPeriod cp;
     ChannelRfFrequency crf;
-    OpenChannel oc;
+    LibConfig lb;
+    OpenRxScanMode osm;
 
     Serial1.begin(BAUD_RATE);
     ant.setSerial(Serial1);
     ant.send(rs);
     // Delay after resetting the radio to give the user time to connect on serial
     delay(10000);
-    Serial.begin(BAUD_RATE);
+    Serial.begin(9600);
     Serial.println("Running");
+    parseMessage();
 
-    snk = SetNetworkKey();
     snk.setNetwork(0);
     snk.setKey((uint8_t*)NETWORK_KEY);
     ant.send(snk);
     parseMessage();
 
-    ac = AssignChannel();
-    ac.setChannel(0);
+    ac.setChannel(OPEN_RX_SCAN_MODE_CHANNEL);
     ac.setChannelType(CHANNEL_TYPE_BIDIRECTIONAL_RECEIVE); //can't wildcard this
     ac.setChannelNetwork(0);
     ant.send(ac);
     parseMessage();
 
-    ci = ChannelId();
-    ci.setChannel(0);
+    ci.setChannel(OPEN_RX_SCAN_MODE_CHANNEL);
     ci.setDeviceNumber(0);
     ci.setDeviceType(0);
     ci.setTransmissionType(0);
     ant.send(ci);
     parseMessage();
 
-    cp = ChannelPeriod();
-    cp.setChannel(0);
-    cp.setPeriod(1234); //can't wildcard this
-    ant.send(cp);
+    lb.setConfig(LIB_CONFIG_RSSI | LIB_CONFIG_CHANNEL_ID);
+    ant.send(lb);
     parseMessage();
 
-    crf = ChannelRfFrequency();
-    crf.setChannel(0);
+    crf.setChannel(OPEN_RX_SCAN_MODE_CHANNEL);
     crf.setRfFrequency(0); //can't wildcard this
     ant.send(crf);
     parseMessage();
 
-    oc = OpenChannel();
-    oc.setChannel(0);
-    ant.send(oc);
+    ant.send(osm);
     parseMessage();
 }
 
@@ -84,12 +74,13 @@ void loop()
 
 void parseMessage() {
     ant.readPacket();
-    if (ant.getResponse().isAvailable()) {
+    if(ant.getResponse().isAvailable())
+    {
         uint8_t msgId = ant.getResponse().getMsgId();
         switch (msgId) {
             case CHANNEL_EVENT:
             {
-                ChannelEventResponse cer = ChannelEventResponse();
+                ChannelEventResponse cer;
                 ant.getResponse().getChannelEventResponseMsg(cer);
                 Serial.println("Received Msg: ChannelEventResponse");
                 Serial.print("Channel: ");
@@ -100,7 +91,7 @@ void parseMessage() {
 
             case START_UP_MESSAGE:
             {
-                StartUpMessage sum = StartUpMessage();
+                StartUpMessage sum;
                 ant.getResponse().getStartUpMsg(sum);
                 Serial.println("Received Msg: StartupMessage");
                 Serial.print("Message: ");
@@ -110,24 +101,35 @@ void parseMessage() {
 
             case BROADCAST_DATA:
             {
-                BroadcastData bd = BroadcastData();
+                BroadcastData bd;
                 ant.getResponse().getBroadcastDataMsg(bd);
-                Serial.println("Received Msg: BroadcastData");
-                Serial.print("Channel: ");
-                Serial.println(bd.getChannelNumber());
-                Serial.print("Data:[");
-                Serial.print(bd.getData(0), HEX);
-                for (uint8_t i = 1; i < 8; i++)
-                {
-                    Serial.print(", ");
-                    Serial.print(bd.getData(i), HEX);
+                if ((bd.getFlagByte() & LIB_CONFIG_RSSI) && (bd.getFlagByte() & LIB_CONFIG_CHANNEL_ID)) {
+                    Serial.print("Device Number: ");
+                    Serial.print(bd.getDeviceNumber());
+                    Serial.print(", Device Type: ");
+                    Serial.print(bd.getDeviceType());
+                    Serial.print(", RSSI: ");
+                    Serial.println(bd.getRSSIValue());
                 }
-                Serial.println("]");
                 break;
+            }
+
+            case ACKNOWLEDGED_DATA:
+            {
+                AcknowledgedData ad;
+                ant.getResponse().getAcknowledgedDataMsg(ad);
+                if ((ad.getFlagByte() & LIB_CONFIG_CHANNEL_ID) && (ad.getFlagByte() & LIB_CONFIG_RSSI)) {
+                    Serial.print("Device Number: ");
+                    Serial.print(ad.getDeviceNumber());
+                    Serial.print(", Device Type: ");
+                    Serial.print(ad.getDeviceType());
+                    Serial.print(", RSSI: ");
+                    Serial.println(ad.getRSSIValue());
                 }
+            }
 
             default:
-                Serial.print("Unhandled Message: ");
+                Serial.print("Undefined Message: ");
                 Serial.println(msgId, HEX);
                 break;
         }
@@ -139,19 +141,14 @@ void parseMessage() {
     }
 }
 
-void parseEventMessage(uint8_t code) {
+void parseEventMessage(uint8_t code)
+{
+    BroadcastDataMsg bm;
     Serial.print("Code: ");
-    switch (code) {
+    switch (code)
+    {
         case STATUS_RESPONSE_NO_ERROR:
             Serial.println("RESPONSE_NO_ERROR");
-            break;
-
-        case STATUS_EVENT_RX_FAIL:
-            Serial.println("EVENT_RX_FAIL");
-            break;
-
-        case STATUS_EVENT_RX_SEARCH_TIMEOUT:
-            Serial.println("EVENT_RX_SEARCH_TIMEOUT");
             break;
 
         case STATUS_EVENT_CHANNEL_CLOSED:

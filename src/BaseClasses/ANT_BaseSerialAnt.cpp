@@ -1,46 +1,28 @@
-#include <MainClasses/ANT_Ant.h>
+#include <BaseClasses/ANT_BaseSerialAnt.h>
 #include <ANT_private_defines.h>
 
-Ant::Ant() : BaseAnt() {
+template<class T>
+BaseSerialAnt<T>::BaseSerialAnt() : BaseAnt() {
     _pos = 0;
     _checksumTotal = 0;
     getResponse().setFrameData(_responseFrameData);
 
-    // Contributed by Paul Stoffregen for Teensy support
-#if defined(__AVR_ATmega32U4__) || defined(__MK20DX128__)
-    _serial = &Serial1;
-#else
-    _serial = &Serial;
-#endif
 }
 
-void Ant::resetResponse() {
+template<class T>
+void BaseSerialAnt<T>::resetResponse() {
     _pos = 0;
     _checksumTotal = 0;
     getResponse().reset();
 }
 
-void Ant::begin(Stream &serial) {
-    _serial = &serial;
+template<class T>
+void BaseSerialAnt<T>::begin(T &serial) {
+    setSerial(serial);
 }
 
-void Ant::setSerial(Stream &serial) {
-    _serial = &serial;
-}
-
-bool Ant::available() {
-    return _serial->available();
-}
-
-uint8_t Ant::read() {
-    return _serial->read();
-}
-
-void Ant::write(uint8_t val) {
-    _serial->write(val);
-}
-
-void Ant::readPacket() {
+template<class T>
+void BaseSerialAnt<T>::readPacket() {
     // reset previous response
     if (getResponse().isAvailable() || getResponse().isError()) {
         // discard previous packet and start over
@@ -59,6 +41,7 @@ void Ant::readPacket() {
                 if (b == ANT_START_BYTE) {
                     _pos++;
                 }
+                // TODO should we be reseting the checksum here if we fail to match the start byte?
 
                 break;
             case 1:
@@ -110,28 +93,26 @@ void Ant::readPacket() {
     }
 }
 
-void Ant::send(AntRequest &request) {
+template<class T>
+uint32_t BaseSerialAnt<T>::send(AntRequest &request) {
     // checksum is XOR of all bytes
     uint8_t checksum = 0;
+    uint8_t write_pos = 0;
+    uint8_t buf[ANT_MAX_MSG_DATA_SIZE];
 
-    // the new new deal
     checksum ^= ANT_START_BYTE;
-    write(ANT_START_BYTE);
+    buf[write_pos++] = ANT_START_BYTE;
 
-    // send length
-    uint8_t len = (request.getDataLength());
-    checksum ^= len;
-    write(len);
+    write_pos += bufferMessage(&buf[write_pos], request, checksum);
 
-    // Msg id
-    write(request.getMsgId());
-    checksum ^= request.getMsgId();
+    write(buf, write_pos);
 
-    for (int i = 0; i < request.getDataLength(); i++) {
-        write(request.getData(i));
-        checksum ^= request.getData(i);
-    }
-
-    // send checksum
-    write(checksum);
+    // return value not used in serial mode
+    return 0;
 }
+
+#if defined(ARDUINO) || defined(UNIT_TEST)
+template class BaseSerialAnt<Stream>;
+#elif defined(__MBED__)
+template class BaseSerialAnt<UARTSerial>;
+#endif

@@ -77,8 +77,9 @@ uint8_t AddChannelIdToList::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t AddChannelIdToList::execute() {
+uint32_t AddChannelIdToList::execute() {
     // TODO not implemented
+    // return sd_ant_id_list_add(_channel, _encryptionId, _listIndex);
     return 0;
 }
 

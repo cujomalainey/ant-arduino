@@ -40,9 +40,8 @@ uint8_t CWTest::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t CWTest::execute() {
-    // TODO
-    return 0;
+uint32_t CWTest::execute() {
+    return sd_ant_cw_test_mode(_channelRfFrequency, _transmitPower, 0, 0);
 }
 
 #endif // NATIVE_API_AVAILABLE

@@ -17,7 +17,7 @@ uint8_t ResetSystem::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ResetSystem::execute() {
+uint32_t ResetSystem::execute() {
     return 0;
 }
 

@@ -36,9 +36,8 @@ uint8_t BroadcastDataMsg::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t BroadcastDataMsg::execute() {
-    // TODO
-    return 0;
+uint32_t BroadcastDataMsg::execute() {
+    return sd_ant_broadcast_message_tx(_channel, 8, getDataBuffer());
 }
 
 #endif // NATIVE_API_AVAILABLE

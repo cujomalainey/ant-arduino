@@ -1,12 +1,8 @@
 #include <TX/Config/ANT_SetNetworkKey.h>
 
 #include <ANT_private_defines.h>
+#include <BaseClasses/ANT_BaseFramework.h>
 
-#ifdef UNIT_TEST
-#include "Util/Testing.h"
-#else
-#include "Arduino.h"
-#endif
 
 SetNetworkKey::SetNetworkKey() : AntRequest(SET_NETWORK_KEY) {
     memset(_key, 0, NETWORK_KEY_SIZE);
@@ -55,9 +51,8 @@ uint8_t SetNetworkKey::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t SetNetworkKey::execute() {
-    // TODO
-    return 0;
+uint32_t SetNetworkKey::execute() {
+    return sd_ant_network_address_set(_network, _key);
 }
 
 #endif // NATIVE_API_AVAILABLE

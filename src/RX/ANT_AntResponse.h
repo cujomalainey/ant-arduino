@@ -133,6 +133,12 @@ public:
      */
     uint8_t getErrorCode();
     void setErrorCode(uint8_t errorCode);
+#ifdef NATIVE_API_AVAILABLE
+    /**
+     * Call to native API by NativeAnt when expected to recieve.
+     */
+    virtual uint32_t backfill() = 0;
+#endif // NATIVE_API_AVAILABLE
 protected:
     // pointer to frameData
     uint8_t* _frameDataPtr;

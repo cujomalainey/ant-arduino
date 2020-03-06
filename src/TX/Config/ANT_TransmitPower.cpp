@@ -33,8 +33,9 @@ uint8_t TransmitPower::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t TransmitPower::execute() {
-    // TODO
+uint32_t TransmitPower::execute() {
+    // TODO ant_processor sets all channels to the same value
+    // return sd_ant_channel_radio_tx_power_set();
     return 0;
 }
 

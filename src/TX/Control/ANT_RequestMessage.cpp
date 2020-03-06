@@ -51,7 +51,7 @@ uint8_t RequestMessage::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t RequestMessage::execute() {
+uint32_t RequestMessage::execute() {
     return 0;
 }
 

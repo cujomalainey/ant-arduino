@@ -34,9 +34,8 @@ uint8_t OpenRxScanMode::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t OpenRxScanMode::execute() {
-    // TODO
-    return 0;
+uint32_t OpenRxScanMode::execute() {
+    return sd_ant_rx_scan_mode_start(_synchronousChannelPacketsOnly);
 }
 
 #endif // NATIVE_API_AVAILABLE

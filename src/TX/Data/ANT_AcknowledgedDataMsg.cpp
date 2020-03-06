@@ -10,14 +10,14 @@ AcknowledgedDataMsg::AcknowledgedDataMsg() : AntTxDataRequest(ACKNOWLEDGED_DATA)
 
 AcknowledgedDataMsg::AcknowledgedDataMsg(uint8_t channel) : AntTxDataRequest(ACKNOWLEDGED_DATA) {
     setDataLength(MESSAGE_SIZE);
-    setChannelNumber(channel);
+    setChannel(channel);
 }
 
-void AcknowledgedDataMsg::setChannelNumber(uint8_t channel) {
+void AcknowledgedDataMsg::setChannel(uint8_t channel) {
     _channel = channel;
 }
 
-uint8_t AcknowledgedDataMsg::getChannelNumber() {
+uint8_t AcknowledgedDataMsg::getChannel() {
     return _channel;
 }
 
@@ -36,9 +36,8 @@ uint8_t AcknowledgedDataMsg::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t AcknowledgedDataMsg::execute() {
-    // TODO
-    return 0;
+uint32_t AcknowledgedDataMsg::execute() {
+    return sd_ant_acknowledge_message_tx(_channel, 8, getDataBuffer());
 }
 
 #endif // NATIVE_API_AVAILABLE

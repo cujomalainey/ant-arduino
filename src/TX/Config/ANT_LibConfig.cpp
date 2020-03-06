@@ -20,7 +20,7 @@ uint8_t LibConfig::getConfig() {
 
 uint8_t LibConfig::getData(uint8_t pos) {
     if (pos == 0) {
-        return 0; 
+        return 0;
     } else {
         return _config;
     }
@@ -32,9 +32,8 @@ uint8_t LibConfig::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t LibConfig::execute() {
-    // TODO
-    return 0;
+uint32_t LibConfig::execute() {
+    return sd_ant_lib_config_set(_config);
 }
 
 #endif // NATIVE_API_AVAILABLE
