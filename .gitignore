@@ -19,3 +19,6 @@ ant_interface.h
 # ignore main file for testing
 src/main.cpp
 .pio/build/project.checksum
+.vscode/c_cpp_properties.json
+.vscode/extensions.json
+.vscode/launch.json
