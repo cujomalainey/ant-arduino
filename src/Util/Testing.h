@@ -12,6 +12,7 @@ public:
     uint8_t available();
     uint8_t read();
     void write(uint8_t data);
+    void write(uint8_t *data, uint8_t len);
 private:
     const uint8_t* _inBuffer;
     const uint8_t* _outBuffer;

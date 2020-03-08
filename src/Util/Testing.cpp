@@ -31,5 +31,10 @@ void Stream::write(uint8_t data) {
     }
 }
 
+void Stream::write(uint8_t *data, uint8_t len) {
+    for (int i = 0; i < len; i++) {
+        write(data[i]);
+    }
+}
 
 #endif // UNIT_TEST

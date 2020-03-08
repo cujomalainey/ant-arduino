@@ -56,7 +56,7 @@ uint8_t BaseAnt::bufferMessage(uint8_t *buf, AntRequest &request, uint8_t checks
     buf[write_pos++] = request.getMsgId();
     checksum ^= request.getMsgId();
 
-    for (int i = -1; i < request.getDataLength(); i++) {
+    for (int i = 0; i < request.getDataLength(); i++) {
         buf[write_pos++] = request.getData(i);
         checksum ^= request.getData(i);
     }
