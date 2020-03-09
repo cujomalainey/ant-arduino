@@ -38,3 +38,11 @@ uint32_t AdvancedBurstCapabilitiesConfiguration::getOptionalFeatures() {
     features |= getFrameData()[8] << BITS_IN_SHORT;
     return features;
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+static uint32_t AdvancedBurstCapabilitiesConfiguration::backFill(uint8_t subId, uint8_t *buf) {
+    return 
+}
+
+#endif // NATIVE_API_AVAILABLE

@@ -17,6 +17,12 @@ public:
     uint8_t getAdvancedOptions(uint8_t pos); //note, this is 1 indexed to match the spec sheet
     uint8_t getMaxSensRcoreChannels();
 
+#ifdef NATIVE_API_AVAILABLE
+
+    static uint32_t backFill(uint8_t subId, uint8_t *buf);
+
+#endif // NATIVE_API_AVAILABLE
+
     static const uint8_t MSG_ID = CAPABILITIES;
 };
 

@@ -21,3 +21,11 @@ uint8_t ChannelIdResponse::getDeviceType() {
 uint8_t ChannelIdResponse::getTransmissionType() {
     return getFrameData()[4];
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+static uint32_t ChannelIdResponse::backFill(uint8_t subId, uint8_t *buf) {
+    return
+}
+
+#endif // NATIVE_API_AVAILABLE
