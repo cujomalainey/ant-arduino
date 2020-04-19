@@ -10,6 +10,9 @@
 #elif defined(__ZEPHYR__)
 #include <zephyr.h>
 #include <string.h>
+#elif defined(ESP_PLATFORM)
+#include "esp_system.h"
+#include <string.h>
 #endif
 
 #endif // ANT_BASEFRAMEWORK_h
