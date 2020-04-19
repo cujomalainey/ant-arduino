@@ -10,6 +10,7 @@ nrf_*
 ant_error.h
 ant_parameters.h
 ant_interface.h
+/zephyr/
 
 # ide files
 .tags*

@@ -7,6 +7,9 @@
 #include "Arduino.h"
 #elif defined(__MBED__)
 #include "mbed.h"
+#elif defined(__ZEPHYR__)
+#include <zephyr.h>
+#include <string.h>
 #endif
 
 #endif // ANT_BASEFRAMEWORK_h
