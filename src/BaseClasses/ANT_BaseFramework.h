@@ -12,6 +12,7 @@
 #include <string.h>
 #elif defined(ESP_PLATFORM)
 #include "esp_system.h"
+#include "driver/uart.h"
 #include <string.h>
 #endif
 
