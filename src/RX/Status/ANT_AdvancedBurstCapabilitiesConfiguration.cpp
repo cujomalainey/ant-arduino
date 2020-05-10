@@ -41,8 +41,8 @@ uint32_t AdvancedBurstCapabilitiesConfiguration::getOptionalFeatures() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-static uint32_t AdvancedBurstCapabilitiesConfiguration::backFill(uint8_t subId, uint8_t *buf) {
-    return 
+uint32_t AdvancedBurstCapabilitiesConfiguration::backFill(uint8_t subId, uint8_t *buf) {
+    return sd_ant_adv_burst_config_get(subId, buf);
 }
 
 #endif // NATIVE_API_AVAILABLE

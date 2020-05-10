@@ -38,3 +38,11 @@ uint8_t Capabilities::getAdvancedOptions(uint8_t pos) {
 uint8_t Capabilities::getMaxSensRcoreChannels() {
     return getFrameData()[5];
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint32_t Capabilities::backFill(uint8_t subId, uint8_t *buf) {
+    return sd_ant_capabilities_get(buf);
+}
+
+#endif // NATIVE_API_AVAILABLE

@@ -23,3 +23,12 @@ uint32_t EncryptionModeParameters::getUniqueIdentifier() {
 char* EncryptionModeParameters::getUserInformationString() {
     return (char*)(getFrameData() + 1); // skip mode parameter
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint32_t EncryptionModeParameters::backFill(uint8_t subId, uint8_t *buf) {
+    buf[0] = subId;
+    return sd_ant_crypto_info_get(subId, &buf[1]);
+}
+
+#endif // NATIVE_API_AVAILABLE

@@ -13,3 +13,11 @@ uint16_t EventFilter::getEventFilter() {
     filter |= getFrameData()[2] << 8;
     return filter;
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint32_t EventFilter::backFill(uint8_t subId, uint8_t *buf) {
+    return sd_ant_event_filtering_get((uint16_t*)buf);
+}
+
+#endif // NATIVE_API_AVAILABLE

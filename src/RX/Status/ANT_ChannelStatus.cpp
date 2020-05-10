@@ -24,8 +24,9 @@ uint8_t ChannelStatus::getChannelType() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint32_t ChannelStatus::backfill() {
-    return sd_ant_channel_status_get(getFrameData()[0], getFrameData() + 1);
+uint32_t ChannelStatus::backFill(uint8_t subId, uint8_t *buf) {
+    buf[0] = subId;
+    return sd_ant_channel_status_get(subId, &buf[1]);
 }
 
 #endif // NATIVE_API_AVAILABLE
