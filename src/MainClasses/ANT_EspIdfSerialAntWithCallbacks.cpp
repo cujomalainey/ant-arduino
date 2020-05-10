@@ -1,7 +1,7 @@
-#if defined(ARDUINO) || defined(UNIT_TEST)
+#if defined(ESP_PLATFORM)
 
 #include <MainClasses/ANT_ArduinoSerialAntWithCallbacks.h>
 
 EspIdfSerialAntWithCallbacks::EspIdfSerialAntWithCallbacks() : EspIdfSerialAnt(), BaseAntWithCallbacks() {}
 
-#endif // defined(ARDUINO) || defined(UNIT_TEST)
+#endif // defined(ESP_PLATFORM)
