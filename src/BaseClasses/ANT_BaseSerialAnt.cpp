@@ -115,4 +115,6 @@ uint32_t BaseSerialAnt<T>::send(AntRequest &request) {
 template class BaseSerialAnt<Stream>;
 #elif defined(__MBED__)
 template class BaseSerialAnt<UARTSerial>;
+#elif defined(ESP_PLATFORM)
+template class BaseSerialAnt<uart_port_t>;
 #endif
