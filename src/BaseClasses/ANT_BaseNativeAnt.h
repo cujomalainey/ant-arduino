@@ -45,7 +45,7 @@ public:
     /**
      * Starts the serial connection on the specified serial port
      */
-    void begin();
+    uint8_t begin(uint8_t total_chan, uint8_t encrypted_chan);
     /**
      * Sends a AntRequest (TX packet) out the serial port
      */

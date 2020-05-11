@@ -137,7 +137,7 @@ public:
     /**
      * Call to native API by NativeAnt when expected to recieve.
      */
-    virtual uint32_t backfill() = 0;
+    virtual uint32_t backfill();
 #endif // NATIVE_API_AVAILABLE
 protected:
     // pointer to frameData

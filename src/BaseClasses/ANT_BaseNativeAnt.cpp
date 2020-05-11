@@ -25,7 +25,7 @@ uint8_t BaseNativeAnt::begin(uint8_t total_chan, uint8_t encrypted_chan) {
     if (_sd_buffer)
         free(_sd_buffer);
 
-    _sd_buffer = malloc(buf_size);
+    _sd_buffer = (uint8_t*)malloc(buf_size);
 
     if (!_sd_buffer)
         return 1;
