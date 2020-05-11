@@ -54,10 +54,15 @@ private:
     void resetResponse();
     uint32_t handleRequest(AntRequest &request);
     bool _backFillReady = false;
+    bool _returnFillReady = false;
     // buffer for incoming RX packets. Backfill data structures for message reuse.
     uint8_t _responseFrameData[ANT_MAX_MSG_DATA_SIZE];
     // used for TX requests so TX won't overwrite RX state
     uint8_t _backFillBuffer[ANT_MAX_MSG_DATA_SIZE];
+    // used to store response message
+    uint8_t _returnFillBuffer[ANT_MAX_MSG_DATA_SIZE];
+    // softdevice buffer
+    uint8_t *_sd_buffer = NULL;
 };
 
 #endif // ANT_BASESERIALANT_h

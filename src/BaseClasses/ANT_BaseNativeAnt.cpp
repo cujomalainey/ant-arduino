@@ -4,9 +4,52 @@
 
 #ifdef NATIVE_API_AVAILABLE
 
+// <o> NRF_SDH_ANT_EVENT_QUEUE_SIZE - Event queue size.
+#define NRF_SDH_ANT_EVENT_QUEUE_SIZE 32
+// <o> NRF_SDH_ANT_BURST_QUEUE_SIZE - ANT burst queue size.
+#define NRF_SDH_ANT_BURST_QUEUE_SIZE 128
+
 BaseNativeAnt::BaseNativeAnt() : BaseAnt() {
     getResponse().setFrameData(_responseFrameData);
 
+}
+
+uint8_t BaseNativeAnt::begin(uint8_t total_chan, uint8_t encrypted_chan) {
+    uint8_t ret;
+    uint16_t buf_size = ANT_ENABLE_GET_REQUIRED_SPACE(
+            total_chan,
+            encrypted_chan,
+            NRF_SDH_ANT_BURST_QUEUE_SIZE,
+            NRF_SDH_ANT_EVENT_QUEUE_SIZE);
+
+    if (_sd_buffer)
+        free(_sd_buffer);
+
+    _sd_buffer = malloc(buf_size);
+
+    if (!_sd_buffer)
+        return 1;
+
+#ifdef USE_TINYUSB
+    usb_softdevice_pre_enable();
+#endif
+
+    ANT_ENABLE ant_enable_cfg =
+    {
+        .ucTotalNumberOfChannels = total_chan,
+        .ucNumberOfEncryptedChannels = encrypted_chan,
+        .usNumberOfEvents = NRF_SDH_ANT_EVENT_QUEUE_SIZE,
+        .pucMemoryBlockStartLocation = _sd_buffer,
+        .usMemoryBlockByteSize = buf_size,
+    };
+
+    ret = sd_ant_enable(&ant_enable_cfg);
+
+#ifdef USE_TINYUSB
+    usb_softdevice_post_enable();
+#endif
+
+    return ret;
 }
 
 void BaseNativeAnt::resetResponse() {
@@ -20,6 +63,13 @@ void BaseNativeAnt::readPacket() {
     if (getResponse().isAvailable() || getResponse().isError()) {
         // discard previous packet and start over
         resetResponse();
+    }
+
+    if (_returnFillReady) {
+        _returnFillReady = false;
+        getResponse().setAvailable(true);
+        memcpy(_responseFrameData, _returnFillBuffer, sizeof(_responseFrameData));
+        return;
     }
 
     if (_backFillReady) {
@@ -59,7 +109,7 @@ uint32_t BaseNativeAnt::handleRequest(AntRequest &request) {
             ret = Capabilities::backFill(request.getData(0), _backFillBuffer);
             break;
         case CHANNEL_ID:
-            ret = ChannelIdResponse::backFill(request,getData(0), _backFillBuffer);
+            ret = ChannelIdResponse::backFill(request.getData(0), _backFillBuffer);
             break;
         case ADVANCED_BURST_CONFIGURATION: // ADVANCED_BURST_CAPABILITES
             ret = AdvancedBurstCapabilitiesConfiguration::backFill(request.getData(0), _backFillBuffer);
@@ -77,6 +127,8 @@ uint32_t BaseNativeAnt::handleRequest(AntRequest &request) {
             return INVALID_MESSAGE;
     }
     _backFillReady = true;
+    _returnFillReady = true;
+
     return ret;
 }
 
