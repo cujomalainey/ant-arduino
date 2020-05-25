@@ -32,6 +32,8 @@
 class ArduinoNativeAnt : public virtual BaseNativeAnt {
 public:
     ArduinoNativeAnt();
+protected:
+    uint32_t getMs() override;
 };
 
 #endif // NATIVE_API_AVAILABLE

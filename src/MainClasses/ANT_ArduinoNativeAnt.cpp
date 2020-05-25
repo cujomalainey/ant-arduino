@@ -5,4 +5,8 @@
 
 ArduinoNativeAnt::ArduinoNativeAnt() : BaseNativeAnt() {}
 
+uint32_t ArduinoNativeAnt::getMs() {
+    return millis();
+}
+
 #endif // NATIVE_API_AVAILABLE
