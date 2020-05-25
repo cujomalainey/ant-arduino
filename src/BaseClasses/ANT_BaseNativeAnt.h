@@ -65,4 +65,4 @@ private:
     uint8_t *_sd_buffer = NULL;
 };
 
-#endif // ANT_BASESERIALANT_h
+#endif // ANT_BASENATIVEANT_h
