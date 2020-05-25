@@ -96,6 +96,7 @@ void BaseNativeAnt::readPacket() {
 }
 
 uint32_t BaseNativeAnt::send(AntRequest &request) {
+    // TODO Add resset case for startup case
     if (request.getMsgId() == REQUEST_MESSAGE) {
         return handleRequest(request);
     } else {
