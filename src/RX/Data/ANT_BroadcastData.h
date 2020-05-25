@@ -17,19 +17,19 @@ public:
     /**
      * Returns sepcified byte of data from payload
      */
-    uint8_t getData(uint8_t index);
+    uint8_t getData(uint8_t index) override;
     /**
      * Returns a pointer to the 8 byte payload
      */
-    uint8_t* getData();
+    uint8_t* getData() override;
     /**
      * Returns the size of the payload
      */
-    uint8_t getDataLength();
+    uint8_t getDataLength() override;
     /**
      * returns flag byte for extended data messages
      */
-    uint8_t getFlagByte();
+    uint8_t getFlagByte() override;
     static const uint8_t MSG_ID = BROADCAST_DATA;
 };
 

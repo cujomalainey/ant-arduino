@@ -6,7 +6,7 @@ AntRxDataResponse::AntRxDataResponse() : AntResponse() {
 
 }
 
-uint8_t AntRxDataResponse::getData(int index) {
+uint8_t AntRxDataResponse::getData(uint8_t index) {
     return getFrameData()[index];
 }
 
