@@ -206,3 +206,11 @@ void AntResponse::reset() {
 
     _errorCode = NO_ERROR;
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint32_t AntResponse::backfill() {
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

@@ -1,6 +1,7 @@
 #ifndef ANT_ANTRESPONSE_h
 #define ANT_ANTRESPONSE_h
 #include <inttypes.h>
+#include <ANT_defines.h>
 
 /**
  * The super class of all Ant responses (RX packets)
