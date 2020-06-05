@@ -3,6 +3,8 @@
 
 #include <BaseClasses/ANT_BaseAnt.h>
 
+#ifdef NATIVE_API_AVAILABLE
+
 /**
  * Primary interface for communicating with an Ant Radio via serial.
  * This class provides methods for sending and receiving packets with an Ant radio via the serial port.
@@ -64,5 +66,7 @@ private:
     // softdevice buffer
     uint8_t *_sd_buffer = NULL;
 };
+
+#endif // NATIVE_API_AVAILABLE
 
 #endif // ANT_BASENATIVEANT_h
