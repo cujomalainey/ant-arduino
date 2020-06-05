@@ -56,7 +56,7 @@ private:
     bool _backFillReady = false;
     bool _returnFillReady = false;
     // buffer for incoming RX packets. Backfill data structures for message reuse.
-    uint8_t _responseFrameData[ANT_MAX_MSG_DATA_SIZE];
+    ANT_MESSAGE _responseFrameData;
     // used for TX requests so TX won't overwrite RX state
     uint8_t _backFillBuffer[ANT_MAX_MSG_DATA_SIZE];
     // used to store response message

@@ -21,8 +21,7 @@
 #endif // ANT_BURST_QUEUE_SIZE
 
 BaseNativeAnt::BaseNativeAnt() : BaseAnt() {
-    getResponse().setFrameData(_responseFrameData);
-
+    getResponse().setFrameData((uint8_t*)_responseFrameData.ANT_MESSAGE_aucMesgData);
 }
 
 uint8_t BaseNativeAnt::begin(uint8_t total_chan, uint8_t encrypted_chan) {
@@ -76,20 +75,20 @@ void BaseNativeAnt::readPacket() {
     if (_returnFillReady) {
         _returnFillReady = false;
         getResponse().setAvailable(true);
-        memcpy(_responseFrameData, _returnFillBuffer, sizeof(_responseFrameData));
+        memcpy(_responseFrameData.ANT_MESSAGE_aucMessage, _returnFillBuffer, sizeof(_responseFrameData));
         return;
     }
 
     if (_backFillReady) {
         _backFillReady = false;
         getResponse().setAvailable(true);
-        memcpy(_responseFrameData, _backFillBuffer, sizeof(_responseFrameData));
+        memcpy(_responseFrameData.ANT_MESSAGE_aucMessage, _backFillBuffer, sizeof(_responseFrameData));
         return;
     }
 
     // TODO set offsets correctly
-    if (!sd_ant_event_get(&channel, &msgId, &_responseFrameData[2])) {
-        getResponse().setMsgId(msgId);
+    if (!sd_ant_event_get(&channel, &msgId, _responseFrameData.ANT_MESSAGE_aucMessage)) {
+        getResponse().setMsgId(_responseFrameData.ANT_MESSAGE_ucMesgID);
         getResponse().getFrameData();
         getResponse().setAvailable(true);
     }
