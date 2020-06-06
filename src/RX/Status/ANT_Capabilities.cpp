@@ -41,8 +41,8 @@ uint8_t Capabilities::getMaxSensRcoreChannels() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint32_t Capabilities::backFill(uint8_t subId, uint8_t *buf) {
-    return sd_ant_capabilities_get(buf);
+uint32_t Capabilities::backFill(uint8_t subId, ANT_MESSAGE &buf) {
+    return sd_ant_capabilities_get(buf.ANT_MESSAGE_aucMesgData);
 }
 
 #endif // NATIVE_API_AVAILABLE

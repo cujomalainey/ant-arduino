@@ -14,9 +14,9 @@ uint8_t* SelectiveDataUpdateMaskSetting::getSDUMask() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint32_t SelectiveDataUpdateMaskSetting::backFill(uint8_t subId, uint8_t *buf) {
-    buf[0] = subId;
-    return sd_ant_sdu_mask_get(subId, &buf[1]);
+uint32_t SelectiveDataUpdateMaskSetting::backFill(uint8_t subId, ANT_MESSAGE &buf) {
+    buf.ANT_MESSAGE_aucMesgData[0] = subId;
+    return sd_ant_sdu_mask_get(subId, &buf.ANT_MESSAGE_aucMesgData[1]);
 }
 
 #endif // NATIVE_API_AVAILABLE

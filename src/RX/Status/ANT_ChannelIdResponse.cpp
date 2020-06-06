@@ -24,9 +24,14 @@ uint8_t ChannelIdResponse::getTransmissionType() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint32_t ChannelIdResponse::backFill(uint8_t subId, uint8_t *buf) {
-    buf[0] = subId;
-    return sd_ant_channel_id_get(subId, (uint16_t*)&buf[1], &buf[3], &buf[4]);
+uint32_t ChannelIdResponse::backFill(uint8_t subId, ANT_MESSAGE &buf) {
+    uint16_t id;
+    uint32_t ret;
+    buf.ANT_MESSAGE_aucMesgData[0] = subId;
+    ret = sd_ant_channel_id_get(subId, &id, &buf.ANT_MESSAGE_aucMesgData[3], &buf.ANT_MESSAGE_aucMesgData[4]);
+    buf.ANT_MESSAGE_aucMesgData[1] = (uint8_t)id;
+    buf.ANT_MESSAGE_aucMesgData[2] = (uint8_t)(id >> BITS_IN_BYTE);
+    return ret;
 }
 
 #endif // NATIVE_API_AVAILABLE

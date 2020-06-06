@@ -60,7 +60,7 @@ private:
     // buffer for incoming RX packets. Backfill data structures for message reuse.
     ANT_MESSAGE _responseFrameData;
     // used for TX requests so TX won't overwrite RX state
-    uint8_t _backFillBuffer[ANT_MAX_MSG_DATA_SIZE];
+    ANT_MESSAGE _backFillBuffer;
     // used to store response message
     uint8_t _returnFillBuffer[ANT_MAX_MSG_DATA_SIZE];
     // softdevice buffer

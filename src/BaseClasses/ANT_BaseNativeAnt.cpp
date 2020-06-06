@@ -82,14 +82,12 @@ void BaseNativeAnt::readPacket() {
     if (_backFillReady) {
         _backFillReady = false;
         getResponse().setAvailable(true);
-        memcpy(_responseFrameData.ANT_MESSAGE_aucMessage, _backFillBuffer, sizeof(_responseFrameData));
+        memcpy(_responseFrameData.ANT_MESSAGE_aucMessage, _backFillBuffer.ANT_MESSAGE_aucMessage, sizeof(_responseFrameData.ANT_MESSAGE_aucMessage));
         return;
     }
 
-    // TODO set offsets correctly
     if (!sd_ant_event_get(&channel, &msgId, _responseFrameData.ANT_MESSAGE_aucMessage)) {
         getResponse().setMsgId(_responseFrameData.ANT_MESSAGE_ucMesgID);
-        getResponse().getFrameData();
         getResponse().setAvailable(true);
     }
 }
@@ -134,6 +132,7 @@ uint32_t BaseNativeAnt::handleRequest(AntRequest &request) {
         default:
             return INVALID_MESSAGE;
     }
+    _backFillBuffer.ANT_MESSAGE_ucMesgID = msgId;
     _backFillReady = true;
     _returnFillReady = true;
 
