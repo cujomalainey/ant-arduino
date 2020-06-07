@@ -82,12 +82,14 @@ void BaseNativeAnt::readPacket() {
     if (_backFillReady) {
         _backFillReady = false;
         getResponse().setAvailable(true);
+        getResponse().setLength(_backFillBuffer.ANT_MESSAGE_ucSize);
         memcpy(_responseFrameData.ANT_MESSAGE_aucMessage, _backFillBuffer.ANT_MESSAGE_aucMessage, sizeof(_responseFrameData.ANT_MESSAGE_aucMessage));
         return;
     }
 
     if (!sd_ant_event_get(&channel, &msgId, _responseFrameData.ANT_MESSAGE_aucMessage)) {
         getResponse().setMsgId(_responseFrameData.ANT_MESSAGE_ucMesgID);
+        getResponse().setLength(_responseFrameData.ANT_MESSAGE_ucSize);
         getResponse().setAvailable(true);
     }
 }
