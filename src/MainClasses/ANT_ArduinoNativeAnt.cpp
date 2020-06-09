@@ -1,5 +1,4 @@
 #include <MainClasses/ANT_ArduinoNativeAnt.h>
-#include <ANT_defines.h>
 
 #if defined(ARDUINO) && defined(NATIVE_API_AVAILABLE)
 
