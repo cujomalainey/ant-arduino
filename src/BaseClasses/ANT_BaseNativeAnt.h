@@ -51,7 +51,7 @@ public:
     /**
      * Sends a AntRequest (TX packet) out the serial port
      */
-    uint32_t send(AntRequest &request) override;
+    void send(AntRequest &request) override;
 private:
     void resetResponse();
     uint32_t handleRequest(AntRequest &request);

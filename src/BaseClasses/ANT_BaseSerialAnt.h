@@ -50,7 +50,7 @@ public:
     /**
      * Sends a AntRequest (TX packet) out the serial port
      */
-    uint32_t send(AntRequest &request) override;
+    void send(AntRequest &request) override;
     /**
      * Associates a serial device with the ANT driver
      */

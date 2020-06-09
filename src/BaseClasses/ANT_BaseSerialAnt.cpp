@@ -94,7 +94,7 @@ void BaseSerialAnt<T>::readPacket() {
 }
 
 template<class T>
-uint32_t BaseSerialAnt<T>::send(AntRequest &request) {
+void BaseSerialAnt<T>::send(AntRequest &request) {
     // checksum is XOR of all bytes
     uint8_t checksum = 0;
     uint8_t write_pos = 0;
@@ -106,9 +106,6 @@ uint32_t BaseSerialAnt<T>::send(AntRequest &request) {
     write_pos += bufferMessage(&buf[write_pos], request, checksum);
 
     write(buf, write_pos);
-
-    // return value not used in serial mode
-    return 0;
 }
 
 #if defined(ARDUINO) || defined(UNIT_TEST)

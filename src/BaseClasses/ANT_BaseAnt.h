@@ -44,7 +44,7 @@ public:
     /**
      * Sends a AntRequest (TX packet)
      */
-    virtual uint32_t send(AntRequest &request) = 0;
+    virtual void send(AntRequest &request) = 0;
 protected:
     virtual uint32_t getMs() = 0;
     uint8_t bufferMessage(uint8_t *buf, AntRequest &msg, uint8_t checksum);
