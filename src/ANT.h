@@ -27,7 +27,7 @@
 #include <MainClasses/ANT_ArduinoSerialAnt.h>
 #include <MainClasses/ANT_ArduinoSerialAntWithCallbacks.h>
 #include <MainClasses/ANT_ArduinoNativeAnt.h>
-// #include <MainClasses/ANT_ArduinoNativeAntWithCallbacks.h>
+#include <MainClasses/ANT_ArduinoNativeAntWithCallbacks.h>
 #include <MainClasses/ANT_MbedSerialAnt.h>
 #include <MainClasses/ANT_MbedSerialAntWithCallbacks.h>
 #include <MainClasses/ANT_MbedSpiAnt.h>
