@@ -75,31 +75,31 @@ void BaseNativeAnt::readPacket() {
     if (_returnFillReady) {
         _returnFillReady = false;
         getResponse().setAvailable(true);
-        memcpy(_responseFrameData.ANT_MESSAGE_aucMessage, _returnFillBuffer, sizeof(_responseFrameData));
-        return;
-    }
-
-    if (_backFillReady) {
+        memcpy(_responseFrameData.ANT_MESSAGE_aucMessage, _returnFillBuffer.ANT_MESSAGE_aucMessage, sizeof(_responseFrameData));
+    } else if (_backFillReady) {
         _backFillReady = false;
         getResponse().setAvailable(true);
-        getResponse().setLength(_backFillBuffer.ANT_MESSAGE_ucSize);
         memcpy(_responseFrameData.ANT_MESSAGE_aucMessage, _backFillBuffer.ANT_MESSAGE_aucMessage, sizeof(_responseFrameData.ANT_MESSAGE_aucMessage));
-        return;
-    }
-
-    if (!sd_ant_event_get(&channel, &msgId, _responseFrameData.ANT_MESSAGE_aucMessage)) {
-        getResponse().setMsgId(_responseFrameData.ANT_MESSAGE_ucMesgID);
-        getResponse().setLength(_responseFrameData.ANT_MESSAGE_ucSize);
+    } else if (!sd_ant_event_get(&channel, &msgId, _responseFrameData.ANT_MESSAGE_aucMessage)) {
         getResponse().setAvailable(true);
     }
+    getResponse().setMsgId(_responseFrameData.ANT_MESSAGE_ucMesgID);
+    getResponse().setLength(_responseFrameData.ANT_MESSAGE_ucSize);
 }
 
 void BaseNativeAnt::send(AntRequest &request) {
-    // TODO Add resset case for startup case
+    uint32_t ret;
     if (request.getMsgId() == REQUEST_MESSAGE) {
-        return handleRequest(request);
+        ret = handleRequest(request);
+    } else if (request.getMsgId() == RESET_SYSTEM) {
+        // TODO Backfill startup message
+        ret = NO_RESPONSE_MESSAGE;
     } else {
-        return request.execute();
+        ret = request.execute();
+    }
+    if (ret != NO_RESPONSE_MESSAGE) {
+        ChannelEventResponse::backFill(request.getData(0), request.getMsgId(), (uint8_t)ret, _returnFillBuffer);
+        _returnFillReady = true;
     }
 }
 

@@ -62,7 +62,7 @@ private:
     // used for TX requests so TX won't overwrite RX state
     ANT_MESSAGE _backFillBuffer;
     // used to store response message
-    uint8_t _returnFillBuffer[ANT_MAX_MSG_DATA_SIZE];
+    ANT_MESSAGE _returnFillBuffer;
     // softdevice buffer
     uint8_t *_sd_buffer = NULL;
 };

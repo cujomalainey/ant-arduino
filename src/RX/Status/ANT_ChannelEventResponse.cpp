@@ -27,7 +27,7 @@ uint8_t ChannelEventResponse::getExtendedEventParameters() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint32_t ChannelEventResponse::backFill(uint8_t chan, uint8_t event, uint8_t extCode, ANT_MESSAGE& buf) {
+uint32_t ChannelEventResponse::backFill(uint8_t chan, uint8_t msgId, uint8_t retCode, ANT_MESSAGE& buf) {
     buf.ANT_MESSAGE_ucMesgID = MSG_ID;
     // TODO
     return 0;

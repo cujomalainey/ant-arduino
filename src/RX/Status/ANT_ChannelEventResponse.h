@@ -18,7 +18,7 @@ public:
 
 #ifdef NATIVE_API_AVAILABLE
 
-    static uint32_t backFill(uint8_t chan, uint8_t event, uint8_t extCode, ANT_MESSAGE &buf);
+    static uint32_t backFill(uint8_t chan, uint8_t msgId, uint8_t retCode, ANT_MESSAGE &buf);
 
 #endif // NATIVE_API_AVAILABLE
 
