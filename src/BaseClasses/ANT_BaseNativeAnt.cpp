@@ -56,6 +56,9 @@ uint8_t BaseNativeAnt::begin(uint8_t total_chan, uint8_t encrypted_chan) {
 
     ret = sd_ant_enable(&ant_enable_cfg);
 
+    StartUpMessage::backFill(0x00, _backFillBuffer);
+    _backFillReady = true;
+
     return ret;
 }
 
@@ -92,8 +95,9 @@ void BaseNativeAnt::send(AntRequest &request) {
     if (request.getMsgId() == REQUEST_MESSAGE) {
         ret = handleRequest(request);
     } else if (request.getMsgId() == RESET_SYSTEM) {
-        // TODO Backfill startup message
-        ret = NO_RESPONSE_MESSAGE;
+        sd_ant_stack_reset();
+        // TODO fix magic number
+        ret = StartUpMessage::backFill(0x10, _backFillBuffer);
     } else {
         ret = request.execute();
     }
