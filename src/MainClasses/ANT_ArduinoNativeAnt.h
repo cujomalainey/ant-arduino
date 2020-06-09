@@ -8,7 +8,7 @@
 
 #include <ANT_defines.h>
 
-#ifdef NATIVE_API_AVAILABLE
+#if defined(ARDUINO) && defined(NATIVE_API_AVAILABLE)
 
 /**
  * Native adapter interface for communicating with an Ant softdevice.
@@ -36,6 +36,6 @@ protected:
     uint32_t getMs() override;
 };
 
-#endif // NATIVE_API_AVAILABLE
+#endif // defined(ARDUINO) && defined(NATIVE_API_AVAILABLE)
 
 #endif // ANT_ARDUINONATIVEANT_h
