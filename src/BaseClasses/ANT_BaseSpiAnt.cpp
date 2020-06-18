@@ -98,10 +98,9 @@ void BaseSpiAnt<S, I, O>::readPacket() {
 #define SYNC_MASK 0xFE
 #define SYNC_BYTE 0xA4
 #define SYNC_READ_BIT 1
-#define ERROR_BAD_SYNC 2
 #define SUCCESS 0
 template<class S, class I, class O>
-uint32_t BaseSpiAnt<S, I, O>::send(AntRequest &request) {
+void BaseSpiAnt<S, I, O>::send(AntRequest &request) {
     uint8_t sync, packetRead = 0;
     uint8_t write_pos = 0;
     uint8_t checksum = 0;
@@ -118,7 +117,6 @@ uint32_t BaseSpiAnt<S, I, O>::send(AntRequest &request) {
 
     if ((sync & SYNC_MASK) != SYNC_BYTE) {
         setHostSRdy(1);
-        return ERROR_BAD_SYNC;
     }
 
     // ant synced as a write
@@ -146,7 +144,6 @@ uint32_t BaseSpiAnt<S, I, O>::send(AntRequest &request) {
     // data, offset for start byte sent by radio
     write(buf[0]);
 
-    return SUCCESS | packetRead;
 }
 
 template<class S, class I, class O>
