@@ -17,6 +17,12 @@
  ************************************/
 
 #include "ANT.h"
+/**
+ * NOTE:
+ * Bluefruit is only for Adafruit platforms. If you have a BLE library on your platform it will likely need
+ * to have its SD enable call patched to take the ant license. The enable call must be made before you start
+ * the ANT lib.
+ */
 #include "bluefruit.h"
 
 #define BAUD_RATE 115200
