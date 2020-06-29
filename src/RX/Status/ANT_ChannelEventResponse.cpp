@@ -24,3 +24,13 @@ uint8_t ChannelEventResponse::getExtendedEventParameters() {
         return INVALID_REQUEST;
     }
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint32_t ChannelEventResponse::backFill(uint8_t chan, uint8_t msgId, uint8_t retCode, ANT_MESSAGE& buf) {
+    buf.ANT_MESSAGE_ucMesgID = MSG_ID;
+    // TODO
+    return 0;
+}
+
+#endif // NATIVE_API_AVAILABLE

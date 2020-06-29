@@ -1,12 +1,8 @@
 #include <TX/Config/ANT_SetEncryptionInfo.h>
 
 #include <ANT_private_defines.h>
+#include <BaseClasses/ANT_BaseFramework.h>
 
-#ifdef UNIT_TEST
-#include "Util/Testing.h"
-#else
-#include "Arduino.h"
-#endif
 
 SetEncryptionInfo::SetEncryptionInfo() : AntRequest(SET_ENCRYPTION_INFO) {
 }
@@ -53,9 +49,8 @@ uint8_t SetEncryptionInfo::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t SetEncryptionInfo::execute() {
-    // TODO
-    return 0;
+uint32_t SetEncryptionInfo::execute() {
+    return sd_ant_crypto_info_set(_setParameter, _dataString);
 }
 
 #endif // NATIVE_API_AVAILABLE

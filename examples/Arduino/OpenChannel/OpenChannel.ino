@@ -1,23 +1,21 @@
 /***********************************
- * Proximity Search for Devices
+ * Ant Open Channel Example
  *
- * Searches for devices using the
- * proximity bins, display found
- * devices and their respective bins
- *
- * THIS EXAMPLE IS INCOMPLETE
+ * Opens a channel with a preset
+ * network key, period and frequncy.
+ * All other fields are wildcarded.
+ * Radio output is parsed and
+ * transmitted to the serial monitor
  *
  * Author Curtis Malainey
  ************************************/
 
 #include "ANT.h"
 #define BAUD_RATE 9600
-Ant ant = Ant();
+ArduinoSerialAnt ant;
 
 // Arbitrary key, if you want to connect to ANT+, you must get the key from thisisant.com
 const uint8_t NETWORK_KEY[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
-
-uint8_t maxChannels = 0;
 
 void parseMessage();
 void parseEventMessage(uint8_t code);
@@ -31,24 +29,14 @@ void setup()
     ChannelPeriod cp;
     ChannelRfFrequency crf;
     OpenChannel oc;
-    RequestMessage rm;
 
     Serial1.begin(BAUD_RATE);
     ant.setSerial(Serial1);
     ant.send(rs);
     // Delay after resetting the radio to give the user time to connect on serial
     delay(10000);
-    Serial.begin(9600);
+    Serial.begin(BAUD_RATE);
     Serial.println("Running");
-
-    Serial.println("Getting Max Channels");
-    do {
-        rm = RequestMessage();
-        rm.setRequestedMessage(CAPABILITIES);
-        ant.send(rm);
-        delay(100);
-        parseMessage();
-    } while(0 == maxChannels);
 
     snk = SetNetworkKey();
     snk.setNetwork(0);
@@ -139,7 +127,7 @@ void parseMessage() {
                 }
 
             default:
-                Serial.print("Undefined Message: ");
+                Serial.print("Unhandled Message: ");
                 Serial.println(msgId, HEX);
                 break;
         }

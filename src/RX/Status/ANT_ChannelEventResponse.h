@@ -16,6 +16,12 @@ public:
     uint8_t getCode();
     uint8_t getExtendedEventParameters();
 
+#ifdef NATIVE_API_AVAILABLE
+
+    static uint32_t backFill(uint8_t chan, uint8_t msgId, uint8_t retCode, ANT_MESSAGE &buf);
+
+#endif // NATIVE_API_AVAILABLE
+
     static const uint8_t MSG_ID = CHANNEL_RESPONSE;
 };
 

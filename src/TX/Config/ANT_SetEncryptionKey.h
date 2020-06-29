@@ -17,10 +17,10 @@ public:
     uint8_t getVolatileKeyIndex();
     uint8_t getEncryptionKeyByte(uint8_t pos);
     void getEncryptionKey(uint8_t* arr);
-    uint8_t getData(uint8_t pos);
-    uint8_t getDataLength();
+    uint8_t getData(uint8_t pos) override;
+    uint8_t getDataLength() override;
 #ifdef NATIVE_API_AVAILABLE
-    uint8_t execute();
+    uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
     uint8_t _volatileKeyIndex;

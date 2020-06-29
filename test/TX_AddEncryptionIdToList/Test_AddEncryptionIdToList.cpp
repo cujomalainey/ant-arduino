@@ -6,7 +6,7 @@
 
 const uint8_t expectedOut[] = {0xA4, 6, 0x59, 1, 0x78, 0x56, 0x34, 0x12, 3, 241};
 Stream mock_stream = Stream(NULL, expectedOut);
-AntWithCallbacks ant = AntWithCallbacks();
+ArduinoSerialAntWithCallbacks ant;
 AddEncryptionIdToList msg;
 
 void test_constructors(void) {

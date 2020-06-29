@@ -13,10 +13,10 @@ public:
     LibConfig(uint8_t config);
     void setConfig(uint8_t config);
     uint8_t getConfig();
-    uint8_t getData(uint8_t pos);
-    uint8_t getDataLength();
+    uint8_t getData(uint8_t pos) override;
+    uint8_t getDataLength() override;
 #ifdef NATIVE_API_AVAILABLE
-    uint8_t execute();
+    uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
     uint8_t _config;

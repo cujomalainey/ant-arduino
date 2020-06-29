@@ -89,8 +89,9 @@ uint8_t ConfigureAdvancedBurst::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ConfigureAdvancedBurst::execute() {
-    // TODO
+uint32_t ConfigureAdvancedBurst::execute() {
+    // TODO arguments need to be packed into an array
+    // return sd_ant_adv_burst_config_set();
     return 0;
 }
 

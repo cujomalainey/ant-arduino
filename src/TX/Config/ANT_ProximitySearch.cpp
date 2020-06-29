@@ -45,9 +45,8 @@ uint8_t ProximitySearch::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ProximitySearch::execute() {
-    // TODO
-    return 0;
+uint32_t ProximitySearch::execute() {
+    return sd_ant_prox_search_set(_channel, _searchThreshold, 0);
 }
 
 #endif // NATIVE_API_AVAILABLE

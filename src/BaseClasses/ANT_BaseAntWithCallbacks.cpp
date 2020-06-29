@@ -138,7 +138,7 @@ uint8_t BaseAntWithCallbacks::matchStatus(uint8_t msgId) {
 }
 
 uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uint16_t timeout, void *func, uintptr_t data) {
-    unsigned long start = millis();
+    unsigned long start = getMs();
     do {
         // Wait for a packet of the right type
         if (loopTop() && getResponse().getMsgId() == msgId) {
@@ -270,12 +270,12 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
             // Call regular callbacks
             loopBottom();
         }
-    } while (millis() - start < timeout);
+    } while (getMs() - start < timeout);
     return ANT_WAIT_TIMEOUT;
 }
 
 uint8_t BaseAntWithCallbacks::waitForStatus(uint8_t msgId, uint16_t timeout) {
-    unsigned long start = millis();
+    unsigned long start = getMs();
     do {
         if (loopTop()) {
             uint8_t status = matchStatus(msgId);
@@ -285,6 +285,6 @@ uint8_t BaseAntWithCallbacks::waitForStatus(uint8_t msgId, uint16_t timeout) {
             // Call regular callbacks
             loopBottom();
         }
-    } while (millis() - start < timeout);
+    } while (getMs() - start < timeout);
     return ANT_WAIT_TIMEOUT;
 }

@@ -20,7 +20,7 @@ uint8_t LibConfig::getConfig() {
 
 uint8_t LibConfig::getData(uint8_t pos) {
     if (pos == 0) {
-        return 0; 
+        return 0;
     } else {
         return _config;
     }
@@ -32,9 +32,9 @@ uint8_t LibConfig::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t LibConfig::execute() {
-    // TODO
-    return 0;
+uint32_t LibConfig::execute() {
+    sd_ant_lib_config_clear(ANT_LIB_CONFIG_MASK_ALL);
+    return sd_ant_lib_config_set(_config | ANT_LIB_CONFIG_RADIO_CONFIG_ALWAYS);
 }
 
 #endif // NATIVE_API_AVAILABLE

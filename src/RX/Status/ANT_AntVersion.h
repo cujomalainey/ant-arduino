@@ -13,6 +13,12 @@ public:
     AntVersion();
     uint8_t getVersionByte(uint8_t pos);
 
+#ifdef NATIVE_API_AVAILABLE
+
+    static uint32_t backFill(uint8_t subId, ANT_MESSAGE &buf);
+
+#endif // NATIVE_API_AVAILABLE
+
     static const uint8_t MSG_ID = ANT_VERSION;
 };
 

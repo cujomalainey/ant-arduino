@@ -6,10 +6,10 @@ Arduino library for communicating with ANT radios, with support for nRF51 device
 
 [![Build Status](https://travis-ci.org/cujomalainey/ant-arduino.svg?branch=master)](https://travis-ci.org/cujomalainey/ant-arduino)
 [![Test Status](https://img.shields.io/circleci/build/github/cujomalainey/ant-arduino?label=test)](https://circleci.com/gh/cujomalainey/ant-arduino)
-[![BCH compliance](https://bettercodehub.com/edge/badge/cujomalainey/ant-arduino?branch=master)](https://bettercodehub.com/)
 
 ## News
 
+* 06/28/2020 ant-arduino v2.0.0 released with mbed support
 * 10/01/2017 [Antplus-arduino](https://github.com/cujomalainey/antplus-arduino) released
 * 09/30/2017 Callback system complete, v1.0.0 released
 * 09/10/2017 System refactor complete

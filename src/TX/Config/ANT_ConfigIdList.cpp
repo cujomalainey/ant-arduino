@@ -52,9 +52,8 @@ uint8_t ConfigIdList::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ConfigIdList::execute() {
-    // TODO
-    return 0;
+uint32_t ConfigIdList::execute() {
+    return sd_ant_id_list_config(_channel, _size, _type);
 }
 
 #endif // NATIVE_API_AVAILABLE

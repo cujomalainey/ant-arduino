@@ -31,6 +31,12 @@ public:
 
     // TODO Stall count, retry count
 
+#ifdef NATIVE_API_AVAILABLE
+
+    static uint32_t backFill(uint8_t subId, ANT_MESSAGE &buf);
+
+#endif // NATIVE_API_AVAILABLE
+
     static const uint8_t MSG_ID = ADVANCED_BURST_CAPABILITES;
 };
 

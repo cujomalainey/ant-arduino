@@ -2,6 +2,7 @@
 /deploy.sh
 .DS_Store
 .pioenvs
+.pio
 tags
 
 # ignore any soft device source for testing
@@ -18,3 +19,9 @@ ant_interface.h
 
 # ignore main file for testing
 src/main.cpp
+.pio/build/project.checksum
+.vscode/c_cpp_properties.json
+.vscode/extensions.json
+.vscode/launch.json
+/*.cpp
+/zephyr

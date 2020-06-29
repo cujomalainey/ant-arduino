@@ -99,6 +99,19 @@
 #define CHANNEL_TYPE_SHARED_TRANSMIT          0x30
 
 /**
+ * Transmission Type Bit Field
+ */
+#define TRANSMISSION_TYPE_INDEPENDENT  0x1
+#define TRANSMISSION_TYPE_SHARED_1BYTE 0x2
+#define TRANSMISSION_TYPE_SHARED_2BYTE 0x3
+#define TRANSMISSION_TYPE_GLOBALDATAPGESUSED 0x4
+
+/**
+ * Open Rx Scan Mode information
+ */
+#define OPEN_RX_SCAN_MODE_CHANNEL             0
+
+/**
  * Channel Response Message Codes
  */
 #define STATUS_RESPONSE_NO_ERROR               0x00
@@ -263,8 +276,9 @@
 /**
  * SoftDevice API available, build native ant
  */
-#if (defined(S332) || defined(S212))
-    #define NATIVE_API_AVAILABLE
+#if defined(S340) || defined(S312) || defined(S332) || defined(S340)
+  #include "ant_interface.h"
+  #define NATIVE_API_AVAILABLE
 #endif
 
 #endif // ANT_DEFINES_h

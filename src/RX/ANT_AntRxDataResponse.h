@@ -14,11 +14,11 @@ public:
      * Returns the specified index of the payload.  The index may be 0 to getDataLength() - 1
      * This method is deprecated; use uint8_t* getData()
      */
-    uint8_t getData(int index);
+    virtual uint8_t getData(uint8_t index);
     /**
      * Returns the payload array.  This may be accessed from index 0 to getDataLength() - 1
      */
-    uint8_t* getData();
+    virtual uint8_t* getData();
     /**
      * Returns the length of the payload
      */

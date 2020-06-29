@@ -77,9 +77,13 @@ uint8_t AddChannelIdToList::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t AddChannelIdToList::execute() {
-    // TODO not implemented
-    return 0;
+uint32_t AddChannelIdToList::execute() {
+    uint8_t buf[4];
+    buf[0] = _deviceNumber;
+    buf[1] = _deviceNumber << BITS_IN_BYTE;
+    buf[2] = _deviceType;
+    buf[3] = _transmissionType;
+    return sd_ant_id_list_add(_channel, buf, _listIndex);
 }
 
 #endif // NATIVE_API_AVAILABLE

@@ -19,11 +19,11 @@ public:
     void setSequenceNumber(uint8_t seqNo);
     uint8_t getChannelSequence();
     uint8_t getSequenceNumber();
-    uint8_t getData(uint8_t pos);
-    uint8_t getDataLength();
+    uint8_t getData(uint8_t pos) override;
+    uint8_t getDataLength() override;
     void setDataLength(uint8_t length);
 #ifdef NATIVE_API_AVAILABLE
-    uint8_t execute();
+    uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
     uint8_t _channel;

@@ -6,7 +6,7 @@ AntRxDataResponse::AntRxDataResponse() : AntResponse() {
 
 }
 
-uint8_t AntRxDataResponse::getData(int index) {
+uint8_t AntRxDataResponse::getData(uint8_t index) {
     return getFrameData()[index];
 }
 
@@ -20,7 +20,7 @@ uint8_t AntRxDataResponse::getDataOffset() {
 
 uint16_t AntRxDataResponse::getDeviceNumber() {
     if (getFlagByte() & LIB_CONFIG_CHANNEL_ID) {
-        return getData(EXTENDEDDATA_DEVICENUMBER_LSB_BYTE) | (getData(EXTENDEDDATA_DEVICENUMBER_LSB_BYTE) << EXTENDEDDATA_DEVICENUMBER_MSB_SHIFT);
+        return AntRxDataResponse::getData(EXTENDEDDATA_DEVICENUMBER_LSB_BYTE) | (AntRxDataResponse::getData(EXTENDEDDATA_DEVICENUMBER_MSB_BYTE) << EXTENDEDDATA_DEVICENUMBER_MSB_SHIFT);
     } else {
         return 0;
     }
@@ -28,7 +28,7 @@ uint16_t AntRxDataResponse::getDeviceNumber() {
 
 uint8_t AntRxDataResponse::getDeviceType() {
     if (getFlagByte() & LIB_CONFIG_CHANNEL_ID) {
-        return getData(EXTENDEDDATA_DEVICETYPE_BYTE);
+        return AntRxDataResponse::getData(EXTENDEDDATA_DEVICETYPE_BYTE);
     } else {
         return 0;
     }
@@ -36,7 +36,7 @@ uint8_t AntRxDataResponse::getDeviceType() {
 
 uint8_t AntRxDataResponse::getTransmissionType() {
     if (getFlagByte() & LIB_CONFIG_CHANNEL_ID) {
-        return getData(EXTENDEDDATA_TRANSMISSIONTYPE_BYTE);
+        return AntRxDataResponse::getData(EXTENDEDDATA_TRANSMISSIONTYPE_BYTE);
     } else {
         return 0;
     }
@@ -48,7 +48,7 @@ uint8_t AntRxDataResponse::getMeasurementType() {
         if (getFlagByte() & LIB_CONFIG_CHANNEL_ID) {
             offset += EXTENDEDDATA_CHANNELID_SIZE;
         }
-        return getData(EXTENDEDDATA_MEASUREMENTTYPE_BYTE + offset);
+        return AntRxDataResponse::getData(EXTENDEDDATA_MEASUREMENTTYPE_BYTE + offset);
     } else {
         return 0;
     }
@@ -60,7 +60,7 @@ int8_t AntRxDataResponse::getRSSIValue() {
         if (getFlagByte() & LIB_CONFIG_CHANNEL_ID) {
             offset += EXTENDEDDATA_CHANNELID_SIZE;
         }
-        return getData(EXTENDEDDATA_RSSIVALUE_BYTE + offset);
+        return AntRxDataResponse::getData(EXTENDEDDATA_RSSIVALUE_BYTE + offset);
     } else {
         return 0;
     }
@@ -72,7 +72,7 @@ int8_t AntRxDataResponse::getThresholdConfigurationValue() {
         if (getFlagByte() & LIB_CONFIG_CHANNEL_ID) {
             offset += EXTENDEDDATA_CHANNELID_SIZE;
         }
-        return getData(EXTENDEDDATA_THRESHOLDCONFIGURATIONVALUE_BYTE + offset);
+        return AntRxDataResponse::getData(EXTENDEDDATA_THRESHOLDCONFIGURATIONVALUE_BYTE + offset);
     } else {
         return 0;
     }
@@ -87,7 +87,7 @@ uint16_t AntRxDataResponse::getRxTimestamp() {
         if (getFlagByte() & LIB_CONFIG_RSSI) {
             offset += EXTENDEDDATA_RSSIOUTPUT_SIZE;
         }
-        return getData(EXTENDEDDATA_RXTIMESTAMP_LSB_BYTE + offset) | (getData(EXTENDEDDATA_DEVICENUMBER_MSB_BYTE + offset) << EXTENDEDDATA_RXTIMESTAMP_MSB_SHIFT);
+        return AntRxDataResponse::getData(EXTENDEDDATA_RXTIMESTAMP_LSB_BYTE + offset) | (AntRxDataResponse::getData(EXTENDEDDATA_DEVICENUMBER_MSB_BYTE + offset) << EXTENDEDDATA_RXTIMESTAMP_MSB_SHIFT);
     } else {
         return 0;
     }

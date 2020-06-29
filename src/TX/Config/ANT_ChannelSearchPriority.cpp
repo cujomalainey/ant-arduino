@@ -41,9 +41,8 @@ uint8_t ChannelSearchPriority::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ChannelSearchPriority::execute() {
-    // TODO
-    return 0;
+uint32_t ChannelSearchPriority::execute() {
+    return sd_ant_search_channel_priority_set(_channel, _priority);
 }
 
 #endif // NATIVE_API_AVAILABLE

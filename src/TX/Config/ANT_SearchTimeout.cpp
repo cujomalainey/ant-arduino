@@ -41,9 +41,8 @@ uint8_t SearchTimeout::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t SearchTimeout::execute() {
-    // TODO
-    return 0;
+uint32_t SearchTimeout::execute() {
+    return sd_ant_channel_search_timeout_set(_channel, _timeout);
 }
 
 #endif // NATIVE_API_AVAILABLE

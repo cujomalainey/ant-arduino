@@ -9,7 +9,7 @@
 
 #include "ANT.h"
 #define BAUD_RATE 9600
-Ant ant = Ant();
+ArduinoSerialAnt ant;
 
 void parseMessage();
 void parseEventMessage(uint8_t code);

@@ -38,3 +38,13 @@ uint8_t Capabilities::getAdvancedOptions(uint8_t pos) {
 uint8_t Capabilities::getMaxSensRcoreChannels() {
     return getFrameData()[5];
 }
+
+#ifdef NATIVE_API_AVAILABLE
+
+uint32_t Capabilities::backFill(uint8_t subId, ANT_MESSAGE &buf) {
+    buf.ANT_MESSAGE_ucMesgID = MSG_ID;
+    buf.ANT_MESSAGE_ucSize = MESG_CAPABILITIES_SIZE;
+    return sd_ant_capabilities_get(buf.ANT_MESSAGE_aucMesgData);
+}
+
+#endif // NATIVE_API_AVAILABLE

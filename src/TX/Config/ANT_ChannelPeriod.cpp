@@ -44,9 +44,8 @@ uint8_t ChannelPeriod::getData(uint8_t pos) {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t ChannelPeriod::execute() {
-    // TODO
-    return 0;
+uint32_t ChannelPeriod::execute() {
+    return sd_ant_channel_period_set(_channel, _period);
 }
 
 #endif // NATIVE_API_AVAILABLE

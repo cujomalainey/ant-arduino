@@ -58,9 +58,8 @@ uint8_t AddEncryptionIdToList::getDataLength() {
 
 #ifdef NATIVE_API_AVAILABLE
 
-uint8_t AddEncryptionIdToList::execute() {
-    // TODO
-    return 0;
+uint32_t AddEncryptionIdToList::execute() {
+    return sd_ant_id_list_add(_channel, (uint8_t*)&_encryptionId, _listIndex);
 }
 
 #endif // NATIVE_API_AVAILABLE
