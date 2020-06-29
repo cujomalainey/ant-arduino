@@ -30,7 +30,7 @@
 #include <MainClasses/ANT_ArduinoNativeAntWithCallbacks.h>
 #include <MainClasses/ANT_MbedSerialAnt.h>
 #include <MainClasses/ANT_MbedSerialAntWithCallbacks.h>
-#include <MainClasses/ANT_MbedSpiAnt.h>
+// #include <MainClasses/ANT_MbedSpiAnt.h>
 // #include <MainClasses/ANT_MbedSpiAntWithCallbacks.h>
 // #include <MainClasses/ANT_MbedNativeAnt.h>
 // #include <MainClasses/ANT_MbedNativeAntWithCallbacks.h>
