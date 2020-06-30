@@ -19,9 +19,8 @@ Arduino library for communicating with ANT radios, with support for nRF51 device
 
 ## Roadmap
 
-* v1.1 unit test done on all messages, serial driver and callback system
-* ~~v1.6 SPI support~~ (Arduino has no support for being a SPI slave, maybe mbed)
-* v2.0 compile switch to handle running natively on an nRF52 dev board
+* Add support for Zephyr and ESPIDF
+* Add support for SPI interface
 
 [Developer's Guide](https://github.com/cujomalainey/ant-arduino/wiki/Developer's-Guide)
 
@@ -91,6 +90,12 @@ To add ANT support to a new sketch, add "#include <ANT.h>" (without quotes) to t
 
 ## Hardware
 
+### Internal Radio usage
+
+If you are a more advanced tinkerer you can attempt to buy an ANT ready micro controller (such as the [adafruit nrf52 express](https://www.adafruit.com/product/4062)) you can load the board with the ANT softdevice and still use this library. Note: this does carry an element of risk. If you load a bad bootloader and brick your board and don't have a [programmer](https://www.adafruit.com/product/3571) handy then you will not be able to recover it till you get a programmer. [Orrmany](https://github.com/orrmany) carries two repos that are example templates for the adafruit nrf52 express ([bootloader](https://github.com/orrmany/Adafruit_nRF52_Bootloader/tree/s340-for-nrf52840-Feather) and [BSP](https://github.com/orrmany/Adafruit_nRF52_Arduino/tree/adding-S340-to-nrf52840-Feather).) You still need to added the headers and softdevice file yourself locally as Dynastream does not allow redistribution of the ANT softdevice.
+
+### External Radio usage
+
 For development and general tinkering I highly recommend using an Arduino that has 2 serial ports, such as the Arduino Leonardo. The reason is the ANT Radio requires serial port access and it is useful to have another serial port available for debugging via the Arduino serial console. Also it is easier to use a 3.3V arduino than to use a level shifter
 
 * Teensy 3.2
@@ -103,7 +108,6 @@ ANT radios come in multiple models, but this driver is designed to only support 
 * nRF52
 
 You will need 3.3V regulator and logic shifting to convert from 5V (Arduino) to 3.3V (ANT). The Arduino is 3.3V tolerant.
-
 
 ## Installation
 Arduino 1.5 and later
