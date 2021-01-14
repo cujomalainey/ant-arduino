@@ -8,7 +8,7 @@
 class ArduinoSerialAnt : virtual public BaseSerialAnt<Stream> {
 public:
     ArduinoSerialAnt();
-    ArduinoSerialAnt(Stream &serial);
+    explicit ArduinoSerialAnt(Stream &serial);
     /**
      * Specify the serial port.  Only relevant for Arduinos that support multiple serial ports (e.g. Mega)
      */
