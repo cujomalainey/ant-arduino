@@ -12,6 +12,8 @@ ArduinoSerialAnt::ArduinoSerialAnt() : BaseSerialAnt<Stream>() {
 #endif
 }
 
+ArduinoSerialAnt::ArduinoSerialAnt(Stream &serial) : BaseSerialAnt<Stream>(), _serial(&serial) {}
+
 void ArduinoSerialAnt::setSerial(Stream &serial) {
     _serial = &serial;
 }
