@@ -10,7 +10,7 @@
  */
 class AntTxDataRequest : public AntRequest {
 public:
-    AntTxDataRequest(uint8_t msgId);
+    explicit AntTxDataRequest(uint8_t msgId);
     /**
      * Returns a pointer to the buffer
      */
@@ -28,8 +28,8 @@ protected:
     void setDataLength(uint8_t length);
 
 private:
-    uint8_t* _data;
-    uint8_t  _dataLength;
+    uint8_t* _data = NULL;
+    uint8_t  _dataLength = 0;
 };
 
 #endif // ANT_ANTTXDATAREQUEST_h

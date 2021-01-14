@@ -1,6 +1,7 @@
 #ifndef ANT_ANTREQUEST_h
 #define ANT_ANTREQUEST_h
 #include <inttypes.h>
+#include <stddef.h>
 #include <ANT_defines.h>
 
 /**

@@ -1,8 +1,6 @@
 #include <TX/ANT_AntTxDataRequest.h>
 
-AntTxDataRequest::AntTxDataRequest(uint8_t msgId) : AntRequest(msgId) {
-
-}
+AntTxDataRequest::AntTxDataRequest(uint8_t msgId) : AntRequest(msgId) {}
 
 void AntTxDataRequest::setDataBuffer(uint8_t* dataPtr) {
     _data = dataPtr;
