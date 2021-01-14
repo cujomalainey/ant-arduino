@@ -221,23 +221,23 @@ private:
      */
     void loopBottom();
 
-    AntCallback<uint8_t> _onPacketError;
-    AntCallback<AntResponse&> _onResponse;
-    AntCallback<AntResponse&> _onOtherResponse;
-    AntCallback<AcknowledgedData&> _onAcknowledgedData;
-    AntCallback<AdvancedBurstData&> _onAdvancedBurstData;
-    AntCallback<BroadcastData&> _onBroadcastData;
-    AntCallback<BurstTransferData&> _onBurstTransferData;
-    AntCallback<AdvancedBurstCapabilitiesConfiguration&> _onAdvancedBurstCapabilitiesConfiguration;
-    AntCallback<AntVersion&> _onAntVersion;
-    AntCallback<Capabilities&> _onCapabilities;
-    AntCallback<ChannelEventResponse&> _onChannelEventResponse;
-    AntCallback<ChannelIdResponse&> _onChannelIdResponse;
-    AntCallback<ChannelStatus&> _onChannelStatus;
-    AntCallback<EncryptionModeParameters&> _onEncryptionModeParameters;
-    AntCallback<EventFilter&> _onEventFilter;
-    AntCallback<SelectiveDataUpdateMaskSetting&> _onSelectiveDataUpdateMaskSetting;
-    AntCallback<StartUpMessage&> _onStartUpMessage;
+    AntCallback<uint8_t> _onPacketError = { .func = NULL };
+    AntCallback<AntResponse&> _onResponse = { .func = NULL };
+    AntCallback<AntResponse&> _onOtherResponse = { .func = NULL };
+    AntCallback<AcknowledgedData&> _onAcknowledgedData = { .func = NULL };
+    AntCallback<AdvancedBurstData&> _onAdvancedBurstData = { .func = NULL };
+    AntCallback<BroadcastData&> _onBroadcastData = { .func = NULL };
+    AntCallback<BurstTransferData&> _onBurstTransferData = { .func = NULL };
+    AntCallback<AdvancedBurstCapabilitiesConfiguration&> _onAdvancedBurstCapabilitiesConfiguration = { .func = NULL };
+    AntCallback<AntVersion&> _onAntVersion = { .func = NULL };
+    AntCallback<Capabilities&> _onCapabilities = { .func = NULL };
+    AntCallback<ChannelEventResponse&> _onChannelEventResponse = { .func = NULL };
+    AntCallback<ChannelIdResponse&> _onChannelIdResponse = { .func = NULL };
+    AntCallback<ChannelStatus&> _onChannelStatus = { .func = NULL };
+    AntCallback<EncryptionModeParameters&> _onEncryptionModeParameters = { .func = NULL };
+    AntCallback<EventFilter&> _onEventFilter = { .func = NULL };
+    AntCallback<SelectiveDataUpdateMaskSetting&> _onSelectiveDataUpdateMaskSetting = { .func = NULL };
+    AntCallback<StartUpMessage&> _onStartUpMessage = { .func = NULL };
 };
 
 #endif // ANT_BASEANTWITHCALLBACKS_h
