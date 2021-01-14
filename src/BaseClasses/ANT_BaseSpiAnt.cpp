@@ -4,8 +4,6 @@
 
 template<class S, class I, class O>
 BaseSpiAnt<S, I, O>::BaseSpiAnt() : BaseAnt() {
-    _pos = 0;
-    _checksumTotal = 0;
     getResponse().setFrameData(_responseFrameData);
 
 }
