@@ -2,9 +2,7 @@
 
 #include <ANT_private_defines.h>
 
-LowPrioritySearchTimeout::LowPrioritySearchTimeout() : AntRequest(LOW_PRIORITY_SEARCH_TIMEOUT) {
-
-}
+LowPrioritySearchTimeout::LowPrioritySearchTimeout() : AntRequest(LOW_PRIORITY_SEARCH_TIMEOUT) {}
 
 LowPrioritySearchTimeout::LowPrioritySearchTimeout(uint8_t channel)  : AntRequest(LOW_PRIORITY_SEARCH_TIMEOUT){
     setChannel(channel);
@@ -27,6 +25,7 @@ uint8_t LowPrioritySearchTimeout::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t LowPrioritySearchTimeout::getTimeout() {
     return _timeout;
 }

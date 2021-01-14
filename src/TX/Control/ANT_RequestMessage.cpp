@@ -4,9 +4,7 @@
 
 
 /* Extended message format not currently supported */
-RequestMessage::RequestMessage() : AntRequest(REQUEST_MESSAGE) {
-
-}
+RequestMessage::RequestMessage() : AntRequest(REQUEST_MESSAGE) {}
 
 RequestMessage::RequestMessage(uint8_t msgId) : AntRequest(REQUEST_MESSAGE) {
     setRequestedMessage(msgId);
@@ -21,6 +19,7 @@ void RequestMessage::setRequestedMessage(uint8_t msgId) {
     _msgId = msgId;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t RequestMessage::getRequestedMessage() {
     return _msgId;
 }
@@ -29,6 +28,7 @@ void RequestMessage::setSubId(uint8_t subId) {
     _subId = subId;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t RequestMessage::getSubId() {
     return _subId;
 }

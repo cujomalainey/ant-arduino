@@ -21,8 +21,8 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _transmitPower;
-    uint8_t _channelRfFrequency;
+    uint8_t _transmitPower = 0;
+    uint8_t _channelRfFrequency = 0;
 };
 
 #endif // ANT_CWTEST_h

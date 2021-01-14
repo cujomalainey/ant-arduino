@@ -4,10 +4,12 @@ SelectiveDataUpdateMaskSetting::SelectiveDataUpdateMaskSetting() : AntResponse()
 
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t SelectiveDataUpdateMaskSetting::getSDUMaskNumber() {
     return getFrameData()[0];
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t* SelectiveDataUpdateMaskSetting::getSDUMask() {
     return getFrameData() + 1;
 }

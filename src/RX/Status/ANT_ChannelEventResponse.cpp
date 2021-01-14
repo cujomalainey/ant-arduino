@@ -16,6 +16,7 @@ uint8_t ChannelEventResponse::getCode() {
     return getFrameData()[2];
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ChannelEventResponse::getExtendedEventParameters() {
     if (getLength() > 3){
         return getFrameData()[3];

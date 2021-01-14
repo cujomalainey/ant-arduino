@@ -13,14 +13,17 @@ void ConfigureSelectiveDataUpdates::setChannelNumber(uint8_t channel) {
     _channel = channel;
 }
 
+// cppcheck-suppress unusedFunction
 void ConfigureSelectiveDataUpdates::setSDUMaskNumer(uint8_t maskNo) {
     _selectedData = (maskNo << 7) | (_selectedData & ~CONFIGURE_SELECTIVE_DATA_UPDATES_SDU_NUMBER_MASK);
 }
 
+// cppcheck-suppress unusedFunction
 void ConfigureSelectiveDataUpdates::setFilterAcknowledged(uint8_t filterBit) {
     _selectedData = (filterBit & CONFIGURE_SELECTIVE_DATA_UPDATES_FILTER_BIT_MASK) | (_selectedData & ~CONFIGURE_SELECTIVE_DATA_UPDATES_FILTER_BIT_MASK);
 }
 
+// cppcheck-suppress unusedFunction
 void ConfigureSelectiveDataUpdates::setDisableSDUOnChannel() {
     _selectedData = CONFIGURE_SELECTIVE_DATA_UPDATES_SDU_DISABLE;
 }
@@ -29,10 +32,12 @@ uint8_t ConfigureSelectiveDataUpdates::getChannelNumber() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ConfigureSelectiveDataUpdates::getSDUMaskNumer() {
     return _selectedData & CONFIGURE_SELECTIVE_DATA_UPDATES_SDU_NUMBER_MASK;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ConfigureSelectiveDataUpdates::getFilterAcknowledged() {
     return _selectedData >> 7;
 }

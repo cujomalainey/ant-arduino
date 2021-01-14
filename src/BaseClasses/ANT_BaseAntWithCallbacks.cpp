@@ -1,5 +1,6 @@
 #include <BaseClasses/ANT_BaseAntWithCallbacks.h>
 
+// cppcheck-suppress unusedFunction
 void BaseAntWithCallbacks::loop() {
     if (loopTop())
         loopBottom();

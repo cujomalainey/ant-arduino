@@ -4,6 +4,7 @@ StartUpMessage::StartUpMessage() : AntResponse() {
 
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t StartUpMessage::getMessage() {
     return  getFrameData()[0];
 }

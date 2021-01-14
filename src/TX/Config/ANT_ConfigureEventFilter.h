@@ -10,7 +10,7 @@
 class ConfigureEventFilter : public AntRequest {
 public:
     ConfigureEventFilter();
-    ConfigureEventFilter(uint16_t eventFilter);
+    explicit ConfigureEventFilter(uint16_t eventFilter);
     void setEventFilter(uint16_t eventFilter);
     uint16_t getEventFilter();
     uint8_t getData(uint8_t pos) override;
@@ -19,7 +19,7 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint16_t _eventFilter;
+    uint16_t _eventFilter = 0;
 };
 
 #endif // ANT_CONFIGUREEVENTFILTER_h

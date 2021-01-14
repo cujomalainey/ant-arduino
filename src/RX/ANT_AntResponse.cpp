@@ -32,6 +32,7 @@ void AntResponse::setChecksum(uint8_t checksum) {
     _checksum = checksum;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AntResponse::getPacketLength() {
     return _length - ANT_MSG_OVERHEAD_LENGTH;
 }

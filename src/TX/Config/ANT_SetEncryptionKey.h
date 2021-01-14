@@ -23,8 +23,8 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _volatileKeyIndex;
-    uint8_t _encryptionKey[ENCRYPTION_KEY_SIZE];
+    uint8_t _volatileKeyIndex = 0;
+    uint8_t _encryptionKey[ENCRYPTION_KEY_SIZE] = {0};
 };
 
 #endif // ANT_SETENCRYPTIONKEY_h

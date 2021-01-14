@@ -57,6 +57,7 @@ uint8_t ChannelId::getTransmissionType() {
     return _transmissionType;
 }
 
+// cppcheck-suppress unusedFunction
 bool ChannelId::getPairingBit() {
     return _pairingBit;
 }

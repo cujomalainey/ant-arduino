@@ -3,9 +3,7 @@
 #include <ANT_private_defines.h>
 
 
-TransmitPower::TransmitPower() : AntRequest(TRANSMIT_POWER) {
-
-}
+TransmitPower::TransmitPower() : AntRequest(TRANSMIT_POWER) {}
 
 TransmitPower::TransmitPower(uint8_t power) : AntRequest(TRANSMIT_POWER) {
     setTxPower(power);
@@ -15,6 +13,7 @@ void TransmitPower::setTxPower(uint8_t power) {
     _power = power;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t TransmitPower::getTxPower() {
     return _power;
 }

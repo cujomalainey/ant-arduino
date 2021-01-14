@@ -10,14 +10,17 @@ uint8_t ChannelStatus::getChannelNumber() {
     return getFrameData()[0];
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ChannelStatus::getChannelState() {
     return getFrameData()[1] & CHANNEL_STATUS_STATE_MASK;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ChannelStatus::getNetworkNumber() {
     return ( getFrameData()[1] >> CHANNEL_STATUS_NETWORK_NUMBER_SHIFT ) & CHANNEL_STATUS_NETWORK_NUMBER_MASK;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ChannelStatus::getChannelType() {
     return getFrameData()[1] >> CHANNEL_STATUS_CHANNEL_TYPE_SHIFT;
 }

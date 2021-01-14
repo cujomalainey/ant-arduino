@@ -10,7 +10,7 @@
 class TransmitPower : public AntRequest {
 public:
     TransmitPower();
-    TransmitPower(uint8_t power);
+    explicit TransmitPower(uint8_t power);
     void setTxPower(uint8_t power);
     uint8_t getTxPower();
     uint8_t getData(uint8_t pos) override;
@@ -19,7 +19,7 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _power;
+    uint8_t _power = 0;
 };
 
 #endif // ANT_TRANSMITPOWER_h

@@ -11,7 +11,7 @@
 class AcknowledgedDataMsg : public AntTxDataRequest {
 public:
     AcknowledgedDataMsg();
-    AcknowledgedDataMsg(uint8_t channel);
+    explicit AcknowledgedDataMsg(uint8_t channel);
     void setChannel(uint8_t channel);
     uint8_t getChannel();
     uint8_t getData(uint8_t pos) override;
@@ -20,7 +20,7 @@ public:
     uint32_t execute() override;
 #endif
 private:
-    uint8_t _channel;
+    uint8_t _channel = 0;
 };
 
 #endif // ANT_ACKNOWLEDGEDMSG_h

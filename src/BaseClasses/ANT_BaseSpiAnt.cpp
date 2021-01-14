@@ -145,6 +145,7 @@ void BaseSpiAnt<S, I, O>::send(AntRequest &request) {
 }
 
 template<class S, class I, class O>
+// cppcheck-suppress unusedFunction
 void BaseSpiAnt<S, I, O>::resetRadio() {
     setHostMsgReady(1);
     setHostSRdy(1);

@@ -2,9 +2,7 @@
 
 #include <ANT_private_defines.h>
 
-EnableExtRxMessages::EnableExtRxMessages() : AntRequest(ENABLE_EXT_RX_MESSAGES) {
-
-}
+EnableExtRxMessages::EnableExtRxMessages() : AntRequest(ENABLE_EXT_RX_MESSAGES) {}
 
 EnableExtRxMessages::EnableExtRxMessages(uint8_t enable) : AntRequest(ENABLE_EXT_RX_MESSAGES) {
     setEnable(enable);

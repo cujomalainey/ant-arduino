@@ -1,21 +1,23 @@
 #include <RX/Status/ANT_Capabilities.h>
 
-Capabilities::Capabilities() : AntResponse() {
+Capabilities::Capabilities() : AntResponse() {}
 
-}
-
+// cppcheck-suppress unusedFunction
 uint8_t Capabilities::getMaxChannels() {
     return getFrameData()[0];
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t Capabilities::getMaxNetworks() {
     return getFrameData()[1];
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t Capabilities::getStandardOptions() {
     return getFrameData()[2];
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t Capabilities::getAdvancedOptions(uint8_t pos) {
     if ( pos == 0 )
     {
@@ -35,6 +37,7 @@ uint8_t Capabilities::getAdvancedOptions(uint8_t pos) {
     }
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t Capabilities::getMaxSensRcoreChannels() {
     return getFrameData()[5];
 }

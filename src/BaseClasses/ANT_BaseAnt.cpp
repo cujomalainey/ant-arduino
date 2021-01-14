@@ -15,6 +15,7 @@ void BaseAnt::getResponse(AntResponse &response) {
     response.setFrameData(_response.getFrameData());
 }
 
+// cppcheck-suppress unusedFunction
 void BaseAnt::readPacketUntilAvailable() {
     while (!(getResponse().isAvailable() || getResponse().isError())) {
         // read some more

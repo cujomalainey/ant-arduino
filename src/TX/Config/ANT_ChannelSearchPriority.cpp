@@ -23,6 +23,7 @@ uint8_t ChannelSearchPriority::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ChannelSearchPriority::getPriority() {
     return _priority;
 }

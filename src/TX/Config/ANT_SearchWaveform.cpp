@@ -23,6 +23,7 @@ uint8_t SearchWaveform::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint16_t SearchWaveform::getWaveform() {
     return _waveform;
 }

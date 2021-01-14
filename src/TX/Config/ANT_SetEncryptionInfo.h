@@ -25,8 +25,8 @@ public:
 #endif // NATIVE_API_AVAILABLE
 private:
     uint8_t getDataStringSize();
-    uint8_t _setParameter;
-    uint8_t _dataString[SET_ENCRYPTION_INFO_DATA_STRING_USER_INFORMATION_STRING_SIZE];
+    uint8_t _setParameter = 0;
+    uint8_t _dataString[SET_ENCRYPTION_INFO_DATA_STRING_USER_INFORMATION_STRING_SIZE] = {0};
     // USER_INFORMATION_STRING is the largest among the possible configurations, can be used for other modes
 };
 

@@ -3,9 +3,7 @@
 #include <ANT_private_defines.h>
 
 
-UnAssignChannel::UnAssignChannel() : AntRequest(UNASSIGN_CHANNEL) {
-
-}
+UnAssignChannel::UnAssignChannel() : AntRequest(UNASSIGN_CHANNEL) {}
 
 UnAssignChannel::UnAssignChannel(uint8_t channel) : AntRequest(UNASSIGN_CHANNEL) {
     setChannel(channel);

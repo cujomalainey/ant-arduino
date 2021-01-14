@@ -10,8 +10,8 @@
 class ProximitySearch : public AntRequest {
 public:
     ProximitySearch();
-    ProximitySearch(uint8_t channel);
-    ProximitySearch(uint8_t channel, uint8_t searchThreshold);
+    explicit ProximitySearch(uint8_t channel);
+    explicit ProximitySearch(uint8_t channel, uint8_t searchThreshold);
     void setChannel(uint8_t channel);
     void setSearchThreshold(uint8_t searchThreshold);
     uint8_t getChannel();
@@ -22,8 +22,8 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
-    uint8_t _searchThreshold;
+    uint8_t _channel = 0;
+    uint8_t _searchThreshold = 0;
 };
 
 #endif // ANT_PROXIMITYSEARCH_h

@@ -10,7 +10,7 @@
 class ConfigureSelectiveDataUpdates : public AntRequest {
 public:
     ConfigureSelectiveDataUpdates();
-    ConfigureSelectiveDataUpdates(uint8_t channel);
+    explicit ConfigureSelectiveDataUpdates(uint8_t channel);
     void setChannelNumber(uint8_t channel);
     void setSDUMaskNumer(uint8_t maskNo);
     /**
@@ -33,8 +33,8 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
-    uint8_t _selectedData;
+    uint8_t _channel = 0;
+    uint8_t _selectedData = 0;
 };
 
 #endif // ANT_CONFIGURESELECTIVEDATAUPDATES_h

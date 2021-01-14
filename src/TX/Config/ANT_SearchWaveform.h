@@ -21,8 +21,8 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
-    uint16_t _waveform;
+    uint8_t _channel = 0;
+    uint16_t _waveform = 0;
 };
 
 #endif // ANT_SEARCHWAVEFORM_h

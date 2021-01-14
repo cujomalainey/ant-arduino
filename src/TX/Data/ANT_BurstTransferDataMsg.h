@@ -9,7 +9,7 @@
 class BurstTransferDataMsg : public AntTxDataRequest {
 public:
     BurstTransferDataMsg();
-    BurstTransferDataMsg(uint8_t channel);
+    explicit BurstTransferDataMsg(uint8_t channel);
     void setChannelNumber(uint8_t channel);
     /**
      * Sets the sequence number for the message (upper 3 bits of first byte)
@@ -26,7 +26,7 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
+    uint8_t _channel = 0;
 };
 
 #endif // ANT_BURSTTRANSFERDATAMSG_h

@@ -4,14 +4,17 @@ EncryptionModeParameters::EncryptionModeParameters() : AntResponse() {
 
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t EncryptionModeParameters::getRequestedModeParameter() {
     return getFrameData()[0];
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t EncryptionModeParameters::getMaxSupportedEncryptionMode() {
     return getFrameData()[1];
 }
 
+// cppcheck-suppress unusedFunction
 uint32_t EncryptionModeParameters::getUniqueIdentifier() {
     uint32_t identifier = getFrameData()[1];
     identifier |= getFrameData()[2] << BITS_IN_BYTE;
@@ -20,6 +23,7 @@ uint32_t EncryptionModeParameters::getUniqueIdentifier() {
     return identifier;
 }
 
+// cppcheck-suppress unusedFunction
 char* EncryptionModeParameters::getUserInformationString() {
     return (char*)(getFrameData() + 1); // skip mode parameter
 }

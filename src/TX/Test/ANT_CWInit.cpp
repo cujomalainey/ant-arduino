@@ -2,9 +2,7 @@
 
 #include <ANT_private_defines.h>
 
-CWInit::CWInit() : AntRequest(CW_INIT) {
-
-}
+CWInit::CWInit() : AntRequest(CW_INIT) {}
 
 uint8_t CWInit::getData(uint8_t pos) {
     return 0;

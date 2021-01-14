@@ -16,6 +16,7 @@ void OpenRxScanMode::setSynchronousChannelPacketsOnly(uint8_t synchronousOnly) {
     _synchronousChannelPacketsOnly = synchronousOnly;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t OpenRxScanMode::getSynchronousChannelPacketsOnly() {
     return _synchronousChannelPacketsOnly;
 }

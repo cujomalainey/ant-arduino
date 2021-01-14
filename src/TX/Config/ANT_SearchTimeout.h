@@ -21,8 +21,8 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
-    uint8_t _timeout;
+    uint8_t _channel = 0;
+    uint8_t _timeout = 0;
 };
 
 #endif // ANT_SEARCHTIMEOUT_h

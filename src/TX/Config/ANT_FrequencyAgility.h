@@ -10,8 +10,8 @@
 class FrequencyAgility : public AntRequest {
 public:
     FrequencyAgility();
-    FrequencyAgility(uint8_t channel);
-    FrequencyAgility(uint8_t channel, uint8_t freq1, uint8_t freq2, uint8_t freq3);
+    explicit FrequencyAgility(uint8_t channel);
+    explicit FrequencyAgility(uint8_t channel, uint8_t freq1, uint8_t freq2, uint8_t freq3);
     void setChannel(uint8_t channel);
     void setFrequency(uint8_t index, uint8_t freq);
     void setFrequency1(uint8_t freq);
@@ -28,10 +28,10 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
-    uint8_t _freq1;
-    uint8_t _freq2;
-    uint8_t _freq3;
+    uint8_t _channel = 0;
+    uint8_t _freq1 = 0;
+    uint8_t _freq2 = 0;
+    uint8_t _freq3 = 0;
 };
 
 #endif // ANT_FREQUENCYAGILITY_h

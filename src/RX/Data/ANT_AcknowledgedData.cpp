@@ -6,6 +6,7 @@ AcknowledgedData::AcknowledgedData() : AntRxDataResponse() {
 
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AcknowledgedData::getChannelNumber() {
     return AntRxDataResponse::getData(0);
 }

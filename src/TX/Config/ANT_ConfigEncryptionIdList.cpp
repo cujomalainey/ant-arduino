@@ -28,10 +28,12 @@ uint8_t ConfigEncryptionIdList::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ConfigEncryptionIdList::getListSize() {
     return _size;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ConfigEncryptionIdList::getListType() {
     return _type;
 }

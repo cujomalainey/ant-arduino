@@ -9,8 +9,8 @@
 class RequestMessage : public AntRequest {
 public:
     RequestMessage();
-    RequestMessage(uint8_t msgId);
-    RequestMessage(uint8_t msgId, uint8_t subId);
+    explicit RequestMessage(uint8_t msgId);
+    explicit RequestMessage(uint8_t msgId, uint8_t subId);
     void setRequestedMessage(uint8_t msgId);
     void setSubId(uint8_t subId);
     uint8_t getRequestedMessage();
@@ -21,7 +21,7 @@ public:
     uint32_t execute() override;
 #endif
 private:
-    uint8_t _msgId;
+    uint8_t _msgId = 0;
     uint8_t _subId = 0;
 };
 

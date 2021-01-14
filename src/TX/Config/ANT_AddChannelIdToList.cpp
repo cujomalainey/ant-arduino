@@ -35,22 +35,27 @@ void AddChannelIdToList::setListIndex(uint8_t listIndex) {
     _listIndex = listIndex;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AddChannelIdToList::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint16_t AddChannelIdToList::getDeviceNumber() {
     return _deviceNumber;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AddChannelIdToList::getDeviceType() {
     return _deviceType;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AddChannelIdToList::getTransmissionType() {
     return _transmissionType;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AddChannelIdToList::getListIndex() {
     return _listIndex;
 }

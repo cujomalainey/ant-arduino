@@ -11,7 +11,7 @@
 class EnableSingleChannelEncryption : public AntRequest {
 public:
     EnableSingleChannelEncryption();
-    EnableSingleChannelEncryption(uint8_t channel);
+    explicit EnableSingleChannelEncryption(uint8_t channel);
     void setChannel(uint8_t channel);
     void setEncryptionMode(uint8_t encryptionMode);
     void setVolatileKeyIndex(uint8_t index);
@@ -26,10 +26,10 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
-    uint8_t _encryptionMode;
-    uint8_t _volatileKeyIndex;
-    uint8_t _decimationRate;
+    uint8_t _channel = 0;
+    uint8_t _encryptionMode = 0;
+    uint8_t _volatileKeyIndex = 0;
+    uint8_t _decimationRate = 0;
 };
 
 #endif // ANT_ENABLESINGLECHANNELENCRYPTION_h
