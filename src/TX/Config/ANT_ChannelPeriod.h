@@ -21,8 +21,8 @@ public:
     uint32_t execute() override;
 #endif
 private:
-    uint8_t _channel;
-    uint16_t _period;
+    uint8_t _channel = 0;
+    uint16_t _period = 0;
 };
 
 #endif // ANT_CHANNELPERIOD_h
