@@ -10,7 +10,7 @@
 class LibConfig : public AntRequest {
 public:
     LibConfig();
-    LibConfig(uint8_t config);
+    explicit LibConfig(uint8_t config);
     void setConfig(uint8_t config);
     uint8_t getConfig();
     uint8_t getData(uint8_t pos) override;
@@ -19,7 +19,7 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _config;
+    uint8_t _config = 0;
 };
 
 #endif // ANT_LIBCONFIG_h

@@ -24,6 +24,7 @@ uint8_t ChannelRfFrequency::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ChannelRfFrequency::getRfFrequency() {
     return _frequency;
 }

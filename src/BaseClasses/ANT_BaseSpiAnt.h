@@ -68,10 +68,10 @@ protected:
 private:
     void resetResponse();
     // current packet position for response.  just a state variable for packet parsing and has no relevance for the response otherwise
-    uint8_t _pos;
+    uint8_t _pos = 0;
     // last byte read
     uint8_t b;
-    uint8_t _checksumTotal;
+    uint8_t _checksumTotal = 0;
     // buffer for incoming RX packets.  holds only the msg specific frame data, starting after the msg id byte and prior to checksum
     uint8_t _responseFrameData[ANT_MAX_MSG_DATA_SIZE];
 };

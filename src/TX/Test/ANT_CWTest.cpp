@@ -2,8 +2,7 @@
 
 #include <ANT_private_defines.h>
 
-CWTest::CWTest() : AntRequest(CW_TEST) {
-}
+CWTest::CWTest() : AntRequest(CW_TEST) {}
 
 CWTest::CWTest(uint8_t power, uint8_t frequency) : AntRequest(CW_TEST), _transmitPower(power), _channelRfFrequency(frequency) {
 }
@@ -12,6 +11,7 @@ void CWTest::setTransmitPower(uint8_t power) {
     _transmitPower = power;
 }
 
+// cppcheck-suppress unusedFunction
 void CWTest::setChannelRfFrequency(uint8_t frequency) {
     _channelRfFrequency = frequency;
 }
@@ -20,6 +20,7 @@ uint8_t CWTest::getTransmitPower() {
     return _transmitPower;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t CWTest::getChannelRfFrequency() {
     return _channelRfFrequency;
 }

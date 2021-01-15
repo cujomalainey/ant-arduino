@@ -14,10 +14,12 @@ uint8_t* AntRxDataResponse::getData() {
     return getFrameData();
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AntRxDataResponse::getDataOffset() {
     return ANT_MSG_FRONT_OVERHEAD;
 }
 
+// cppcheck-suppress unusedFunction
 uint16_t AntRxDataResponse::getDeviceNumber() {
     if (getFlagByte() & LIB_CONFIG_CHANNEL_ID) {
         return AntRxDataResponse::getData(EXTENDEDDATA_DEVICENUMBER_LSB_BYTE) | (AntRxDataResponse::getData(EXTENDEDDATA_DEVICENUMBER_MSB_BYTE) << EXTENDEDDATA_DEVICENUMBER_MSB_SHIFT);
@@ -26,6 +28,7 @@ uint16_t AntRxDataResponse::getDeviceNumber() {
     }
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AntRxDataResponse::getDeviceType() {
     if (getFlagByte() & LIB_CONFIG_CHANNEL_ID) {
         return AntRxDataResponse::getData(EXTENDEDDATA_DEVICETYPE_BYTE);
@@ -34,6 +37,7 @@ uint8_t AntRxDataResponse::getDeviceType() {
     }
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AntRxDataResponse::getTransmissionType() {
     if (getFlagByte() & LIB_CONFIG_CHANNEL_ID) {
         return AntRxDataResponse::getData(EXTENDEDDATA_TRANSMISSIONTYPE_BYTE);
@@ -42,6 +46,7 @@ uint8_t AntRxDataResponse::getTransmissionType() {
     }
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AntRxDataResponse::getMeasurementType() {
     if (getFlagByte() & LIB_CONFIG_RSSI) {
         uint8_t offset = 0;
@@ -54,6 +59,7 @@ uint8_t AntRxDataResponse::getMeasurementType() {
     }
 }
 
+// cppcheck-suppress unusedFunction
 int8_t AntRxDataResponse::getRSSIValue() {
     if (getFlagByte() & LIB_CONFIG_RSSI) {
         uint8_t offset = 0;
@@ -66,6 +72,7 @@ int8_t AntRxDataResponse::getRSSIValue() {
     }
 }
 
+// cppcheck-suppress unusedFunction
 int8_t AntRxDataResponse::getThresholdConfigurationValue() {
     if (getFlagByte() & LIB_CONFIG_RSSI) {
         uint8_t offset = 0;
@@ -78,6 +85,7 @@ int8_t AntRxDataResponse::getThresholdConfigurationValue() {
     }
 }
 
+// cppcheck-suppress unusedFunction
 uint16_t AntRxDataResponse::getRxTimestamp() {
     if (getFlagByte() & LIB_CONFIG_RX_TIMESTAMP) {
         uint8_t offset = 0;

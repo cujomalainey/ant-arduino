@@ -4,14 +4,17 @@ AdvancedBurstCapabilitiesConfiguration::AdvancedBurstCapabilitiesConfiguration()
 
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AdvancedBurstCapabilitiesConfiguration::getMsgType() {
     return getFrameData()[0];
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AdvancedBurstCapabilitiesConfiguration::getSupportedMaxPacketLength() {
     return getFrameData()[1];
 }
 
+// cppcheck-suppress unusedFunction
 uint32_t AdvancedBurstCapabilitiesConfiguration::getSupportedFeatures() {
     uint8_t* frame = getFrameData();
     return ( frame[2] ) + ( frame[3] << BITS_IN_BYTE ) + ( frame[4] << BITS_IN_SHORT );
@@ -21,10 +24,12 @@ uint8_t AdvancedBurstCapabilitiesConfiguration::enable() {
     return getFrameData()[1];
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AdvancedBurstCapabilitiesConfiguration::getMaxPacketLength() {
     return getFrameData()[2];
 }
 
+// cppcheck-suppress unusedFunction
 uint32_t AdvancedBurstCapabilitiesConfiguration::getRequiredFeatures() {
     uint32_t features = getFrameData()[3];
     features |= getFrameData()[4] << BITS_IN_BYTE;
@@ -32,6 +37,7 @@ uint32_t AdvancedBurstCapabilitiesConfiguration::getRequiredFeatures() {
     return features;
 }
 
+// cppcheck-suppress unusedFunction
 uint32_t AdvancedBurstCapabilitiesConfiguration::getOptionalFeatures() {
     uint32_t features = getFrameData()[6];
     features |= getFrameData()[7] << BITS_IN_BYTE;

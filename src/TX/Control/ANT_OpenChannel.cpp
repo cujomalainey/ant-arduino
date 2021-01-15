@@ -3,9 +3,7 @@
 #include <ANT_private_defines.h>
 
 
-OpenChannel::OpenChannel() : AntRequest(OPEN_CHANNEL) {
-
-}
+OpenChannel::OpenChannel() : AntRequest(OPEN_CHANNEL) {}
 
 OpenChannel::OpenChannel(uint8_t channel) : AntRequest(OPEN_CHANNEL) {
     setChannel(channel);

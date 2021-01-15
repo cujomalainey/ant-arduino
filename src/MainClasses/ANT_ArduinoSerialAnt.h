@@ -8,7 +8,7 @@
 class ArduinoSerialAnt : virtual public BaseSerialAnt<Stream> {
 public:
     ArduinoSerialAnt();
-    ArduinoSerialAnt(Stream &serial);
+    explicit ArduinoSerialAnt(Stream &serial);
     /**
      * Specify the serial port.  Only relevant for Arduinos that support multiple serial ports (e.g. Mega)
      */
@@ -18,7 +18,7 @@ protected:
     uint8_t read() override;
     void write(uint8_t* data, uint8_t len) override;
     uint32_t getMs() override;
-    Stream* _serial;
+    Stream* _serial = NULL;
 };
 
 #endif // defined(ARDUINO) || defined(UNIT_TEST)

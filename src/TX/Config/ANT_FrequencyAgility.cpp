@@ -2,9 +2,7 @@
 
 #include <ANT_private_defines.h>
 
-FrequencyAgility::FrequencyAgility() : AntRequest(FREQUENCY_AGILITY) {
-
-}
+FrequencyAgility::FrequencyAgility() : AntRequest(FREQUENCY_AGILITY) {}
 
 FrequencyAgility::FrequencyAgility(uint8_t channel) : AntRequest(FREQUENCY_AGILITY) {
     setChannel(channel);
@@ -21,6 +19,7 @@ void FrequencyAgility::setChannel(uint8_t channel) {
     _channel = channel;
 }
 
+// cppcheck-suppress unusedFunction
 void FrequencyAgility::setFrequency(uint8_t index, uint8_t freq) {
     if (index == 1) {
         setFrequency1(freq);
@@ -47,6 +46,7 @@ uint8_t FrequencyAgility::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t FrequencyAgility::getFrequency(uint8_t index) {
     if (index == 1) {
         return getFrequency1();

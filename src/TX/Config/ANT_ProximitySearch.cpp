@@ -2,9 +2,7 @@
 
 #include <ANT_private_defines.h>
 
-ProximitySearch::ProximitySearch() : AntRequest(PROXIMITY_SEARCH) {
-
-}
+ProximitySearch::ProximitySearch() : AntRequest(PROXIMITY_SEARCH) {}
 
 ProximitySearch::ProximitySearch(uint8_t channel) : AntRequest(PROXIMITY_SEARCH) {
     setChannel(channel);
@@ -27,6 +25,7 @@ uint8_t ProximitySearch::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ProximitySearch::getSearchThreshold() {
     return _searchThreshold;
 }

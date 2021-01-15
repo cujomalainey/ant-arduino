@@ -23,6 +23,7 @@ uint8_t ChannelSearchSharing::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ChannelSearchSharing::getSearchCycles() {
     return _cycles;
 }

@@ -1,5 +1,6 @@
 #include <BaseClasses/ANT_BaseAntWithCallbacks.h>
 
+// cppcheck-suppress unusedFunction
 void BaseAntWithCallbacks::loop() {
     if (loopTop())
         loopBottom();
@@ -155,7 +156,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
             // must be unified as well).
             switch(msgId) {
                 case AcknowledgedData::MSG_ID: {
-                    AcknowledgedData *r = (AcknowledgedData*)response;
+                    AcknowledgedData *r = static_cast<AcknowledgedData*>(response);
                     bool(*f)(AcknowledgedData&,uintptr_t) = (bool(*)(AcknowledgedData&,uintptr_t))func;
                     getResponse().getAcknowledgedDataMsg(*r);
                     if(!f || f(*r, data))
@@ -163,7 +164,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case AdvancedBurstData::MSG_ID: {
-                    AdvancedBurstData *r = (AdvancedBurstData*)response;
+                    AdvancedBurstData *r = static_cast<AdvancedBurstData*>(response);
                     bool(*f)(AdvancedBurstData&,uintptr_t) = (bool(*)(AdvancedBurstData&,uintptr_t))func;
                     getResponse().getAdvancedBurstDataMsg(*r);
                     if(!f || f(*r, data))
@@ -171,7 +172,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case BroadcastData::MSG_ID: {
-                    BroadcastData *r = (BroadcastData*)response;
+                    BroadcastData *r = static_cast<BroadcastData*>(response);
                     bool(*f)(BroadcastData&,uintptr_t) = (bool(*)(BroadcastData&,uintptr_t))func;
                     getResponse().getBroadcastDataMsg(*r);
                     if(!f || f(*r, data))
@@ -179,7 +180,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case BurstTransferData::MSG_ID: {
-                    BurstTransferData *r = (BurstTransferData*)response;
+                    BurstTransferData *r = static_cast<BurstTransferData*>(response);
                     bool(*f)(BurstTransferData&,uintptr_t) = (bool(*)(BurstTransferData&,uintptr_t))func;
                     getResponse().getBurstTransferDataMsg(*r);
                     if(!f || f(*r, data))
@@ -187,7 +188,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case AdvancedBurstCapabilitiesConfiguration::MSG_ID: {
-                    AdvancedBurstCapabilitiesConfiguration *r = (AdvancedBurstCapabilitiesConfiguration*)response;
+                    AdvancedBurstCapabilitiesConfiguration *r = static_cast<AdvancedBurstCapabilitiesConfiguration*>(response);
                     bool(*f)(AdvancedBurstCapabilitiesConfiguration&,uintptr_t) = (bool(*)(AdvancedBurstCapabilitiesConfiguration&,uintptr_t))func;
                     getResponse().getAdvancedBurstDataMsg(*r);
                     if(!f || f(*r, data))
@@ -195,7 +196,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case AntVersion::MSG_ID: {
-                    AntVersion *r = (AntVersion*)response;
+                    AntVersion *r = static_cast<AntVersion*>(response);
                     bool(*f)(AntVersion&,uintptr_t) = (bool(*)(AntVersion&,uintptr_t))func;
                     getResponse().getAntVersionMsg(*r);
                     if(!f || f(*r, data))
@@ -203,7 +204,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case Capabilities::MSG_ID: {
-                    Capabilities *r = (Capabilities*)response;
+                    Capabilities *r = static_cast<Capabilities*>(response);
                     bool(*f)(Capabilities&,uintptr_t) = (bool(*)(Capabilities&,uintptr_t))func;
                     getResponse().getCapabilitiesMsg(*r);
                     if(!f || f(*r, data))
@@ -211,7 +212,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case ChannelEventResponse::MSG_ID: {
-                    ChannelEventResponse *r = (ChannelEventResponse*)response;
+                    ChannelEventResponse *r = static_cast<ChannelEventResponse*>(response);
                     bool(*f)(ChannelEventResponse&,uintptr_t) = (bool(*)(ChannelEventResponse&,uintptr_t))func;
                     getResponse().getChannelEventResponseMsg(*r);
                     if(!f || f(*r, data))
@@ -219,7 +220,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case ChannelIdResponse::MSG_ID: {
-                    ChannelIdResponse *r = (ChannelIdResponse*)response;
+                    ChannelIdResponse *r = static_cast<ChannelIdResponse*>(response);
                     bool(*f)(ChannelIdResponse&,uintptr_t) = (bool(*)(ChannelIdResponse&,uintptr_t))func;
                     getResponse().getChannelIdResponseMsg(*r);
                     if(!f || f(*r, data))
@@ -227,7 +228,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case ChannelStatus::MSG_ID: {
-                    ChannelStatus *r = (ChannelStatus*)response;
+                    ChannelStatus *r = static_cast<ChannelStatus*>(response);
                     bool(*f)(ChannelStatus&,uintptr_t) = (bool(*)(ChannelStatus&,uintptr_t))func;
                     getResponse().getChannelStatusMsg(*r);
                     if(!f || f(*r, data))
@@ -235,7 +236,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case EncryptionModeParameters::MSG_ID: {
-                    EncryptionModeParameters *r = (EncryptionModeParameters*)response;
+                    EncryptionModeParameters *r = static_cast<EncryptionModeParameters*>(response);
                     bool(*f)(EncryptionModeParameters&,uintptr_t) = (bool(*)(EncryptionModeParameters&,uintptr_t))func;
                     getResponse().getEncryptionModeParametersMsg(*r);
                     if(!f || f(*r, data))
@@ -243,7 +244,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case EventFilter::MSG_ID: {
-                    EventFilter *r = (EventFilter*)response;
+                    EventFilter *r = static_cast<EventFilter*>(response);
                     bool(*f)(EventFilter&,uintptr_t) = (bool(*)(EventFilter&,uintptr_t))func;
                     getResponse().getEventFilterMsg(*r);
                     if(!f || f(*r, data))
@@ -251,7 +252,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case SelectiveDataUpdateMaskSetting::MSG_ID: {
-                    SelectiveDataUpdateMaskSetting *r = (SelectiveDataUpdateMaskSetting*)response;
+                    SelectiveDataUpdateMaskSetting *r = static_cast<SelectiveDataUpdateMaskSetting*>(response);
                     bool(*f)(SelectiveDataUpdateMaskSetting&,uintptr_t) = (bool(*)(SelectiveDataUpdateMaskSetting&,uintptr_t))func;
                     getResponse().getSelectiveDataUpdateMaskSettingMsg(*r);
                     if(!f || f(*r, data))
@@ -259,7 +260,7 @@ uint8_t BaseAntWithCallbacks::waitForInternal(uint8_t msgId, void *response, uin
                     break;
                 }
                 case StartUpMessage::MSG_ID: {
-                    StartUpMessage *r = (StartUpMessage*)response;
+                    StartUpMessage *r = static_cast<StartUpMessage*>(response);
                     bool(*f)(StartUpMessage&,uintptr_t) = (bool(*)(StartUpMessage&,uintptr_t))func;
                     getResponse().getStartUpMsg(*r);
                     if(!f || f(*r, data))

@@ -29,13 +29,13 @@ public:
     uint32_t execute() override;
 #endif
 private:
-    uint8_t _enable;
-    uint8_t _maxPacketLength;
-    uint32_t _requiredFeatures;
-    uint32_t _optionalFeatures;
-    uint16_t _stallCount;
-    uint8_t _retryCount;
-    uint8_t _extended;
+    uint8_t _enable = 0;
+    uint8_t _maxPacketLength = 0;
+    uint32_t _requiredFeatures = 0;
+    uint32_t _optionalFeatures = 0;
+    uint16_t _stallCount = 0;
+    uint8_t _retryCount = 0;
+    uint8_t _extended = 0;
 };
 
 #endif // ANT_CONFIGUREADVANCEDBURST_h

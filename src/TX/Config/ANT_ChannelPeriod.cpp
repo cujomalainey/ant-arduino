@@ -24,6 +24,7 @@ uint8_t ChannelPeriod::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint16_t ChannelPeriod::getPeriod() {
     return _period;
 }

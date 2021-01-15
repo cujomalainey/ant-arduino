@@ -27,6 +27,7 @@ uint8_t SetChannelTransmitPower::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint16_t SetChannelTransmitPower::getTransmitPower() {
     return _transmitPower;
 }

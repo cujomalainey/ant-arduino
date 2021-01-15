@@ -8,6 +8,7 @@ uint8_t EventFilter::getChannelNumber() {
     return getFrameData()[0];
 }
 
+// cppcheck-suppress unusedFunction
 uint16_t EventFilter::getEventFilter() {
     uint16_t filter = getFrameData()[1];
     filter |= getFrameData()[2] << 8;

@@ -21,7 +21,7 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
+    uint8_t _channel = 0;
 };
 
 #endif // ANT_ADVANCEDBURSTDATAMSG_h

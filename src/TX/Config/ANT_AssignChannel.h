@@ -25,9 +25,9 @@ public:
     uint32_t execute() override;
 #endif
 private:
-    uint8_t _channel;
-    uint8_t _channelType;
-    uint8_t _network;
+    uint8_t _channel = 0;
+    uint8_t _channelType = 0;
+    uint8_t _network = 0;
     uint8_t _extended = 0;
 };
 

@@ -4,8 +4,6 @@
 
 template<class S, class I, class O>
 BaseSpiAnt<S, I, O>::BaseSpiAnt() : BaseAnt() {
-    _pos = 0;
-    _checksumTotal = 0;
     getResponse().setFrameData(_responseFrameData);
 
 }
@@ -147,6 +145,7 @@ void BaseSpiAnt<S, I, O>::send(AntRequest &request) {
 }
 
 template<class S, class I, class O>
+// cppcheck-suppress unusedFunction
 void BaseSpiAnt<S, I, O>::resetRadio() {
     setHostMsgReady(1);
     setHostSRdy(1);

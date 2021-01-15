@@ -25,8 +25,8 @@ public:
     uint32_t execute() override;
 #endif
 private:
-    uint8_t _network;
-    uint8_t _key[NETWORK_KEY_SIZE];
+    uint8_t _network = 0;
+    uint8_t _key[NETWORK_KEY_SIZE] = {0};
 };
 
 #endif // ANT_SETNETWORKKEY_h

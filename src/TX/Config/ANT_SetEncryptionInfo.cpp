@@ -23,6 +23,7 @@ void SetEncryptionInfo::setDataStringByte(uint8_t byte, uint8_t pos) {
     _dataString[pos] = byte;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t SetEncryptionInfo::getParameter() {
     return _setParameter;
 }

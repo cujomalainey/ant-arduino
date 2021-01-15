@@ -27,11 +27,11 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
-    uint16_t _deviceNumber;
-    uint8_t _deviceType;
-    uint8_t _transmissionType;
-    uint8_t _listIndex;
+    uint8_t _channel = 0;
+    uint16_t _deviceNumber = 0;
+    uint8_t _deviceType = 0;
+    uint8_t _transmissionType = 0;
+    uint8_t _listIndex = 0;
 };
 
 #endif // ANT_ADDCHANNELIDTOLIST_h

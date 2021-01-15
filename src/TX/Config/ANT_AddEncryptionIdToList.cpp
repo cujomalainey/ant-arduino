@@ -28,6 +28,7 @@ uint8_t AddEncryptionIdToList::getChannel() {
     return _channel;
 }
 
+// cppcheck-suppress unusedFunction
 uint32_t AddEncryptionIdToList::getEncryptionId() {
     return _encryptionId;
 }

@@ -2,9 +2,7 @@
 
 #include <ANT_private_defines.h>
 
-BroadcastData::BroadcastData() : AntRxDataResponse() {
-
-}
+BroadcastData::BroadcastData() : AntRxDataResponse() {}
 
 uint8_t BroadcastData::getChannelNumber() {
     return AntRxDataResponse::getData(0);

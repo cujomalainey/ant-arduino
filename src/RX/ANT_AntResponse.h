@@ -1,6 +1,7 @@
 #ifndef ANT_ANTRESPONSE_h
 #define ANT_ANTRESPONSE_h
 #include <inttypes.h>
+#include <stddef.h>
 #include <ANT_defines.h>
 
 /**
@@ -136,13 +137,13 @@ public:
     void setErrorCode(uint8_t errorCode);
 protected:
     // pointer to frameData
-    uint8_t* _frameDataPtr;
+    uint8_t* _frameDataPtr = NULL;
 private:
     void setCommon(AntResponse &target);
-    uint8_t _msgId;
-    uint8_t _length;
-    uint8_t _checksum;
-    bool _complete;
-    uint8_t _errorCode;
+    uint8_t _msgId = 0;
+    uint8_t _length = 0;
+    uint8_t _checksum = 0;
+    bool _complete = false;
+    uint8_t _errorCode = 0;
 };
 #endif // ANT_ANTRESPONSE_h

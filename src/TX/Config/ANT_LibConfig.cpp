@@ -2,9 +2,7 @@
 
 #include <ANT_private_defines.h>
 
-LibConfig::LibConfig() : AntRequest(LIB_CONFIG) {
-
-}
+LibConfig::LibConfig() : AntRequest(LIB_CONFIG) {}
 
 LibConfig::LibConfig(uint8_t config) : AntRequest(LIB_CONFIG) {
     setConfig(config);
@@ -14,6 +12,7 @@ void LibConfig::setConfig(uint8_t config) {
     _config = config;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t LibConfig::getConfig() {
     return _config;
 }

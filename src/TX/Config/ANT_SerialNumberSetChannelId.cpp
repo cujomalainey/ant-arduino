@@ -2,9 +2,7 @@
 
 #include <ANT_private_defines.h>
 
-SerialNumberSetChannelId::SerialNumberSetChannelId() : AntRequest(SERIAL_NUMBER_SET_CHANNEL_ID) {
-
-}
+SerialNumberSetChannelId::SerialNumberSetChannelId() : AntRequest(SERIAL_NUMBER_SET_CHANNEL_ID) {}
 
 SerialNumberSetChannelId::SerialNumberSetChannelId(uint8_t channel) : AntRequest(SERIAL_NUMBER_SET_CHANNEL_ID) {
     setChannel(channel);

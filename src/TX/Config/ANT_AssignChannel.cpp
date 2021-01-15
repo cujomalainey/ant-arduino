@@ -25,6 +25,7 @@ void AssignChannel::setChannelNetwork(uint8_t network) {
     _network = network;
 }
 
+// cppcheck-suppress unusedFunction
 void AssignChannel::setExtendedAssignment(uint8_t extended) {
     _extended = extended;
 }
@@ -37,10 +38,12 @@ uint8_t AssignChannel::getChannelType() {
     return _channelType;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AssignChannel::getChannelNetwork() {
     return _network;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AssignChannel::getExtendedAssignment() {
     return _extended;
 }

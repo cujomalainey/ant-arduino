@@ -11,7 +11,7 @@
 class SerialNumberSetChannelId : public AntRequest {
 public:
     SerialNumberSetChannelId();
-    SerialNumberSetChannelId(uint8_t channel);
+    explicit SerialNumberSetChannelId(uint8_t channel);
     void setChannel(uint8_t channel);
     void setDeviceType(uint8_t deviceType);
     void setPairingBit(bool paringBit);
@@ -26,8 +26,8 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _channel;
-    uint8_t _deviceType;
+    uint8_t _channel = 0;
+    uint8_t _deviceType = 0;
     // TODO figure out default for pairing bit, assuming false
     bool _pairingBit = false;
     uint8_t _transmissionType = 0;

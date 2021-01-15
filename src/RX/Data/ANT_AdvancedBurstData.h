@@ -19,13 +19,13 @@ public:
     /**
      * Returns sepcified byte of data from payload
      */
-    uint8_t getData(uint8_t index);
-    uint8_t getDataLength();
+    uint8_t getData(uint8_t index) override;
+    uint8_t getDataLength() override;
     /**
      * AdvancedBurstData does not support extended data
      * therefore we lock it out with this method
      */
-    uint8_t getFlagByte();
+    uint8_t getFlagByte() override;
 
     static const uint8_t MSG_ID = ADVANCED_BURST_DATA;
 };

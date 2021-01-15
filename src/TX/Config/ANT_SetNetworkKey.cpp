@@ -25,6 +25,7 @@ void SetNetworkKey::setKeyByte(uint8_t byte, uint8_t pos) {
     _key[pos] = byte;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t SetNetworkKey::getNetwork() {
     return _network;
 }

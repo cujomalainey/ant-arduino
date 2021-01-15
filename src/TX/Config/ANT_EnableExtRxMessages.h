@@ -11,7 +11,7 @@
 class EnableExtRxMessages : public AntRequest {
 public:
     EnableExtRxMessages();
-    EnableExtRxMessages(uint8_t enable);
+    explicit EnableExtRxMessages(uint8_t enable);
     void setEnable(uint8_t enable);
     uint8_t getEnable();
     uint8_t getData(uint8_t pos) override;
@@ -20,7 +20,7 @@ public:
     uint32_t execute() override;
 #endif // NATIVE_API_AVAILABLE
 private:
-    uint8_t _enable;
+    uint8_t _enable = 0;
 };
 
 #endif // ANT_ENABLEEXTRXMESSAGES_h

@@ -10,10 +10,10 @@ uint8_t AdvancedBurstData::getChannelNumber() {
     return AntRxDataResponse::getData(0) & ADVANCED_BURST_DATA_CHANNEL_MASK;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t AdvancedBurstData::getSequenceNumber() {
     return (AntRxDataResponse::getData(0) & ~ADVANCED_BURST_DATA_CHANNEL_MASK) >> ADVANCED_BURST_DATA_SEQUENCENUMBER_SHIFT;
 }
-
 
 uint8_t AdvancedBurstData::getData(uint8_t index) {
     // skip channel byte

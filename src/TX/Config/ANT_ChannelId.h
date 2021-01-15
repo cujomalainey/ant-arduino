@@ -28,9 +28,9 @@ public:
     uint32_t execute() override;
 #endif
 private:
-    uint8_t _channel;
-    uint16_t _deviceNumber;
-    uint8_t _deviceType;
+    uint8_t _channel = 0;
+    uint16_t _deviceNumber = 0;
+    uint8_t _deviceType = 0;
     // TODO figure out default for pairing bit, assuming false
     bool _pairingBit = false;
     uint8_t _transmissionType = 0;

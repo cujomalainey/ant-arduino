@@ -19,24 +19,29 @@ void ConfigureAdvancedBurst::setMaxPacketLength(uint8_t maxPacketLength) {
     _maxPacketLength = maxPacketLength;
 }
 
+// cppcheck-suppress unusedFunction
 void ConfigureAdvancedBurst::setRequiredFeatures(uint32_t requiredFeatures) {
     _requiredFeatures = requiredFeatures;
 }
 
+// cppcheck-suppress unusedFunction
 void ConfigureAdvancedBurst::setOptionalFeatures(uint32_t optionalFeatures) {
     _optionalFeatures = optionalFeatures;
 }
 
+// cppcheck-suppress unusedFunction
 void ConfigureAdvancedBurst::setStallCount(uint16_t stallCount) {
     // TODO handle extentions
     _stallCount = stallCount;
 }
 
+// cppcheck-suppress unusedFunction
 void ConfigureAdvancedBurst::setRetryCount(uint8_t retryCount) {
     // TODO handle extentions
     _retryCount = retryCount;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ConfigureAdvancedBurst::getEnable() {
     return _enable;
 }
@@ -53,10 +58,12 @@ uint32_t ConfigureAdvancedBurst::getOptionalFeatures() {
     return _optionalFeatures;
 }
 
+// cppcheck-suppress unusedFunction
 uint16_t ConfigureAdvancedBurst::getStallCount() {
     return _stallCount;
 }
 
+// cppcheck-suppress unusedFunction
 uint8_t ConfigureAdvancedBurst::getRetryCount() {
     return _retryCount;
 }
