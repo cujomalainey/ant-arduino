@@ -1,7 +1,7 @@
 #ifndef ANT_MBEDSPIANT_h
 #define ANT_MBEDSPIANT_h
 
-#ifdef __MBED__
+#if IS_MBED
 
 #include <BaseClasses/ANT_BaseSpiAnt.h>
 
@@ -23,6 +23,6 @@ private:
     DigitalIn* _hostEnable;
 };
 
-#endif // __MBED__
+#endif // IS_MBED
 
 #endif // ANT_MBEDSPIANT_h

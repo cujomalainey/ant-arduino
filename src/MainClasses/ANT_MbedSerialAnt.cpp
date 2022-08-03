@@ -1,4 +1,4 @@
-#ifdef __MBED__
+#if IS_MBED
 
 #include <MainClasses/ANT_MbedSerialAnt.h>
 #include <ANT_private_defines.h>
@@ -30,4 +30,4 @@ uint32_t MbedSerialAnt::getMs() {
 }
 
 
-#endif // __MBED__
+#endif // IS_MBED

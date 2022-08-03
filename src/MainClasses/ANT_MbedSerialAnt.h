@@ -1,7 +1,9 @@
 #ifndef ANT_MBEDSERIALANT_h
 #define ANT_MBEDSERIALANT_h
 
-#ifdef __MBED__
+#include <BaseClasses/ANT_BaseFramework.h>
+
+#if IS_MBED
 
 #include <BaseClasses/ANT_BaseSerialAnt.h>
 
@@ -17,6 +19,6 @@ protected:
     UARTSerial* _serial;
 };
 
-#endif // __MBED__
+#endif // IS_MBED
 
 #endif // ANT_MBEDSERIALANT_h

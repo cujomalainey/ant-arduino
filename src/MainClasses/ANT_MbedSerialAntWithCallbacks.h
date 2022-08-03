@@ -1,7 +1,9 @@
 #ifndef ANT_MBEDSERIALANTWITHCALLBACKS_h
 #define ANT_MBEDSERIALANTWITHCALLBACKS_h
 
-#ifdef __MBED__
+#include <BaseClasses/ANT_BaseFramework.h>
+
+#if IS_MBED
 
 #include <BaseClasses/ANT_BaseAntWithCallbacks.h>
 #include <MainClasses/ANT_MbedSerialAnt.h>
@@ -11,6 +13,6 @@ public:
     MbedSerialAntWithCallbacks();
 };
 
-#endif // __MBED__
+#endif // IS_MBED
 
 #endif // ANT_MBEDSERIALANTWITHCALLBACKS_h

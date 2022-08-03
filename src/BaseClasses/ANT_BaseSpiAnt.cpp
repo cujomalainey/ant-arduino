@@ -155,6 +155,6 @@ void BaseSpiAnt<S, I, O>::resetRadio() {
     setHostSRdy(1);
 }
 
-#if defined(__MBED__)
+#if IS_MBED
 template class BaseSpiAnt<SPISlave, DigitalIn, DigitalOut>;
 #endif

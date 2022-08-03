@@ -1,4 +1,4 @@
-#ifdef __MBED__
+#if IS_MBED
 
 #include <MainClasses/ANT_MbedSpiAnt.h>
 #include <ANT_private_defines.h>
@@ -41,4 +41,4 @@ uint32_t MbedSpiAnt::getMs() {
 }
 
 
-#endif // __MBED__
+#endif // IS_MBED

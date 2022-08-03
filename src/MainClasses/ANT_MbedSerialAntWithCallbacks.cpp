@@ -1,7 +1,7 @@
-#ifdef __MBED__
+#if IS_MBED
 
 #include <MainClasses/ANT_MbedSerialAntWithCallbacks.h>
 
 MbedSerialAntWithCallbacks::MbedSerialAntWithCallbacks() : MbedSerialAnt(), BaseAntWithCallbacks() {}
 
-#endif // __MBED__
+#endif // IS_MBED
