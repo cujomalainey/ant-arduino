@@ -6,6 +6,7 @@
 #endif
 
 #ifdef UNIT_TEST
+#include <string.h>
 #include "Util/Testing.h"
 #elif defined(ARDUINO)
 #include "Arduino.h"
