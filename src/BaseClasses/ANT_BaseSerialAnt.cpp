@@ -110,6 +110,7 @@ void BaseSerialAnt<T>::send(AntRequest &request) {
 
 #if defined(ARDUINO) || defined(UNIT_TEST)
 template class BaseSerialAnt<Stream>;
-#elif IS_MBED
+#endif
+#ifdef IS_MBED
 template class BaseSerialAnt<UARTSerial>;
 #endif

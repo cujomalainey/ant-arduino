@@ -1,7 +1,7 @@
 #ifndef ANT_MBEDSPIANT_h
 #define ANT_MBEDSPIANT_h
 
-#if IS_MBED
+#ifdef IS_MBED
 
 #include <BaseClasses/ANT_BaseSpiAnt.h>
 

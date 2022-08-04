@@ -1,7 +1,9 @@
 #ifndef ANT_BASEFRAMEWORK_h
 #define ANT_BASEFRAMEWORK_h
 
-#define IS_MBED (defined(__MBED__) && !defined(ARDUINO))
+#if (defined(__MBED__) && !defined(ARDUINO))
+    #define IS_MBED
+#endif
 
 #ifdef UNIT_TEST
 #include "Util/Testing.h"

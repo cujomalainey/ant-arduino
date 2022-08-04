@@ -3,7 +3,7 @@
 
 #include <BaseClasses/ANT_BaseFramework.h>
 
-#if IS_MBED
+#ifdef IS_MBED
 
 #include <BaseClasses/ANT_BaseAntWithCallbacks.h>
 #include <MainClasses/ANT_MbedSerialAnt.h>

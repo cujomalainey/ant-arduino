@@ -1,4 +1,4 @@
-#if IS_MBED
+#ifdef IS_MBED
 
 #include <MainClasses/ANT_MbedSerialAnt.h>
 #include <ANT_private_defines.h>
