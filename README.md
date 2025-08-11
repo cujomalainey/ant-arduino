@@ -4,8 +4,7 @@ Arduino library for communicating with ANT radios, with support for nRF51 device
 
 ## Status
 
-[![Build Status](https://travis-ci.org/cujomalainey/ant-arduino.svg?branch=master)](https://travis-ci.org/cujomalainey/ant-arduino)
-[![Test Status](https://img.shields.io/circleci/build/github/cujomalainey/ant-arduino?label=test)](https://circleci.com/gh/cujomalainey/ant-arduino)
+This repository is in maintenance mode! Garmin has signaled the end of the ANT/ANT+ ecosystem, therefore I will not be adding any new features, feel free to send PRs and I will review and integrate.
 
 ## News
 
